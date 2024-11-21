@@ -1,0 +1,151 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  
+  #shopify-section-{{ section.id }} .slider-slide { 
+    max-width: calc(50% - 6px);
+  }
+
+  @media screen and (min-width: 768px) {
+     #shopify-section-{{ section.id }} .slider-slide {
+      max-width: calc(100%/3 - 32/3px);
+    }
+  }
+
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+
+    #shopify-section-{{ section.id }} .slider-slide {
+      max-width: calc(25% - 12px);
+    }
+  }
+{%- endstyle -%}
+{% assign slider = false %}
+{% if section.settings.enable_slider %}
+  {% assign slider = true %}
+{% endif %}
+
+<div class="page-width relative">
+  <div class="flex items-center justify-between mb-8">
+    {% if section.settings.heading != blank %}
+      <h2 class="text-h5 font-semibold lg:text-h2 text-primary">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+  </div>
+  {% if slider %}
+    <slider-component class="block overflow-hidden">
+      <button type="button" name="previous" aria-label="previous" 
+        class="prev-{{ section.id }} absolute top-1/2 -translate-y-1/2 left-0 w-10 h-10 bg-transparent disabled:!bg-transparent shadow-button leading-none cursor-pointer transition-all hidden lg:flex items-center justify-center p-0 rounded-full border-0 {% if settings.country == 'UK' %}text-primary disabled:!text-primary-opacity-50{% else %}text-primary disabled:!text-primary-opacity-50{% endif %}">
+        {%- render 'icon-prev', class: "w-7 h-7 " -%}
+      </button>
+  {% endif %}
+    <ul class="{% if slider %}flex slider-wrapper {% else %} grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 {% endif %} gap-2.5 lg:gap-4">
+      {%- for author in shop.metaobjects.author.values limit: section.settings.author_limit -%}
+        <li class="{% if slider %}slider-slide {% endif %}!h-auto transition-all">
+          {% render 'author-card', author: author %}
+        </li>
+      {%- endfor -%}
+    </ul>
+  {% if slider %}
+      <button type="button" name="next" aria-label="next"
+        class="next-{{ section.id }} absolute top-1/2 -translate-y-1/2 right-0 w-10 h-10 bg-transparent disabled:!bg-transparent shadow-button leading-none cursor-pointer transition-all hidden lg:flex items-center justify-center p-0 rounded-full border-0 {% if settings.country == 'UK' %}text-primary disabled:!text-primary-opacity-50{% else %}text-primary disabled:!text-primary-opacity-50{% endif %}">
+        {%- render 'icon-next', class: "w-7 h-7 " -%}
+      </button>
+
+      <div class="slider-counter caption !hidden">
+        <span class="slider-counter--current">1</span>
+        <span aria-hidden="true"> / </span>
+        <span class="slider-counter--total">{{ shop.metaobjects.author.values.size }}</span>
+      </div>
+      <div class="slider-dots mt-4 lg:mt-8"></div>
+    </slider-component>
+  {% endif %}
+</div>
+
+{% schema %}
+  {
+    "name": "Author slider",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_slider",
+        "label": "Enable slider",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Other Authors",
+        "label": "Heading"
+      },
+      {
+        "type": "range",
+        "id": "author_limit",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "default": 3,
+        "label": "Limit"
+      },
+      {
+        "type": "header",
+        "content": "Common settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 92
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 32
+      }
+    ]
+  }
+{% endschema %}

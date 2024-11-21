@@ -1,0 +1,100 @@
+
+
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-width grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-4">
+  {% for author in shop.metaobjects.author.values %}
+    {% render 'author-card', author: author %}
+  {% endfor %}
+</div>
+
+{% schema %}
+  {
+    "name": "Template Author",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Other Authors",
+        "label": "Heading"
+      },
+      {
+        "type": "range",
+        "id": "post_limit",
+        "min": 2,
+        "max": 6,
+        "step": 1,
+        "default": 3,
+        "label": "Limit"
+      },
+      {
+        "type": "header",
+        "content": "Common settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 92
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 32
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,77 @@
+{% comment %} schema for Collection {% endcomment %}
+{% if template contains 'collection' %}
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "ItemList",
+		"name": "{{ collection.title }}",
+		"description": "{{ page_description | remove: '&#39;s'  }}",
+		"url": "{{ collection.url | prepend: shop.url }}",
+		"numberOfItems": {{ collection.all_products_count }},
+		"itemListElement": [
+			{% for product in collection.products limit: 12 %}
+				{
+					"@type": "Product",
+					"name": "{{ product.title }}",
+					"url": "{{ product.url | prepend: shop.url }}",
+					"image": [
+						{% for image in product.images %}
+							"{{ image.src | img_url: 'master' }}"{% unless forloop.last == true %},{% endunless %}
+						{% endfor %}
+					],
+					"offers": {
+						"@type": "Offer",
+						"priceCurrency": "{{ shop.currency }}",
+						"price": "{{ product.price_min | money_without_currency | replace: ",", "." }}",
+						"availability": "https://schema.org/InStock",
+						"seller": {
+							"@type": "Organization",
+							"name": "{{ shop.name | capitalize }}"
+						}
+					}
+				}{% unless forloop.last == true %},{% endunless %}
+			{% endfor %}
+		]
+	}
+	</script>
+{% endif %}
+
+{% if template contains 'article' %}
+	{% if article.metafields.custom.name_schema != blank or article.metafields.custom.description_schema != blank %}
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org/",
+			"@type": "Thing",
+			"name": "{{ article.metafields.custom.name_schema }}",
+			"description": "{{ article.metafields.custom.description_schema }}"
+		}
+		</script>
+	{% endif %}
+
+	<script type="application/ld+json">
+	{
+		"@context": "https://schema.org",
+		"@type": "NewsArticle",
+		"mainEntityOfPage": {
+			"@type": "WebPage",
+			"@id": "{{ article.url | prepend: shop.url }}"
+		},
+		"headline": "{{ article.title }}",
+		"image": "{{ article.image.src | img_url: 'master' }}",
+		"datePublished": "{{ article.published_at | date: '%Y-%B-%d' }}",
+		"author": {
+			"@type": "Person",
+			"name": "{{ article.author }}"
+		},
+		"publisher": {
+			"@type": "Organization",
+			"name": "{{ shop.name | capitalize }}",
+			"logo": {
+        "@type": "ImageObject",
+        "url": "{{ settings.logo.src | image_url }}"
+      }
+		},
+		"description": "{{ page_description | remove: '&#39;s'  }}"
+	}
+	</script>
+{% endif %}

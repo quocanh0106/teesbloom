@@ -1,0 +1,107 @@
+<link rel="stylesheet" href="{{ 'template-page.css' | asset_url }}" />
+
+{%- style -%}
+  [data-section-id="{{ section.id }}"] {
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media screen and (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="{% if section.settings.layout_secondary %}page-width-secondary{% else %}page-width{% endif %}" data-section-id="{{ section.id }}">
+  {% if page.title and section.settings.enable_title %}
+    <h1 class="text-h3 lg:text-h2 text-center text-primary capitalize mb-8 lg:mb-16">{{ page.title }}</h1>
+  {% endif %}
+
+  <div class="w-full content-wrapper sizeguide">{{ page.content }}</div>
+
+</div>
+
+{% capture src_url %}{{ 'template-page.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+
+{% schema %}
+  {
+    "name": "Template page",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "layout_secondary",
+        "label": "Enable page width secondary",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_title",
+        "label": "Show title",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Padding desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Padding mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom",
+        "default": 0
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "text",
+            "label": "text"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

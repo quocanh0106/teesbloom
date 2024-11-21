@@ -1,0 +1,88 @@
+{% unless pageUrl %}
+  {%- assign pageUrl = content_for_header | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' -%}
+{% endunless %}
+
+<accordion-toggle class="block w-full col-span-1 relative">
+  <div class="summary flex items-center justify-between gap-2.5 px-6 py-2.5 pl-[21px] text-base font-heading font-semibold leading-4 text-secondary bg-secondary border-l-[3px] border-solid rounded-r border-l-secondary lg:hidden">
+    {% if pageUrl contains routes.account_addresses_url %}
+      <span class="flex items-center gap-2.5">
+        {% render 'icon-address', class: 'w-5 h-5' %}
+        <span>{{ 'customer.addresses.title' | t }}</span>
+      </span>
+    {% elsif pageUrl contains '?view=orders' or pageUrl contains '/orders/' %}
+      <span class="flex items-center gap-2.5">
+        {% render 'icon-bag', class: 'w-5 h-5' %}
+        <span>{{ 'customer.orders.title' | t }}</span>
+      </span>
+    {% elsif pageUrl contains '?view=wishlist' %}
+      <span class="flex items-center gap-2.5">
+        {% render 'icon-wishlist-header', class: 'w-5 h-5', stroke: '0.5' %}
+        <span>{{ 'customer.wishlist.title' | t }}</span>
+      </span>
+    {% else %}
+      <span class="flex items-center gap-2.5">
+        {% render 'icon-customer', class: 'w-5 h-5' %}
+        <span>{{ 'customer.account.title' | t }}</span>
+      </span>
+    {% endif %}
+    {% render 'icon-down', class: 'w-6 h-6 icon-add' %}
+    {% render 'icon-up', class: 'w-6 h-6 icon-minus' %}
+  </div>
+  <div class="details lg:block lg:!max-h-full !mt-0.5 lg:!mt-0 absolute z-10 w-full bg-background lg:static shadow-megamenu lg:shadow-none rounded-b-md lg:rounded-none">
+    <ul class="flex-col flex gap-0.5 pb-1.5 lg:pb-0">
+      <li class="{% if pageUrl contains routes.account_url %}{% unless pageUrl contains routes.account_addresses_url %}{% unless pageUrl contains '?view=' %}{% unless pageUrl contains '/orders/' %}hidden lg:inline-block{% endunless %}{% endunless %}{% endunless %}{% endif %}">
+        <a class="no-underline flex items-center gap-2.5 px-6 py-2.5 pl-[21px] text-primary text-base font-heading font-semibold leading-4 hover:bg-secondary border border-transparent border-solid rounded transition-all 
+                  {% if pageUrl contains routes.account_url %}{% unless pageUrl contains routes.account_addresses_url %}{% unless pageUrl contains '?view=' %}{% unless pageUrl contains '/orders/' %} !border-primary{% endunless %}{% endunless %}{% endunless %}{% endif %}" href="{{ routes.account_url }}">
+          {% render 'icon-customer', class: 'w-5 h-5' %}
+          <span>{{ 'customer.account.title' | t }}</span>
+        </a>
+      </li>
+      <li class="{% if pageUrl contains routes.account_addresses_url %}{% unless pageUrl contains '?view=' %}hidden lg:inline-block{% endunless %}{% endif %}">
+        <a class="no-underline flex items-center gap-2.5 px-6 py-2.5 pl-[21px] text-primary text-base font-heading font-semibold leading-4 hover:bg-secondary border border-transparent border-solid rounded transition-all 
+                  {% if pageUrl contains routes.account_addresses_url %} !border-primary{% endif %}" href="{{ routes.account_addresses_url }}">
+          {% render 'icon-address', class: 'w-5 h-5' %}
+          <span>{{ 'customer.addresses.title' | t }}</span>
+        </a>
+      </li>
+      <li class="{% if pageUrl contains '?view=orders' or pageUrl contains '/orders/' %}hidden lg:inline-block{% endif %}">
+        <a class="no-underline flex items-center gap-2.5 px-6 py-2.5 pl-[21px] text-primary text-base font-heading font-semibold leading-4 hover:bg-secondary border border-transparent border-solid rounded transition-all 
+                  {% if pageUrl contains '?view=orders' or pageUrl contains '/orders/' %} !border-primary{% endif %}" href="{{ routes.account_url }}?view=orders">
+          {% render 'icon-bag', class: 'w-5 h-5' %}
+          <span>{{ 'customer.orders.title' | t }}</span>
+        </a>
+      </li>
+      <li class="{% if pageUrl contains '?view=wishlist' %}hidden lg:inline-block{% endif %}">
+        <a class="no-underline flex items-center gap-2.5 px-6 py-2.5 pl-[21px] text-primary text-base font-heading font-semibold leading-4 hover:bg-secondary border border-transparent border-solid rounded transition-all 
+                  {% if pageUrl contains '?view=wishlist' %} !border-primary{% endif %}" href="{{ routes.account_url }}?view=wishlist">
+          {% render 'icon-wishlist-header', class: 'w-5 h-5', stroke: '0.5' %}
+          <span>{{ 'customer.wishlist.title' | t }}</span>
+        </a>
+      </li>
+      <li>
+        <modal-opener data-id="#logout" class="no-underline flex items-center gap-2.5 px-6 py-2.5 pl-[21px] text-primary text-base font-heading font-semibold leading-4 hover:bg-secondary border border-transparent border-solid rounded transition-all cursor-pointer">
+          {% render 'icon-logout', class: 'w-5 h-5' %}
+          <span>{{ 'customer.logout.title' | t }}</span>
+        </modal-opener>
+        <modal-dialog id="logout" class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20">
+          <div class="px-8 pt-12 pb-8 md:px-8 md:pt-10 md:pb-8 lg:px-10 lg:pt-12 lg:pb-8 rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[405px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+            <span class="block text-h5 lg:text-h4 font-semibold text-primary font-heading mb-2">
+              {{ 'customer.logout.popup.title' | t }}
+            </span>
+            <span class="block text-sm leading-5 font-normal lg:text-base lg:leading-6 text-primary mb-5">
+              {{ 'customer.logout.popup.description' | t }}
+            </span>
+            <div class="flex gap-3">
+              <button type="button" class="btn btn-2 w-full p-3.5 !text-sm !leading-none !uppercase !font-bold !font-heading close">{{ 'customer.addresses.no' | t }}</button>
+              <logout-account class="btn btn-error w-full text-center p-3.5 !text-sm !leading-none !uppercase !font-bold !font-heading cursor-pointer">
+                <span>{{ 'customer.logout.popup.logout' | t }}</span>
+              </logout-account>
+            </div>
+            <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-2 lg:right-2 close">
+              {% render 'icon-close', class: 'w-6 h-6' %}
+            </span>
+          </div>
+        </modal-dialog>
+      </li>
+    </ul>
+  </div>
+</accordion-toggle>

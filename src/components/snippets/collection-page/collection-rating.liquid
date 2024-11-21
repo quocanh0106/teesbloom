@@ -1,0 +1,75 @@
+{%- assign starZ = collection.metafields.judgeme.average_review | split: '.' | first | plus: 0 -%}
+{%- assign starI = collection.metafields.judgeme.average_review | times: 1.00 | split: '.' | last | plus: 0 -%}
+{%- if starZ >= 1 -%}
+  {%- render 'icon-star', class: '' -%}
+{%- else -%}
+  {%- if starI <= 25 -%}
+    {%- render 'icon-star-quarter', class: '' -%}
+  {%- elsif  starI <= 50 -%}
+    {%- render 'icon-star-half', class: '' -%}
+  {%- else starI <= 75 -%}
+    {%- render 'icon-star-half-quarter', class: '' -%}
+  {%- else -%}
+    {%- render 'icon-star', class: '' -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if starZ >= 2 -%}
+  {%- render 'icon-star', class: '' -%}
+{%- elsif starZ < 1 -%}
+  {%- render 'icon-star-empty', class: '' -%}
+{%- else -%}
+  {%- if starI < 25 -%}
+    {%- render 'icon-star-quarter', class: '' -%}
+  {%- elsif  starI <= 50 -%}
+    {%- render 'icon-star-half', class: '' -%}
+  {%- else starI <= 75 -%}
+    {%- render 'icon-star-half-quarter', class: '' -%}
+  {%- else -%}
+    {%- render 'icon-star', class: '' -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if starZ >= 3 -%}
+  {%- render 'icon-star', class: '' -%}
+{%- elsif starZ < 2 -%}
+  {%- render 'icon-star-empty', class: '' -%}
+{%- else -%}
+  {%- if starI <= 25 -%}
+    {%- render 'icon-star-quarter', class: '' -%}
+  {%- elsif  starI <= 50 -%}
+    {%- render 'icon-star-half', class: '' -%}
+  {%- else starI <= 75 -%}
+    {%- render 'icon-star-half-quarter', class: '' -%}
+  {%- else -%}
+    {%- render 'icon-star', class: '' -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if starZ >= 4 -%}
+  {%- render 'icon-star', class: '' -%}
+{%- elsif starZ < 3 -%}
+  {%- render 'icon-star-empty', class: '' -%}
+{%- else -%}
+  {%- if starI <= 25 -%}
+    {%- render 'icon-star-quarter', class: '' -%}
+  {%- elsif  starI <= 50 -%}
+    {%- render 'icon-star-half', class: '' -%}
+  {%- else starI <= 75 -%}
+    {%- render 'icon-star-half-quarter', class: '' -%}
+  {%- else -%}
+    {%- render 'icon-star', class: '' -%}
+  {%- endif -%}
+{%- endif -%}
+{%- if starZ == 5 -%}
+  {%- render 'icon-star', class: '' -%}
+{%- elsif starZ < 4 -%}
+  {%- render 'icon-star-empty', class: '' -%}
+{%- else -%}
+  {%- if starI <= 25 -%}
+    {%- render 'icon-star-quarter', class: '' -%}
+  {%- elsif  starI <= 50 -%}
+    {%- render 'icon-star-half', class: '' -%}
+  {%- else starI <= 75 -%}
+    {%- render 'icon-star-half-quarter', class: '' -%}
+  {%- else -%}
+    {%- render 'icon-star', class: '' -%}
+  {%- endif -%}
+{%- endif -%}

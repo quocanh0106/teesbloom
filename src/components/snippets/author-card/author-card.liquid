@@ -1,0 +1,73 @@
+{%- if author and author != empty -%}
+  <div class="!h-auto flex flex-col rounded-xl {{ customClass }}">
+    <div class="relative group rounded-lg lg:rounded-xl overflow-hidden">
+      {%- if author.image -%}
+        <img
+        srcset="{%- if author.image.width >= 165 -%}
+          {{ author.image | image_url: width: 165 }} 165w,{%- endif -%}
+        {%- if author.image.width >= 360 -%}
+          {{ author.image | image_url: width: 360 }} 360w,{%- endif -%}
+        {%- if author.image.width >= 533 -%}
+          {{ author.image | image_url: width: 533 }} 533w,{%- endif -%}
+        {%- if author.image.width >= 720 -%}
+          {{ author.image | image_url: width: 720 }} 720w,{%- endif -%}
+        {%- if author.image.width >= 1000 -%}
+          {{ author.image | image_url: width: 1000 }} 1000w,{%- endif -%}
+        {%- if author.image.width >= 1500 -%}
+          {{ author.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+        {{ author.image | image_url }} {{ author.image.width }}w"
+        src="{{ author.image | image_url: width: 533 }}"
+        sizes="(min-width: {{ 1440 }}px) {{ 1440 | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+        {% if author.image.alt != blank %}alt="{{ author.image.alt | escape }}"{% else %}alt="{{ author.image | split: "/" | last | replace: "-", " " | split: "." | first }}"{% endif %}
+        class="w-full h-full object-cover group-hover:scale-105 transition-all bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent aspect-1 lg:aspect-[106/121]"
+        {% unless lazy_load == false %}loading="lazy"{% endunless %} width="657" height="{{ 657 | divided_by: author.image.aspect_ratio }}">
+      {%- endif -%}
+      <div class="hidden lg:flex absolute w-full h-full top-0 left-0 z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible p-5 flex-col justify-between bg-[#5C5C5C] bg-opacity-80 transition-all">
+        {% if author.meta_description != blank %}
+          <div class="text-sm leading-5 font-normal text-primary">
+            {{ author.meta_description }}
+          </div>
+        {% endif %}
+        <div class="flex flex-col gap-3">
+          <div class="flex gap-3 lg:gap-4 items-center lg:w-full">
+            {% if author.facebook %}
+              <a
+                href="{{ author.facebook }}"
+                title="facebook"
+                class="block text-primary">{% render 'icon-facebook', class: 'w-5 h-5' %}</a>
+            {% endif %}
+            {% if author.twitter %}
+              <a
+                href="{{ author.twitter }}"
+                title="twitter"
+                class="block text-primary">{% render 'icon-twitter', class: 'w-5 h-5' %}</a>
+            {% endif %}
+            {% if author.instagram %}
+              <a
+                href="{{ author.instagram }}"
+                title="instagram"
+                class="block text-primary">{% render 'icon-instagram', class: 'w-5 h-5' %}</a>
+            {% endif %}
+            {% if author.mail %}
+              <a
+                href="{{ author.mail }}"
+                title="mail"
+                class="block text-primary">{% render 'icon-mail-author', class: 'w-5 h-5' %}</a>
+            {% endif %}
+          </div>
+          {% if author.website %}
+            <div class="flex gap-2 items-center">
+              {% render 'icon-internet', class: 'w-5 h-5 text-primary flex-none' %}
+              <a href="{{ author.website }}" title="website" class=" text-base font-normal leading-5 lg:text-base lg:leading-6 group !text-primary w-full truncate-line one-line overflow-hidden">
+                {{ author.website }}
+              </a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    <a href="{{ author.url }}" class="block mt-3 lg:mt-4 text-center capitalize text-base font-semibold leading-6 lg:text-h4 text-primary" title="{{ author.name }}">
+      {{ author.name }}
+    </a>
+  </div>
+{%- endif -%}

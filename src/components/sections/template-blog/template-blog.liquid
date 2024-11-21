@@ -1,0 +1,61 @@
+{% paginate blog.articles by section.settings.number_of_blog_posts %}
+  <div class="page-width pt-8 pb-16 lg:pt-16 lg:pb-0">
+    <ul class="grid grid-cols-1 gap-x-4 gap-y-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-y-10 blog-wrapper -mx-4 px-4">
+      {% for article in blog.articles %}
+        <li class="h-auto">
+          {% render 'article-card', blog: blog, article: article, media_aspect_ratio: 1.625, show_image: true, show_blog_title: section.settings.show_blog_title, show_date: section.settings.show_date, show_author: section.settings.show_author, show_excerpt: true %}
+        </li>
+      {% endfor %}
+    </ul>
+    <blog-loadmore data-click-loadmore="false" class="block mt-8 lg:mt-12 text-center w-fit mx-auto{% if paginate.pages <= 1 or paginate.current_page == paginate.pages %} hidden{% endif %}">
+      <span
+        data-href="{{ paginate.next.url }}"
+        data-page="{{ paginate.pages }}"
+        class="btn btn-2 border-solid !text-sm lg:text-base !leading-none !font-bold load-more_btn py-3.5 px-6 lg:py-4 lg:px-8">{{ section.settings.blog_read_more }}</span>
+    </blog-loadmore>
+  </div>
+{% endpaginate %}
+
+{% capture src_url %}{{ 'template-blog.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+
+{% schema %}
+  {
+    "name": "Blog",
+    "settings": [
+      {
+        "type": "range",
+        "id": "number_of_blog_posts",
+        "step": 1,
+        "min": 1,
+        "max": 20,
+        "label": "Blog posts per page",
+        "default": 6
+      },
+      {
+        "type": "text",
+        "id": "blog_read_more",
+        "label": "Read More Label",
+        "default": "Read more"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_blog_title",
+        "default": true,
+        "label": "Show blog title"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "default": true,
+        "label": "Show date"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "default": true,
+        "label": "Show author"
+      }
+    ]
+  }
+{% endschema %}

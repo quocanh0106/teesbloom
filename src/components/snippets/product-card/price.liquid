@@ -1,0 +1,52 @@
+{% comment %}
+  Renders a list of product's price (regular, sale)
+
+  Accepts:
+  - product: {Object} Product Liquid object (optional)
+  - use_variant: {Boolean} Renders selected or first variant price instead of overall product pricing (optional)
+  - show_badges: {Boolean} Renders 'Sale' and 'Sold Out' tags if the product matches the condition (optional)
+  - price_class: {String} Adds a price class to the price element (optional)
+
+  Usage:
+  {% render 'price', product: product %}
+{% endcomment %}
+{%- liquid
+  if use_variant
+    assign target = product.selected_or_first_available_variant
+  else
+    assign target = product
+  endif
+
+  assign compare_at_price = target.compare_at_price
+  assign price = target.price | default: 1999
+  assign available = target.available | default: false
+  assign percent = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round
+-%}
+
+<div class="flex font-heading gap-2 lg:gap-3 items-center{% if template.name contains 'product' and show %} mb-2{% endif %} {{ class }}">
+  {% if product %}
+    {% if compare_at_price > price %}
+      {% if template.name contains 'product' and show  %}
+        <div class="relative text-secondary {% if template.name contains 'product' and show %}{% if template.suffix == 'ajax' %} text-lg lg:text-h4 font-semibold leading-2 {% else %} text-3xl font-semibold {% endif %}{% else %} text-lg{% endif %} ">{{ price | money }}</div>
+        <div class="relative text-body line-through{% if template.name contains 'product' and show %} {% if template.suffix == 'ajax' %} text-sm lg:text-lg leading-6 {% else %} text-base {% endif %}{% endif %} font-normal ">{{ compare_at_price | money }}</div>
+        <div class="text-background bg-secondary px-2 py-1.5 rounded-3xl text-base leading-6 font-semibold">{{ 'products.product.saveprice' | t | default: 'save' }} {{ compare_at_price | minus: price | money_without_trailing_zeros }}</div>
+      {% else %}
+        <div class="relative !block before:content-[var(--price)] text-secondary text-lg !leading-5 font-medium" style="--price: '{{ price | money }}'"></div>
+        <div class="relative !block before:content-[var(--price)] text-body line-through text-lg !leading-5 font-normal" style="--price: '{{ compare_at_price | money }}'"></div>
+        <div class="!block before:content-[var(--price)] text-sale text-xs md:text-sm font-medium leading-4" style="--price: '{{ percent | prepend: '-' | append: '%' }}'"></div>
+      {% endif %}
+    {% else %}
+      {% if template.name contains 'product' and show  %}
+        <div class="text-3xl font-medium text-secondary">{{ price | money }}</div>
+      {% else %}
+        <div class="!block text-secondary text-lg !leading-5 before:content-[var(--price)] font-medium" style="--price: '{{ price | money }}'"></div>
+      {% endif %}
+    {% endif %}
+  {% else %}
+    {% if template.name contains 'product' and show  %}
+      <div class="text-sm md:text-lg text-primary font-normal !leading-none">{{ price | money }}</div>
+    {% else %}
+      <div class="!block before:content-[var(--price)] text-lg text-secondary font-medium !leading-5" style="--price: '{{ price | money }}'"></div>
+    {% endif %}
+  {% endif %}
+</div>

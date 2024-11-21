@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#808080",
+        "color_text_breadcrumb_link_hover": "#0f0f0f",
+        "color_text_breadcrumb": "#0f0f0f",
+        "padding_top": 32,
+        "padding_bottom": 48,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 32
+      }
+    },
+    "template": {
+      "type": "template-size-guide",
+      "settings": {
+        "layout_secondary": true,
+        "enable_title": true,
+        "padding_top": 0,
+        "padding_bottom": 120,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 56
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "template"
+  ]
+}

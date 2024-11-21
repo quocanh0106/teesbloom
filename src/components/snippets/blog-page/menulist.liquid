@@ -1,0 +1,28 @@
+<ul class="flex justify-center flex-wrap items-center gap-3 lg:gap-4">
+  {% for link in linklists[section.settings.navigation].links %}
+    <li class="group transition-all leading-none border border-solid border-background bg-background text-primary rounded hover:!border-secondary hover:!bg-secondary hover:!text-primary {% if link.url == request.path %} !text-secondary !bg-background !border-secondary{% endif %}">
+      <a
+        href="{{ link.url }}"
+        title="{{ link.title }}"
+        class="block text-base py-2 px-6 leading-4 capitalize font-normal font-heading !text-inherit group-hover:!text-background">
+        {{ link.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+{% if blog.metafields.custom.trending_post.value != blank %}
+  <ul class="flex md:justify-center flex-wrap items-center gap-5 mt-8">
+    {% for item in blog.metafields.custom.trending_post.value %}
+      {% if forloop.first %}
+        <li class="text-sm font-normal leading-6 text-primary uppercase w-full md:w-fit mb- lg:mr-3">{{ 'blogs.trending_post' | t }}</li>
+      {% endif %}
+      {% if item.link != blank and item.link_title != blank %}
+        <li>
+          <a
+            href="{{ item.link }}"
+            class="flex items-center gap-1.5 font-heading text-primary hover:text-secondary text-sm leading-2 font-normal"
+            title="{{ item.link_title }}">{% render 'icon-link', class: 'w-4 h-4' %} {{ item.link_title }}</a>
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endif %}

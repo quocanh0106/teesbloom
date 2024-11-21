@@ -1,0 +1,14 @@
+{% if menu contains '[' %}
+  {% assign icon = menu | split: '[' | last | split: ']' | first %}
+  {% if icon == 'pine' %}
+    {% render 'icon-pine', class: 'w-4 h-4' %}
+  {% elsif icon == 'heart' %}
+    {% render 'icon-wishlist-2', class: 'text-error w-4 h-4' %}
+  {% elsif icon == 'valentine' %}
+    {% render 'icon-valentine', class: 'w-4 h-4' %}
+  {% elsif icon == 'fire' %}
+    {% render 'icon-fire-menu', class: 'w-4 h-4' %}
+  {% elsif icon == 'cake' %}
+    {% render 'icon-cake', class: 'w-4 h-4' %}
+  {% endif %}
+{% endif %}

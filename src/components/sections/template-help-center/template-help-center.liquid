@@ -1,0 +1,145 @@
+<link rel="stylesheet" href="{{ 'template-help-center.css' | asset_url }}" />
+
+{% style %}
+  [data-section-id="{{ section.id }}"] {
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{% endstyle %}
+
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{%- assign page_url = contentForQuerystring | split: '"pageurl":"' | last | split: '"' | first | split: '.myshopify.com' | last | replace: '\/', '/' | replace: '%20', ' ' | replace: '\u0026', '&' -%}
+{%- assign page_url = page_url | remove: '?_fd=0&pb=0' | remove: '&_fd=0&pb=0' -%}
+{%- assign params = page_url | split: '?' | last | remove: 'section=' -%}
+
+<div class="page-width" data-section-id="{{ section.id }}">
+  <new-tabs-component class="block normal-tab">
+    {%- if section.settings.menu != blank -%}
+      <ul class="grid grid-cols-2 lg:grid-cols-5 gap-2.5 lg:gap-4 mb-6 lg:mb-4">
+        {%- for link in section.settings.menu.links -%}
+          {% assign url = link.url | split: "/" | last %}
+          {% assign handles = handles | append: url | append: ',' %}
+          {% assign active = '' %}
+          {% if forloop.first %}
+            <li class="hidden lg:!block rounded bg-primary border-primary border h-full w-full"></li>
+            {% if forloop.first %}
+              {% assign active = 'active' %}
+              {% assign loopActive = 1 %}
+            {% endif %}
+          {% endif %}
+
+
+          <li
+            data-url="{{ url }}"
+            class="tab-heading flex h-18 lg:h-auto justify-center items-center text-center bg-background border-b-[3px] border-transparent cursor-pointer rounded rounded-b-none py-3 px-2.5 lg:py-6 text-base leading-4 lg:text-h4 lg:leading-4 text-primary font-semibold capitalize font-heading {{ active }}"
+            data-id="{{ section.id }}-{{ forloop.index }}">{{ link.title | downcase }}</li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+    <div class="relative">
+      {% assign handles = handles | split: ',' %}
+      {% for handle in handles %}
+        <div class="tab-detail lg:min-h-[500px] lg:h-full{% unless forloop.index == loopActive %} hidden{% endunless %}" data-id="{{ section.id }}-{{ forloop.index }}">
+          <div class="relative grid gap-2 lg:gap-0">
+            {% for article in blogs[handle].articles reversed %}
+              <details
+                class="w-full block lg:flex lg:gap-4 p-4 lg:p-0 shadow-megamenu lg:shadow-none rounded lg:rounded-none"
+                {% if forloop.first %}
+                open{% endif %}>
+                <summary class="!list-none marker:!hidden w-full lg:max-w-[calc(20%_-_8px)] lg:py-4 lg:px-6 rounded text-primary lg:border-l-[3px] lg:border-transparent lg:text-primary font-heading font-semibold text-base leading-4 lg:text-h5 lg:leading-4 cursor-pointer flex justify-between items-start gap-1 lg:block" title="{{ article.title }}">
+                  <span class="truncate-line two-lines overflow-hidden">{{ article.title }}</span>
+                  {% render 'icon-down'
+                    , class: 'icon-down flex-none w-6 h-6 lg:!hidden' %}
+                  {% render 'icon-up'
+                    , class: 'icon-up flex-none w-6 h-6 lg:!hidden' %}
+                </summary>
+                <div class="w-full lg:max-w-[calc(80%_-_8px)] lg:min-h-[500px] lg:absolute lg:right-0 lg:top-0 lg:h-full lg:overflow-auto scroll-brighter pt-4 lg:p-12 lg:shadow-megamenu lg:rounded-lg">
+                  <div class="flex items-center gap-1 mb-3">
+                    {% render 'icon-clock'
+                      , class: 'w-5 h-5 text-primary' %}
+                    <span class="block text-sm text-primary font-normal truncate-line one-line overflow-hidden break-words leading-5" title="{{ article.created_at | date: '%d %b %Y' }}">{{ 'blogs.article.updated_article' | t }}{{ article.created_at | date: '%d %b %Y' }}</span>
+                  </div>
+                  <div class="article-template__content">
+                    {{ article.content }}
+                  </div>
+                </div>
+              </details>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </new-tabs-component>
+</div>
+
+{% capture helpCenter %}{{ 'template-help-center.js' | asset_url }}{% endcapture %}
+{% render 'atom_script'
+  , src: helpCenter
+  , priority: 'normal'
+  , type: "defer" %}
+
+{% schema %}
+  {
+    "name": "Template help center",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Menu",
+        "info": "Please select the menu that contains the article category"
+      },
+      {
+        "type": "header",
+        "content": "Pading desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Pading top",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Pading bottom",
+        "default": 16
+      }, {
+        "type": "header",
+        "content": "Pading mobile"
+      }, {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Pading top",
+        "default": 16
+      }, {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Pading bottom",
+        "default": 16
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,191 @@
+{%- liquid
+  assign averageRating = product.metafields.judgeme.badge | split: "data-average-rating='" | last | split: "'" | first
+  assign numberRating = product.metafields.judgeme.badge | split: "data-number-of-reviews='" | last | split: "'" | first
+  assign product_form_id = 'product-form-' | append: section.id
+-%}
+
+<section id="MainProduct-{{ section.id }}" class="page-width" data-section="{{ section.id }}">
+  <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}" />
+  {% if settings.country == 'UK' %}
+    <link rel="stylesheet" href="{{ 'themeUK.css' | asset_url }}" />
+  {% endif %}
+  <link rel="stylesheet" href="{{ 'template-product.css' | asset_url }}" />
+
+  <script>window.product = {{ product | json }}</script>
+  <div class="flex flex-wrap lg:flex-nowrap">
+    <div class="product-media-wrapper w-full{% if product.media.size > 0 %} lg:max-w-[calc(100%_-_492px)]{% else %} lg:max-w-full{% endif %} overflow-hidden lg:sticky !top-4 h-fit transition-all duration-200">
+      {% render 'product-media-gallery', product: product %}
+    </div>
+
+    <product-infor class="block w-full{% if product.media.size > 0 %} lg:max-w-[492px] lg:pl-7.5{% endif %} mt-6 lg:mt-0" id="ProductInfo-{{ section.id }}" data-product="{{ product.handle }}" data-recently-view="{{ settings.recently_view_limit }}">
+      <h1 class="text-base leading-4 lg:text-h4 lg:leading-4 font-semibold mb-1 lg:mb-2 font-heading">{{ product.title | escape }}</h1>
+      {%- render 'price', product: product, use_variant: true, show_badges: true, show: true -%}
+      {%- unless product.has_only_default_variant -%}
+        <variant-radios
+          class="hidden border-t border-primary pt-4"
+          id="variant-radios-{{ section.id }}"
+          data-section="{{ section.id }}"
+          data-url="{{ product.url }}"
+          {% if update_url == false %}
+          data-update-url="false"
+          {% endif %}
+          {{ block.shopify_attributes }}>
+          {%- for option in product.options_with_values -%}
+            {% assign fatherIndex = forloop.index0 %}
+            {% if option.name == 'Product' %}
+              {% assign activeType = option.selected_value %}
+              <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} selector-wrapper data-layer-{{ fatherIndex }}" data-name="Product">
+                <legend class="form__label mb-3 flex gap-2 text-base text-primary font-medium font-heading leading-5">{{ 'products.product.product_type' | t }}:<span class="selected-value capitalize text-primary font-normal font-body">{{ option.selected_value }}</span>
+                </legend>
+                <div class="option-values flex flex-wrap gap-2">
+                  {%- for value in option.values -%}
+                    <input
+                      type="radio"
+                      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                      name="{{ option.name }}"
+                      value="{{ value | escape }}"
+                      data-index="{{ fatherIndex }}"
+                      class="absolute opacity-0 invisible option-item {% if option.selected_value == value %} selected {% endif %}"
+                      form="{{ product_form_id }}"
+                      {% if option.selected_value == value %}
+                      checked
+                      {% endif %}>
+                    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="option-item font-normal text-xs lg:text-sm leading-6 lg:leading-4 min-h-[35px] lg:min-h-[36px] bg-primary text-primary border border-primary p-2 flex text-center rounded items-center justify-center option-size-label min-w-12 max-w-3-col-variant w-full">
+                      {{ value }}
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {% elsif option.name == 'Color' or option.name == 'Farbe' or option.name == 'Colore' or option.name == 'Couleur' %}
+              <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} option-color-wrapper data-layer-{{ fatherIndex }}" data-name="Color">
+                <legend class="form__label mb-3 flex gap-2 text-base text-primary font-medium font-heading leading-5">{{ option.name }}:<span class="selected-value capitalize text-primary font-normal font-body">{{ option.selected_value }}</span>
+                </legend>
+                <div class="option-color flex flex-wrap gap-2">
+                  {% assign values = '' %}
+                  {%- for value in option.values -%}
+                    {%- unless values contains value -%}
+                      {%- liquid
+                        assign values = values | join: ','
+                        assign values = values | append: ',' | append: value
+                        assign values = values | split: ','
+                        assign bgColor = value | split: ' ' | first | handle
+                      -%}
+                      <input
+                        type="radio"
+                        class="absolute opacity-0 invisible option-item"
+                        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                        data-index="{{ fatherIndex }}"
+                        name="{{ option.name }}"
+                        value="{{ value | escape }}"
+                        form="{{ product_form_id }}"
+                        {% if option.selected_value == value %}
+                        checked{% endif %}>
+                      <label
+                        for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                        class="color border w-10 h-10 inline-block rounded-sm border-transparent overflow-hidden option-item"
+                        data-product-id="{{ product.id }}"
+                        data-variant-id="{{ variant.id }}"
+                        data-option="{{ option.name | handleize }}"
+                        data-value="{{ value | escape }}">
+                        <span class="color w-full h-full !inline-block bg-center" style="background-color:{{ bgColor }}; background-image: url({{ value | handle | append: '.' | append: 'png' | asset_img_url: '150x' }});"></span>
+                      </label>
+                    {%- endunless -%}
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {% elsif option.name == 'Size' or option.name == 'Taille' or option.name == 'Taglia' or option.name == 'Größe' %}
+              <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} option-size-wrapper data-layer-{{ fatherIndex }}" data-name="Size">
+                <div class="title-option-size mb-3 flex justify-between items-center">
+                  <legend class="form__label flex gap-2 text-sm text-primary uppercase font-bold font-heading leading-5">{{ 'products.product.size' | t }}:<span class="selected-value capitalize text-primary font-normal font-body">{{ option.selected_value }}</span>
+                  </legend>
+                  <modal-opener data-id="#PopupModal-Sizeguide" data-active="{{ activeType }}" class="size-popup flex gap-2 text-sm items-center capitalize underline underline-offset-2 cursor-pointer font-semibold font-heading text-primary hover:text-primary">{% render 'icon-ruler' %}{{ 'products.product.size_guide' | t }}</modal-opener>
+                </div>
+                <div class="title-option-size-bt flex flex-wrap gap-2">
+                  {%- for value in option.values -%}
+                    <input
+                      class="absolute opacity-0 invisible option-item"
+                      type="radio"
+                      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                      name="{{ option.name }}"
+                      data-index="{{ fatherIndex }}"
+                      value="{{ value | escape }}"
+                      form="{{ product_form_id }}"
+                      {% if option.selected_value == value %}
+                      checked{% endif %}>
+                    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="option-item font-normal text-xs lg:text-sm leading-6 lg:leading-4 min-h-[35px] lg:min-h-[36px] bg-primary text-primary border border-primary p-2 flex text-center rounded items-center justify-center option-size-label min-w-12 max-w-6-col-variant w-full ">
+                      {{ value }}
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {% else %}
+              <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} selector-wrapper data-layer-{{ fatherIndex }}">
+                <legend class="form__label mb-3 flex gap-2 text-base text-primary font-medium font-heading leading-5">{{ option.name }}:<span class="selected-value capitalize text-primary font-normal font-body">{{ option.selected_value }}</span>
+                </legend>
+                <div class="option-values flex flex-wrap gap-2">
+                  {%- for value in option.values -%}
+                    <input
+                      type="radio"
+                      class="absolute opacity-0 invisible option-item {% if option.selected_value == value %} selected {% endif %}"
+                      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                      name="{{ option.name }}"
+                      data-index="{{ fatherIndex }}"
+                      value="{{ value | escape }}"
+                      form="{{ product_form_id }}"
+                      {% if option.selected_value == value %}
+                      checked{% endif %}>
+                    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="option-item font-normal text-xs lg:text-base leading-none lg:leading-none min-h-[35px] lg:min-h-[41px] bg-primary text-primary border border-primary p-2 flex text-center rounded items-center justify-center min-w-12 max-w-3-col-variant w-full option-label">
+                      {{ value }}
+                    </label>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {% endif %}
+          {%- endfor -%}
+          <script type="application/json">
+            {{ product.variants | json }}
+          </script>
+        </variant-radios>
+      {%- endunless -%}
+      <product-form class="block cart-update">
+        <div class="product-form__error-message-wrapper" role="alert" hidden>
+          <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error" viewBox="0 0 13 13">
+            <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2" />
+            <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7" />
+            <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white" />
+            <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+          </svg>
+          <span class="product-form__error-message"></span>
+        </div>
+        
+        {%- form 'product', product, id: product_form_id, class: 'form', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+          <div class="block mt-6 mb-4 relative">
+            <div class="product-form__buttons">
+              <button type="submit" name="add" class="product-form__submit button button--full-width btn"{% if product.selected_or_first_available_variant.available == false %} disabled{% endif %}>
+                <span>
+                  {%- if product.selected_or_first_available_variant.available -%}
+                    {{ 'products.product.save_edit' | t }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
+                </span>
+                <div class="loading-overlay__spinner hidden"></div>
+              </button>
+            </div>
+          </div>
+          {% if block.settings.show_shipping %}
+            <span class="block text-center text-sm leading-1.5 text-primary font-normal">{{ 'products.shipping_information.overmb' | t }}<span class="text-sale font-medium">{{ settings.minimum_freeshipping | append: '00' | plus: 0 | money_without_trailing_zeros }}</span></span>
+          {% endif %}
+        {%- endform -%}
+      </product-form>
+    </product-infor>
+  </div>
+
+  {% capture global %}{{ 'theme.js' | asset_url }}{% endcapture %}
+  {% render 'atom_script', src: global, priority: 'normal', type: "defer" %}
+  <script defer src="https://cdn.customily.com/shopify/static/customily.shopify.script.unified.js"></script>
+  <script defer src="https://cdn.customily.com/customily.js"></script>
+  {% capture templateProduct %}{{ 'template-product.js' | asset_url }}{% endcapture %}
+  {% render 'atom_script', src: templateProduct, priority: 'normal', type: "defer" %}
+</section>

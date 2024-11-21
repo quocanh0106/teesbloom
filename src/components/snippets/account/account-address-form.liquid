@@ -1,0 +1,109 @@
+
+
+{%- liquid 
+  unless type
+    assign heading = 'customer.addresses.edit_address' | t
+  else 
+    assign heading = 'customer.addresses.add_new' | t
+  endunless
+  assign default_address = default_address | default: false
+  assign address = address | default: customer.new_address 
+  assign addressId = address.id | default: 'new'
+-%}
+
+<div class="w-full text-h4 text-primary text-center font-semibold font-heading mb-6 capitalize">{{ heading }}</div>
+
+<account-address-form class="block" id="address-form-{{- addressId -}}">
+  <validate-form>
+    {% form 'customer_address', address, class: "grid gap-4 w-full" %}
+      <div class="text-left grid items-center grid-cols-2 gap-4 gap-x-3 lg:gap-5 lg:gap-x-3">
+        <div class="w-full">
+          <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_first_name_{{ addressId }}">{{ 'customer.addresses.first_name' | t }}</label>
+          <input type="text" data-name="name" name="address[first_name]" id="address_first_name_{{ addressId }}" value="{{ address.first_name }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_first_name' | t }}">
+        </div>
+
+        <div class="w-full">
+          <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_last_name_{{ addressId }}">{{ 'customer.addresses.last_name' | t }}</label>
+          <input type="text" data-name="name" name="address[last_name]" id="address_last_name_{{ addressId }}" value="{{ address.last_name }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_last_name' | t }}">
+        </div>
+
+        <div class="w-full col-span-2">
+          <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_phone_{{ addressId }}">{{ 'customer.addresses.phone' | t }}</label>
+          <input type="tel" data-name="phone" name="address[phone]" id="address_phone_{{ addressId }}" value="{{ address.phone }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_phone' | t }}" pattern="[0-9.+* * *]+">
+        </div>
+
+        <div class="w-full col-span-2">
+          <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_country_{{ addressId }}">{{ 'customer.addresses.country' | t }}</label>
+          <select name="address[country]" data-name="name" id="address_country_{{ addressId }}" value="{{ address.country }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" data-country-selector data-id="{{ form.id }}">
+            {{ all_country_option_tags }}
+          </select>
+        </div>
+
+        <div class="w-full">
+          <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_city_{{ addressId }}">{{ 'customer.addresses.city' | t }}</label>
+          <input type="text" name="address[city]" data-name="name" id="address_city_{{ addressId }}" value="{{ address.city }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_city' | t }}">
+        </div>
+
+        <div class="w-full">
+          <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_zip_{{ addressId }}">{{ 'customer.addresses.placehoder_postcode' | t }}</label>
+          <input type="text" name="address[zip]" data-name="name" id="address_zip_{{ addressId }}" value="{{ address.zip }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_postcode' | t }}">
+        </div>
+
+        <div class="w-full col-span-2">
+          <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_province_{{ addressId }}">{{ 'customer.addresses.placehoder_province' | t }}</label>
+          <input type="text" name="address[province]" data-name="name" id="address_province_{{ addressId }}" value="{{ address.province }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_province' | t }}">
+        </div>
+
+        <div class="w-full col-span-2">
+          <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_zip_{{ addressId }}">{{ 'customer.addresses.address' | t }}</label>
+          <input type="text" name="address[address1]" data-name="name" id="address_zip_{{ addressId }}" value="{{ address.address1 }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_address' | t }}">
+        </div>
+      </div>
+
+      <div class="flex items-start gap-2">
+        <label for="address_default_address_{{ addressId }}" class="relative checked">
+          <input type="checkbox" id="address_default_address_{{ addressId }}" class="opacity-0 invisible absolute" name="address[default]"{% if default_address %} checked{% endif %}>
+          <svg aria-hidden="true" class="icon icon-checkmark absolute w-2.5 h-2.5 top-1/2 left-2.5 -translate-x-1/2 -translate-y-1/2 opacity-0 invisible" width="0.625rem" height="0.625rem" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="icon-box w-5 h-5 flex-none" viewBox="0 0 18 18" fill="none">
+            <path d="M16.625 2.75C16.625 1.99061 16.0094 1.375 15.25 1.375H2.75C1.99061 1.375 1.375 1.99061 1.375 2.75V15.25C1.375 16.0094 1.99061 16.625 2.75 16.625H15.25C16.0094 16.625 16.625 16.0094 16.625 15.25V2.75Z" stroke="currentColor" stroke-linejoin="round"/>
+          </svg>
+        </label>
+        <label class="block text-sm leading-5 text-primary font-normal capitalize" for="address_default_address_{{ addressId }}">{{ 'customer.addresses.set_address_default' | t }}</label>
+      </div>
+      <div class="grid grid-cols-2 items-center gap-3 mt-2 md:mt-4 sticky bottom-0 left-0 py-4 px-4 lg:pb-10 lg:pt-6 lg:px-8 bg-background w-[calc(100%_+_32px)] lg:w-[calc(100%_+_64px)] -mx-4 lg:-mx-8">
+        {%- if type == 'new' -%}
+          <button class="btn btn-2 w-full p-3.5 !text-sm !leading-none !uppercase !font-bold !font-heading close" type="reset">{{- 'customer.addresses.cancel' | t -}}</button>
+          <button class="btn w-full p-3.5 !text-sm !leading-none !uppercase !font-bold !font-heading" disabled type="submit">{{ 'customer.addresses.add_now' | t }}</button>
+        {%- else -%}
+          <modal-opener data-id="#delete-{{- addressId -}}">
+            <button class="btn btn-2 w-full p-3.5 !text-sm !leading-none !uppercase !font-bold !font-heading" type="button">{{ 'customer.addresses.delete' | t }}</button>
+          </modal-opener>
+          <button class="btn w-full p-3.5 !text-sm !leading-none !uppercase !font-bold !font-heading" disabled type="submit">{{ 'customer.addresses.save' | t }}</button>
+        {%- endif -%}
+      </div>
+    {% endform %}
+  </validate-form>
+</account-address-form>
+
+{%- unless type == 'new' -%}
+  <modal-dialog id="delete-{{ addressId }}" class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20">
+    <div class="px-4 pt-8 pb-6 md:p-8 md:pt-10 lg:px-10 lg:pb-8 lg:pt-12 rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[405px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+      <span class="block text-h5 lg:text-h4 font-semibold text-primary font-heading mb-2">
+        {{ 'customer.addresses.delete_address_title' | t }}
+      </span>
+      <span class="block text-sm leading-5 font-normal lg:text-base lg:leading-6 text-primary mb-5">
+        {{ 'customer.addresses.delete_address_description' | t }}
+      </span>
+      <form class="grid grid-cols-2 gap-3" method="post" action="/account/addresses/{{- addressId -}}">
+        <input type="hidden" name="_method" value="delete">
+        <button class="btn btn-2 w-full p-3.5 !text-sm !leading-none !uppercase !font-bold !font-heading close" type="button">{{ 'customer.addresses.no' | t }}</button>
+        <button class="btn w-full p-3.5 !text-sm !leading-none !uppercase !font-bold !font-heading" type="submit">{{ 'customer.addresses.confirm' | t }}</button>
+      </form>
+      <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-2 lg:right-2 close">
+        {% render 'icon-close', class: 'w-6 h-6' %}
+      </span>
+    </div>
+  </modal-dialog>
+{%- endunless -%}

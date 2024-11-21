@@ -1,0 +1,305 @@
+input:checked + label:not(.color) {
+  @apply border-secondary bg-background text-secondary border-2;
+}
+input.disabled + label {
+  @apply line-through bg-gray-400 border-gray-400;
+}
+
+input:checked + label.color {
+  @apply border-secondary;
+}
+.dark-link {
+  @apply text-primary hover:text-primary;
+}
+/***** Button ******/
+
+.btn {
+  @apply flex items-center justify-center border border-primary text-background bg-primary hover:bg-background hover:text-primary transition-all rounded-lg h-13.5 px-3 text-sm uppercase no-underline;
+}
+
+.btn-2 {
+  @apply flex items-center justify-center border border-secondary text-background bg-secondary hover:bg-background hover:text-secondary transition-all rounded-lg h-13.5 px-3 text-sm uppercase no-underline;
+}
+
+.btn-outline {
+  @apply flex items-center justify-center border border-primary text-primary bg-background hover:text-background hover:bg-primary transition-all rounded-lg h-13.5 px-3 text-sm uppercase no-underline;
+}
+
+.btn-2-outline {
+  @apply flex items-center justify-center border border-secondary text-secondary bg-background hover:text-background hover:bg-secondary transition-all rounded-lg h-13.5 px-3 text-sm uppercase no-underline;
+}
+
+.btn-error {
+  @apply hover:text-primary hover:bg-error text-error bg-primary border-error;
+}
+
+.btn.active {
+  @apply btn-2;
+}
+
+/***** End button ******/
+
+#customily-preview-button,
+.product-form__buttons #customily-preview-button {
+  -webkit-text-fill-color: initial !important;
+  @apply !w-full !z-10 !h-16 !py-3.5 !flex-[0_0_100%] !relative !left-0 !top-0 !mb-0 lg:!mb-0 !uppercase !border !text-h4 !font-heading !leading-none !text-secondary !bg-background !border-secondary hover:!text-background hover:!bg-secondary hover:!border-secondary !whitespace-nowrap !flex !items-center !justify-center !flex-row-reverse !tracking-[0] !transition-colors !cursor-pointer !shadow-none !underline-offset-[0.3rem] !no-underline !rounded-xl !font-bold after:content-eye after:block after:h-5 after:mr-1.5 after:hover:content-eye-hover after:!transition-all;
+}
+.cl-canvas-container {
+  @apply !h-auto;
+}
+.cl-canvas-container .canvas-wrapper {
+  @apply !m-0;
+}
+
+.product-form__submit,
+.product-form__submit.ld-over-inverse {
+  @apply !w-full !h-16 !relative !uppercase !border !text-h4 !font-heading !whitespace-nowrap !inline-block !tracking-[0] !transition-colors !cursor-pointer !shadow-none !underline-offset-[0.3rem] !no-underline !font-bold !rounded-xl;
+}
+
+.product-form__submit.hidden-cart-btn {
+  @apply !hidden;
+}
+
+.product-form__submit.ld-over-inverse.sticky-button {
+  @apply !rounded-none !fixed !bottom-0 !left-0 !border-0 !mb-0 !border-t lg:!border lg:!mb-4 lg:!absolute;
+}
+
+.product-form__submit.ld-over-inverse.btn-primary {
+  @apply !text-primary !bg-primary !border-primary hover:!text-primary hover:!bg-primary hover:!border-primary;
+}
+
+.product-form__buttons.btn-wrapper-sticky {
+  @apply fixed lg:static bottom-0 left-0 w-full flex-row flex-nowrap lg:flex-col gap-2 lg:gap-0 py-3 lg:py-0 px-3 lg:px-0 z-10 bg-background;
+}
+
+.product-form__buttons.btn-wrapper-sticky #customily-preview-button:after {
+  @apply hidden lg:block;
+}
+
+.product-form__buttons.btn-wrapper-sticky #customily-preview-button {
+  @apply !flex-[0_0_calc(36%_-_4px)] lg:!flex-none !mb-0 lg:!mb-4;
+}
+
+.product-form__buttons.btn-wrapper-sticky .product-form__submit {
+  @apply !flex-[0_0_calc(64%_-_4px)] lg:!flex-none !mb-0;
+}
+
+.product-form__error-message-wrapper[hidden] {
+  @apply opacity-0 invisible;
+}
+
+.product-form__buttons.btn-wrapper-sticky .product-form__submit {
+  @apply lg:!flex-none !mb-0;
+}
+
+accordion-toggle:not(.active) .icon-text::before {
+  @apply opacity-0 invisible;
+}
+
+accordion-toggle.review.active .details {
+  @apply !max-h-full;
+}
+
+.sticky-header cart-notification {
+  @apply top-3 lg:top-[23px];
+}
+.product-infortab a,
+.product-infor a {
+  @apply font-medium dark-link;
+}
+.product-infortab .jdgm-rev-widg__body {
+  @apply max-h-[1000px] overflow-auto pr-2;
+}
+
+tabs-component .tab-heading.active {
+  @apply text-primary;
+}
+
+tabs-component.product-infortab .tab-detail.lg\:hidden {
+  @apply block opacity-0 invisible !max-h-0 !p-0;
+}
+
+.product-infortab img {
+  @apply w-full rounded;
+}
+
+.transition-height {
+  transition: height 0.5s ease;
+}
+
+.sticky-header .product-media-wrapper {
+  @apply lg:top-[137px];
+}
+
+
+/** Size guide **/
+.sizeguide {
+  button.tab-heading.active {
+    @apply text-primary bg-primary;
+  }
+  table {
+    @apply w-full rounded-lg overflow-hidden;
+    tbody {
+      @apply w-full lg:flex;
+      tr {
+        @apply w-full text-center lg:flex lg:flex-col odd:bg-[#FAFAFA];
+        th {
+          @apply lg:w-full lg:h-full lg:text-left uppercase text-xs leading-2 font-semibold font-heading text-primary lg:text-base lg:leading-4 p-2.5 lg:px-6 lg:whitespace-nowrap;
+        }
+        td {
+          @apply text-xs leading-5 font-normal text-primary lg:text-base lg:leading-6 py-2 lg:py-2.5 px-1 !border-none;
+        }
+        &:not(:first-child) th {
+          @apply mx-auto lg:text-center font-normal text-xs leading-5 text-primary lg:text-base lg:leading-6 font-body py-2 lg:py-2.5 lg:px-1;
+        }
+      }
+    }
+  }
+  input[type="radio"]:not(:checked)+label {
+    .icon-radio {
+      @apply block;
+    }
+    .icon-radio-checked {
+      @apply hidden;
+    }
+  }
+
+  input[type="radio"]:checked+label {
+    .icon-radio {
+      @apply hidden;
+    }
+    .icon-radio-checked {
+      @apply block;
+    }
+  }
+
+}
+/** End size guide **/
+
+.product-form__buttons .ld-over-inverse.running:before, .ld-over-full.running:before, .ld-over-full-inverse.running:before {
+  @apply !z-10;
+}
+
+.product-description div {
+  @apply mb-4 lg:mb-6 mt-2 lg:mt-3 first:!mt-0 last:!mb-0;
+}
+.product-description div * {
+  @apply text-sm leading-5 mb-2 last:mb-0 inline;
+}
+
+.product-description div ul {
+  @apply list-item list-inside list-disc;
+}
+.product-description div ul li {
+  @apply !mb-2 last:!mb-0
+}
+.product-description div ul li * {
+  @apply !mb-0;
+}
+
+.product-description img {
+  @apply w-full rounded mb-4 lg:mb-6 last:mb-0;
+}
+
+.section-product-description .tab-heading.active {
+  @apply text-primary border-primary;
+}
+.\!display-inherit {
+  display: inherit!important;
+}
+.product-description .product-details * {
+  @apply text-sm leading-5 mb-2 last:mb-0 !display-inherit;
+}
+
+.product-description .product-details ul {
+  @apply list-inside list-disc mb-4;
+}
+.product-description .product-details ul li {
+  @apply !mb-1 last:!mb-0 !list-item;
+}
+.product-description .product-details ul li * {
+  @apply !mb-0;
+}
+button.product-form__submit:disabled ~ .button-unavailable {
+  display: block;
+  width: calc(64% - 4px - var(--container-pading-mobile));
+  height: 64px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  flex: 0 0 100%;
+  cursor: pointer;
+}
+.btn-wrapper-sticky button.product-form__submit:disabled ~ .button-unavailable {
+  width: calc(64% - 4px);
+  bottom: var(--container-pading-mobile);
+  right: var(--container-pading-mobile);
+  @media (min-width: 1024px) {
+    width: 100%;
+    bottom: 0;
+    right: 0;
+  }
+}
+product-infor accordion-toggle .details * {
+  @apply !text-sm;
+}
+.installment shopify-payment-terms {
+  @apply w-fit block mx-auto;
+}
+
+#customily-options {
+  @apply p-0 pt-6 mt-6 lg:p-6 lg:mt-6 lg:pb-0 !mb-2 lg:!mb-6 lg:bg-[#f6f6f6] lg:rounded-xl border-border lg:border;
+  #cl_optionsapp {
+    label {
+      @apply mt-0;
+    }
+    .help-text {
+      @apply text-xs leading-5 font-normal text-primary;
+    }
+    .customily_option {
+      @apply pb-6 mb-0 ;
+    }
+    .customily_option input:not([type='checkbox']):not(.vc-input__input), .customily_option select {
+      @apply !min-h-[50px] rounded-[100px] !px-6 !py-3 !border-border !ring-0 !outline-none focus:!border-primary ;
+    }
+    .swatch-container {
+      @apply gap-1 lg:gap-1.5;
+      label {
+        @apply shadow-none !border border-border !rounded overflow-hidden flex justify-center items-center;
+      }
+
+      input:checked ~ label {
+        @apply border-secondary relative after:absolute after:bg-vertify after:bg-no-repeat after:bottom-1 after:right-1 after:w-[13px] after:h-[13px] after:block;
+      }
+    }
+    select {
+      background: var(--select) no-repeat right white !important;
+      background-position: calc(100% - 24px) 50%!important;
+    }
+    textarea {
+      @apply !min-h-[50px] rounded-2xl !px-6 !py-3 !border-border !ring-0 !outline-none focus:!border-primary;
+    }
+    .swatch-container .swatch, .cl-color-picker-container .cl-color-picker {
+      @apply m-0;
+    }
+  }
+  .option_name {
+    @apply font-heading text-base leading-4 text-primary font-normal mb-2 mt-0;
+    .customily-required-label {
+      @apply text-error;
+    }
+  }
+  .customily-file-input {
+    @apply mb-2 flex items-center
+  }
+  .customily-download-button {
+    @apply capitalize font-normal flex items-center gap-1.5 font-body text-sm py-2 px-3 mb-0 rounded border border-solid bg-background text-primary border-primary hover:text-primary hover:bg-primary hover:border-primary transition-all;
+    &:before {
+      content: var(--image-upload);
+      @apply block w-8 h-8;
+    }
+  }
+  .cl_remove-image {
+    @apply bg-primary rounded-full font-heading text-xs !border-none ml-3 w-8 h-8 flex items-center justify-center text-primary;
+  } 
+}

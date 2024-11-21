@@ -1,0 +1,89 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "page_banner_8CtYEd": {
+      "type": "page-banner",
+      "settings": {
+        "color_title": "#0B2A4A",
+        "color_link": "#0B2A4A",
+        "color_subtitle": "#FFFFFF",
+        "background_color": "#FFFFFF",
+        "subtile": "<p>Slash Sales begins in April. Get up to 80% Discount on all products...</p>",
+        "padding_vertical": 32,
+        "padding_horizontal": 32,
+        "padding_vertical_mb": 16,
+        "padding_horizontal_mb": 16,
+        "margin_top": 16,
+        "margin_bottom": 16,
+        "margin_top_mb": 16,
+        "margin_bottom_mb": 16
+      }
+    },
+    "template": {
+      "type": "template-cart",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {
+          }
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "subtotal",
+        "buttons"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "product_recommendations": {
+      "type": "product-recommendations",
+      "settings": {
+        "fullwidth": false,
+        "title": "Customers also bought",
+        "show_view_all": true,
+        "product_per_row": 4,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 12,
+        "background_color": "#ffffff",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 32
+      }
+    },
+    "recently_viewed_product": {
+      "type": "recently-viewed-product",
+      "settings": {
+        "fullwidth": false,
+        "heading": "Recently Viewed Products",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 32
+      }
+    }
+  },
+  "order": [
+    "page_banner_8CtYEd",
+    "template",
+    "product_recommendations",
+    "recently_viewed_product"
+  ]
+}

@@ -1,0 +1,452 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Teesbloom",
+    "theme_version": "1.0.0",
+    "theme_author": "Anden",
+    "theme_documentation_url": "https:\/\/facebook\/andendo1699\/",
+    "theme_support_url": "https:\/\/facebook\/andendo1699\/"
+  },
+  {
+    "name": "Favicon",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon image",
+        "info": "Will be scaled down to 32 x 32px"
+      }
+    ]
+  },
+  {
+    "name": "General settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 0,
+        "max": 400,
+        "step": 4,
+        "default": 100,
+        "unit": "px",
+        "label": "Custom logo width"
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_mb",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_width_mb",
+        "min": 0,
+        "max": 400,
+        "step": 4,
+        "default": 100,
+        "unit": "px",
+        "label": "Custom logo width"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "type_font",
+        "default": "shopify",
+        "label": "Type font",
+        "options": [
+          {
+            "value": "default",
+            "label": "Font default"
+          },
+          {
+            "value": "shopify",
+            "label": "Shopify Fonts"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Heading font"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_heading_font_light",
+        "default": "poppins_n3",
+        "label": "Font heading light"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_heading_font",
+        "default": "poppins_n4",
+        "label": "Font heading normal"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_heading_font_medium",
+        "default": "poppins_n4",
+        "label": "Font heading medium"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_heading_font_semibold",
+        "default": "poppins_n6",
+        "label": "Font heading semibold"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_heading_font_bold",
+        "default": "poppins_n7",
+        "label": "Font heading bold"
+      },
+      {
+        "type": "header",
+        "content": "Body font"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font_light",
+        "default": "poppins_n3",
+        "label": "Font body light"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font",
+        "default": "poppins_n4",
+        "label": "Font body normal"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font_medium",
+        "default": "poppins_n4",
+        "label": "Font body medium"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font_semibold",
+        "default": "poppins_n6",
+        "label": "Font body semibold"
+      },
+      {
+        "type": "font_picker",
+        "id": "type_body_font_bold",
+        "default": "poppins_n7",
+        "label": "Font body bold"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Color primary",
+        "default": "#0B2A4A"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Color secondary",
+        "default": "#FC6514"
+      },
+      {
+        "type": "color",
+        "id": "color_body_text",
+        "label": "Color body text",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_subtext",
+        "label": "Color sub text",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Color border",
+        "default": "#000"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Color background",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "header",
+        "content": "Message notifycation"
+      },
+      {
+        "type": "color",
+        "id": "color_error",
+        "label": "Error",
+        "default": "#FF5454"
+      },
+      {
+        "type": "color",
+        "id": "color_warning",
+        "label": "Warning",
+        "default": "#FFD100"
+      },
+      {
+        "type": "color",
+        "id": "color_success",
+        "label": "Success",
+        "default": "#007484"
+      },
+      {
+        "type": "header",
+        "content": "Card badge"
+      },
+      {
+        "type": "color",
+        "id": "sale_label_bg",
+        "label": "Sale label background color",
+        "default": "#FF5454"
+      },
+      {
+        "type": "color",
+        "id": "sold_out_badge_color",
+        "label": "Sold out background color",
+        "default": "rgba(228, 231, 237, 0.24)"
+      },
+      {
+        "type": "color",
+        "id": "hot_label_bg",
+        "label": "Best seller label background color",
+        "default": "#FF5454",
+        "info": "Show if product tags contain 'Best seller'"
+      },
+      {
+        "type": "color",
+        "id": "new_label_bg",
+        "label": "New label background color",
+        "default": "#1E6CF6"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "container",
+        "min": 1200,
+        "max": 1600,
+        "step": 40,
+        "default": 1440,
+        "unit": "px",
+        "label": "Container"
+      },
+      {
+        "type": "range",
+        "id": "padding_desktop",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 12,
+        "unit": "px",
+        "label": "Padding desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_tablet",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 12,
+        "unit": "px",
+        "label": "Padding tablet"
+      },      
+      {
+        "type": "range",
+        "id": "padding_mobile",
+        "min": 0,
+        "max": 100,
+        "step": 1,
+        "default": 12,
+        "unit": "px",
+        "label": "Padding mobile"
+      }
+    ]
+  },
+  {
+    "name": "Social media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social accounts"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook_link",
+        "label": "Facebook",
+        "info": "https://facebook.com/",
+        "default": "https://facebook.com/"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram_link",
+        "label": "Instagram",
+        "info": "http://instagram.com/",
+        "default": "https://instagram.com/"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok_link",
+        "label": "TikTok",
+        "info": "https://tiktok.com/@",
+        "default": "https://tiktok.com/@"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube_link",
+        "label": "YouTube",
+        "info": "https://www.youtube.com/",
+        "default": "https://www.youtube.com/"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_cart_drawer",
+        "default": true,
+        "label": "Enable cart drawer"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_cart_note",
+        "label": "Enable cart note",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Insert custom code into head",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Home page"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_code_header_home",
+        "label": "Custom code at the header"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_code_footer_home",
+        "label": "Custom code at the footer"
+      },
+      {
+        "type": "header",
+        "content": "All pages"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_code_header_all",
+        "label": "Custom code at the header"
+      },
+      {
+        "type": "textarea",
+        "id": "custom_code_footer_all",
+        "label": "Custom code at the footer"
+      }
+    ]
+  },
+  {
+    "name": "Collections",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "new_arrivals_collection",
+        "label": "New arrivals collection"
+      },
+      {
+        "type": "collection",
+        "id": "best_sellers_collection",
+        "label": "Best sellers collection"
+      },
+      {
+        "type": "header",
+        "content": "Tag new hot"
+      },
+      {
+        "type": "text",
+        "id": "type_new",
+        "label": "Type for new"
+      },
+      {
+        "type": "text",
+        "id": "type_hot",
+        "label": "Type for hot"
+      },
+      {
+        "type": "header",
+        "content": "SEO Collection all"
+      },
+      {
+        "type": "textarea",
+        "id": "collection_all_title",
+        "label": "Title",
+        "default": "Products"
+      },
+      {
+        "type": "textarea",
+        "id": "collection_all_desc",
+        "label": "Description"
+      }
+    ]
+  },
+  {
+    "name": "Predictive Search",
+    "settings": [
+      {
+        "type": "text",
+        "label": "Popular searchs",
+        "id": "predictive_popular_search",
+        "default": "T-shirt",
+        "info": "Exp: T-shirt"
+      },
+      {
+        "type": "text",
+        "label": "Product types",
+        "id": "predictive_product_type",
+        "default": "T-shirt, Pants, Hoodie, Short, Jacket, Sweater, Varsity",
+        "info": "Exp: T-shirt, Pants, Hoodie, Short, Jacket, Sweater, Varsity"
+      },
+      {
+        "type": "collection",
+        "label": "Recommend collection",
+        "id": "recommend_predictive_search"
+      }
+    ]
+  },
+  {
+    "name": "Products",
+    "settings": [
+      {
+        "type": "number",
+        "id": "recently_view_limit",
+        "label": "Recently view limit",
+        "default": 8
+      }
+    ]
+  }
+]

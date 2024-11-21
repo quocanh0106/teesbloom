@@ -1,0 +1,21 @@
+.quickadd-loading::before {
+  @apply content-empty absolute top-1/2 left-1/2 block w-5 h-5 border border-primary border-l-2 border-l-transparent rounded-full;
+  animation: 0.5s spin linear infinite;
+}
+
+.checkout-button.btn-wrapper-sticky {
+  @apply fixed px-4 py-2 bg-background bottom-0 left-0 w-full z-10 lg:static lg:p-0; 
+}
+.sticky-header .cart_footer  {
+  @apply lg:top-31;
+}
+
+div#dynamic-checkout-cart * {
+  width: 100%!important;
+  flex: none!important;
+  margin: 0!important;
+  border-radius: 4px!important;
+}
+div#dynamic-checkout-cart ul {
+  @apply gap-4;
+}

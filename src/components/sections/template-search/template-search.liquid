@@ -1,0 +1,211 @@
+<link rel="stylesheet" href="{{ 'facet.css' | asset_url }}">
+{% paginate search.results by 10 %}
+  <div class="flex flex-wrap pb-8 lg:pb-20" data-id="{{ section.id }}" id="ProductGridContainer">
+    {% if search.results.size > 0 %}
+      {% render 'facet', results: search %}
+    {% endif %}
+    <toggle-filter class="fixed bottom-10 left-1/2 -translate-x-1/2 block transition-all duration-500 z-10">
+      <button class="flex items-center px-4 py-3 border border-primary bg-primary text-background hover:bg-background hover:text-primary transition-all capitalize whitespace-nowrap lg:normal-case text-base leading-none rounded-md cursor-pointer gap-2">
+        <span class="block">{{- 'products.facets.filter' | t -}}</span>
+        {% render 'icon-filter', class: 'w-4 h-4' %}
+      </button>
+    </toggle-filter>
+    <div class="w-full transition-all duration-500 max-w-full overflow-hidden" data-total-pages="{{ paginate.pages }}" data-pagination="{{ products_per_page }}" data-current-page="{{ paginate.current_page }}" id="product-grid">
+      {% if search.results.size > 0 %}
+        <div class="px-3 py-2 facet-mobile border-b border-primary flex items-center justify-between lg:mx-0 lg:mt-0 transition-all duration-200 bg-background">
+          <div id="ProductCount" class="viewing-currently-product text-sm text-primary whitespace-nowrap">
+            {% liquid
+              assign products_count = paginate.current_page | times: section.settings.products_per_page
+              if products_count > paginate.items
+                assign products_count = paginate.items
+              endif
+            %}
+            {{ 'sections.collection_template.current_view_count_html' | t: all_products_count: paginate.items, products_count: products_count }}
+          </div>
+          <facet-filters-form class="flex items-center justify-end gap-4 sort-by" id="sortby-wrapper">
+            <form id="FacetSortForm">
+              <div class="flex items-center gap-2 js-filter" data-index="sort-by">
+                <span class="text-primary text-base font-normal hidden lg:block">{{ 'products.facets.sort_by_label' | t }}</span>
+                {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
+                <select name="sort_by" class="hidden opacity-0 invisible absolute -z-30" id="SortBy" aria-describedby="a11y-refresh-page-message">
+                  {%- for option in search.sort_options -%}
+                    <option value="{{ option.value | escape }}" {% if option.value == sort_by %} selected="selected"{% endif %}></option>
+                  {%- endfor -%}
+                </select>
+                <accordion-toggle class="inline-block relative cursor-pointer clickout-accordion">
+                  <div class="summary flex items-center gap-2.5">
+                    {%- for option in search.sort_options -%}
+                      {% if option.value == sort_by %}
+                        <span class="inline-block text-sm lg:text-base text-primary font-medium" data-value="{{ option.value | escape }}">
+                          {% if option.value == "manual" %}
+                            {{ 'products.facets.sort_by.manual' | t }}
+                          {% elsif option.value == "best-selling" %}
+                            {{ 'products.facets.sort_by.best_selling' | t }}
+                          {% elsif option.value == "price-ascending" %}
+                            {{ 'products.facets.sort_by.price_ascending' | t }}
+                          {% elsif option.value == "price-descending" %}
+                            {{ 'products.facets.sort_by.price_descending' | t }}
+                          {% elsif option.value == "created-ascending" %}
+                            {{ 'products.facets.sort_by.created_ascending' | t }}
+                          {% elsif option.value == "created-descending" %}
+                            {{ 'products.facets.sort_by.created_descending' | t }}
+                          {% elsif option.value == "title-ascending" %}
+                            {{ 'products.facets.sort_by.title_ascending' | t }}
+                          {% elsif option.value == "title-descending" %}
+                            {{ 'products.facets.sort_by.title_descending' | t }}
+                          {% else %}
+                            {{ option.name | escape }}
+                          {% endif %}
+                        </span>
+                      {% endif %}
+                    {%- endfor -%}
+                    {% render 'icon-down', class: 'w-4.5 h-4.5 text-primary' %}
+                  </div>
+                  <div class="shadow-megamenu dropitem w-max details absolute z-10 right-0 top-full rounded-lg bg-background py-3 pl-4 pr-3 opacity-0 invisible min-w-[174px]">
+                    <ul class="max-h-60 w-full overflow-auto scroll-thin scroll-brighter">
+                      {% if search.handle != 'all' %}
+                        {%- for option in search.sort_options -%}
+                          {% if option.value != 'title-ascending' and option.value != 'title-descending' %}
+                            <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]{% if option.value == sort_by %} active{% endif %}" data-value="{{ option.value | escape }}">
+                              {% if option.value == "manual" %}
+                                {{ 'products.facets.sort_by.manual' | t }}
+                              {% elsif option.value == "best-selling" %}
+                                {{ 'products.facets.sort_by.best_selling' | t }}
+                              {% elsif option.value == "price-ascending" %}
+                                {{ 'products.facets.sort_by.price_ascending' | t }}
+                              {% elsif option.value == "price-descending" %}
+                                {{ 'products.facets.sort_by.price_descending' | t }}
+                              {% elsif option.value == "created-ascending" %}
+                                {{ 'products.facets.sort_by.created_ascending' | t }}
+                              {% elsif option.value == "created-descending" %}
+                                {{ 'products.facets.sort_by.created_descending' | t }}
+                              {% elsif option.value == "title-ascending" %}
+                                {{ 'products.facets.sort_by.title_ascending' | t }}
+                              {% elsif option.value == "title-descending" %}
+                                {{ 'products.facets.sort_by.title_descending' | t }}
+                              {% else %}
+                                {{ option.name | escape }}
+                              {% endif %}
+                            </li>
+                          {% endif %}
+                        {%- endfor -%}
+                      {% else %}
+                        {%- for option in search.sort_options -%}
+                          <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]{% if option.value == sort_by %} active{% endif %}" data-value="{{ option.value | escape }}">
+                            {% if option.value == "manual" %}
+                              {{ 'products.facets.sort_by.manual' | t }}
+                            {% elsif option.value == "best-selling" %}
+                              {{ 'products.facets.sort_by.best_selling' | t }}
+                            {% elsif option.value == "price-ascending" %}
+                              {{ 'products.facets.sort_by.price_ascending' | t }}
+                            {% elsif option.value == "price-descending" %}
+                              {{ 'products.facets.sort_by.price_descending' | t }}
+                            {% elsif option.value == "created-ascending" %}
+                              {{ 'products.facets.sort_by.created_ascending' | t }}
+                            {% elsif option.value == "created-descending" %}
+                              {{ 'products.facets.sort_by.created_descending' | t }}
+                            {% elsif option.value == "title-ascending" %}
+                              {{ 'products.facets.sort_by.title_ascending' | t }}
+                            {% elsif option.value == "title-descending" %}
+                              {{ 'products.facets.sort_by.title_descending' | t }}
+                            {% else %}
+                              {{ option.name | escape }}
+                            {% endif %}
+                          </li>
+                        {%- endfor -%}
+                      {% endif %}
+                    </ul>
+                  </div>
+                </accordion-toggle>
+              </div>
+              {% if search.current_vendor or search.current_type %}
+                <input type="hidden" name="q" value="{{ search.current_vendor }}{{ search.current_type }}">
+              {% endif %}
+              {%- if search.terms -%}
+                <input type="hidden" name="q" value="{{ search.terms | escape }}">
+                <input name="options[prefix]" type="hidden" value="last">
+              {%- endif -%}
+            </form>
+          </facet-filters-form>
+        </div>
+      {% endif %}
+      <div id="ProductCountMobile" class="viewing-currently-product text-sm px-4 md:px-0 mb-5 text-primary order-2 whitespace-nowrap hidden">
+        {% liquid
+          assign products_count = paginate.current_page | times: section.settings.products_per_page
+          if products_count > paginate.items
+            assign products_count = paginate.items
+          endif
+        %}
+        {{ 'sections.collection_template.current_view_count_html' | t: all_products_count: paginate.items, products_count: products_count }}
+      </div>
+      {%- if search.performed -%}
+        <div id="main-collection-product" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 transition-all duration-500 w-[calc(100%_+_1px)] overflow-hidden">
+          {% if search.results.size > 0 %}
+            {% for product in search.results %}
+              {%- render 'product-card', product: product, lazy_load: lazy_load, heading: 'h2', class: 'h-full border-r border-b border-primary' -%}
+            {% endfor %}
+          {% endif %}
+        </div>
+      {%- endif -%}
+      <div class="flex flex-col justify-center items-center gap-4 mt-8 lg:mt-12{% if paginate.pages <= 1 %} !hidden{% endif %}" id="PaginationInfor">
+        <div id="ProductCountDesktop" class="viewing-currently-product">
+          {% liquid
+            assign products_count = paginate.current_page | times: section.settings.products_per_page
+            if products_count > paginate.items
+              assign products_count = paginate.items
+            endif
+          %}
+          <span class="text-sm text-primary font-normal">{{ 'sections.collection_template.current_view_html' | t: all_products_count: paginate.items, products_count: products_count }}</span>
+          <div class="max-w-[194px] mx-auto rounded-2xl bg-[#F1F1F1] h-1 relative overflow-hidden mt-3">
+            <div class="rounded-l-2xl absolute top-0 left-0 h-1 w-full bg-primary !block rounded-2xl" style="max-width: {{ products_count | divided_by: 1.0 | divided_by: paginate.items |  times: 100 }}%"></div>
+          </div>
+        </div>
+        <collection-loadmore data-click-loadmore="false" class="block text-center cursor-pointer">
+          <span data-href="{{ paginate.next.url }}" class="load-more_btn">
+          </span>
+          <div class="loading-animation">
+            {% for i in (1..10) %}
+              <div class="animation-wave"></div>
+            {% endfor %}
+          </div>
+        </collection-loadmore>
+      </div>
+    </div>
+  </div>
+{% endpaginate %}
+{% capture facet %}{{ 'facet.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: facet, priority: 'normal', type: "defer" %}
+
+<script defer>
+  let term = '{{ search.terms }}';
+  let list = JSON.parse(localStorage.getItem('recentSearch')) || [];
+  if (localStorage.getItem('recentSearch')) {
+    if(!list.includes(term)) {
+      list.unshift(term);
+      if(list.length > 3) {
+        list.pop();
+      }
+    }
+    localStorage.setItem('recentSearch', JSON.stringify(list));
+  } else {
+    list.unshift(term);
+    localStorage.setItem('recentSearch', JSON.stringify(list));
+  }
+</script>
+
+{% schema %}
+  {
+    "name": "template-search",
+    "settings": [
+      {
+        "type": "range",
+        "id": "products_per_page",
+        "min": 8,
+        "max": 50,
+        "step": 1,
+        "default": 20,
+        "label": "Product per page"
+      }
+    ]
+  }
+{% endschema %}

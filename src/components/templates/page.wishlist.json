@@ -1,0 +1,63 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#a8a8a8",
+        "color_text_breadcrumb_link_hover": "#2f2f2f",
+        "color_text_breadcrumb": "#000",
+        "padding_top": 12,
+        "padding_bottom": 12,
+        "padding_top_mb": 12,
+        "padding_bottom_mb": 12
+      }
+    },
+    "page-banner": {
+      "type": "page-banner",
+      "settings": {
+        "color_title": "#000",
+        "color_subtitle": "#4d4d4d",
+        "background_color": "#ffffff",
+        "subtile": "",
+        "padding_vertical": 0,
+        "padding_horizontal": 0,
+        "padding_vertical_mb": 0,
+        "padding_horizontal_mb": 0,
+        "margin_top": 32,
+        "margin_bottom": 32,
+        "margin_top_mb": 24,
+        "margin_bottom_mb": 24
+      }
+    },
+    "template-wishlist": {
+      "type": "template-wishlist",
+      "settings": {
+        "product_per_row": 4,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 0
+      }
+    },
+    "d599caf5-6437-4c03-a594-1a80321c323f": {
+      "type": "recently-viewed-product",
+      "settings": {
+        "heading": "Recently Viewed Products",
+        "background_color": "#ffffff",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 0
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "page-banner",
+    "template-wishlist",
+    "d599caf5-6437-4c03-a594-1a80321c323f"
+  ]
+}

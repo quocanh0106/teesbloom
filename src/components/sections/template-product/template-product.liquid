@@ -1,0 +1,679 @@
+<link rel="stylesheet" href="{{ 'template-product.css' | asset_url }}" />
+<script>
+  window.product = {{ product | json }}
+</script>
+
+<script id="product-card" type="text/html">
+  <li class="slider-slide w-full">{% render 'product-card', product: product, use_variant: true %}</li>
+</script>
+{% liquid
+  assign variants_available_arr = product.variants | map: 'available'
+  assign variants_option1_arr = product.variants | map: 'option1'
+  assign variants_option2_arr = product.variants | map: 'option2'
+  assign variants_option3_arr = product.variants | map: 'option3'
+  assign product_form_id = 'product-form-' | append: section.id
+%}
+
+{%- liquid
+  if settings.estimate_arrival != blank
+    assign min_arrival = settings.estimate_arrival | replace: ' ', '' | split: '-' | first
+    assign max_arrival = settings.estimate_arrival | replace: ' ', '' | split: '-' | last
+    assign seconds3 = min_arrival | times: 24 | times: 60 | times: 60
+    assign seconds4 = max_arrival | times: 24 | times: 60 | times: 60
+  else
+    assign seconds3 = 11 | times: 24 | times: 60 | times: 60
+    assign seconds4 = 61 | times: 24 | times: 60 | times: 60
+  endif
+
+  assign duration_min = seconds3 | divided_by: 24 | divided_by: 60 | divided_by: 60
+  assign duration_max = seconds4 | divided_by: 24 | divided_by: 60 | divided_by: 60
+
+  for i in (1..duration_min)
+    assign days = 86400 | times: i
+    assign mod_date = 'now' | date: '%s' | plus: days | date: '%a'
+    if forloop.last == false
+      if mod_date == 'Sat'
+        assign seconds3 = seconds3 | plus: 86400
+      endif
+    else
+      if mod_date == 'Sat'
+        assign seconds3 = seconds3 | plus: 172800
+      endif
+    endif
+    if mod_date == 'Sun'
+      assign seconds3 = seconds3 | plus: 86400
+    endif
+  endfor
+
+  for i in (1..duration_max)
+    assign days = 86400 | times: i
+    assign mod_date = 'now' | date: '%s' | plus: days | date: '%a'
+    if mod_date == 'Sat'
+      assign seconds4 = seconds4 | plus: 86400
+    endif
+    if mod_date == 'Sun'
+      assign seconds4 = seconds4 | plus: 86400
+    endif
+  endfor
+
+  if settings.order_ship != blank
+    assign min_order_ship = settings.order_ship | replace: ' ', '' | split: '-' | first
+    assign max_order_ship = settings.order_ship | replace: ' ', '' | split: '-' | last
+    assign seconds = min_order_ship | times: 24 | times: 60 | times: 60
+    assign seconds2 = max_order_ship | times: 24 | times: 60 | times: 60
+  else
+    assign seconds = 3 | times: 24 | times: 60 | times: 60
+    assign seconds2 = 6 | times: 24 | times: 60 | times: 60
+  endif
+  assign duration_min = seconds | divided_by: 24 | divided_by: 60 | divided_by: 60
+  assign duration_max = seconds2 | divided_by: 24 | divided_by: 60 | divided_by: 60
+
+  for i in (1..duration_min)
+    assign days_min_1 = 86400 | times: i
+    assign mod_date_min_1 = 'now' | date: '%s' | plus: days_min_1 | date: '%a'
+
+    if forloop.last == false
+      if mod_date_min_1 == 'Sat'
+        assign seconds = seconds | plus: 86400
+      endif
+    else
+      if mod_date_min_1 == 'Sat'
+        assign seconds = seconds | plus: 172800
+      endif
+    endif
+    if mod_date_min_1 == 'Sun'
+      assign seconds = seconds | plus: 86400
+    endif
+  endfor
+
+
+  for i in (1..duration_max)
+    assign days_max_1 = 86400 | times: i
+    assign mod_date_max_1 = 'now' | date: '%s' | plus: days_max_1 | date: '%a'
+
+    if forloop.last == false
+      if mod_date_max_1 == 'Sat'
+        assign seconds2 = seconds2 | plus: 86400
+      endif
+    else
+      if mod_date_max_1 == 'Sat'
+        assign seconds2 = seconds2 | plus: 172800
+      endif
+    endif
+    if mod_date_max_1 == 'Sun'
+      assign seconds2 = seconds2 | plus: 86400
+    endif
+  endfor
+-%}
+
+<section id="MainProduct-{{ section.id }}" data-section="{{ section.id }}">
+  <div class="page-width flex flex-wrap lg:flex-nowrap">
+    <div class="product-media-wrapper w-full{% if product.media.size > 0 %} lg:max-w-1/2{% else %} lg:max-w-full{% endif %} overflow-hidden h-fit transition-all duration-200 static lg:sticky lg:top-4">
+      {% render 'product-media-gallery', product: product %}
+    </div>
+    <product-infor class="block w-full h-fit {% if product.media.size > 0 %} lg:max-w-1/2 {% endif %} px-0 py-6 lg:pl-10 lg:py-0 lg:sticky lg:top-10" id="ProductInfo-{{ section.id }}" data-product="{{ product.handle }}" data-recently-view="{{ settings.recently_view_limit }}">
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          {%- when 'text' -%}
+            <p class="text-sm lg:text-base leading-4 {% if block.settings.text_style == 'uppercase' %} uppercase{% elsif block.settings.text_style == 'subtitle' %} normal-case{% endif %}">
+              {{- block.settings.text -}}
+            </p>
+          {%- when 'title' -%}
+            <div class="mb-5 lg:mb-6">
+              <h1 class="text-h3 uppercase leading-none font-semibold mb-2 font-heading tracking-wide">{{ product.title | escape }}</h1>
+            </div>
+          {%- when 'price' -%}
+            <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+              {%- render 'price' , product: product , use_variant: true , show_badges: true , show: true, class: '!mb-4' -%}
+            </div>
+          {%- when 'popup' -%}
+            <modal-opener class="product-popup-modal__opener no-js-hidden quick-add-hidden" data-id="#PopupModal-{{ block.id }}" {{ block.shopify_attributes }}>
+              <button id="ProductPopup-{{ block.id }}" class="product-popup-modal__button link" type="button" aria-haspopup="dialog">
+                {{ block.settings.text | default: block.settings.page.title }}
+              </button>
+            </modal-opener>
+            <a href="{{ block.settings.page.url }}" class="product-popup-modal__button link no-js">
+              {{- block.settings.text -}}
+            </a>
+          {%- when 'shipping-box' -%}
+            <div class="rounded bg-background grid gap-2 mb-2 w-fit">
+              <div class="flex gap-2 items-center">
+                <span class="flex gap-2 items-center text-subtext text-base leading-5 font-normal">{% render 'icon-mini-truck' , class: 'w-6 h-6 text-primary' %} {{ 'products.product.estimated_delivery' | t }}</span>
+                <span class="text-primary text-base leading-5 font-semibold underline">{{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }} - {{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}</span>
+              </div>
+            </div>
+          {%- when 'variant_picker' -%}
+            {%- unless product.has_only_default_variant -%}
+              <variant-radios class="block pt-6 scroll-m-14 lg:scroll-m-31" id="variant-radios-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" {% if update_url == false %} data-update-url="false" {% endif %}>
+                {%- for option in product.options_with_values -%}
+                  {% assign fatherIndex = forloop.index0 %}
+                  {% assign optionName = option.name | downcase %}
+                  {% if optionName == 'size' or optionName == 'taille' or optionName == 'taglia' or optionName == 'größe' %}
+                    <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} option-size-wrapper data-layer-{{ fatherIndex }}" data-name="Size">
+                      <div class="title-option-size mb-3 flex justify-between items-center">
+                        <legend class="form__label flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">{{ 'products.product.size' | t }}
+                          <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
+                          <span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>
+                          {% if forloop.index == 3 %}
+                            {% assign option1 = product.options_with_values[1].name | split: " " | last %}
+                            <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: option1 }}</span>
+                          {% endif %}
+                        </legend>
+                        <modal-opener data-id="#PopupModal-Sizeguide" data-active="{{ activeType }}" class="size-popup flex gap-2 text-sm items-center capitalize cursor-pointer font-semibold font-heading text-primary underline underline-offset-2">{% render 'icon-ruler' %}{{ 'products.product.size_guide' | t }}</modal-opener>
+                      </div>
+                      <div class="title-option-size-bt flex flex-wrap gap-2">
+                        {%- for value in option.values -%}
+                          <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[40px] bg-background text-primary border border-primary p-2 flex text-center rounded-xl items-center justify-center option-size-label min-w-12 max-w-6-col-variant w-full">
+                            {{ value }}
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </fieldset>
+                  {% else %}
+                    <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} selector-wrapper data-layer-{{ fatherIndex }}">
+                      <legend class="form__label mb-3 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
+                        {{ option.name }}
+                        <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
+                        {% unless forloop.first %}<span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>{% endunless %}
+                        {% if forloop.index == 3 %}
+                          {% assign option1 = product.options_with_values[1].name | split: " " | last %}
+                          <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: option1 }}</span>
+                        {% endif %}
+                      </legend>
+                      <div class="option-values flex flex-wrap gap-2">
+                        {%- for value in option.values -%}
+                          <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-none lg:leading-none min-h-[40px] bg-background text-primary border border-primary p-2 flex text-center rounded-xl items-center justify-center max-w-3-col-variant w-full option-label">
+                            {{ value }}
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </fieldset>
+                  {% endif %}
+                {%- endfor -%}
+                <script type="application/json">
+                  {{ product.variants | json }}
+                </script>
+              </variant-radios>
+            {%- endunless -%}
+          {%- when 'text-image' -%}
+            {% style %}
+              [data-block-id="{{ block.id }}"] {
+                background: {{ block.settings.background_color_image_text }};
+                color: {{ block.settings.colors_text }};
+              }
+            {% endstyle %}
+            <div data-block-id="{{ block.id }}" class="grid grid-cols-3 gap-1 p-3 lg:p-4 mt-3 lg:mt-8 rounded-lg">
+              {% if block.settings.image-1 != blank or block.settings.text-1 != blank %}
+                <div class="text-center">
+                  {% if block.settings.image-1 != blank %}
+                    <img class="mb-3 mx-auto block text-center max-w-[40px]" src="{{ block.settings.image-1 | image_url: width: 150 }}" alt="{{ block.settings.text-1 }}" loading="lazy" width="{{ block.settings.image-1.width }}" height="{{ block.settings.image-1.height }}"/>
+                  {% endif %}
+                  {%- if block.settings.text-1 != blank -%}
+                    <span class="capitalize text-xs leading-2 lg:text-sm lg:leading-2 inline-block font-heading font-normal">{{ block.settings.text-1 }}</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+              {% if block.settings.image-2 != blank or block.settings.text-2 != blank %}
+                <div class="text-image text-center">
+                  {% if block.settings.image-2 != blank %}
+                    <img src="{{ block.settings.image-2 | image_url: width: 150 }}" alt="{{ block.settings.text-2 | escape }}" loading="lazy" width="{{ block.settings.image-2.width }}" height="{{ block.settings.image-2.height }}" class="mb-3 mx-auto block text-center max-w-[40px]" />
+                  {% endif %}
+                  {%- if block.settings.text-2 != blank -%}
+                    <span class="capitalize text-xs leading-2 lg:text-sm lg:leading-2 inline-block font-heading font-normal">{{ block.settings.text-2 }}</span>
+                  {% endif %}
+                </div>
+              {%- endif -%}
+              {%- if block.settings.image-3 != blank or block.settings.text-3 != blank -%}
+                <div class="text-image text-center">
+                  {% if block.settings.image-3 != blank %}
+                    <img src="{{ block.settings.image-3 | image_url: width: 150 }}" alt="{{ block.settings.text-3 | escape }}" loading="lazy" width="{{ block.settings.image-3.width }}" height="{{ block.settings.image-3.height }}" class="mb-3 mx-auto block text-center max-w-[40px]" />
+                  {% endif %}
+                  {%- if block.settings.text-3 != blank -%}
+                    <span class="capitalize text-xs leading-2 lg:text-sm lg:leading-2 inline-block font-heading font-normal">{{ block.settings.text-3 }}</span>
+                  {%- endif -%}
+                </div>
+              {%- endif -%}
+            </div>
+          {%- when 'buy_buttons' -%}
+            <product-form class="block pb-6">
+              {%- form 'product', product, id: product_form_id, class: 'form mt-8', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+                <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+                <label for="Quantity-{{ section.id }}" class="block text-base font-medium mb-2.5 text-primary">Quantity</label>
+                <quantity-input class="flex items-center bg-[#f6f6f6] relative w-fit h-10 rounded mb-4">
+                  <button class="w-10 h-10 border border-border bg-background rounded-l relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button" role="button" aria-label="minus">
+                    {% render 'icon-minus', class: 'w-4 h-4 mx-auto' %}
+                  </button>
+                  <input class="appearance-none border-none bg-[#f6f6f6] text-primary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-6 lg:w-12 h-full font-medium text-center !ring-0 shadow-none focus:border-none" 
+                    type="number"
+                    name="quantity"
+                    id="Quantity-{{ section.id }}"
+                    data-cart-quantity="{{ cart_qty }}"
+                    data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                      data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                      max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                    {% endif %}
+                    step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                    value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                    form="{{ product_form_id }}"
+                    aria-label="quantity">
+                  <button class="w-10 h-10 border border-border bg-background rounded-r relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="plus" type="button" role="button" aria-label="plus">
+                    {% render 'icon-plus', class: 'w-4 h-4 mx-auto' %}
+                  </button>
+                </quantity-input>
+
+                <div class="product-form__error-message-wrapper flex gap-1 items-center text-base text-error px-3 py-1.5 fixed top-3 right-3 bg-background shadow-megamenu rounded transition-all" role="alert" hidden>
+                  <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error w-4 h-4"  viewBox="0 0 13 13">
+                    <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
+                    <circle cx="6.5" cy="6.5" r="5.5" fill="#EB001B" stroke="#EB001B" stroke-width="0.7" />
+                    <path d="M5.87413 3.52832L5.97439 7.57216H7.02713L7.12739 3.52832H5.87413ZM6.50076 9.66091C6.88091 9.66091 7.18169 9.37267 7.18169 9.00504C7.18169 8.63742 6.88091 8.34917 6.50076 8.34917C6.12061 8.34917 5.81982 8.63742 5.81982 9.00504C5.81982 9.37267 6.12061 9.66091 6.50076 9.66091Z" fill="white" />
+                    <path d="M5.87413 3.17832H5.51535L5.52424 3.537L5.6245 7.58083L5.63296 7.92216H5.97439H7.02713H7.36856L7.37702 7.58083L7.47728 3.537L7.48617 3.17832H7.12739H5.87413ZM6.50076 10.0109C7.06121 10.0109 7.5317 9.57872 7.5317 9.00504C7.5317 8.43137 7.06121 7.99918 6.50076 7.99918C5.94031 7.99918 5.46982 8.43137 5.46982 9.00504C5.46982 9.57872 5.94031 10.0109 6.50076 10.0109Z" fill="white" stroke="#EB001B" stroke-width="0.7">
+                  </svg>
+                  <span class="product-form__error-message"></span>
+                </div>
+
+                <sticky-add-to-cart class="block relative h-34">
+                  <div class="product-form__buttons flex flex-wrap gap-2">
+                    <button type="submit" name="add" class="product-form__submit button button--full-width btn-2" {% if product.selected_or_first_available_variant.available == false %} disabled{% endif %}>
+                      <span>
+                        {%- if product.selected_or_first_available_variant.available -%}
+                          {{ 'products.product.add_to_cart' | t }}
+                        {%- else -%}
+                          {{ 'products.product.sold_out' | t }}
+                        {%- endif -%}
+                      </span>
+                      <div class="loading-overlay__spinner hidden"></div>
+                    </button>
+                    <div class="button-unavailable"></div>
+                  </div>
+                </sticky-add-to-cart>
+              {%- endform -%}
+            </product-form>
+          {%- when 'collapsible_tab' -%}
+            {% if block.settings.title != blank %}
+              <accordion-toggle class="block w-full relative cursor-pointer bg-background py-3">
+                <div class="summary flex items-center justify-between gap-3">
+                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading uppercase">
+                    {% if block.settings.icon == 'note' %}
+                      {% render 'icon-mini-note' %}    
+                    {% elsif block.settings.icon == 'truck' %}
+                      {% render 'icon-mini-truck' %}                      
+                    {% endif %}
+                    {{ block.settings.title }}
+                  </h2>
+                  <span class="icon-add">{%- render 'icon-down', class: 'w-6 h-6 text-primary' -%}</span>
+                  <span class="icon-minus">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
+                </div>
+                <div class="details p-0">
+                  {% if block.settings.product_description %}
+                    {{ product.description }}
+                  {% else %}
+                    {{ block.settings.description }}
+                  {% endif %}
+                </div>
+              </accordion-toggle>
+            {% endif %}
+          {%- when 'collapsible-shipping' -%}
+            {% if block.settings.title != blank %}
+              <accordion-toggle class="block w-full relative cursor-pointer bg-background py-3">
+                <div class="summary flex items-center justify-between gap-3">
+                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading uppercase">
+                    {% if block.settings.icon == 'note' %}
+                      {% render 'icon-mini-note' %}    
+                    {% elsif block.settings.icon == 'truck' %}
+                      {% render 'icon-mini-truck' %}                      
+                    {% endif %}
+                    {{ block.settings.title }}
+                  </h2>
+                  <span class="icon-add">{%- render 'icon-down', class: 'w-6 h-6 text-primary' -%}</span>
+                  <span class="icon-minus">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
+                </div>
+                <div class="details p-0">
+                  <div class="icon-text grid grid-cols-3 items-start p-4">
+                    <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary-100 before:border before:border-t-2 before:block before:w-1/2 before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                      </div>
+                      <div class="date-text group">
+                        <span class="text-xs lg:text-sm text-primary-700 font-heading font-semibold leading-4 block">
+                          {%- assign mod_today = 'now' | date: '%a' -%}
+                          {% if shop.locale == 'de' %}
+                            {% if mod_today == 'Sat' %}
+                              <span>{{ "now" | date: '%s' | date: "%d %b" }}</span>
+                            {% elsif mod_today == 'Sun' %}
+                              <span>{{ "now" | date: '%s' | date: "%d %b" }}</span>
+                            {%- else -%}
+                              <span>{{ "now" | date: "%d %b" }}</span>
+                            {% endif %}
+                          {% else %}
+                            {% if mod_today == 'Sat' %}
+                              <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
+                            {% elsif mod_today == 'Sun' %}
+                              <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
+                            {%- else -%}
+                              <span>{{ "now" | date: "%b %d" }}</span>
+                            {% endif %}
+                          {% endif %}
+                        </span>
+                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary-700 block">
+                          {{ 'products.shipping_information.order_placed' | t }}
+                        </span>
+                      </div>
+                      <span class="shadow-tooltip tooltip group-hover:opacity-100 group-hover:visible">{{ 'products.shipping_information.order_placed_mess' | t }}</span>
+                    </div>
+                    <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary-100 before:border before:border-t-2 before:block before:w-full left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                      </div>
+                      <div class="date-text group">
+                        <span class="text-xs lg:text-sm text-primary-700 font-heading font-semibold leading-4 block">
+                          {% if shop.locale == 'de' %}
+                            {{ 'now' | date: "%s" | plus: seconds | date: "%d" }}-{{ 'now' | date: "%s" | plus: seconds2 | date: "%d" }} {{ 'now' | date: "%s" | plus: seconds | date: "%b" }}
+                          {% else %}
+                            {{ 'now' | date: "%s" | plus: seconds | date: "%b %d" }}-{{ 'now' | date: "%s" | plus: seconds2 | date: "%d" }}
+                          {% endif %}
+                        </span>
+                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary-700 block">
+                          {{ 'products.shipping_information.order_ships' | t }}
+                        </span>
+                      </div>
+                      <span class="shadow-tooltip tooltip group-hover:opacity-100 group-hover:visible">{{ 'products.shipping_information.order_ships_mess' | t }}</span>
+                    </div>
+                    <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
+                      {% assign datec = 'now' | date: "%s" | plus: seconds3 | date: "%b %d" %}
+                      {% assign datecc = 'now' | date: "%s" | plus: seconds4 | date: "%b %d" %}
+                      {% assign date = datec | append: '-' | append: datecc %}
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary-100 before:border before:border-t-2 before:block before:w-1/2 left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                      </div>
+                      <div class="date-text group">
+                        <span class="text-xs lg:text-sm text-primary-700 font-heading font-semibold leading-4 block">
+                          {% if shop.locale == 'de' %}
+                            {{ 'now' | date: "%s" | plus: seconds3 | date: "%d %b" }}-{{ 'now' | date: "%s" | plus: seconds4 | date: "%d %b" }}
+                          {% else %}
+                            {{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }}-{{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}
+                          {% endif %}
+                        </span>
+                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary-700 block">
+                          {{ 'products.shipping_information.delivered' | t }}
+                        </span>
+                      </div>
+                      <span class="shadow-tooltip tooltip group-hover:opacity-100 group-hover:visible">{{ 'products.shipping_information.delivered_mess' | t: date: date }}</span>
+                    </div>
+                  </div>
+                </div>
+              </accordion-toggle>
+            {% endif %}
+        {%- endcase -%}
+      {%- endfor -%}
+    </product-infor>
+  </div>
+
+  {%- liquid
+    if product.selected_or_first_available_variant.featured_media
+      assign seo_media = product.selected_or_first_available_variant.featured_media
+    else
+      assign seo_media = product.featured_media
+    endif
+  -%}
+  {% assign collectionList = '' %}
+  {% for collection in product.collections %}
+    {% unless forloop.first %}
+      {% assign collectionList = collectionList | append: ',' | append: '"' | append: collection.title | append: '"' %}
+    {% else %}
+      {% assign collectionList = '"' | append: collection.title | append: '"'  %}
+    {% endunless %}
+  {% endfor %}
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org/",
+      "@type": "Product",
+      "name": {{ product.title | json }},
+      "url": {{ request.origin | append: product.url | json }},
+      {% if seo_media -%}
+        "image" : [{{ seo_media | image_url: width: seo_media.preview_image.width | prepend: "https:" | json }}],
+      {%- endif %}
+      {% if product.description != "blank" %}
+        "description": {{ product.description | strip_html | json }},
+      {% endif %}
+      {% if product.selected_or_first_available_variant.sku != blank -%}
+        "sku": {{ product.selected_or_first_available_variant.sku | json }},
+      {%- endif %}
+      "brand": {
+        "@type": "Brand",
+        "name": {{ product.type | json }}
+      }{% if product.variants.size > 1 %},
+        "offers": [
+          {%- for variant in product.variants -%}
+            {
+              "@type": "Offer",
+              {%- if variant.sku != blank -%}
+                "sku": {{ variant.sku | json }},
+              {%- endif -%}
+              {%- if variant.barcode.size == 12 -%}
+                "gtin12": {{ variant.barcode }},
+              {%- endif -%}
+              {%- if variant.barcode.size == 13 -%}
+                "gtin13": {{ variant.barcode }},
+              {%- endif -%}
+              {%- if variant.barcode.size == 14 -%}
+                "gtin14": {{ variant.barcode }},
+              {%- endif -%}
+                "availability": "http://schema.org/{% if variant.available %} InStock{% else %}OutOfStock{% endif %}",
+                "price": "{{ variant.price | money_without_currency | replace: ",", "" | replace: ".", "" | replace: " ", "" }}",
+                "priceCurrency": {{ cart.currency.iso_code | json }},
+                "url": {{ request.origin | append: variant.url | json }}
+            }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      {% endif %}
+    }
+  </script>
+</section>
+
+{% capture src_url %}{{ 'template-product.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+
+{% schema %}
+  {
+    "name": "Template product",
+    "tag": "section",
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "text",
+            "id": "text",
+            "default": "Text block",
+            "label": "Text"
+          },
+          {
+            "type": "select",
+            "id": "text_style",
+            "options": [
+              {
+                "value": "body",
+                "label": "Body"
+              },
+              {
+                "value": "subtitle",
+                "label": "Subtitle"
+              },
+              {
+                "value": "uppercase",
+                "label": "Uppercase"
+              }
+            ],
+            "default": "body",
+            "label": "Text style"
+          }
+        ]
+      },
+      {
+        "type": "shipping-box",
+        "name": "Shipping box",
+        "settings": []
+      },
+      {
+        "type": "collapsible-shipping",
+        "name": "Collapsible shipping ",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "select",
+            "id": "icon",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "note",
+                "label": "Note"
+              },
+              {
+                "value": "truck",
+                "label": "Truck"
+              }
+            ],
+            "default": "note",
+            "label": "Text style"
+          }
+        ]
+      },
+      {
+        "type": "text-image",
+        "name": "Text Image",
+        "settings": [
+          {
+            "type": "color",
+            "id": "background_color_image_text",
+            "label": "Background",
+            "default": "#FAFAFA"
+          },
+          {
+            "type": "color",
+            "id": "colors_text",
+            "default": "#808080",
+            "label": "Color text"
+          },
+          {
+            "type": "image_picker",
+            "id": "image-1",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "text-1",
+            "default": "Text block",
+            "label": "Text"
+          },
+          {
+            "type": "image_picker",
+            "id": "image-2",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "text-2",
+            "default": "Text block",
+            "label": "Text"
+          },
+          {
+            "type": "image_picker",
+            "id": "image-3",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "text-3",
+            "default": "Text block",
+            "label": "Text"
+          }
+        ]
+      },
+      {
+        "type": "title",
+        "name": "Title",
+        "limit": 1
+      },
+      {
+        "type": "price",
+        "name": "Price",
+        "limit": 1
+      },
+      {
+        "type": "quantity_selector",
+        "name": "Quantity",
+        "limit": 1
+      },
+      {
+        "type": "variant_picker",
+        "name": "Variant picker",
+        "limit": 1,
+        "settings": []
+      },
+      {
+        "type": "buy_buttons",
+        "name": "Buy button",
+        "limit": 1,
+        "settings": []
+      },
+      {
+        "type": "collapsible_tab",
+        "name": "Collapsible tab",
+        "settings": [
+          {
+            "type": "select",
+            "id": "icon",
+            "options": [
+              {
+                "value": "none",
+                "label": "None"
+              },
+              {
+                "value": "note",
+                "label": "Note"
+              },
+              {
+                "value": "truck",
+                "label": "Truck"
+              }
+            ],
+            "default": "note",
+            "label": "Text style"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "checkbox",
+            "id": "product_description",
+            "label": "Use product description"
+          },
+          {
+            "type": "text",
+            "id": "description",
+            "label": "Description"
+          }
+        ]
+      }
+    ],
+    "settings": [
+    ]
+  }
+{% endschema %}

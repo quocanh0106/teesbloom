@@ -1,0 +1,625 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "banner_1": {
+      "type": "banner",
+      "blocks": {
+        "slide_axFEqc": {
+          "type": "slide",
+          "settings": {
+            "content_position": "left",
+            "colors_background": "#fff2e7",
+            "image": "shopify://shop_images/1.webp",
+            "image_mobile": "shopify://shop_images/1.webp",
+            "heading_tag": "h2",
+            "colors_heading": "#954da4",
+            "heading_size": 45,
+            "heading_size_mb": 36,
+            "heading": "Halloween",
+            "colors_description": "#0b2a4a",
+            "description_size": 20,
+            "description_size_mb": 16,
+            "description": "Transform Your Halloween into a Spook-tacular Celebration with Fun Decor and Treats",
+            "button_label": "SHOP NOW",
+            "link": "",
+            "colors_text_button": "#fc6514",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        },
+        "slide_7RPfm9": {
+          "type": "slide",
+          "settings": {
+            "content_position": "left",
+            "colors_background": "#fff2e7",
+            "image": "shopify://shop_images/2.webp",
+            "image_mobile": "shopify://shop_images/2.webp",
+            "heading_tag": "h2",
+            "colors_heading": "#d65956",
+            "heading_size": 45,
+            "heading_size_mb": 36,
+            "heading": "Hispanic Month",
+            "colors_description": "#0b2a4a",
+            "description_size": 20,
+            "description_size_mb": 16,
+            "description": "Showcase Your Appreciation with Gifts That Embody the Spirit and Traditions of the Culture",
+            "button_label": "SHOP NOW",
+            "link": "",
+            "colors_text_button": "#fc6514",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        },
+        "slide_6KjafE": {
+          "type": "slide",
+          "settings": {
+            "content_position": "left",
+            "colors_background": "#fff2e7",
+            "image": "shopify://shop_images/3.webp",
+            "image_mobile": "shopify://shop_images/3.webp",
+            "heading_tag": "h2",
+            "colors_heading": "#fc6514",
+            "heading_size": 45,
+            "heading_size_mb": 36,
+            "heading": "Anniversary",
+            "colors_description": "#0b2a4a",
+            "description_size": 20,
+            "description_size_mb": 16,
+            "description": "Capture Your Love Story with Unforgettable Anniversary Gifts for Your Partner.",
+            "button_label": "SHOP NOW",
+            "link": "",
+            "colors_text_button": "#fc6514",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        },
+        "slide_UK7cdp": {
+          "type": "slide",
+          "settings": {
+            "content_position": "left",
+            "colors_background": "#fff2e7",
+            "image": "shopify://shop_images/4.webp",
+            "image_mobile": "shopify://shop_images/4.webp",
+            "heading_tag": "h2",
+            "colors_heading": "#cb5f47",
+            "heading_size": 45,
+            "heading_size_mb": 36,
+            "heading": "Fall Season",
+            "colors_description": "#0b2a4a",
+            "description_size": 20,
+            "description_size_mb": 16,
+            "description": "Embrace the Cozy Charm of Fall with Our Range of Unique Gifts and Seasonal Décor",
+            "button_label": "SHOP NOW",
+            "link": "",
+            "colors_text_button": "#fc6514",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        }
+      },
+      "block_order": [
+        "slide_axFEqc",
+        "slide_7RPfm9",
+        "slide_6KjafE",
+        "slide_UK7cdp"
+      ],
+      "settings": {
+        "fullwidth": true,
+        "enable_swipe_on_mobile": true,
+        "col_per_row_mobile": 1,
+        "col_per_row_desktop": 1,
+        "margin_top": 0,
+        "margin_bottom": 64,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 32
+      }
+    },
+    "product_list_nfyqHW": {
+      "type": "product-list",
+      "settings": {
+        "fullwidth": false,
+        "background_color": "#ffffff",
+        "heading": "Trending Now",
+        "collection": "halloween",
+        "product_per_row": 4,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 8,
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 32
+      }
+    },
+    "banner_2": {
+      "type": "banner",
+      "blocks": {
+        "slide_6LenWk": {
+          "type": "slide",
+          "settings": {
+            "content_position": "right",
+            "colors_background": "#fff2e7",
+            "image": "shopify://shop_images/3.webp",
+            "image_mobile": "shopify://shop_images/3.webp",
+            "heading_tag": "h2",
+            "colors_heading": "#fc6514",
+            "heading_size": 60,
+            "heading_size_mb": 32,
+            "heading": "Anniversary",
+            "colors_description": "#0b2a4a",
+            "description_size": 30,
+            "description_size_mb": 18,
+            "description": "Personalized Gifts For Partners",
+            "button_label": "SHOP ALL",
+            "link": "",
+            "colors_text_button": "#fc6514",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        }
+      },
+      "block_order": [
+        "slide_6LenWk"
+      ],
+      "settings": {
+        "fullwidth": false,
+        "enable_swipe_on_mobile": false,
+        "col_per_row_mobile": 1,
+        "col_per_row_desktop": 1,
+        "margin_top": 0,
+        "margin_bottom": 64,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 32
+      }
+    },
+    "product_slider_tabs_1": {
+      "type": "product-slider-tabs",
+      "blocks": {
+        "tab_aDaVje": {
+          "type": "tab",
+          "settings": {
+            "tab_heading": "Bedding",
+            "collection": "bedding"
+          }
+        },
+        "tab_LJTemw": {
+          "type": "tab",
+          "settings": {
+            "tab_heading": "Anniversary",
+            "collection": "anniversary"
+          }
+        }
+      },
+      "block_order": [
+        "tab_aDaVje",
+        "tab_LJTemw"
+      ],
+      "settings": {
+        "product_per_row": 4,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 8,
+        "background_color": "#FFFFFF",
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 32
+      }
+    },
+    "banner_4": {
+      "type": "banner",
+      "blocks": {
+        "slide_6LenWk": {
+          "type": "slide",
+          "settings": {
+            "content_position": "left",
+            "colors_background": "#fff2e7",
+            "image": "shopify://shop_images/Christmas.png",
+            "image_mobile": "shopify://shop_images/Christmas.png",
+            "heading_tag": "h2",
+            "colors_heading": "#c81608",
+            "heading_size": 60,
+            "heading_size_mb": 32,
+            "heading": "Christmas",
+            "colors_description": "#0b2a4a",
+            "description_size": 30,
+            "description_size_mb": 18,
+            "description": "Santa’s Got Nothing on These Gifts!",
+            "button_label": "SHOP ALL",
+            "link": "",
+            "colors_text_button": "#fc6514",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        }
+      },
+      "block_order": [
+        "slide_6LenWk"
+      ],
+      "settings": {
+        "fullwidth": false,
+        "enable_swipe_on_mobile": false,
+        "col_per_row_mobile": 1,
+        "col_per_row_desktop": 1,
+        "margin_top": 0,
+        "margin_bottom": 64,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 32
+      }
+    },
+    "product_slider_tabs_2": {
+      "type": "product-slider-tabs",
+      "blocks": {
+        "tab_aDaVje": {
+          "type": "tab",
+          "settings": {
+            "tab_heading": "Bedding",
+            "collection": "bedding"
+          }
+        },
+        "tab_LJTemw": {
+          "type": "tab",
+          "settings": {
+            "tab_heading": "Anniversary",
+            "collection": "anniversary"
+          }
+        }
+      },
+      "block_order": [
+        "tab_aDaVje",
+        "tab_LJTemw"
+      ],
+      "settings": {
+        "product_per_row": 4,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 8,
+        "background_color": "#FFFFFF",
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 32
+      }
+    },
+    "banner_5": {
+      "type": "banner",
+      "blocks": {
+        "slide_6LenWk": {
+          "type": "slide",
+          "settings": {
+            "content_position": "right",
+            "colors_background": "#fff2e7",
+            "image": "shopify://shop_images/Kid.png",
+            "image_mobile": "shopify://shop_images/Kid.png",
+            "heading_tag": "h2",
+            "colors_heading": "#d9662e",
+            "heading_size": 60,
+            "heading_size_mb": 32,
+            "heading": "Gifts for Little Ones",
+            "colors_description": "#0b2a4a",
+            "description_size": 30,
+            "description_size_mb": 18,
+            "description": "Unique Gifts for a Smile That Lasts",
+            "button_label": "SHOP ALL",
+            "link": "",
+            "colors_text_button": "#fc6514",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        }
+      },
+      "block_order": [
+        "slide_6LenWk"
+      ],
+      "settings": {
+        "fullwidth": false,
+        "enable_swipe_on_mobile": false,
+        "col_per_row_mobile": 1,
+        "col_per_row_desktop": 1,
+        "margin_top": 0,
+        "margin_bottom": 64,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 32
+      }
+    },
+    "product_slider_tabs_3": {
+      "type": "product-slider-tabs",
+      "blocks": {
+        "tab_aDaVje": {
+          "type": "tab",
+          "settings": {
+            "tab_heading": "Bedding",
+            "collection": "bedding"
+          }
+        },
+        "tab_LJTemw": {
+          "type": "tab",
+          "settings": {
+            "tab_heading": "Anniversary",
+            "collection": "anniversary"
+          }
+        }
+      },
+      "block_order": [
+        "tab_aDaVje",
+        "tab_LJTemw"
+      ],
+      "settings": {
+        "product_per_row": 4,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 8,
+        "background_color": "#FFFFFF",
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 32
+      }
+    },
+    "product_type_list_1": {
+      "type": "product-type-list",
+      "blocks": {
+        "product_type_Pj9VQd": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/shop-by_recipient-Besties.png",
+            "button_label": "For Bestie",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_9aan8C": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/shop-by_recipient-Love.png",
+            "button_label": "For Lover",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_b9ActP": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/shop-by_recipient-Sibling.png",
+            "button_label": "For Sibling",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_YaFEQL": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/shop-by_recipient-Pet_Loved.png",
+            "button_label": "For Pet Lover",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_Hcpmcm": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/shop-by_recipient-Family.png",
+            "button_label": "For Family",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_CXWwrY": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/shop-by_recipient-Mom.png",
+            "button_label": "For Mom",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_YNwf7j": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/shop-by_recipient-Dad.png",
+            "button_label": "For Dad",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_Yimt7X": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/shop-by_recipient-Kid.png",
+            "button_label": "For Kid",
+            "link": "",
+            "anchor_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_type_Pj9VQd",
+        "product_type_9aan8C",
+        "product_type_b9ActP",
+        "product_type_YaFEQL",
+        "product_type_Hcpmcm",
+        "product_type_CXWwrY",
+        "product_type_YNwf7j",
+        "product_type_Yimt7X"
+      ],
+      "settings": {
+        "title": "Shop By Recipient",
+        "image_ratio": "square",
+        "background_color": "",
+        "columns_desktop": 4,
+        "columns_tablet": 2,
+        "columns_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 32
+      }
+    },
+    "product_type_list_2": {
+      "type": "product-type-list",
+      "blocks": {
+        "product_type_Pj9VQd": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.1.jpg",
+            "button_label": "Hanging Suncatcher",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_9aan8C": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.2.jpg",
+            "button_label": "Jewelry Dish",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_b9ActP": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.3.webp",
+            "button_label": "Glass Cup",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_YaFEQL": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.7.jpg",
+            "button_label": "Whiskey Glass",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_CXWwrY": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.5.webp",
+            "button_label": "Mason Jar Light",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_YNwf7j": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.6.webp",
+            "button_label": "Leather Belt",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_Hcpmcm": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.4.jpg",
+            "button_label": "LED Candle",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_Yimt7X": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.8.webp",
+            "button_label": "Doormat",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_fiC4Bc": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.9.webp",
+            "button_label": "Wine Tumbler",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_B4tkiW": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.10.webp",
+            "button_label": "Ornament",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_3zw3ar": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.11.webp",
+            "button_label": "Shirt",
+            "link": "",
+            "anchor_text": ""
+          }
+        },
+        "product_type_Ya3K8J": {
+          "type": "product_type",
+          "settings": {
+            "image": "shopify://shop_images/1.12.webp",
+            "button_label": "Blanket",
+            "link": "",
+            "anchor_text": ""
+          }
+        }
+      },
+      "block_order": [
+        "product_type_Pj9VQd",
+        "product_type_9aan8C",
+        "product_type_b9ActP",
+        "product_type_YaFEQL",
+        "product_type_CXWwrY",
+        "product_type_YNwf7j",
+        "product_type_Hcpmcm",
+        "product_type_Yimt7X",
+        "product_type_fiC4Bc",
+        "product_type_B4tkiW",
+        "product_type_3zw3ar",
+        "product_type_Ya3K8J"
+      ],
+      "settings": {
+        "title": "Shop By Product",
+        "image_ratio": "square",
+        "background_color": "",
+        "columns_desktop": 4,
+        "columns_tablet": 2,
+        "columns_mobile": 2,
+        "padding_top": 0,
+        "padding_bottom": 64,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 32
+      }
+    }
+  },
+  "order": [
+    "banner_1",
+    "product_list_nfyqHW",
+    "banner_2",
+    "product_slider_tabs_1",
+    "banner_4",
+    "product_slider_tabs_2",
+    "banner_5",
+    "product_slider_tabs_3",
+    "product_type_list_1",
+    "product_type_list_2"
+  ]
+}

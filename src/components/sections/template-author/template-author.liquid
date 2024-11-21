@@ -1,0 +1,208 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-width grid grid-cols-1 lg:grid-cols-4 gap-3 lg:gap-4">
+  <div class="w-full h-[250px] lg:h-auto col-span-1 rounded-xl overflow-hidden">
+    <img
+      src="{{ metaobject.image.value | image_url: width: metaobject.image.value.width }}"
+      class="object-cover object-center w-full h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+      alt="{{ metaobject.name.value }}"
+      width="{{ metaobject.image.value.width }}"
+      height="{{ metaobject.image.value.height }}"
+      loading="lazy">
+  </div>
+  <div class="bg-background w-full p-5 pb-6 lg:p-12 lg:col-span-3 rounded-xl overflow-hidden">
+    {% if metaobject.name.value != blank %}
+      <h1 class="text-h2 lg:text-h1 text-primary capitalize mb-3 lg:mb-4">{{ metaobject.name.value }}</h1>
+    {% endif %}
+    {% if metaobject.jobs.value %}
+      <ul class="flex flex-wrap gap-2 items-center mb-5">
+        {% for job in metaobject.jobs.value %}
+          <li class="text-sm text-primary leading-4 lg:text-base lg:leading-4 uppercase font-normal">{{ job }}</li>
+          {% unless forloop.last %}
+            <li class="text-sm text-primary leading-4 lg:text-base lg:leading-4">{% render 'icon-dot', class: 'w-1 h-1' %}</li>
+          {% endunless %}
+        {% endfor %}
+      </ul>
+    {% endif %}
+    {% if metaobject.description.value %}
+      <p class="text-sm leading-5 lg:text-base lg:leading-6 text-primary font-normal mb-5 lg:mb-8">{{ metaobject.description.value }}</p>
+    {% endif %}
+    <div class="flex gap-3 flex-wrap justify-between items-center">
+      <div class="flex gap-3 lg:gap-4 items-center lg:w-full">
+        {% if metaobject.facebook.value %}
+          <a
+            href="{{ metaobject.facebook.value }}"
+            title="facebook"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-facebook', class: 'w-5 h-5' %}</a>
+        {% endif %}
+        {% if metaobject.twitter.value %}
+          <a
+            href="{{ metaobject.twitter.value }}"
+            title="twitter"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-twitter', class: 'w-5 h-5' %}</a>
+        {% endif %}
+        {% if metaobject.instagram.value %}
+          <a
+            href="{{ metaobject.instagram.value }}"
+            title="instagram"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-instagram', class: 'w-5 h-5' %}</a>
+        {% endif %}
+        {% if metaobject.mail.value %}
+          <a
+            href="{{ metaobject.mail.value }}"
+            title="mail"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-mail-author', class: 'w-5 h-5' %}</a>
+        {% endif %}
+        {% if metaobject.pinterest.value %}
+          <a
+            href="{{ metaobject.pinterest.value }}"
+            title="pinterest"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-pinterest-author', class: 'w-5 h-5' %}</a>
+        {% endif %}
+        {% if metaobject.linkedin.value %}
+          <a
+            href="{{ metaobject.linkedin.value }}"
+            title="linkedin"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-linkedin-author', class: 'w-5 h-5' %}</a>
+        {% endif %}
+        {% if metaobject.fivehundredpx.value %}
+          <a
+            href="{{ metaobject.fivehundredpx.value }}"
+            title="500px"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-500px-author', class: 'w-auto h-5' %}</a>
+        {% endif %}
+        {% if metaobject.band.value %}
+          <a
+            href="{{ metaobject.band.value }}"
+            title="band"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-band-author', class: 'w-auto h-5' %}</a>
+        {% endif %}
+        {% if metaobject.scoopit.value %}
+          <a
+            href="{{ metaobject.scoopit.value }}"
+            title="scoopit"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-scoopit-author', class: 'w-auto h-5' %}</a>
+        {% endif %}
+        {% if metaobject.kofi.value %}
+          <a
+            href="{{ metaobject.kofi.value }}"
+            title="kofi"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-kofi-author', class: 'w-auto h-5' %}</a>
+        {% endif %}
+        {% if metaobject.glose.value %}
+          <a
+            href="{{ metaobject.glose.value }}"
+            title="glose"
+            target="_blank"
+            class="block text-primary hover:text-primary">{% render 'icon-glose-author', class: 'w-auto h-5' %}</a>
+        {% endif %}
+      </div>
+      {% if metaobject.website.value %}
+        <a
+          href="{{ metaobject.website.value }}"
+          title="website"
+          target="_blank"
+          class="flex text-xs font-normal leading-5 lg:text-base lg:leading-6 group hover:text-primary text-primary lg:w-full gap-1.5 lg:gap-2 items-center">
+          {% render 'icon-internet'  , class: 'w-4 h-4 lg:w-5 lg:h-5 text-primary group-hover:text-primary' %}
+          <span>{{ metaobject.website.value }}</span>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% capture socials %}"{{ metaobject.facebook.value }}", "{{ metaobject.twitter.value }}", "{{ metaobject.instagram.value }}", "{{ metaobject.mail.value }}", "{{ metaobject.pinterest.value }}", "{{ metaobject.linkedin.value }}", "{{ metaobject.fivehundredpx.value }}", "{{ metaobject.band.value }}", "{{ metaobject.scoopit.value }}", "{{ metaobject.kofi.value }}", "{{ metaobject.glose.value }}", "{{ metaobject.website.value }}"{% endcapture %}
+{% assign newSocials = socials | remove: ', ""' %}
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "name": "{{ metaobject.name.value }}",
+  "jobTitle": "{{ metaobject.jobs.value | join: ', ' }}",
+  "description": "{{ metaobject.description.value }}",
+  "url": "{{ metaobject.system.url | prepend: request.origin }}",
+  "image": "{{ metaobject.image.value | image_url: width: metaobject.image.value.width }}",
+  "sameAs": [{{ newSocials }}]
+}
+</script>
+
+{% schema %}
+  {
+    "name": "Template Author Detail",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Padding desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 64
+      },
+      {
+        "type": "header",
+        "content": "Padding mobile"
+      }, {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+      }, {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 40
+      }
+    ],
+    "presets": [
+      {
+        "name": "Template author"
+      }
+    ]
+  }
+{% endschema %}

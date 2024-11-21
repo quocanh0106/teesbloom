@@ -1,0 +1,37 @@
+{%- liquid 
+  if template contains 'product'
+    assign share_permalink = product.url
+    assign share_image = product.featured_image
+  elsif template contains 'collection'
+    assign share_permalink = collection.url
+    assign share_image = collection.featured_image
+  elsif template contains 'article'
+    assign share_permalink = article.url
+    assign share_image = article.image
+  elsif template contains 'blog'
+    assign share_permalink = blog.url
+    assign share_image = blog.metafields.custom.banner
+  elsif template == 'cart'
+    assign share_permalink = cart.url
+  elsif template contains 'page'
+    assign share_permalink = page.url
+  endif
+-%}
+<div class="flex capitalize text-sm font-semibold leading-6 text-center items-center gap-2 font-heading text-primary {{ class }}">
+  <span class="{% if hide %}hidden xl:block{% else %}block{% endif %}">{{ 'general.share' | t }}</span>
+  <copy-link href="{{ shop.url | append: share_permalink }}" title="copy" class="group relative w-6 h-6 border border-solid border-primary flex items-center cursor-pointer justify-center rounded-full">
+    {% render 'icon-copy', class: 'w-4 h-4' %}
+    <div class="tooltip w-max group-hover:opacity-100 group-hover:visible" data-click="{{ 'general.copy.copied' | t }}" data-normal="{{ 'general.copy.infor' | t }}">
+      {{ 'general.copy.infor' | t }}
+    </div>
+  </copy-link>
+  <a href="//www.facebook.com/sharer.php?u={{ shop.url | append: share_permalink }}" target="_blank" title="facebook" class="w-6 h-6 border border-solid border-primary flex items-center justify-center rounded-full" rel="nofollow">
+    {% render 'icon-facebook-sharing' %}
+  </a>
+  <a href="//twitter.com/share?text={{ share_title | url_param_escape }}&amp;url={{ shop.url | append: share_permalink }}" target="_blank" title="twitter" class="w-6 h-6 border border-solid border-primary flex items-center justify-center rounded-full" rel="nofollow">
+    {% render 'icon-twitter-sharing', class: 'w-4 h-4' %}
+  </a>
+  <a href="//pinterest.com/pin/create/button/?url={{ shop.url | append: share_permalink }}}&amp;media={{ share_image | image_url: '1024x1024' }}" target="_blank" title="pinterest" class="w-6 h-6 border border-solid border-primary flex items-center justify-center rounded-full" rel="nofollow">
+    {% render 'icon-pinterest-sharing', class: 'w-4 h-4' %}
+  </a>
+</div>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta content="" name="theme-color">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link crossorigin href="https://cdn.shopify.com" rel="preconnect">
+    
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: '32', height: '32' }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      {%- if current_page != 1 -%}
+        <meta name="description" content="{{ page_description }} - Page {{ current_page }}">
+      {%- else -%}
+        <meta name="description" content="{{ page_description }}">
+      {%- endif -%}
+    {% endif %}
+
+    {% render 'meta-tags' %}
+
+    {% if template contains 'article' %}
+      <link fetchpriority="high" rel="preload" as="image" imagesrcset="{{ article.image | image_url: width: 708 }}" href="{{ article.image | image_url: width: 708 }}">
+      <link rel="preload" href="{{ 'template-article.css' | asset_url }}" />
+      {% if article.metafields.custom.redirect_url.value != blank %}
+        <script>
+          window.location.href = "{{ article.metafields.custom.redirect_url.value }}"
+        </script>
+      {% endif %}
+    {% elsif template contains 'product' %}
+      <link fetchpriority="high" rel="preload" as="image" imagesrcset="{{ product.featured_image | image_url }}" href="{{ product.featured_image | image_url }}">
+    {% elsif template contains 'collection' %}
+      {% for product in collection.products limit: 2 %}
+        <link fetchpriority="high" rel="preload" as="image" imagesrcset="{{ product.featured_image | image_url: width: product.featured_image.width }}" href="{{ product.featured_image | image_url: width: product.featured_image.width }}">
+      {% endfor %}
+    {% endif %}
+
+    {% render 'font' %}
+
+    {% style %}
+      :root {
+        {% if settings.type_font == 'shopify' %}
+          --font-heading: {{ settings.type_heading_font.family }};
+          --font-body: {{ settings.type_body_font.family }};  
+        {% else %}
+          --font-heading: "Grandstander", cursive;
+          --font-body: "Grandstander";  
+        {% endif %}
+        --page-width: {{ settings.container | append: 'px' }};
+        --container-pading-desktop: {{ settings.padding_desktop | append: 'px' }};
+        --container-pading-tablet: {{ settings.padding_tablet | append: 'px' }};
+        --container-pading-mobile: {{ settings.padding_mobile | append: 'px' }};
+        --color-primary: {{ settings.color_primary }};
+        --color-secondary: {{ settings.color_secondary }};
+        --color-body: {{ settings.color_body_text }};
+        --color-subtext: {{ settings.color_subtext }};
+        --color-border: {{ settings.color_border }};
+        --color-background: {{ settings.color_background }};
+        --color-error: {{ settings.color_error }};
+        --color-warning: {{ settings.color_warning }};
+        --color-success: {{ settings.color_success }};
+        --color-sale: {{ settings.sale_label_bg }};
+        --color-hot: {{ settings.hot_label_bg }};
+        --color-sold-out: {{ settings.sold_out_badge_color }};
+        --color-new: {{ settings.new_label_bg }};
+      }
+    {% endstyle %}
+
+    {% if settings.custom_code_header_all %}
+      {{ settings.custom_code_header_all }}
+    {% endif %}
+
+    {% if template contains 'index' %}
+      {% if settings.custom_code_header_home %}
+        {{ settings.custom_code_header_home }}
+      {% endif %}
+    {% endif %}
+    
+    <script>
+      window.shopUrl = '{{ request.origin }}';
+      window.routes = {
+        cart_add_url: '{{ routes.cart_add_url }}',
+        cart_change_url: '{{ routes.cart_change_url }}',
+        cart_update_url: '{{ routes.cart_update_url }}',
+        cart_url: '{{ routes.cart_url }}',
+        cart_ajax_url: '{{ routes.cart_url | append: '?view=ajax' }}',
+        predictive_search_url: '{{ routes.predictive_search_url }}',
+        account: '{{ routes.account_url }}',
+        accountLogout: '{{ routes.account_logout_url }}'
+      };
+      window.form = {
+        email: `{{ 'general.form.email' | t }}`,
+        username: `{{ 'general.form.username' | t }}`,
+        body: `{{ 'general.form.body' | t }}`,
+        phone: `{{ 'general.form.phone' | t }}`,
+        default: `{{ 'general.form.default' | t }}`
+      }
+      window.cartStrings = {
+        error: `{{ 'sections.cart.cart_error' | t }}`,
+        quantityError: `{{ 'sections.cart.cart_quantity_error_html' | t: quantity: '[quantity]' }}`
+      };
+      window.count = {
+        item: `{{ 'wishlist.item' | t }}`,
+        items: `{{ 'wishlist.items' | t }}`
+      };
+      window.variantStrings = {
+        addToCart: `{{ 'products.product.add_to_cart' | t }}`,
+        soldOut: `{{ 'products.product.sold_out' | t }}`,
+        unavailable: `{{ 'products.product.unavailable' | t }}`
+      };
+
+      window.accessibilityStrings = {
+        imageAvailable: `{{ 'products.product.media.image_available' | t: index: '[index]' }}`,
+        shareSuccess: `{{ 'general.share.success_message' | t }}`
+      };
+    </script>
+
+    <link rel="preload" href="{{ 'theme.css' | asset_url }}" as="style"/>
+    <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}" />
+
+    {%- capture header_scripts -%}
+      {{ content_for_header }}
+    {%- endcapture -%}
+
+    {%- render 'header-scripts', content: header_scripts, unload_apps: false, remove_apps: remove_apps -%}
+
+  </head>
+
+  <body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+    <a class="sr-only" href="#MainContent" id="top">{{ "accessibility.skip_to_text" | t }}</a>
+
+    {% section 'announcement-bar' %}
+
+    {% section 'header' %}
+
+    <div class="!block padding-header transition-all duration-200"></div>
+
+    <main id="MainContent">
+      {{ content_for_layout }}
+    </main>
+    {% render 'cart-drawer' %}
+
+    {% section 'newsletter' %}
+
+    {% section 'footer' %}
+
+    {% if settings.custom_code_footer_all %}
+      {{ settings.custom_code_footer_all }}
+    {% endif %}
+
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+  </body>
+</html>

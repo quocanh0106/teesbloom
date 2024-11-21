@@ -1,0 +1,171 @@
+{%- if section.blocks.size > 0 -%}
+  {%- style -%}
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top_mb }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+    }
+
+    @media screen and (min-width: 1024px) {
+      [data-section-id="{{ section.id }}"] {
+        background: {{ section.settings.background_color }};
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+      [data-section-id="{{ section.id }}"] .slider-slide {
+        max-width: calc(25% - 12px);
+      }
+    }
+  {%- endstyle -%}
+  <div data-section-id="{{ section.id }}">
+    <tabs-component class="page-width block relative">
+      <div class="flex justify-center mb-5 lg:mb-10">
+        <div class="tabs-heading flex gap-2.5">
+          {% for block in section.blocks %}
+            <div class="tab-heading text-base font-heading text-secondary rounded-[100px] border border-secondary py-2.5 px-3.5 [&:not(.active)]:text-primary [&:not(.active)]:border-border-opacity-70  [&:not(.active)]:bg-border-opborder-border-opacity-70  font-medium{% if section.blocks.size > 1 %} cursor-pointer{% endif %}{% if forloop.first %} active{% endif %}" data-id="{{ block.id }}">
+              {% if block.settings.tab_heading %}
+                {{ block.settings.tab_heading | escape }}
+              {% else %}
+                {{ block.settings.collection.title }}
+              {% endif %}  
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% for block in section.blocks %}
+        <div class="tab-wrapper md:px-7.5 lg:px-0 lg:!bg-transparent lg:!py-0 lg:!mt-0" data-block-id="{{ block.id }}">
+          <div class="tab-detail{% unless forloop.first %} hidden{% endunless %}" data-id="{{ block.id }}">
+              <div class="grid gap-y-3 gap-x-5 lg:gap-10 grid-cols-{{ section.settings.product_per_row_mobile }} md:grid-cols-{{ section.settings.product_per_row_tablet }} lg:grid-cols-{{ section.settings.product_per_row }} transition-all duration-500 overflow-hidden">
+                {%- for product in block.settings.collection.products limit: section.settings.limit -%}
+                  {%- render 'product-card', product: product, collection: block.settings.collection, freeship_placeholder: true -%}
+                {%- endfor -%}
+              </div>
+          </div>
+        </div>
+      {% endfor %}
+    </tabs-component>
+  </div>
+{%- endif -%}
+
+
+{% schema %}
+  {
+    "name": "Products slider tabs",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "range",
+        "id": "product_per_row",
+        "label": "Products per row",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "product_per_row_tablet",
+        "label": "Products per row tablet",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "product_per_row_mobile",
+        "label": "Products per row mobile",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "limit",
+        "label": "Limit",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "default": 8
+      },
+      {
+        "type": "header",
+        "content": "Common settings"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 92
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 32
+      }
+    ],
+    "blocks": [
+
+      {
+        "type": "tab",
+        "name": "Products Slider Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "tab_heading",
+            "label": "Tab heading"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Products slider tabs"
+      }
+    ]
+  }
+{% endschema %}

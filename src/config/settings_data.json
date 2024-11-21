@@ -1,0 +1,236 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "current": {
+    "logo_width": 200,
+    "logo_width_mb": 140,
+    "type_heading_font_medium": "poppins_n5",
+    "type_body_font": "poppins_n4",
+    "type_body_font_medium": "poppins_n5",
+    "color_body_text": "#353535",
+    "color_subtext": "#595959",
+    "color_border": "#d3d3d3",
+    "sections": {
+      "header": {
+        "type": "header",
+        "blocks": {
+          "mega_menu_xrQDiJ": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Halloween",
+              "url": "",
+              "menu": "",
+              "primary": true
+            }
+          },
+          "mega_menu_zy6Da7": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Occasions",
+              "url": "",
+              "menu": "main-menu",
+              "primary": false
+            }
+          },
+          "mega_menu_g6A4VB": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Recipients",
+              "url": "",
+              "menu": "",
+              "primary": false
+            }
+          },
+          "mega_menu_Tp8jCz": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Interests",
+              "url": "",
+              "menu": "",
+              "primary": false
+            }
+          },
+          "mega_menu_XA9L7a": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Home & Kitchen",
+              "url": "",
+              "menu": "",
+              "primary": false
+            }
+          },
+          "mega_menu_Xn3iPE": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Clothing & Jewelry",
+              "url": "",
+              "menu": "",
+              "primary": false
+            }
+          },
+          "mega_menu_QAMbyL": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Drinkware & Barware",
+              "url": "",
+              "menu": "",
+              "primary": false
+            }
+          },
+          "mega_menu_4pLgK9": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Accessories",
+              "url": "",
+              "menu": "",
+              "primary": false
+            }
+          },
+          "mega_menu_KrEdcd": {
+            "type": "mega-menu",
+            "settings": {
+              "title": "Happy Customer",
+              "url": "",
+              "menu": "footer",
+              "primary": false
+            }
+          }
+        },
+        "block_order": [
+          "mega_menu_xrQDiJ",
+          "mega_menu_zy6Da7",
+          "mega_menu_g6A4VB",
+          "mega_menu_Tp8jCz",
+          "mega_menu_XA9L7a",
+          "mega_menu_Xn3iPE",
+          "mega_menu_QAMbyL",
+          "mega_menu_4pLgK9",
+          "mega_menu_KrEdcd"
+        ],
+        "settings": {
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "blocks": {
+          "text_naNeVg": {
+            "type": "text",
+            "settings": {
+              "col_span_desktop": 2,
+              "col_span_tablet": 2,
+              "col_span_mobile": 1,
+              "image_width": 60,
+              "heading": "Get In Touch",
+              "email": "",
+              "address": "",
+              "time_work": "Support Time: 9 AM to 5 PM, Mon-Sat",
+              "show_social": true
+            }
+          },
+          "link_list_TNFYGr": {
+            "type": "link_list",
+            "settings": {
+              "col_span_desktop": 1,
+              "col_span_tablet": 1,
+              "col_span_mobile": 1,
+              "heading": "Feature Collection",
+              "menu": "feature-collections"
+            }
+          },
+          "link_list_G4UJ3k": {
+            "type": "link_list",
+            "settings": {
+              "col_span_desktop": 1,
+              "col_span_tablet": 1,
+              "col_span_mobile": 1,
+              "heading": "MoonGift",
+              "menu": "moongift"
+            }
+          },
+          "link_list_M4fCNc": {
+            "type": "link_list",
+            "settings": {
+              "col_span_desktop": 1,
+              "col_span_tablet": 1,
+              "col_span_mobile": 1,
+              "heading": "Help and Support",
+              "menu": "help-and-support"
+            }
+          }
+        },
+        "block_order": [
+          "text_naNeVg",
+          "link_list_TNFYGr",
+          "link_list_G4UJ3k",
+          "link_list_M4fCNc"
+        ],
+        "settings": {
+          "background": "#0b2a4a",
+          "heading_color": "#fefefe",
+          "text_color": "#ffffff",
+          "social_color": "#ffffff",
+          "social_hover_color": "#ffffff",
+          "border_color": "#d3d3d3",
+          "col_per_row_desktop": 5,
+          "col_per_row_tablet": 2,
+          "col_per_row_mobile": 1,
+          "copyright": "© 2024 Paradis Perso. Powered by Shopify",
+          "show_localization": false
+        }
+      },
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "blocks": {
+          "announcement-bar-0": {
+            "type": "announcement",
+            "settings": {
+              "text": "<p>Welcome to our store</p>",
+              "link": "",
+              "open_new_window": false
+            }
+          }
+        },
+        "block_order": [
+          "announcement-bar-0"
+        ],
+        "settings": {
+          "background_color": "#0b2a4a",
+          "text_color": "#ffffff"
+        }
+      },
+      "newsletter": {
+        "type": "newsletter",
+        "settings": {
+          "background_section": "#fff8e6",
+          "background_section_mb": "#fff8e6",
+          "full_width": true,
+          "show_only_mb": false,
+          "heading": "Today Only: Secret privileges for you!",
+          "color_heading": "#0b2a4a",
+          "color_heading_mb": "#0b2a4a",
+          "text": "",
+          "color_paragraph": "#333333",
+          "color_paragraph_mb": "#b3b3b3",
+          "padding_top": 0,
+          "padding_bottom": 0,
+          "padding_top_mb": 0,
+          "padding_bottom_mb": 0
+        }
+      }
+    },
+    "content_for_index": [
+
+    ]
+  },
+  "presets": {
+    "Default": {
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{% assign original_price = 0 %}
+{% assign shippingLimit = settings.minimum_freeshipping | append: '00' | plus: 0 %}
+{%- if cart != empty -%}
+  {%- for item in cart.items -%}
+    {% assign lineItemOriginalPrice = item.variant.compare_at_price | times: item.quantity %}
+    {% assign original_price = original_price | plus: lineItemOriginalPrice %}
+  {%- endfor -%}
+{%- endif -%}
+<div class="js-contents" id="cart-drawer-total" {{ block.shopify_attributes }}>
+  <ul class="px-4 py-6 border-t border-border grid gap-2">
+    {% if original_price > cart.total_price %}
+      <li class="flex items-center justify-between gap-2">
+        <span class="text-sm font-normal text-primary capitalize leading-5">{{ 'sections.cart.original_price' | t }}</span>
+        <span class="text-sm font-normal text-primary leading-5">
+          {{ original_price | money }}
+        </span>
+      </li>
+    {% endif %}
+    <li class="flex items-center justify-between gap-2">
+      <span class="text-sm font-normal text-primary capitalize leading-5">{{ 'sections.cart.shipping' | t }}</span>
+      <span class="text-sm font-normal text-primary leading-5">{{ 'sections.cart.shipping_calculated' | t }}</span>
+    </li>
+    {% if cart.total_discount > 0 %}
+      <li class="flex items-center justify-between gap-2">
+        <span class="text-sm font-normal text-primary capitalize leading-5">{{ 'sections.cart.discount' | t }}</span>
+        <span class="text-base font-normal text-sale leading-5">-{{ cart.total_discount | money }}</span>
+      </li>
+    {% endif %}
+    <li class="flex items-center justify-between gap-2">
+      <span class="text-sm font-normal text-error capitalize leading-5">{{ 'sections.cart.totalsaving' | t }}</span>
+      <span class="text-sm font-normal text-error leading-5">{{ original_price | minus: cart.total_price | money }}</span>
+    </li>
+    <li class="flex items-center justify-between gap-2">
+      <span class="text-sm font-normal text-primary capitalize leading-5">{{ 'sections.cart.subtotal' | t }}</span>
+      <span class="text-h4 font-semibold text-primary font-heading leading-4 uppercase totals__subtotal-value">
+        {{ cart.total_price | money }}
+      </span>
+    </li>
+  </ul>
+</div>

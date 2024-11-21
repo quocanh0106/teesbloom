@@ -1,0 +1,46 @@
+{% comment %}
+    Renders product media
+
+    Accepts:
+    - media: {Object} Product Media object
+    - loop: {Boolean} Enable video looping (optional)
+    - variant_image: {Boolean} Whether or not media is associated with a variant
+
+    Usage:
+    {% render 'product-media',
+      media: media,
+      loop: section.settings.enable_video_looping,
+      variant_image: true
+    %}
+{% endcomment %}
+
+{%- if media.media_type == 'image' -%}
+  <div class="relative w-full h-auto product-aspect-ratio">
+    <img
+      src="{{ media.preview_image | image_url: width: media.width }}"
+      {% if lazy_load %}
+        loading="lazy"
+      {% else %}
+        loading="eager"
+      {% endif %}
+      class="block w-full h-full object-cover bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+      width="{{ media.width }}"
+      height="{{ media.height }}"
+      data-media-id="{{ media.id }}"
+      alt="{{ media.preview_image | split: "/" | last | replace: "-", " " | split: "." | first }}">
+  </div>
+{%- else -%}
+  {%- case media.media_type -%}
+    {%- when 'external_video' -%}
+      {%- assign video_class = 'js-' | append: media.host -%}
+      {%- if media.host == 'youtube' -%}
+        {{ media | external_video_url: autoplay: false, loop: true, playlist: media.external_id | external_video_tag: class: "w-full product-aspect-ratio", loading: "lazy" }}
+      {%- else -%}
+        {{ media | external_video_url: autoplay: false, loop: true | external_video_tag: class: "w-full product-aspect-ratio", loading: "lazy" }}
+      {%- endif -%}
+    {%- when 'video' -%}
+      {{ media | media_tag: image_size: "2048x", autoplay: false, loop: true, class: 'w-full product-aspect-ratio', controls: true, preload: "none" }}
+    {%- when 'model' -%}
+      {{ media | media_tag: image_size: "2048x", toggleable: true, class: 'w-full product-aspect-ratio' }}
+  {%- endcase -%}
+{%- endif -%}

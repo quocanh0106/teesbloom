@@ -1,0 +1,401 @@
+<link rel="stylesheet" href="{{ 'template-article.css' | asset_url }}" />
+{% assign currentYear = "now" | date: "%Y" %}
+{% assign currentYearWithSpace = "now" | date: "%Y" | prepend: ' ' %}
+{%- style -%}
+  .main-article-wrapper {
+    background-color: {{ section.settings.background_color }};
+  }
+{%- endstyle -%}
+
+{% assign headings = article.content | replace: ' 2023', currentYearWithSpace | replace: 'currentYear', currentYear | remove_first: '<h2><b></b></h2>' | split: '<h' %}
+
+
+{% assign newContent = article.content | replace: ' 2023', currentYearWithSpace | replace: 'currentYear', currentYear | remove_first: '<h2><b></b></h2>' %}
+{% assign links = newContent | split: ' href="' %}
+{% for link in links %}
+  {% unless forloop.first %}
+    {% assign onlylink = link | split: '"' | first | prepend: 'href="'  %}
+    {% if newContent contains onlylink %}
+      {% unless onlylink contains request.origin %}
+        {% assign newLink = onlylink | prepend: 'rel="nofollow" '  %}
+        {% assign newContent = newContent | replace_first: onlylink, newLink %}
+      {% endunless %}
+    {% endif %}
+  {% endunless %}
+{% endfor %}
+
+{% assign newContent = newContent | replace: '<img', '<div class="relative w-fit !mx-auto image"><img loading="lazy"' %}
+{% assign convertImage = newContent | split: ' src="' %}
+{% capture image_logo %}><img src="{{ settings.logo | image_url: width: settings.logo.width }}" class="image_logo !hidden !rounded-none" width="{{ settings.logo.width }}" height="{{ settings.logo.height }}" loading="lazy" alt="{{ shop.name }}"></div>{% endcapture %}
+{% for dom in convertImage %}
+  {% unless forloop.first %}
+    {% assign firstDom = dom | replace_first: '>', image_logo  %}
+    {% assign newDom = firstDom | split: '"' | first | prepend: ' src="' %}
+    {% if newDom contains '240.' %}
+      {% assign lastDom = newDom | prepend: ' width="240" height="240" ' %}
+    {% elsif newDom contains '480.' %}
+      {% assign lastDom = newDom | prepend: ' width="480" height="480" ' %}
+    {% elsif newDom contains '600.' %}
+      {% assign lastDom = newDom | prepend: ' width="600" height="600" ' %}
+    {% elsif newDom contains '1024.' %}
+      {% assign lastDom = newDom | prepend: ' width="1024" height="1024" ' %}
+    {% else %}
+      {% assign lastDom = newDom | prepend: ' width="480" height="480" ' %}
+    {% endif %}
+
+    {% assign newContent = newContent | replace: dom, firstDom | replace: newDom, lastDom %}
+  {% endunless %}
+{% endfor %}
+{% assign newContent = newContent | replace: '[product]"', '" data-product="true"' %}
+
+<div class="page-width pb-16 lg:pb-25 flex flex-wrap">
+  <article class="w-full bg-background overflow-hidden {% if article.metafields.custom.related_collections != blank %}lg:max-w-main-article{% endif %}">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when '@app' -%}
+          {% render block %}
+        {%- when 'featured_image' -%}
+          {%- if article.image -%}
+            <div class="block w-full rounded-xl overflow-hidden mb-4 lg:mb-6">
+              <img
+                srcset="{% if article.image.width >= 350 %}{{ article.image | image_url: width: 350 }} 350w,{% endif %}
+                {% if article.image.width >= 480 %}
+                  {{ article.image | image_url: width: 480 }} 480w,{% endif %}
+                {% if article.image.width >= 560 %}
+                  {{ article.image | image_url: width: 560 }} 560w,{% endif %}
+                {% if article.image.width >= 708 %}
+                  {{ article.image | image_url: width: 875 }} 875w,{% endif %}"
+                sizes="(min-width: 1024px) 875px, (min-width: 768px) calc(100vw - 60px), calc(100vw - 32px)"
+                src="{{ article.image | image_url: width: 875 }}"
+                class="object-cover object-center w-full max-h-90 overflow-hidden bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+                loading="eager"
+                width="875"
+                height="360"
+                {% if article.image.alt != blank %}
+                alt="{{ article.image.alt | escape }}"
+                {% else %}
+                alt="{{ article.image | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                {% endif %}>
+            </div>
+          {%- endif -%}
+        {%- when 'title' -%}
+          {%- if block.settings.show_blog_title -%}
+            <span class="flex items-center justify-center px-2 py-1 lg:px-3 lg:py-1.5 rounded-sm bg-[#F8F8F8] uppercase text-xs font-normal leading-6 text-primary w-fit">{{ blog.title }}</span>
+          {%- endif -%}
+          <h1 class="mt-1 lg:mt-2 mb-6 text-primary text-h3 lg:text-h2 !font-bold capitalize">{{ article.title | replace: '2023', currentYear | replace: 'currentYear', currentYear | escape }}</h1>
+
+        {%- when 'first-of-half-content' -%}
+          <div class="article-template__content">
+            {% assign contentArray = newContent | split: '<h2' %}
+            {% for itemContent in contentArray limit: 2 %}
+              {% if forloop.first %}
+                {% assign first-of-half-content = itemContent | append: '<h2' %}
+              {% else %}
+                {% assign first-of-half-content = first-of-half-content | append: itemContent %}
+              {% endif %}
+            {% endfor %}
+            {{ first-of-half-content }}
+          </div>
+        {%- when 'last-of-half-content' -%}
+          <div class="article-template__content">
+            {{ newContent | remove: first-of-half-content | replace: ' 2023', currentYearWithSpace | replace: 'currentYear', currentYear }}
+          </div>
+        {%- when 'article-bottom' -%}
+          {% if block.settings.blog_show_author or block.settings.blog_show_date or block.settings.blog_show_share %}
+            <div class="flex flex-wrap justify-between items-center gap-3{% if block.settings.blog_show_author or block.settings.blog_show_date %} mb-6{% else %} mt-10 mb-12{% endif %}">
+              {%- if block.settings.blog_show_back_button -%}
+                <a href="{{ blog.url }}" class="flex gap-1 items-center font-bold font-heading text-sm lg:text-base leading-none lg:leading-none text-secondary hover:text-primary">{% render 'icon-prev', class: 'w-5 h-5' %}<span>{{ 'blogs.article.back' | t }}</span></a>
+              {%- endif -%}
+              {% if block.settings.blog_show_author or block.settings.blog_show_date %}
+                <div class="flex items-center gap-3 w-full md:w-fit">
+                  {% if block.settings.blog_show_author %}
+                    <div class="flex items-center gap-2">
+                      {% for authorObj in shop.metaobjects.author.values %}
+                        {% assign reverseAuthor = article.author | split: ' ' | reverse | join: ' ' %}
+                        {% if authorObj.name == article.author or authorObj.name == reverseAuthor %}
+                          {% assign author = authorObj %}
+                        {% endif %}
+                      {% endfor %}
+                      {% if author.image %}
+                        <img
+                          src="{{ author.image | image_url: width: 32 }}"
+                          class="w-6 h-6 lg:w-8 lg:h-8 object-cover object-center rounded-full border border-primary"
+                          alt="{{ shop.name }}"
+                          width="32"
+                          height="32"
+                          loading="lazy">
+                      {% else %}
+                        <img
+                          src="{{ settings.favicon | image_url: width: 32 }}"
+                          class="w-6 h-6 lg:w-8 lg:h-8 object-cover object-center rounded-full border border-primary"
+                          alt="{{ shop.name }}"
+                          width="32"
+                          height="32"
+                          loading="lazy">
+                      {% endif %}
+                      {% if author %}
+                        <a
+                          href="{{ author.system.url }}"
+                          class="block text-sm leading-none text-primary hover:text-primary truncate-line one-line overflow-hidden break-words"
+                          title="{{ author.name }}">{{ author.name }}</a>
+                      {% else %}
+                        <span class="block text-xs md:text-sm !leading-none text-primary truncate-line one-line overflow-hidden break-words" title="{{ article.author }}">{{ article.author }}</span>
+                      {% endif %}
+                    </div>
+                    {% if block.settings.blog_show_date %}
+                      {% render 'icon-dot', class: 'w-1 h-1 text-primary' %}
+                    {% endif %}
+                  {% endif %}
+                  {% if block.settings.blog_show_date %}
+                    <div class="flex items-center gap-1">
+                      {% render 'icon-clock', class: 'w-5 h-5 text-primary' %}
+                      <span class="block text-sm text-primary font-normal truncate-line one-line overflow-hidden break-words leading-5" title="{{ article.published_at | date: '%d %b %Y' }}">{{ article.published_at | date: '%d %b %Y' }}</span>
+                    </div>
+                  {% endif %}
+                </div>
+              {% endif %}
+              {%- if block.settings.blog_show_share -%}
+                {% if block.settings.blog_show_author or block.settings.blog_show_date %}
+                  {% render 'share-social', class: 'w-full md:w-fit' %}
+                {% else %}
+                  {% render 'share-social', class: 'w-fit' %}
+                {% endif %}
+              {%- endif -%}
+            </div>
+          {% endif %}
+        {% when 'related-collections' %}
+          <div class="lg:h-auto bg-background flex flex-col overflow-hidden mb-12 mt-8">
+            {% if block.settings.title != blank %}
+              <h2 class="text-h4 capitalize break-words font-heading font-semibold mb-4 text-center lg:text-left text-primary">
+                {{ block.settings.title }}
+              </h2>
+            {% endif %}
+
+              <div class="block border p-4 lg:p-5 border-solid border-[#d9d9d9] rounded-[10px] overflow-hidden">
+                <ul class="grid grid-cols-1 lg:grid-cols-2 gap-y-4 lg:gap-y-6 h-full mb-0">
+                  {% assign collectionList = article.metafields.custom.related_collections.value %}
+                  {% for collection in collectionList limit: block.settings.limit %}
+                    {% assign minPrice = nil %}
+                    {% assign maxPrice = nil %}
+
+                    {% for product in collection.products %}
+                      {% if minPrice == nil or product.price < minPrice %}
+                        {% assign minPrice = product.price %}
+                      {% endif %}
+
+                      {% if maxPrice == nil or product.price > maxPrice %}
+                        {% assign maxPrice = product.price %}
+                      {% endif %}
+                    {% endfor %}
+
+                    {% if collection.featured_image != blank %}
+                      {% assign modulo = forloop.index | modulo: 2 %}
+                      <li class="w-full mr-0 last:border-0 !mb-0">
+                        <div class="flex items-center gap-4 w-full{% if forloop.first %} !pl-0{% endif %}{% if modulo != 0 %} lg:border-r lg:border-solid border-primary lg:pr-6{% else %} lg:pl-6{% endif %}">
+                          <a
+                            href="{{ collection.url }}"
+                            title="{{ collection.title }}"
+                            class="block leading-none w-18 h-18 lg:w-24 lg:h-24 overflow-hidden flex-none rounded-md">
+                            <img
+                              src="{{ collection.featured_image | image_url: width: 96 }}"
+                              srcset="{%- if collection.featured_image.width >= 96 -%}{{ collection.featured_image | image_url: width: 96 }} 96w{%- endif -%} "
+                              {% if collection.featured_image.alt != blank %}
+                              alt="{{ collection.featured_image.alt | escape }}"
+                              {% else %}
+                              alt="{{ collection.featured_image | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                              {% endif %}
+                              sizes="(min-width: 1100px) 535px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+                              class="w-full h-full object-cover"
+                              loading="lazy"
+                              width="96"
+                              height="{{ 96 | divided_by: collection.featured_image.aspect_ratio }}">
+                          </a>
+                          <div class="flex items-center gap-1 w-full justify-between">
+                            <div class="">
+                              <a
+                                class="text-base !no-underline font-normal leading-4 text-primary hover:text-primary truncate-line two-lines overflow-hidden font-heading break-words"
+                                href="{{ collection.url }}"
+                                title="{{ collection.title }}">
+                                <h3 class="text-base leading-4">{{ collection.title }}</h3>
+                              </a>
+                              {% if minPrice == maxPrice %}
+                                <p class="!block before:content-[var(--price)] mt-1.5 !mb-0 font-bold text-sm text-primary font-heading leading-4" style="--price: '~{{ minPrice | money }}'"></p>
+                              {% else %}
+                                <p class="!block before:content-[var(--price)] mt-1.5 !mb-0 font-bold text-sm text-primary font-heading leading-4" style="--price: '{{ minPrice | money }} - {{ maxPrice | money }}'"></p>
+                              {% endif %}
+                            </div>
+                            <a
+                              href="{{ collection.url }}"
+                              title="{{ collection.title }}"
+                              class="hidden lg:block !no-underline flex-none lg:py-3.5 lg:px-6 text-secondary font-bold font-heading hover:text-500 lg:border lg:border-solid lg:border-secondary lg:text-secondary lg:hover:bg-secondary lg:hover:text-background text-sm leading-none rounded-full capitalize">
+                              {% render 'icon-share'
+                                , class: 'w-6 h-6 lg:hidden' %}
+                              <span class="hidden lg:block">{{ 'blogs.article.see_all' | t }}</span>
+                            </a>
+                          </div>
+                        </div>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                </ul>
+
+              </div>
+
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+
+  </article>
+
+  {% if article.metafields.custom.related_collections != blank %}
+    <div class="article-sidebar lg:top-2 w-full lg:sticky lg:max-w-main-article-sidebar lg:h-fit transition-all duration-200 h-auto lg:pl-4">
+      {% if section.settings.sidebar_banner != blank %}
+        <img
+          src="{{ section.settings.sidebar_banner | image_url: width: section.settings.sidebar_banner.width }}"
+          class="w-full h-full rounded-xl lg:rounded object-cover lg:mb-6 lg:max-h-90 {% if section.settings.sidebar_banner_mb != blank %} hidden lg:block{% else %} block{% endif %}"
+          alt="{{ section.settings.sidebar_banner | split: "/" | last | replace: "-", " " | split: "." | first }}"
+          width="429"
+          height="{{ 429 | divided_by: section.settings.sidebar_banner.aspect_ratio }}"
+          loading="lazy">
+      {% endif %}
+      {% if section.settings.sidebar_banner_mb != blank %}
+        <img
+          src="{{ section.settings.sidebar_banner_mb | image_url: width: section.settings.sidebar_banner_mb.width }}"
+          class="w-full h-full rounded-xl lg:rounded object-cover lg:mb-6 lg:max-h-90 {% if section.settings.sidebar_banner != blank %} lg:hidden block{% else %} block{% endif %}"
+          alt="{{ section.settings.sidebar_banner_mb | split: "/" | last | replace: "-", " " | split: "." | first }}"
+          width="429"
+          height="{{ 429 | divided_by: section.settings.sidebar_banner_mb.aspect_ratio }}"
+          loading="lazy">
+      {% endif %}
+      <accordion-toggle class="clickout-accordion block bg-background z-10 w-fit max-w-[calc(100vw_-_32px)] md:max-w-[calc(100vw_-_60px)] lg:max-w-full fixed top-8 transition-[top] left-4 md:left-7.5 lg:static lg:w-full p-2 lg:!p-8 lg:!pr-4 border border-primary rounded-md lg:rounded-[10px] toc">
+        <div class="summary flex items-center gap-2 text-primary cursor-pointer">
+          {% render 'icon-toc', class: 'icon-toc lg:!block w-5 h-5 text-primary' %}
+          {% render 'icon-close', class: 'icon-close lg:!hidden w-5 h-5 text-primary' %}
+          <span class="hidden lg:block uppercase text-sm font-normal leading-4">{{ 'general.toc' | t }}</span>
+        </div>
+        <ul class="details w-0 invisible opacity-0 absolute !duration-0 bg-background lg:!mt-4 pr-4 lg:!w-full lg:!max-h-90 lg:!static lg:!opacity-100 lg:!visible lg:!overflow-auto scroll-brighter">
+
+        </ul>
+      </accordion-toggle>
+    </div>
+  {% endif %}
+</div>
+
+{% capture src_url %}{{ 'template-article.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+
+{% schema %}
+  {
+    "name": "Template article",
+    "tag": "section",
+    "class": "section main-article-wrapper",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#F2F2F2"
+      },
+      {
+        "type": "header",
+        "content": "Sidebar"
+      },
+      {
+        "type": "image_picker",
+        "id": "sidebar_banner",
+        "label": "Sidebar banner"
+      },
+      {
+        "type": "image_picker",
+        "id": "sidebar_banner_mb",
+        "label": "Sidebar banner mobile"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "@app"
+      },
+      {
+        "type": "featured_image",
+        "name": "Feature image",
+        "limit": 1,
+        "settings": []
+      },
+      {
+        "type": "related-collections",
+        "name": "Related collections",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading"
+          },
+          {
+            "type": "range",
+            "id": "limit",
+            "label": "Limit",
+            "min": 3,
+            "max": 6,
+            "step": 1,
+            "default": 6
+          }
+        ]
+      },
+      {
+        "type": "title",
+        "name": "Title",
+        "limit": 1,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_blog_title",
+            "default": true,
+            "label": "Show blog title"
+          }
+        ]
+      },
+      {
+        "type": "first-of-half-content",
+        "name": "First of half content",
+        "limit": 1
+      },
+      {
+        "type": "last-of-half-content",
+        "name": "Last of half content",
+        "limit": 1
+      },
+      {
+        "type": "article-bottom",
+        "name": "Author and share",
+        "limit": 2,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "blog_show_back_button",
+            "default": false,
+            "label": "Show back to blog button"
+          },
+          {
+            "type": "checkbox",
+            "id": "blog_show_author",
+            "default": false,
+            "label": "Show author"
+          },
+          {
+            "type": "checkbox",
+            "id": "blog_show_date",
+            "default": true,
+            "label": "Show date"
+          },
+          {
+            "type": "checkbox",
+            "id": "blog_show_share",
+            "default": false,
+            "label": "Show share"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

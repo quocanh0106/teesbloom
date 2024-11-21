@@ -1,0 +1,132 @@
+<link rel="stylesheet" href="{{ 'account.css' | asset_url }}" />
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="max-w-[462px] w-full mx-auto px-4" data-section-id="{{ section.id }}">
+  <div class="scroll-m-80">
+    <h1 class="capitalize text-center mb-3 font-semibold text-primary text-h4 lg:text-h3">{{ 'customer.activate_account.title' | t }}</h1>
+    <p class="block text-sm leading-5 lg:text-base lg:leading-6 mb-8 font-normal text-primary text-center">{{ 'customer.activate_account.subtext' | t }}</p>
+
+    <div>
+      {% form 'activate_customer_password', id: 'activate_account_form' %}
+        {% if form.errors %}
+          <div class="relative px-4 py-3 text-red-700 bg-red-100 border border-red-700" role="alert">
+            <strong class="font-bold">Error!</strong>
+            <span class="block sm:inline">
+              {{ form.errors | default_errors }}
+            </span>
+          </div>
+        {% endif %}
+        <div class="w-full mb-8 lg:mb-6">
+          <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="password">{{ 'customer.activate_account.password' | t }}</label>
+          <toggle-password class="relative field w-full block">
+            <input 
+              autocomplete="new-password" 
+              class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded"
+              id="password"
+              name="customer[password]"
+              placeholder="New password"
+              required
+              type="password">
+            <span class="eye absolute top-1/2 right-4 -translate-y-1/2 z-10 cursor-pointer">
+              <span class="icon-eye">{% render 'icon-eye' %}</span>
+              <span class="icon-eye-hidden">{% render 'icon-eye-hidden' %}</span>
+            </span>
+          </toggle-password>
+        </div>
+
+        <div class="w-full mb-8 lg:mb-6">
+          <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="confirm_password">{{ 'customer.activate_account.password_confirm' | t }}</label>
+          <toggle-password class="relative field w-full block">
+            <input
+              autocomplete="new-password"
+              class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded"
+              id="confirm_password"
+              name="customer[password_confirmation]"
+              placeholder="Confirm your password"
+              required
+              type="password">
+            <span class="eye absolute top-1/2 right-4 -translate-y-1/2 z-10 cursor-pointer">
+              <span class="icon-eye">{% render 'icon-eye' %}</span>
+              <span class="icon-eye-hidden">{% render 'icon-eye-hidden' %}</span>
+            </span>
+          </toggle-password>
+        </div>
+
+
+        <button class="btn text-center w-full py-4 px-6 lg:px-8 !uppercase text-base lg:leading-none mb-3 lg:mb-4" type="submit">{{ 'customer.activate_account.submit' | t }}</button>
+        <button class="btn btn-2 text-center w-full py-4 px-6 lg:px-8 !uppercase text-base lg:leading-none" name="decline" type="submit">{{ 'customer.activate_account.cancel' | t }}</button>
+
+      {% endform %}
+    </div>
+  </div>
+</div>
+
+{% capture src_url %}{{ 'account.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+{% schema %}
+  {
+    "name": "Active account",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Padding mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Padding desktop"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      }
+    ]
+  }
+{% endschema %}

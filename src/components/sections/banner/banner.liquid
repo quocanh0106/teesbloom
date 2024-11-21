@@ -1,0 +1,489 @@
+{%- style -%}
+  [data-section-id="{{ section.id }}"] {
+    margin-top: {{ section.settings.margin_top_mb }}px;
+    margin-bottom: {{ section.settings.margin_bottom_mb }}px;
+  }
+  {% for block in section.blocks %}
+    [data-section-id="{{ section.id }}"] [data-block-id="{{ block.id }}"] {
+      background: {{ block.settings.colors_background }};
+    }
+    [data-section-id="{{ section.id }}"] [data-block-id="{{ block.id }}"] .banner__heading {
+      color: {{ block.settings.colors_heading }};
+      font-size: {{ block.settings.heading_size_mb }}px;
+    }
+    [data-section-id="{{ section.id }}"] [data-block-id="{{ block.id }}"] .banner__description {
+      color: {{ block.settings.colors_description }};
+      font-size: {{ block.settings.description_size_mb }}px;
+    }
+    @media(min-width: 768px) {
+      [data-section-id="{{ section.id }}"] [data-block-id="{{ block.id }}"] .banner__heading {
+        font-size: {{ block.settings.heading_size }}px;
+      }
+      [data-section-id="{{ section.id }}"] [data-block-id="{{ block.id }}"] .banner__description {
+        font-size: {{ block.settings.description_size }}px;
+      }
+    }
+    [data-section-id="{{ section.id }}"] [data-block-id="{{ block.id }}"] .banner__buttons {
+      color: {{ block.settings.colors_background_button }};
+      background: {{ block.settings.colors_text_button }};
+    }
+    [data-section-id="{{ section.id }}"] [data-block-id="{{ block.id }}"] .banner__buttons:hover {
+      color: {{ block.settings.colors_text_button }};
+      background: {{ block.settings.colors_background_button }};
+    }
+  {% endfor %}
+  @media(min-width: 768px) {
+    [data-section-id="{{ section.id }}"] {
+      margin-top: {{ section.settings.margin_top }}px;
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="{% unless section.settings.fullwidth %}page-width{% endunless %} overflow-hidden grid-cols-1 col-span-1 row-span-1 grid-cols-2 col-span-2 row-span-2 grid-cols-3 col-span-3 row-span-3 md:grid-cols-1 md:col-span-1 md:row-span-1 md:grid-cols-2 md:col-span-2 md:row-span-2 md:grid-cols-3 md:col-span-3 md:row-span-3 lg:grid-cols-1 lg:col-span-1 lg:row-span-1 lg:grid-cols-2 lg:col-span-2 lg:row-span-2 lg:grid-cols-3 lg:col-span-3 lg:row-span-3" data-section-id="{{ section.id }}">
+  {% if section.settings.heading != blank %}
+    <{{ section.settings.heading_tag }} class="text-[22px] lg:text-2xl mb-4 capitalize text-center" style="color: {{ section.settings.colors_heading }}">
+      {{ section.settings.heading }}
+    </{{ section.settings.heading_tag }}>
+  {% endif %}
+
+  <{% if section.settings.enable_swipe_on_mobile %}slider-component{% else %}div{% endif %} class="block relative gallery">
+    <div class="{% if section.settings.enable_swipe_on_mobile %}slider-wrapper slider-on-mobile slider-on-mobile slider-on-tablet slider-on-desktop flex{% else %}grid grid-cols-{{ section.settings.col_per_row_mobile }} md:grid-cols-{{ section.settings.col_per_row_desktop }} gap-4{% endif %}" id="Slider-{{ section.id }}">
+      {%- for block in section.blocks -%}
+        <div data-block-id="{{ block.id }}" id="Slide-{{ section.id }}-{{ forloop.index }}" class="slider-slide {% if block.settings.rounded %}rounded-xl {% endif %} w-full group relative overflow-hidden md:!m-0 md:!w-full md:row-span-{{ block.settings.row_span_desktop }} md:col-span-{{ block.settings.col_span_desktop }}">
+          <div class="{% if section.settings.fullwidth %}page-width-desktop{% endif %} {% if block.settings.content_position != 'hide' %}grid grid-cols-1 lg:grid-cols-2{% endif %} w-full">
+            {% if block.settings.image == blank and block.settings.image_mobile == blank %}
+              <a {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %} title="{{ block.settings.link.title }}" class="w-full h-full block{% if block.settings.content_position == 'left' %} order-1 lg:order-2{% elsif block.settings.content_position == 'right' %} order-1{% endif %}">
+                {{ 'collection-1' | placeholder_svg_tag }}
+              </a>
+            {% else %}
+              {% assign ratioMb = block.settings.image_mobile.aspect_ratio | default: 1 %}
+              {% assign ratioDt = block.settings.image.aspect_ratio | default: 1 %}
+              {% assign altMb = block.settings.image_mobile | split: "/" | last | replace: "-", " " | split: "." | first %}
+              {% assign altDt = block.settings.image | split: "/" | last | replace: "-", " " | split: "." | first %}
+              <a {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %} title="{{ block.settings.link.title }}" class="w-full h-full block{% if block.settings.content_position == 'left' %} order-1 lg:order-2{% elsif block.settings.content_position == 'right' %} order-1{% endif %}">
+                <img srcset="{%- if block.settings.image.width >= 180 -%}{{ block.settings.image | image_url: width: 180 }} 180w,{%- endif -%}
+                    {%- if block.settings.image.width >= 360 -%} {{ block.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                    {%- if block.settings.image.width >= 540 -%} {{ block.settings.image | image_url: width: 540 }} 540w,{%- endif -%}
+                    {%- if block.settings.image.width >= 720 -%} {{ block.settings.image | image_url: width: 720 }} 720w,{%- endif -%}
+                    {%- if block.settings.image.width >= 900 -%} {{ block.settings.image | image_url: width: 900 }} 900w,{%- endif -%}
+                    {%- if block.settings.image.width >= 1080 -%} {{ block.settings.image | image_url: width: block.settings.image.width }} 1080w{%- endif -%}"
+                    src="{{ block.settings.image | image_url: width: block.settings.image.width }}"
+                    sizes="(min-width: 1024px) {{block.settings.image.width}}px, (min-width: 768px) calc(100vw - 30px), calc(100vw - 32px)"
+                    alt="{{ altDt }}"
+                    loading="lazy"
+                    class="w-full h-full object-cover transition-all {% if block.settings.image_mobile %} hidden md:block{% else %} block{% endif %}"
+                    width="{{ block.settings.image.width }}"
+                    height="{{ block.settings.image.height }}">
+                <img srcset="{%- if block.settings.image_mobile.width >= 180 -%} {{ block.settings.image_mobile | image_url: width: 180 }} 180w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 360 -%} {{ block.settings.image_mobile | image_url: width: 360 }} 360w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 540 -%} {{ block.settings.image_mobile | image_url: width: 540 }} 540w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 720 -%} {{ block.settings.image_mobile | image_url: width: 720 }} 720w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 900 -%} {{ block.settings.image_mobile | image_url: width: 900 }} 900w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 1080 -%} {{ block.settings.image_mobile | image_url: width: 1080 }} 1080w{%- endif -%}"
+                    src="{%- if block.settings.image_mobile.width >= 1080 -%} {{ block.settings.image_mobile | image_url: width: block.settings.image_mobile.width }}
+                    {%- elsif block.settings.image_mobile.width >= 900 -%} {{ block.settings.image_mobile | image_url: width: 900 }}
+                    {%- elsif block.settings.image_mobile.width >= 720 -%} {{ block.settings.image_mobile | image_url: width: 720 }}
+                    {%- elsif block.settings.image_mobile.width >= 540 -%} {{ block.settings.image_mobile | image_url: width: 540 }}
+                    {%- elsif block.settings.image_mobile.width >= 360 -%} {{ block.settings.image_mobile | image_url: width: 360 }}
+                    {%- elsif block.settings.image_mobile.width >= 180 -%} {{ block.settings.image_mobile | image_url: width: 180 }}{%- endif -%}"
+                  sizes="100vw"
+                  alt="{{ altMb }}"
+                  {% if forloop.first %}
+                    loading="eager"
+                  {% else %}
+                    loading="lazy"
+                  {% endif %}
+                  class="w-full object-cover{% if block.settings.image %} block md:hidden{% else %} block{% endif %}"
+                  width="{{ block.settings.image_mobile.width }}"
+                  height="{{ block.settings.image_mobile.height }}">
+              </a>
+            {% endif %}
+            {% if block.settings.button_label != blank or block.settings.heading != blank or block.settings.description != blank %}
+              <div class="banner-content px-3 py-5 text-center flex flex-col items-center justify-center {% if block.settings.content_position == 'left' %} order-2 lg:order-1{% elsif block.settings.content_position == 'right' %} order-2{% else %} !hidden{% endif %}">
+                {% if block.settings.heading != blank %}
+                  <{{ block.settings.heading_tag }} class="banner__heading text-current leading-5 tracking-[0.5px]">{{ block.settings.heading }}</{{ block.settings.heading_tag }}>
+                {% endif %}
+                {% if block.settings.description != blank %}
+                  <p class="banner__description mt-2.5 leading-5 text-current max-w-[530px]">{{ block.settings.description }}</p>
+                {% endif %}
+                {% if block.settings.button_label %}
+                  <a class="banner__buttons mt-4 rounded-[100px] transition-all flex items-center justify-center text-base lg:text-xl leading-none lg:leading-none px-5 py-2 font-bold" {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %}>
+                    {{ block.settings.button_label }}
+                  </a>
+                {% endif %}
+              </div>
+            {% endif %}
+          </div>  
+        </div>
+      {%- endfor -%}
+    </div>
+
+    <div class="slider-counter caption !hidden">
+      <span class="slider-counter--current">1</span>
+      <span aria-hidden="true"> / </span>
+      <span class="slider-counter--total">{{ section.blocks.size }}</span>
+    </div>
+    {% if section.settings.enable_swipe_on_mobile %}
+      <div class="flex items-center justify-center gap-2.5 mt-6">
+        <button type="button" name="previous" aria-label="previous" class="prev-{{ section.id }} ">
+          {%- render 'icon-prev', class: "w-6 h-6" -%}
+        </button>   
+        <div class="slider-dots flex">
+          {% for block in section.blocks %}
+            <span class="slider-dot{% if forloop.first %} active{% endif %}" data-position="{{ forloop.index }}"></span>
+          {% endfor %}
+        </div>
+        <button type="button" name="next" aria-label="next" class="next-{{ section.id }}">
+          {%- render 'icon-next', class: "w-6 h-6" -%}
+        </button>
+      </div>
+    {% endif %}
+  </{% if section.settings.enable_swipe_on_mobile %}slider-component{% else %}div{% endif %}>
+</div>
+
+{% schema %}
+  {
+    "name": "Banner",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "select",
+        "id": "heading_tag",
+        "label": "Heading tag",
+        "default": "h2",
+        "options": [
+          {
+            "value": "h1",
+            "label": "Heading 1"
+          },
+          {
+            "value": "h2",
+            "label": "Heading 2"
+          },
+          {
+            "value": "h3",
+            "label": "Heading 3"
+          },
+          {
+            "value": "h4",
+            "label": "Heading 4"
+          },
+          {
+            "value": "h5",
+            "label": "Heading 5"
+          }
+        ]
+      },
+      {
+        "type": "color",
+        "id": "colors_heading",
+        "default": "#ffffff",
+        "label": "Color heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "checkbox",
+        "id": "fullwidth",
+        "label": "Fullwidth desktop",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_swipe_on_mobile",
+        "label": "Enable swipe on mobile",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "col_per_row_mobile",
+        "label": "Cols per row mobile",
+        "min": 1,
+        "max": 3,
+        "default": 3,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "col_per_row_desktop",
+        "label": "Cols per row desktop",
+        "min": 1,
+        "max": 3,
+        "default": 3,
+        "step": 1
+      },
+      {
+        "type": "header",
+        "content": "Margin desktop"
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 64
+      },
+      {
+        "type": "header",
+        "content": "Margin mobile"
+      },
+      {
+        "type": "range",
+        "id": "margin_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 0
+      }
+    ],
+    "blocks": [
+      {
+        "type": "slide",
+        "name": "Slide item",
+        "limit": 4,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "rounded",
+            "label": "Enable radius",
+            "default": false
+          },
+          {
+            "type": "select",
+            "id": "content_position",
+            "label": "Content position",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              },
+              {
+                "value": "hide",
+                "label": "Hide"
+              }
+            ]
+          },
+          {
+            "type": "color",
+            "id": "colors_background",
+            "default": "#ffffff",
+            "label": "Color background"
+          },
+          {
+            "type": "header",
+            "content": "Images"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image desktop"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Image mobile"
+          },
+          {
+            "type": "header",
+            "content": "Content"
+          },
+          {
+            "type": "select",
+            "id": "heading_tag",
+            "label": "Heading tag",
+            "default": "h2",
+            "options": [
+              {
+                "value": "h1",
+                "label": "Heading 1"
+              },
+              {
+                "value": "h2",
+                "label": "Heading 2"
+              },
+              {
+                "value": "h3",
+                "label": "Heading 3"
+              },
+              {
+                "value": "h4",
+                "label": "Heading 4"
+              },
+              {
+                "value": "h5",
+                "label": "Heading 5"
+              }
+            ]
+          },
+          {
+            "type": "color",
+            "id": "colors_heading",
+            "default": "#ffffff",
+            "label": "Color heading"
+          },
+          {
+            "type": "range",
+            "id": "heading_size",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Heading size",
+            "default": 32
+          },
+          {
+            "type": "range",
+            "id": "heading_size_mb",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Heading size mobile",
+            "default": 32
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "default": "Heading",
+            "label": "Heading"
+          },
+          {
+            "type": "color",
+            "id": "colors_description",
+            "default": "#ffffff",
+            "label": "Color description"
+          },
+          {
+            "type": "range",
+            "id": "description_size",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Description size",
+            "default": 32
+          },
+          {
+            "type": "range",
+            "id": "description_size_mb",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Description size mobile",
+            "default": 32
+          },
+          {
+            "type": "text",
+            "id": "description",
+            "default": "Description",
+            "label": "Description"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "default": "Button label",
+            "label": "Button"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Url button"
+          },
+          {
+            "type": "color",
+            "id": "colors_text_button",
+            "default": "#ffffff",
+            "label": "Color text button"
+          },
+          {
+            "type": "color",
+            "id": "colors_background_button",
+            "default": "#0F0F0F",
+            "label": "Background button"
+          },
+          {
+            "type": "header",
+            "content": "Row span"
+          },
+          {
+            "type": "range",
+            "id": "row_span_desktop",
+            "label": "Rows span desktop",
+            "min": 1,
+            "max": 3,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "header",
+            "content": "Col span"
+          },
+          {
+            "type": "range",
+            "id": "col_span_desktop",
+            "label": "Cols span desktop",
+            "min": 1,
+            "max": 3,
+            "default": 1,
+            "step": 1
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner",
+        "blocks": [
+          {
+            "type": "slide"
+          },
+          {
+            "type": "slide"
+          },
+          {
+            "type": "slide"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

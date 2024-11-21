@@ -1,0 +1,180 @@
+{%- style -%}
+  [data-section-id="{{ section.id }}"] {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+
+  @media (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+      
+<div data-section-id="{{ section.id }}">
+  <div class="page-width relative" id="{{ section.id }}">
+    {%- unless section.settings.title == blank -%}
+      <h2 class="text-3xl font-semibold capitalize mb-5 text-center text-secondary">{{ section.settings.title | escape }}</h2>
+    {%- endunless -%}
+
+    <div class="!grid grid-cols-{{ section.settings.columns_mobile }} md:grid-cols-{{ section.settings.columns_tablet }} lg:grid-cols-{{ section.settings.columns_desktop }} gap-4.5">
+      {%- for block in section.blocks -%}
+        <div class="!block w-full">
+          {% render 'product-type-card', image_block: block.settings.image, button_label_block: block.settings.button_label, media_aspect_ratio: section.settings.image_ratio, button_link_block: block.settings.link, button_anchor_text: block.settings.anchor_text %}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Product type list",
+    "tag": "section",
+    "class": "section section-collection-list",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "default": "Product type",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "image_ratio",
+        "options": [
+          {
+            "value": "adapt",
+            "label": "Adapt"
+          },
+          {
+            "value": "portrait",
+            "label": "Portrait"
+          },
+          {
+            "value": "square",
+            "label": "Square"
+          }
+        ],
+        "default": "square",
+        "label": "Image ratio"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background"
+      },
+      {
+        "type": "range",
+        "id": "columns_desktop",
+        "label": "Items per row in desktop",
+        "min": 1,
+        "max": 6,
+        "default": 6,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "columns_tablet",
+        "label": "Items per row in tablet",
+        "min": 1,
+        "max": 6,
+        "default": 4,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "columns_mobile",
+        "label": "Items per row in mobile",
+        "min": 1,
+        "max": 6,
+        "default": 2,
+        "step": 1
+      },
+      {
+        "type": "header",
+        "content": "Common settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 64
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 32
+      }
+    ],
+    "blocks": [
+      {
+        "type": "product_type",
+        "name": "Product type",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "button_label",
+            "default": "Button label",
+            "label": "Button label"
+          },
+          {
+            "type": "url",
+            "id": "link",
+            "label": "Url button"
+          },
+          {
+            "type": "text",
+            "id": "anchor_text",
+            "label": "Anchor text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Product type list"
+      }
+    ]
+  }
+{% endschema %}

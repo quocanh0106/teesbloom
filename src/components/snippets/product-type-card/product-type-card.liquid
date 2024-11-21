@@ -1,0 +1,40 @@
+{%- liquid
+  assign ratio = 1
+  if image_block and media_aspect_ratio == 'portrait'
+    assign ratio = 0.8
+  elsif image_block and media_aspect_ratio == 'adapt'
+    assign ratio = image_block.aspect_ratio
+  endif
+  if ratio == 0 or ratio == null
+    assign ratio = 1
+  endif
+-%}
+
+{% if image_block != blank %}
+  <div>
+    <div class="relative rounded-lg overflow-hidden" style="padding-bottom:{{ 1 | divided_by: ratio | times: 100 }}%;">
+      <a
+        href="{{ button_link_block | split: '?' | first }}"
+        class="block group overflow-hidden absolute top-0 left-0 w-full h-full"
+        title="{{ button_anchor_text | default: button_label_block }}">
+        <img
+          srcset="{{ image_block | image_url: width: 200 }} 320w,
+                  {{ image_block | image_url: width: 240 }} 480w,
+                  {{ image_block | image_url: width: 400 }} 800w,
+                  {{ image_block | image_url: width: 512 }} 1024w"
+          sizes="(max-width: 320px) 200px,
+                 (max-width: 480px) 240px,
+                 (max-width: 800px) 400px,
+                 (max-width: 1024px) 512px,
+                 1024px"
+          src="{{ image_block | image_url }}"
+          {% if image_block.alt != blank %} alt="{{ image_block.alt | escape }}"{% else %} alt="{{ image_block | split: "/" | last | replace: "-", " " | split: "." | first }}"{% endif %} height="{{ image_block.height | divided_by: 4 }}" width="{{ image_block.width | divided_by: 4 }}" loading="lazy" class="w-full h-full object-cover block group-hover:scale-105 transition-all bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent">
+      </a>
+    </div>
+    <h3 class="m-0 overflow-hidden">
+      <a href="{{ button_link_block | split: '?' | first }}"class="text-lg lg:text-2xl font-body font-medium text-center capitalize text-primary p-2.5 lg:p-3.5 !pb-0 hover:text-secondary truncate-line one-line overflow-hidden break-all" title="{{ button_anchor_text | default: button_label_block }}">
+        {{ button_label_block }}
+      </a>
+    </h3>
+  </div>
+{% endif %}

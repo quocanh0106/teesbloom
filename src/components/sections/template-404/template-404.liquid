@@ -1,0 +1,122 @@
+<div class="page-width text-center my-16 lg:my-20">
+  {% if section.settings.image %}
+    <img srcset="{%- if section.settings.image.width >= 180 -%} {{ section.settings.image | image_url: width: 180 }} 180w,{%- endif -%}
+          {%- if section.settings.image.width >= 360 -%}
+            {{ section.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if section.settings.image.width >= 540 -%}
+            {{ section.settings.image | image_url: width: 540 }} 540w,{%- endif -%}
+          {%- if section.settings.image.width >= 720 -%}
+            {{ section.settings.image | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if section.settings.image.width >= 900 -%}
+            {{ section.settings.image | image_url: width: 900 }} 900w,{%- endif -%}
+          {%- if section.settings.image.width >= 1080 -%}
+            {{ section.settings.image | image_url: width: 1080 }} 1080w{%- endif -%}"
+
+      src="{%- if section.settings.image.width >= 1080 -%} 
+            {{ section.settings.image | image_url: width: 1080 }}
+          {%- elsif section.settings.image.width >= 900 -%}
+            {{ section.settings.image | image_url: width: 900 }}
+          {%- elsif section.settings.image.width >= 720 -%}
+            {{ section.settings.image | image_url: width: 720 }}
+          {%- elsif section.settings.image.width >= 540 -%}
+            {{ section.settings.image | image_url: width: 540 }}
+          {%- elsif section.settings.image.width >= 360 -%}
+            {{ section.settings.image | image_url: width: 360 }}
+          {%- elsif section.settings.image.width >= 180 -%}
+            {{ section.settings.image | image_url: width: 180 }}
+          {%- endif -%}"
+      sizes="(min-width: 1024px) {{ 1440 | divided_by: section.settings.columns_desktop }}px, (min-width: 768px) calc((100vw - 60px) / {{ section.settings.columns_tablet }}), calc((100vw - 32px) / {{ section.settings.columns }})"
+      {% if section.settings.image.alt != blank %}
+      alt="{{ section.settings.image.alt | escape }}"
+      {% else %}
+      alt="{{ section.settings.image | split: "/" | last | replace: "-", " " | split: "." | first }}"
+      {% endif %}
+      loading="lazy"
+      class="w-full h-full object-cover md:max-w-[653px] {% if section.settings.image_mobile %} hidden lg:block{% else %} block{% endif %}"
+      width="653"
+      height="{{ 653 | divided_by: section.settings.image.aspect_ratio }}">
+  {% endif %}
+  {% if section.settings.image_mobile %}
+    <img srcset="{%- if section.settings.image_mobile.width >= 180 -%} {{ section.settings.image_mobile | image_url: width: 180 }} 180w,{%- endif -%}
+          {%- if section.settings.image_mobile.width >= 360 -%}
+            {{ section.settings.image_mobile | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if section.settings.image_mobile.width >= 540 -%}
+            {{ section.settings.image_mobile | image_url: width: 540 }} 540w,{%- endif -%}
+          {%- if section.settings.image_mobile.width >= 720 -%}
+            {{ section.settings.image_mobile | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if section.settings.image_mobile.width >= 900 -%}
+            {{ section.settings.image_mobile | image_url: width: 900 }} 900w,{%- endif -%}
+          {%- if section.settings.image_mobile.width >= 1080 -%}
+            {{ section.settings.image_mobile | image_url: width: 1080 }} 1080w{%- endif -%}"
+
+      src="{%- if section.settings.image_mobile.width >= 1080 -%} 
+            {{ section.settings.image_mobile | image_url: width: 1080 }}
+          {%- elsif section.settings.image_mobile.width >= 900 -%}
+            {{ section.settings.image_mobile | image_url: width: 900 }}
+          {%- elsif section.settings.image_mobile.width >= 720 -%}
+            {{ section.settings.image_mobile | image_url: width: 720 }}
+          {%- elsif section.settings.image_mobile.width >= 540 -%}
+            {{ section.settings.image_mobile | image_url: width: 540 }}
+          {%- elsif section.settings.image_mobile.width >= 360 -%}
+            {{ section.settings.image_mobile | image_url: width: 360 }}
+          {%- elsif section.settings.image_mobile.width >= 180 -%}
+            {{ section.settings.image_mobile | image_url: width: 180 }}
+          {%- endif -%}"
+      sizes="(min-width: 1024px) {{ 1440 | divided_by: section.settings.columns_desktop }}px, (min-width: 768px) calc((100vw - 60px) / {{ section.settings.columns_tablet }}), calc((100vw - 32px) / {{ section.settings.columns_mobile }})"
+      {% if section.settings.image_mobile.alt != blank %}
+      alt="{{ section.settings.image_mobile.alt | escape }}"
+      {% else %}
+      alt="{{ section.settings.image_mobile | split: "/" | last | replace: "-", " " | split: "." | first }}"
+      {% endif %}
+      loading="lazy"
+      class="w-full h-full object-cover md:max-w-[653px] block{% if section.settings.image %} lg:hidden{% endif %}"
+      width="768"
+      height="{{ 768 | divided_by: section.settings.image_mobile.aspect_ratio }}">
+  {% endif %}
+  <div class="mt-4 mb-2 lg:mb-3 text-h4 lg:text-h2 font-semibold font-heading text-primary">
+    {{ section.settings.title }}
+  </div>
+  <p class="text-sm leading-5 lg:text-base lg:leading-6 text-primary mb-6 lg:mb-8">
+    {{ section.settings.subtext_title }}
+  </p>
+  <a class="block btn p-2.5 !uppercase mx-auto mb-3 w-full max-w-[237px] lg:max-w-[328px]" href="{{ routes.all_products_collection_url }}">{{ 'general.continue_shopping' | t }}</a>
+  <a class="block btn btn-2 p-2.5 !uppercase mx-auto w-full max-w-[237px] lg:max-w-[328px]" href="{{ shop.secure_url }}">{{ section.settings.button_label }}</a>
+</div>
+
+{% schema %}
+  {
+    "name": "Template 404",
+    "tag": "section",
+    "class": "flex items-center justify-center text-center",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Image"
+      },
+      {
+        "type": "image_picker",
+        "id": "image_mobile",
+        "label": "Image mobile"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "404 Heading Title",
+        "default": "404"
+      },
+      {
+        "type": "text",
+        "id": "subtext_title",
+        "label": "404 Subtitle Text",
+        "default": "Page not found"
+      },
+      {
+        "type": "text",
+        "id": "button_label",
+        "label": "Button Label",
+        "default": "Back to homepage"
+      }
+    ]
+  }
+{% endschema %}

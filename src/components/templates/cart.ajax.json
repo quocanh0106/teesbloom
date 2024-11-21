@@ -1,0 +1,44 @@
+{
+  "sections": {
+    "template": {
+      "type": "cart-drawer",
+      "blocks": {
+        "subtotal": {
+          "type": "subtotal",
+          "settings": {
+          }
+        },
+        "buttons": {
+          "type": "buttons",
+          "settings": {
+          }
+        },
+        "text-image": {
+          "type": "text-image",
+          "settings": {
+            "background_color_image_text": "#fafafa",
+            "colors_text": "#0f0f0f",
+            "image-1": "shopify:\/\/shop_images\/easy_exchange_a33296e2-d263-4ed5-8a48-9a44bc460b40.png",
+            "text-1": "easy exchange",
+            "image-2": "shopify:\/\/shop_images\/premium-quanlity.png",
+            "text-2": "Secure Payment",
+            "image-3": "shopify:\/\/shop_images\/secure-payment.png",
+            "text-3": "Premium Quality"
+          }
+        }
+      },
+      "block_order": [
+        "subtotal",
+        "buttons",
+        "text-image"
+      ],
+      "settings": {
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "template"
+  ]
+}

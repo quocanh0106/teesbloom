@@ -1,0 +1,376 @@
+{%- style -%}
+  [data-section-id="{{ section.id }}"]  {
+    background-color: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  [data-section-id="{{ section.id }}"] span, [data-section-id="{{ section.id }}"] span svg {
+    color: {{ section.settings.color_text_breadcrumb }};
+  }
+  [data-section-id="{{ section.id }}"] a, [data-section-id="{{ section.id }}"] svg {
+    color: {{ section.settings.color_text_breadcrumb_link }};
+  }
+  [data-section-id="{{ section.id }}"] a:hover {
+    color: {{ section.settings.color_text_breadcrumb_link_hover }};
+  }
+  @media screen and (min-width: 768px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div class="page-width overflow-hidden{% if template.suffix contains 'reviews' %} !max-w-[1096px]{% endif %}" data-section-id="{{ section.id }}">
+  <ul class="flex items-center gap-1 overflow-x-auto slider-mobile">
+    <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+      <a href="{{ routes.root_url }}" class="whitespace-nowrap capitalize" title="{{ 'general.breadcrumbs.home' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
+    </li>
+    {% if template contains 'product' %}
+      {%- assign breadcrumbs_linklist = linklists['breadcrumbs-product'] -%}
+      {%- assign product_type_link = nil -%}
+      {%- for link in breadcrumbs_linklist.links -%}
+        {%- assign link_title = link.title | downcase -%}
+        {%- assign product_type = product.type | downcase -%}
+        {%- if product_type != blank and link_title contains product_type -%}
+          {%- assign product_type_link = link -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if product_type_link != nil -%}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          {% render 'icon-right', class: 'w-4 h-4' %}
+          <a class="whitespace-nowrap capitalize" href="{{ product_type_link.url }}">{{ product_type_link.title | downcase }}</a>
+        </li>
+      {%- endif -%}
+      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+        <span class="whitespace-nowrap capitalize">{{ product.title }}</span>
+      </li>
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+              {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "{{ shop.url | append: '/' }}"
+            },
+            {% if product_type_link != nil %}
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ product_type_link.title }}",
+                "item": "{{ product_type_link.url | prepend: shop.url }}"
+              }, {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{ product.title }}",
+                "item": "{{ product.url | prepend: shop.url }}"
+              }
+            {%- else -%}
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ product.title }}",
+                "item": "{{ product.url | prepend: shop.url }}"
+              }
+              {% endif %}
+            ]
+          }
+      </script>
+    {% elsif template == 'cart' %}
+      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+        <span class="whitespace-nowrap capitalize">{{ 'cart.title' | t }}</span>
+      </li>
+    {% elsif template contains 'collection' and collection.handle %}
+      {%- assign breadcrumbs_linklist = linklists['breadcrumbs-collection'] -%}
+      {%- assign grandparent_collection = nil -%}
+      {%- assign parent_collection = nil -%}
+      {%- assign current_link = collection -%}
+      {%- for link in breadcrumbs_linklist.links -%}
+        {%- if link.links.size > 0 -%}
+          {%- for child_link in link.links -%}
+            {%- if child_link.url == collection.url -%}
+              {%- assign parent_collection = link -%}
+              {%- assign current_link = child_link -%}
+            {% elsif child_link.links.size > 0 %}
+              {%- for lastLink in child_link.links -%}
+                {%- if lastLink.url == collection.url -%}
+                  {%- assign grandparent_collection = link -%}
+                  {%- assign parent_collection = child_link -%}
+                  {%- assign current_link = lastLink -%}
+                {%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      {%- endfor -%}
+      {%- if grandparent_collection != nil -%}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          {% render 'icon-right', class: 'w-4 h-4' %}
+          <a class="whitespace-nowrap capitalize" href="{{ grandparent_collection.url }}">{{- grandparent_collection.title -}}</a>
+        </li>
+      {%- endif -%}
+      {%- if parent_collection != nil -%}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          {% render 'icon-right', class: 'w-4 h-4' %}
+          <a class="whitespace-nowrap capitalize" href="{{ parent_collection.url }}">{{- parent_collection.title -}}</a>
+        </li>
+      {%- endif -%}
+      {% if current_tags %}
+        {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          {% render 'icon-right', class: 'w-4 h-4' %}
+          <a class="whitespace-nowrap capitalize" href="{{ current_link.url }}">{{- current_link.title -}}</a>
+        </li>
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+          <span class="whitespace-nowrap capitalize">{{ current_tags | join: " + " }}</span>
+        </li>
+      {% else %}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+          <span class="whitespace-nowrap capitalize">{{ current_link.title }}</span>
+        </li>
+      {% endif %}
+
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+                {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "{{ shop.url | append: '/' }}"
+            },
+            {% if grandparent_collection != nil %}
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "{{ grandparent_collection.title }}",
+                "item": "{{ grandparent_collection.url | prepend: shop.url }}"
+              }, {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{{ parent_collection.title }}",
+                "item": "{{ parent_collection.url | prepend: shop.url }}"
+              }, {
+                "@type": "ListItem",
+                "position": 4,
+                "name": "{{ collection.title }}",
+                "item": "{{ collection.url | prepend: shop.url }}"
+              }
+            {% else %}
+              {% if parent_collection != nil %}
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "{{ parent_collection.title }}",
+                  "item": "{{ parent_collection.url | prepend: shop.url }}"
+                }, {
+                  "@type": "ListItem",
+                  "position": 3,
+                  "name": "{{ collection.title }}",
+                  "item": "{{ collection.url | prepend: shop.url }}"
+                }
+              {%- else -%}
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "{{ collection.title }}",
+                  "item": "{{ collection.url | prepend: shop.url }}"
+                }
+                {% endif %}
+                {% endif %}
+              ]
+            }
+      </script>
+    {% elsif template == 'blog' %}
+      {% if current_tags %}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          {% render 'icon-right', class: 'w-4 h-4' %}
+          <a
+            href="{{ blog.url }}"
+            class="whitespace-nowrap capitalize"
+            title="{{ blog.title }}">{{ blog.title }}</a>
+        </li>
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          {% render 'icon-right', class: 'w-4 h-4' %}
+          <span>{{ current_tags | join: " + " }}</span>
+        </li>
+
+      {% else %}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+          <span class="whitespace-nowrap capitalize">{{ blog.title }}</span>
+        </li>
+      {% endif %}
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "{{ shop.url | append: '/' }}"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "{{ blog.title }}",
+              "item": "{{ blog.url | prepend: shop.url }}"
+            }
+          ]
+        }
+      </script>
+    {% elsif template == 'article' %}
+      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        {% render 'icon-right', class: 'w-4 h-4' %}
+        <a
+          href="{{ blog.url }}"
+          class="whitespace-nowrap capitalize"
+          title="{{ blog.title }}">{{ blog.title }}</a>
+      </li>
+      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+        <span class="whitespace-nowrap capitalize">{{ article.title }}</span>
+      </li>
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "{{ shop.url | append: '/' }}"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "{{ blog.title }}",
+              "item": "{{ blog.url | prepend: shop.url }}"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "{{ article.title }}",
+              "item": "{{ article.url | prepend: shop.url }}"
+            }
+          ]
+        }
+      </script>
+    {% elsif template contains 'page' %}
+      {%- if template.suffix == 'search-help-center' -%}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          {% render 'icon-right', class: 'w-4 h-4' %}
+          <a class="whitespace-nowrap capitalize" href="/pages/help-center">{{ 'general.breadcrumbs.help_center' | t }}</a>
+        </li>
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+          <span class="whitespace-nowrap capitalize">{{ 'general.breadcrumbs.search_results' | t }}</span>
+        </li>
+      {%- else -%}
+        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+          <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+          <span class="whitespace-nowrap capitalize">{{ page.title }}</span>
+        </li>
+      {%- endif -%}
+    {% elsif template contains 'search' %}
+      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+        <span class="whitespace-nowrap capitalize">{{ 'general.search.title' | t }}</span>
+      </li>
+    {% else %}
+      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
+        <span class="whitespace-nowrap capitalize">{{ page_title }}</span>
+      </li>
+    {% endif %}
+  </ul>
+</div>
+{% schema %}
+  {
+    "name": "Breadcrumbs section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color breadcrumbs",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "color",
+        "id": "color_text_breadcrumb_link",
+        "label": "Color text link breadcrumbs",
+        "default": "#808080"
+      },
+      {
+        "type": "color",
+        "id": "color_text_breadcrumb_link_hover",
+        "label": "Color text link breadcrumbs",
+        "default": "#0F0F0F"
+      },
+      {
+        "type": "color",
+        "id": "color_text_breadcrumb",
+        "label": "Color text breadcrumbs",
+        "default": "#0F0F0F"
+      }, {
+        "type": "header",
+        "content": "Padding desktop"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 16
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 16
+      }, {
+        "type": "header",
+        "content": "Padding mobile"
+      }, {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 16
+      }, {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 16
+      }
+    ],
+    "presets": [
+      {
+        "name": "Breadcrumbs section"
+      }
+    ]
+  }
+{% endschema %}

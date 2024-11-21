@@ -1,0 +1,186 @@
+{%- if section.blocks.size > 0 -%}
+  {%- style -%}
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top_mb }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+    }
+    [data-section-id="{{ section.id }}"] .slider-slide { 
+      max-width: calc(100%/{{ section.settings.product_per_row_mobile }} - {{ 8 | times: section.settings.product_per_row_mobile | minus: 8 | divided_by: section.settings.product_per_row_mobile }}px);
+    }
+    @media screen and (min-width: 768px) {
+      [data-section-id="{{ section.id }}"] .slider-slide { 
+        max-width: calc(100%/{{ section.settings.product_per_row_tablet }} - {{ 16 | times: section.settings.product_per_row_tablet | minus: 16 | divided_by: section.settings.product_per_row_tablet }}px);
+      }
+    }
+    @media screen and (min-width: 1024px) {
+      [data-section-id="{{ section.id }}"] {
+        background: {{ section.settings.background_color }};
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+      [data-section-id="{{ section.id }}"] .slider-slide { 
+        max-width: calc(100%/{{ section.settings.product_per_row }} - {{ 16 | times: section.settings.product_per_row | minus: 16 | divided_by: section.settings.product_per_row }}px);
+      }
+    }
+  {%- endstyle -%}
+  <div data-section-id="{{ section.id }}">
+    <tabs-component class="normal-tab page-width-desktop md:px-0 lg:px-12.5 grid gap-4 grid-cols-1 relative">
+      <div class="block text-center lg:text-left col-span-1 pb-4 lg:pb-0 lg:pr-4">
+        <div class="tabs-heading flex items-center gap-4 overflow-x-auto slider-mobile px-2 lg:pl-0 w-fit max-w-full mx-auto lg:mx-0">
+          {% for block in section.blocks %}
+            <a 
+              href="{{ block.settings.collection.url }}" 
+              title="{{ block.settings.anchor_text | default: block.settings.heading }}" 
+              class="tab-heading text-center block border-secondary lg:border-[#F6F6F6] border border-solid rounded-3xl capitalize py-2.5 px-3.5 text-primary bg-[#F6F6F6] [&:not(.active)]:border-secondary [&:not(.active)]:text-secondary [&:not(.active)]:bg-background
+                    {% if section.blocks.size > 1 %} cursor-pointer{% endif %}
+                    {% if forloop.first %}active{% endif %}"
+              data-id="{{ block.id }}">
+              <h2 class="text-sm leading-4 lg:text-base lg:leading-4 font-heading font-semibold whitespace-nowrap lg:whitespace-normal">{{ block.settings.heading }}</h2>
+            </a>
+          {% endfor %}
+        </div>
+      </div>
+      {% for block in section.blocks %}
+        <div class="relative tab-detail {% unless forloop.first %} hidden{% endunless %}" data-id="{{ block.id }}">
+          <ul class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-x-8 lg:gap-y-6" id="Slider-{{ section.id }}-{{ block.id }}">
+            {%- for product in block.settings.collection.products limit: section.settings.limit -%}
+              <li class="slider-slide" id="Slide-{{ section.id }}-{{ block.id }}-{{ forloop.index }}">
+                {%- render 'product-card', product: product, collection: block.settings.collection, freeship_placeholder: true -%}
+              </li>
+            {%- endfor -%}
+          </ul>
+          <a href="{{ block.settings.collection.url }}" title="{{ block.settings.collection.ttile }}">Shop all</a>
+        </div>
+      {% endfor %}
+    </tabs-component>
+  </div>
+{%- endif -%}
+
+
+{% schema %}
+  {
+    "name": "Occasion slider tabs",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "range",
+        "id": "product_per_row",
+        "label": "Products per row",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "product_per_row_tablet",
+        "label": "Products per row tablet",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "product_per_row_mobile",
+        "label": "Products per row mobile",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "limit",
+        "label": "Limit",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "default": 12
+      },
+      {
+        "type": "header",
+        "content": "Common settings"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 92
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 32
+      }
+    ],
+    "blocks": [
+
+      {
+        "type": "tab",
+        "name": "Occasion Slider Tab",
+        "settings": [
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Tab heading"
+          },
+          {
+            "type": "text",
+            "id": "anchor_text",
+            "label": "Tab anchor text"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Occasion slider tabs"
+      }
+    ]
+  }
+{% endschema %}

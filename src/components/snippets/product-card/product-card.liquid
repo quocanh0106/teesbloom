@@ -1,0 +1,94 @@
+{% if heading == blank %}
+  {% assign heading = 'h3' %}
+{% endif %}
+{% unless lazy_load %}
+  {% assign lazy_load = 'lazy' %}
+{% endunless %}
+
+{% assign media = product.featured_media %}
+{% assign secondMedia = product.media[1] %}
+{% if media_position != blank %}
+  {% assign point = media_position | minus: 1 %}
+  {% assign secondPoint = media_position | plus: 0 %}
+  {% if product.media[point] != blank %}
+    {% assign media = product.media[point] %}
+    {% if product.media[secondPoint] != blank %}
+      {% assign secondMedia = product.media[secondPoint] %}
+    {% else %}
+      {% assign secondMedia = product.media[1] %}
+      {% if media == secondMedia %}
+        {% assign secondMedia = product.media[0] %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endif %}
+{%- if product and product != empty -%}
+  <div class="card-wrapper product-card-wrapper" data-handle="{{ product.handle }}">
+    {%- if media -%}
+      <a href="{{ product.url | split: '?' | first }}" class="relative block group overflow-hidden rounded-[10px]" title="{{ product.title }}">
+        <img
+          srcset="
+          {%- if media.width >= 165 -%}
+            {{ media | image_url: width: 165 }} 165w,{%- endif -%}
+          {%- if media.width >= 360 -%}
+            {{ media | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if media.width >= 533 -%}
+            {{ media | image_url: width: 533 }} 533w,{%- endif -%}
+          {%- if media.width >= 720 -%}
+            {{ media | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if media.width >= 940 -%}
+            {{ media | image_url: width: 940 }} 940w,{%- endif -%}
+          {%- if media.width >= 1066 -%}
+            {{ media | image_url: width: 1066 }} 1066w,{%- endif -%}"
+          src="{{ media | image_url: width: 533 }}"
+          sizes="(min-width: {{ 1440 }}px) {{ 1440 | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+          alt="{{ media | split: "/" | last | replace: "-", " " | split: "." | first }}"
+          class="block {% if secondMedia != null %} top-0 left-0 group-hover:opacity-0 group-hover:invisible{% else %}group-hover:scale-105{% endif %} transition-all duration-300 bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+          loading="{{ lazy_load }}"
+          width="512"
+          height="{{ 512 | divided_by: media.aspect_ratio }}">
+        {%- if secondMedia != null -%}
+          <img
+            srcset="
+          {%- if secondMedia.width >= 165 -%}
+            {{ secondMedia | image_url: width: 165 }} 165w,{%- endif -%}
+          {%- if secondMedia.width >= 360 -%}
+            {{ secondMedia | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if secondMedia.width >= 533 -%}
+            {{ secondMedia | image_url: width: 533 }} 533w,{%- endif -%}
+          {%- if secondMedia.width >= 720 -%}
+            {{ secondMedia | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if secondMedia.width >= 940 -%}
+            {{ secondMedia | image_url: width: 940 }} 940w,{%- endif -%}
+          {%- if secondMedia.width >= 1066 -%}
+            {{ secondMedia | image_url: width: 1066 }} 1066w,{%- endif -%}"
+          src="{{ secondMedia | image_url: width: 533 }}"
+          sizes="(min-width: {{ 1440 }}px) {{ 1440 | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
+          alt="{{ secondMedia | split: "/" | last | replace: "-", " " | split: "." | first }}"
+          class="block opacity-0 invisible top-0 left-0 absolute w-full h-full group-hover:opacity-100 group-hover:visible group-hover:scale-105 transition-all duration-300"
+          loading="lazy"
+          width="{{ secondMedia.width }}"
+          height="{{ secondMedia.height }}">
+      {%- endif -%}
+      </a>
+    {%- endif -%}
+    <div class="relative mt-2.5">
+      <{{ heading }}><a href="{{ product.url | split: '?' | first }}" class="text-primary font-body font-normal text-base !leading-6 mb-2.5 tracking-[0] truncate-line two-lines overflow-hidden break-words">{{ product.title | escape }}</a></{{ heading }}>
+      {% render 'price', product: product, use_variant: true %}
+    </div>
+  </div>
+{%- else -%}
+  <div class="card-wrapper product-card-wrapper">
+    <div class="relative block group overflow-hidden">
+      {%- if placeholder_image -%}
+        {{ placeholder_image | placeholder_svg_tag: 'block group-hover:scale-105 w-full h-fit transition-all' }}
+      {%- else -%}
+        {{ 'product-apparel-2' | placeholder_svg_tag: 'block group-hover:scale-105 w-full h-fit transition-all' }}
+      {%- endif -%}
+    </div>
+    <div class="relative mt-2.5">
+      <{{ heading }}><a role="link" aria-disabled="true" class="text-primary font-body font-normal text-base !leading-6 mb-2.5 tracking-[0] truncate-line two-lines overflow-hidden break-words">{{ 'products.product.example_product_title' | t }}</a></{{ heading }}>
+      {% render 'price' %}
+    </div>
+  </div>
+{%- endif -%}

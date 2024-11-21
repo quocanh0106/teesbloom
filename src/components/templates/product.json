@@ -1,0 +1,100 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "breadcrumb_gwQ4Th": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#FFFFFF",
+        "color_text_breadcrumb_link": "#808080",
+        "color_text_breadcrumb_link_hover": "#0F0F0F",
+        "color_text_breadcrumb": "#0F0F0F",
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 16
+      }
+    },
+    "template": {
+      "type": "template-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {
+          }
+        },
+        "price": {
+          "type": "price",
+          "settings": {
+          }
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {
+          }
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons"
+      ],
+      "settings": {
+      }
+    },
+    "product_recommendations_7Up4gQ": {
+      "type": "product-recommendations",
+      "settings": {
+        "fullwidth": false,
+        "title": "Customers also bought",
+        "show_view_all": true,
+        "product_per_row": 4,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 8,
+        "background_color": "#ffffff",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 32
+      }
+    },
+    "recently_viewed_product_qgmcEj": {
+      "type": "recently-viewed-product",
+      "settings": {
+        "fullwidth": false,
+        "heading": "Recently Viewed Products",
+        "background_color": "#ffffff",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 32
+      }
+    }
+  },
+  "order": [
+    "breadcrumb_gwQ4Th",
+    "template",
+    "product_recommendations_7Up4gQ",
+    "recently_viewed_product_qgmcEj"
+  ]
+}

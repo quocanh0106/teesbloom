@@ -1,0 +1,268 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#a8a8a8",
+        "color_text_breadcrumb_link_hover": "#2f2f2f",
+        "color_text_breadcrumb": "#2f2f2f",
+        "padding_top": 32,
+        "padding_bottom": 48,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 32
+      }
+    },
+    "template": {
+      "type": "template-page",
+      "blocks": {
+        "text-0": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>BERECHTIGUNG UND REGISTRIERUNG<br\/><\/h2>"
+          }
+        },
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Um auf bestimmte Funktionen der Dienste von Geschenke Mall zugreifen zu können, müssen Sie möglicherweise ein Konto erstellen. Mit der Registrierung bestätigen Sie, dass Sie mindestens 16 Jahre alt sind. Sie erklären sich damit einverstanden, während des Registrierungsprozesses genaue, aktuelle und vollständige Informationen bereitzustellen und diese bei Bedarf umgehend zu aktualisieren. Sie sind für die Wahrung der Vertraulichkeit Ihrer Kontozugangsdaten und für alle Aktivitäten verantwortlich, die unter Ihrem Konto stattfinden.<\/p>"
+          }
+        },
+        "text-2": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>GENAUIGKEIT, VOLLSTÄNDIGKEIT UND AKTUALITÄT DER INFORMATIONEN<\/h2>"
+          }
+        },
+        "text-3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Obwohl wir uns bemühen, genaue und aktuelle Informationen bereitzustellen, können wir die Vollständigkeit, Genauigkeit oder Aktualität der Informationen auf unserer Website oder unseren Diensten nicht garantieren. Wir sind nicht verantwortlich für Fehler oder Auslassungen im Inhalt oder für Maßnahmen, die aufgrund der bereitgestellten Informationen ergriffen werden.<\/p>"
+          }
+        },
+        "text-4": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>ÄNDERUNGEN DER DIENSTLEISTUNGEN UND PREISE<\/h2>"
+          }
+        },
+        "text-5": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wir behalten uns das Recht vor, unsere Dienstleistungen (oder Teile davon) ohne Vorankündigung zu ändern oder einzustellen. Die Preise für unsere Produkte können ohne Vorankündigung geändert werden. Wir haften Ihnen oder Dritten gegenüber nicht für Änderungen, Preisänderungen, Aussetzungen oder Einstellungen des Dienstes.<br\/><\/p>"
+          }
+        },
+        "text-6": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>PRODUKTE ODER DIENSTLEISTUNGEN<\/h2>"
+          }
+        },
+        "text-7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Bestimmte Produkte oder Dienstleistungen können in begrenzter Menge verfügbar sein und sind nur gemäß unserer Rückgaberegelung umtausch- oder rückgabefähig. Wir behalten uns das Recht vor, die Mengen der angebotenen Produkte oder Dienstleistungen zu begrenzen.<\/p>"
+          }
+        },
+        "text-8": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>GENAUIGKEIT DER ABRECHNUNGS- UND KONTOINFORMATIONEN<\/h2>"
+          }
+        },
+        "text-9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Indem Sie eine Bestellung über unsere Dienste aufgeben, erklären Sie sich damit einverstanden, aktuelle, vollständige und genaue Abrechnungs- und Kontoinformationen bereitzustellen. Wir behalten uns das Recht vor, jede von Ihnen aufgegebene Bestellung abzulehnen, und wir können nach eigenem Ermessen die gekauften Mengen pro Person, pro Haushalt oder pro Bestellung begrenzen oder stornieren.<\/p>"
+          }
+        },
+        "text-10": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>OPTIONALE WERKZEUGE<\/h2>"
+          }
+        },
+        "text-11": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wir können Ihnen den Zugang zu Werkzeugen und Diensten Dritter ermöglichen. Wir haben keine Kontrolle über diese Werkzeuge und Dienste und übernehmen keine Gewährleistung oder Haftung für Ihre Nutzung dieser Werkzeuge und Dienste.<\/p>"
+          }
+        },
+        "text-12": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>INHALTE UND LINKS DRITTER<\/h2>"
+          }
+        },
+        "text_q7AazD": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Unsere Dienste können Inhalte von Dritten oder Links zu Websites Dritter enthalten. Wir sind nicht verantwortlich für den Inhalt oder die Datenschutzpraktiken dieser Websites Dritter, und Sie nutzen und besuchen sie auf eigenes Risiko.<\/p>"
+          }
+        },
+        "text-14": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>VERBOTENES VERHALTEN<\/h2>"
+          }
+        },
+        "text-15": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Sie erklären sich damit einverstanden, kein rechtswidriges, betrügerisches oder schädliches Verhalten gegenüber Geschenke Mall, unseren Diensten oder anderen Benutzern auszuüben. Dies umfasst, ist aber nicht beschränkt auf das Einreichen von falschen oder irreführenden Informationen, die Verletzung von geistigem Eigentum anderer oder den Versuch, die ordnungsgemäße Funktion unserer Dienste zu stören.<\/p>"
+          }
+        },
+        "text-16": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>ENTSCHÄDIGUNG<\/h2>"
+          }
+        },
+        "text-17": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Sie erklären sich damit einverstanden, Geschenke Mall und seine verbundenen Unternehmen, leitenden Angestellten, Direktoren, Mitarbeiter und Vertreter von allen Ansprüchen, Haftungen, Schäden, Verlusten oder Ausgaben, einschließlich Anwaltskosten und Gebühren, die im Zusammenhang mit Ihrer Nutzung der Dienste oder Ihrer Verletzung dieser Bedingungen entstehen, schadlos zu halten.<br\/><\/p>"
+          }
+        },
+        "text-18": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>KÜNDIGUNG<\/h2>"
+          }
+        },
+        "text-19": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wir können nach eigenem Ermessen Ihren Zugang zu unseren Diensten ohne Vorankündigung aus beliebigem Grund, einschließlich, aber nicht beschränkt auf die Verletzung dieser Bedingungen, kündigen oder aussetzen.<\/p>"
+          }
+        },
+        "text-20": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>ANWENDBARES RECHT UND STREITBEILEGUNG<\/h2>"
+          }
+        },
+        "text-21": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Diese Bedingungen unterliegen dem deutschen Recht und sind entsprechend auszulegen. Etwaige Meinungsverschiedenheiten, die sich aus diesen Bedingungen oder Ihrer Nutzung unserer Dienste ergeben, sollen im Rahmen von Verhandlungen oder Mediation beigelegt werden. Falls erforderlich, ist der Rechtsweg vor den zuständigen deutschen Gerichten zu beschreiten.<br\/><\/p>"
+          }
+        },
+        "text_WMzT6a": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>KONTAKTINFORMATIONEN<\/h2>"
+          }
+        },
+        "text_NVP7eJ": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fragen zu den Nutzungsbedingungen können uns unter <strong>kontakt@geschenkemall.com<\/strong> zugesendet werden.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "text-0",
+        "text-1",
+        "text-2",
+        "text-3",
+        "text-4",
+        "text-5",
+        "text-6",
+        "text-7",
+        "text-8",
+        "text-9",
+        "text-10",
+        "text-11",
+        "text-12",
+        "text_q7AazD",
+        "text-14",
+        "text-15",
+        "text-16",
+        "text-17",
+        "text-18",
+        "text-19",
+        "text-20",
+        "text-21",
+        "text_WMzT6a",
+        "text_NVP7eJ"
+      ],
+      "settings": {
+        "layout_secondary": true,
+        "enable_title": true,
+        "enable_content": false,
+        "padding_top": 0,
+        "padding_bottom": 120,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 56
+      }
+    },
+    "image-width-text": {
+      "type": "image-width-text",
+      "blocks": {
+        "template--image-width-text-1": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Easy_Exchange.png",
+            "img_type": "circle",
+            "title": "Einfacher Umtausch",
+            "content": "Genießen Sie einfache Transaktionen mit unserem intuitiven System.",
+            "text_align_item": "text-center"
+          }
+        },
+        "template--image-width-text-2": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/secure.png",
+            "img_type": "circle",
+            "title": "Sichere Zahlung",
+            "content": "Wir gewährleisten, dass Ihre Transaktionen sicher sind.",
+            "text_align_item": "text-center"
+          }
+        },
+        "template--image-width-text-3": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Outstanding_Support.png",
+            "img_type": "circle",
+            "title": "Exzellenter Support",
+            "content": "Service jenseits aller Erwartungen mit unserem Team.",
+            "text_align_item": "text-center"
+          }
+        },
+        "3adff2bd-eae0-4fa4-8692-194489b71fb6": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Premium_Quality.png",
+            "img_type": "circle",
+            "title": "Premium-Qualität",
+            "content": "Nous sommes minutieuxWir sind akribisch in jedem Detail.",
+            "text_align_item": "text-center"
+          }
+        }
+      },
+      "block_order": [
+        "template--image-width-text-1",
+        "template--image-width-text-2",
+        "template--image-width-text-3",
+        "3adff2bd-eae0-4fa4-8692-194489b71fb6"
+      ],
+      "settings": {
+        "heading": "",
+        "background_color": "#ffffff",
+        "columns_desktop": 4,
+        "columns_tablet": 4,
+        "columns_mobile": 2,
+        "padding_top_mb": 24,
+        "padding_bottom_mb": 48,
+        "padding_top": 64,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "template",
+    "image-width-text"
+  ]
+}

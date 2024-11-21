@@ -1,0 +1,7 @@
+<div class="account-address">
+  <div class="text-h5 md:text-h4 text-primary font-heading font-semibold capitalize mb-6"> {{ 'customer.account.greeting' | t: name: customer.name }}</div>
+  <div class="flex items-center gap-2">
+    <span class="block font-heading text-base text-primary leading-4 font-normal capitalize">{{ 'customer.information.email' | t }}</span>
+    <span class="block w-full text-sm leading-5 lg:text-base lg:leading-6" >{{ customer.email }}</span>
+  </div>
+</div>

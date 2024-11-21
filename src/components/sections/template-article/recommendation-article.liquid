@@ -1,0 +1,209 @@
+{% for link in linklists['list-blogs'].links %}
+  {%- paginate blogs[link.handle].articles by 10000 -%}
+    {% if allArticle %}
+      {% assign allArticle = allArticle | concat: link.object.articles %}
+    {% else %}
+      {% assign allArticle = link.object.articles %}
+    {% endif %}
+  {%- endpaginate -%}
+{% endfor %}
+{% for tag in article.metafields.custom.anchor.value %}
+  {% if anchor != blank %}
+    {% assign anchor = anchor | append: "," | append: tag.tag %}
+  {% else %}
+    {% assign anchor = tag.tag %}
+  {% endif %}
+{% endfor %}
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  #shopify-section-{{ section.id }} .slider-slide {
+    max-width: 88.4%;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .slider-slide {
+      max-width: calc(50% - 8px);
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    #shopify-section-{{ section.id }} .slider-slide {
+      max-width: 100%;
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-width">
+  {% if section.settings.heading %}
+    <h2 class="text-h5 font-semibold lg:text-h2 text-primary mb-4">{{ section.settings.heading | escape }}</h2>
+  {% endif %}
+  <slider-component class="block overflow-hidden -mx-4" data-limit="3">
+    <button type="button" name="previous" aria-label="previous" class="prev-{{ section.id }} absolute top-1/2 -translate-y-[150%] left-0 w-10 h-10 bg-transparent shadow-button leading-none cursor-pointer transition-all hidden items-center justify-center p-0 rounded-full border-0 {% if settings.country == 'UK' %}text-primary disabled:!text-primary-opacity-50{% else %}text-primary disabled:!text-primary-opacity-50{% endif %}">
+      {%- render 'icon-prev', class: "w-7 h-7" -%}
+    </button>
+    <ul class="flex slider-wrapper slider-on-mobile slider-on-tablet lg:!grid lg:!grid-cols-3 gap-4 p-4 scroll-pl-4">
+      {% assign count = 0 %}
+      {% if anchor != blank %}
+        {% assign allArticle = allArticle | sort: 'published_at' | reverse %}
+        {%- for item in allArticle -%}
+          {% assign sameAnchor = false %}
+          {% for tag in item.metafields.custom.anchor.value %}
+            {% if anchor contains tag.tag %}
+              {% assign sameAnchor = true %}
+            {% endif %}
+          {% endfor %}
+          {% if sameAnchor and item != article %}
+            {% assign blogofitem = item.handle | split: "/" | first %}
+            {% assign count = count | plus: 1 %}
+            <li class="slider-slide lg:w-full !h-auto {% if count > 3 %}lg:!hidden{% endif %}">
+              {% render 'article-card' , blog: blogs[blogofitem] , article: item , media_aspect_ratio: 1.625 , show_image: true , show_blog_title: section.settings.show_blog_title , show_date: section.settings.show_date , show_author: section.settings.show_author , show_excerpt: true %}
+            </li>
+          {% endif %}
+          {% if count == 6 %}
+            {% break %}
+          {% endif %}
+        {%- endfor -%}
+      {% else %}
+        {% assign relatedArticles = blog.articles | sort: 'published_at' | offset: forloop.index0 %}
+        {% if relatedArticles.size < 6 %}
+          {% assign relatedArticles = blog.articles | sort: 'published_at' %}
+        {% endif %}
+        {%- for item in relatedArticles limit: section.settings.post_limit -%}
+          {% if item != article %}
+            {% assign count = count | plus: 1 %}
+            <li class="slider-slide lg:w-full !h-auto {% if count > 3 %}lg:!hidden{% endif %}">
+              {% render 'article-card' , article: item , media_aspect_ratio: 1.625 , show_image: true , show_blog_title: section.settings.show_blog_title , show_date: section.settings.show_date , show_author: section.settings.show_author , show_excerpt: true %}
+            </li>
+          {% endif %}
+          {% if count == 6 %}
+            {% break %}
+          {% endif %}
+        {%- endfor -%}
+      {% endif %}
+    </ul>
+    <button type="button" name="next" aria-label="next" class="next-{{ section.id }} absolute top-1/2 -translate-y-[150%] right-0 w-10 h-10 bg-transparent shadow-button leading-none cursor-pointer transition-all hidden items-center justify-center p-0 rounded-full border-0 {% if settings.country == 'UK' %}text-primary disabled:!text-primary-opacity-50{% else %}text-primary disabled:!text-primary-opacity-50{% endif %}">
+      {%- render 'icon-next', class: "w-7 h-7" -%}
+    </button>
+    <div class="slider-counter caption !hidden">
+      <span class="slider-counter--current">1</span>
+      <span aria-hidden="true"> / </span>
+      <span class="slider-counter--total">{{ allArticle.size }}</span>
+    </div>
+    <div class="slider-dots mt-4 lg:mt-8 lg:!hidden"></div>
+    {% if allArticle.size > 6 %}
+      <div class="truncate-section-{{ section.id }} truncate-section !hidden lg:!block mt-12 text-center w-fit mx-auto btn btn-2 border border-primary !text-sm lg:text-base !leading-none !font-bold hover:border-primary py-3.5 px-6 lg:py-4 lg:px-8">
+        <span class="see-more">{{ 'sections.collection_template.see_more' | t }}</span>
+        <span class="see-less">{{ 'sections.collection_template.see_less' | t }}</span>
+      </div>
+    {% endif %}
+  </slider-component>
+
+</div>
+
+{% schema %}
+  {
+    "name": "Recommendation Ariticle",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Related posts",
+        "label": "Heading"
+      },
+      {
+        "type": "range",
+        "id": "post_limit",
+        "min": 2,
+        "max": 4,
+        "step": 1,
+        "default": 3,
+        "label": "Limit"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_blog_title",
+        "default": true,
+        "label": "Show blog title"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_date",
+        "default": true,
+        "label": "Show date"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_author",
+        "default": true,
+        "label": "Show author"
+      },
+      {
+        "type": "header",
+        "content": "Common settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 50,
+        "max": 150,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 50,
+        "max": 150,
+        "step": 1,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 92
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile", 
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 32
+      }
+    ],
+    "presets": [
+      {
+        "name": "Recommendation Ariticle"
+      }
+    ]
+  }
+{% endschema %}

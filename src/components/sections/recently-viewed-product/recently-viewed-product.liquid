@@ -1,0 +1,108 @@
+{%- style -%}
+  [data-section-id="{{ section.id }}"] {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+
+  @media screen and (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div data-section-id="{{ section.id }}">
+  <recently-viewed class="{% unless section.settings.fullwidth %} page-width{% endunless %} block relative overflow-hidden">
+    <div class="flex items-center justify-center mb-5 lg:mb-10">
+      <h2 class="text-3xl font-semibold capitalize text-center text-secondary">{{ section.settings.heading | escape }}</h2>
+    </div>
+
+    <ul class="product-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 transition-all duration-500 gap-y-3 gap-x-5 lg:gap-10  overflow-hidden">
+      <span class="!block w-full pb-52"></span>
+    </ul>
+  </recently-viewed>
+</div>
+
+{% capture recently %}{{ 'recently-viewed-product.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: recently, priority: 'normal', type: "defer" %}
+
+{% schema %}
+  {
+    "name": "Recently viewed products",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "fullwidth",
+        "label": "Full width",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "Recently Viewed Products"
+      },
+      {
+        "type": "header",
+        "content": "Common settings"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 92
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 32
+      }
+    ],
+    "presets": [
+      {
+        "name": "Recently viewed products"
+      }
+    ]
+  }
+{% endschema %}

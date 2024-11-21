@@ -1,0 +1,321 @@
+<link rel="stylesheet" href="{{ 'collection-reviews.css' | asset_url }}">
+
+{%- style -%}
+  [data-section-id="{{ section.id }}"] {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+    margin-top: {{ section.settings.margin_top_mb }}px;
+    margin-bottom: {{ section.settings.margin_bottom_mb }}px;
+  }
+  @media (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+      margin-top: {{ section.settings.margin_top }}px;
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+{% if collection.metafields.judgeme.average_review != '0' and collection.metafields.judgeme.average_review != blank %}
+  {% assign fiveStar = 0 %}
+  {% assign fourStar = 0 %}
+  {% assign threeStar = 0 %}
+  {% assign twoStar = 0 %}
+  {% assign oneStar = 0 %}
+  {% assign numReview = collection.metafields.judgeme.list_reviews.value.size | times: 1.00 %}
+  {% for review in collection.metafields.judgeme.list_reviews.value %}
+    {% if review.rate == '5' %}
+      {% assign fiveStar = fiveStar | plus: 1 %}
+    {% elsif review.rate == '4' %}
+      {% assign fourStar = fourStar | plus: 1 %}
+    {% elsif review.rate == '3' %}
+      {% assign threeStar = threeStar | plus: 1 %}
+    {% elsif review.rate == '2' %}
+      {% assign twoStar = twoStar | plus: 1 %}
+    {% else %}
+      {% assign oneStar = oneStar | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+  <div class="page-width !max-w-[1096px] collection-reviews" data-section-id="{{ section.id }}" id="{{ collection.id }}-review">
+    {% if section.settings.heading != blank %}
+      <h2 class="text-h5 font-semibold lg:text-h2 mb-5 lg:mb-10 text-center text-primary">
+        {{ section.settings.heading }}
+      </h2>
+    {% endif %}
+
+    <div class="flex flex-wrap px-5 py-6 lg:px-10 lg:py-8 border-2 lg:border border-secondary rounded-lg lg:rounded-xl max-w-full">
+      <div class="flex flex-col justify-center items-center pr-3 lg:pr-5 w-full lg:w-fit max-w-[30%] lg:max-w-1/4">
+        <span class="text-h1 font-body font-medium leading-none lg:text-5xl lg:leading-none text-primary mb-1">{{ collection.metafields.judgeme.average_review }}</span>
+        <div class="flex items-center mb-2">
+          {% render 'collection-rating', collection: collection %}
+        </div>
+        <span class="text-xs font-medium text-primary block text-center">({{ collection.metafields.judgeme.num_review }})</span>
+      </div>
+      <div class="grid gap-1 max-w-[70%] lg:max-w-1/2 w-full border-l border-primary pl-3 lg:pl-5">
+        <div class="flex items-center gap-2 w-full">
+          <span class="text-xs leading-none flex items-center gap-0.5 text-primary">5 {% render 'icon-star', class: 'w-2.5 h-2.5' %}</span>
+          <div class="relative w-full h-1 rounded-xl lg:max-w-[243px] overflow-hidden bg-secondary">
+            <div class="absolute !block top-0 left-0 w-full h-full rounded-xl bg- overflow-hidden bg-secondary" style="max-width: {{ fiveStar | divided_by: numReview | times: 100.0 | round: 1 }}%"></div>
+          </div>
+          <span class="text-xs leading-none text-right max-w-8 w-full text-primary">{{ fiveStar | divided_by: numReview | times: 100.0 | round: 1 }}%</span>
+        </div>
+        <div class="flex items-center gap-2 w-full">
+          <span class="text-xs leading-none flex items-center gap-0.5 text-primary">4 {% render 'icon-star', class: 'w-2.5 h-2.5' %}</span>
+          <div class="relative w-full h-1 rounded-xl lg:max-w-[243px] overflow-hidden bg-secondary">
+            <div class="absolute !block top-0 left-0 w-full h-full rounded-xl bg- overflow-hidden bg-secondary" style="max-width: {{ fourStar | divided_by: numReview | times: 100.0 | round: 1 }}%"></div>
+          </div>
+          <span class="text-xs leading-none text-right max-w-8 w-full text-primary">{{ fourStar | divided_by: numReview | times: 100.0 | round: 1 }}%</span>
+        </div>
+        <div class="flex items-center gap-2 w-full">
+          <span class="text-xs leading-none flex items-center gap-0.5 text-primary">3 {% render 'icon-star', class: 'w-2.5 h-2.5' %}</span>
+          <div class="relative w-full h-1 rounded-xl lg:max-w-[243px] overflow-hidden bg-secondary">
+            <div class="absolute !block top-0 left-0 w-full h-full rounded-xl bg- overflow-hidden bg-secondary" style="max-width: {{ threeStar | divided_by: numReview | times: 100.0 }}%"></div>
+          </div>
+          <span class="text-xs leading-none text-right max-w-8 w-full text-primary">{{ threeStar | divided_by: numReview | times: 100 | round }}%</span>
+        </div>
+        <div class="flex items-center gap-2 w-full">
+          <span class="text-xs leading-none flex items-center gap-0.5 text-primary">2 {% render 'icon-star', class: 'w-2.5 h-2.5' %}</span>
+          <div class="relative w-full h-1 rounded-xl lg:max-w-[243px] overflow-hidden bg-secondary">
+            <div class="absolute !block top-0 left-0 w-full h-full rounded-xl bg- overflow-hidden bg-secondary" style="max-width: {{ twoStar | divided_by: numReview | times: 100.0 }}%"></div>
+          </div>
+          <span class="text-xs leading-none text-right max-w-8 w-full text-primary">{{ twoStar | divided_by: numReview | times: 100 | round }}%</span>
+        </div>
+        <div class="flex items-center gap-2 w-full">
+          <span class="text-xs leading-none flex items-center gap-0.5 text-primary">1 {% render 'icon-star', class: 'w-2.5 h-2.5' %}</span>
+          <div class="relative w-full h-1 rounded-xl lg:max-w-[243px] overflow-hidden bg-secondary">
+            <div class="absolute !block top-0 left-0 w-full h-full rounded-xl bg- overflow-hidden bg-secondary" style="max-width: {{ oneStar | divided_by: numReview | times: 100.0 }}%"></div>
+          </div>
+          <span class="text-xs leading-none text-right max-w-8 w-full text-primary">{{ oneStar | divided_by: numReview | times: 100 | round }}%</span>
+        </div>
+      </div>
+      <div class="max-w-full lg:max-w-1/4 mx-auto mt-5 lg:mt-0 lg:mr-0 flex items-center">
+        <span-link href="{% if settings.country == 'FR' %}{{ pages['avis'].url | prepend: request.origin  }}{% elsif settings.country == 'DE' %}{{ pages['bewertungen'].url | prepend: request.origin  }}{% else %}{{ pages['reviews'].url | prepend: request.origin  }}{% endif %}" target="_blank" class="btn btn-2 py-3 px-6 text-sm !uppercase !whitespace-normal text-center overflow-hidden">
+          {{ 'sections.collection_template.write_review' | t }}
+        </span-link>
+      </div>
+    </div>
+    <div class="flex justify-between items-center mt-6 lg:mt-8">
+      
+      {% assign all_review_count = collection.metafields.judgeme.num_review | plus: 0 %}
+
+      {% if all_review_count <= section.settings.limit %}
+        {% assign reviewFirstPage = collection.metafields.judgeme.num_review %}
+      {% else %}
+        {% assign reviewFirstPage = section.settings.limit %}
+      {% endif %}
+      <div class="text-sm font-normal">
+        {{ 'sections.collection_template.review_view_count_html' | t: review_count: reviewFirstPage, all_review_count: collection.metafields.judgeme.num_review }}
+      </div>
+      <accordion-toggle class="reviews-sort inline-block relative cursor-pointer clickout-accordion">
+        <div class="summary flex items-center gap-2.5 font-medium font-body text-sm lg:text-base text-primary">
+          <span>{{ 'sections.collection_template.sort.feature' | t }}</span>
+          {% render 'icon-down', class: 'w-4.5 h-4.5 text-primary' %}
+        </div>
+        <div class="shadow-megamenu dropitem w-max details absolute z-10 right-0 top-full rounded-lg bg-background py-3 pl-4 pr-3 opacity-0 invisible min-w-[174px]">
+          <ul class="max-h-60 w-full overflow-auto scroll-thin scroll-brighter">
+            <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4] active" data-value="feature">
+              {{ 'sections.collection_template.sort.feature' | t }}
+            </li>
+            <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]" data-value="news">
+              {{ 'sections.collection_template.sort.news' | t }}
+            </li>
+            <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]" data-value="pictures-first">
+              {{ 'sections.collection_template.sort.pictures_first' | t }}
+            </li>
+          </ul>
+        </div>
+      </accordion-toggle>
+    </div>
+    <collection-reviews class="block mt-6 lg:mt-4 w-full max-w-full" data-current-page="1" data-limit="{{ section.settings.limit }}">
+      <div class="collection-reviews-wrapper flex flex-col">
+        {% for review in collection.metafields.judgeme.list_reviews.value limit: section.settings.limit %}
+          <div class="py-5 last:border-b border-t border-primary flex flex-wrap gap-2.5 lg:gap-4">
+            <div class="flex items-center gap-1.5 w-full lg:max-w-[207px] h-fit">
+              {% render 'icon-shield', class: 'w-4 h-4 text-secondary flex-none' %}
+              <span class="text-base font-medium font-heading text-primary capitalize">{{ review.author }}</span>
+            </div>
+            <div class="lg:max-w-[calc(100%_-_223px)] w-full">
+              <div class="flex items-center justify-between gap-1 w-full">
+                <div class="flex items-center gap-1">
+                  {% assign star = review.rate | plus: 0 %}
+                  {% assign emptyStar = 5 | minus: star %}
+                  {% for i in (1..star) %}
+                    {% render 'icon-star', class: 'w-3 h-3' %}
+                  {% endfor %}
+                  {% for i in (1..emptyStar) %}
+                    {% render 'icon-star-empty', class: 'w-3 h-3' %}
+                  {% endfor %}
+                </div>
+                <span class="texxt-sm text-primary">{{ review.date | date: "%d %b %Y" }}</span>
+              </div>
+              <span class="text-base font-normal text-primary font-body mb-1">{{ review.reviewTitle }}</span>
+              <div class="text-sm text-primary font-body mb-2.5 lg:mb-3">
+                {{ review.reviewBody }}
+              </div>
+              <div class="flex flex-wrap gap-2.5 lg:gap-3 mb-2.5 lg:mb-3">
+                {% assign parentLoop = forloop.index %}
+                {% for pic in review.reviewPics %}
+                  <modal-opener class="relative cursor-pointer" data-id="#preview-image-{{ parentLoop }}-{{ forloop.index }}">
+                    <img src="{{ pic }}" class="h-13.5 w-auto lg:h-25 rounded" width="1024" height="1024" loading="lazy">
+                  </modal-opener>
+                  <modal-dialog class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20" id="preview-image-{{ parentLoop }}-{{ forloop.index }}">
+                    <div class="text-center p-4 lg:p-12 rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[860px] overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+                    <img src="{{ pic }}" class="h-full w-full block object-cover leading-none !max-w-full !max-h-full" width="1024" height="1024" loading="lazy">
+                      <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute -top-3 left-1/2 -translate-x-1/2 -translate-y-full lg:top-7 lg:right-7 lg:left-auto lg:translate-y-0 lg:translate-x-0 close">
+                        {% render 'icon-close', class: 'w-6 h-6' %}
+                      </span>
+                    </div>
+                  </modal-dialog>
+                {% endfor %}
+              </div>
+              <span-link href="{{ review.productUrl | prepend: request.origin }}" target="_blank" class="flex items-center gap-1.5 text-sm font-semibold font-heading text-secondary hover:text-primary">
+                <span class="truncate-line oneline overflow-hidden whitespace-nowrap">{{ review.productTitle }}</span>
+                {% render 'icon-linkto', class: 'w-3.5 h-3.5 flex-none' %}
+              </span-link>   
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      {% unless section.settings.limit >= collection.metafields.judgeme.list_reviews.value.size %}
+        <button class="flex items-center gap-1 lg:gap-1.5 font-heading font-bold lg:border border-secondary hover:lg:text-primary hover:lg:bg-secondary text-secondary transition-all lg:bg-primary rounded-full mx-auto text-sm lg:text-base leading-4 lg:leading-none loadmore lg:py-4 lg:pl-8 lg:pr-4 mt-5 lg:mt-10 uppercase" type="button">
+          {{- 'sections.collection_template.load_more' | t -}}
+          {% render 'icon-plus', class: 'w-4 h-4' %}
+        </button>
+      {% endunless %}
+      <script type="application/json">
+        {{ collection.metafields.judgeme.list_reviews.value | json }}
+      </script>
+    </collection-reviews>
+  </div>
+{% capture src_url %}{{ 'collection-reviews.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Collection reviews",
+    "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background"
+      },
+      {
+        "type": "range",
+        "id": "limit",
+        "min": 1,
+        "max": 10,
+        "step": 1,
+        "label": "Limit reviews",
+        "default": 5
+      },
+      {
+        "type": "header",
+        "content": "Padding mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Padding desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Margin mobile"
+      },
+      {
+        "type": "range",
+        "id": "margin_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Margin desktop"
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Margin bottom",
+        "default": 36
+      }
+    ],
+    "presets": [
+      {
+        "name": "Collection reviews"
+      }
+    ]
+  }
+{% endschema %}

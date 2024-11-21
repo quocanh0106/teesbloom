@@ -1,0 +1,112 @@
+{%- if article and article != empty -%}
+  {%- liquid
+    assign ratio = 1
+    if media_aspect_ratio != nil
+      assign ratio = media_aspect_ratio
+    endif
+    assign currentYear = "now" | date: "%Y"
+  -%}
+  <div class="h-full flex flex-col rounded-xl shadow-[4px_4px_16px_0_rgba(198,198,198,0.25)] overflow-hidden {{ customClass }}">
+    <div class="relative" style="padding-bottom: {{ 1 | divided_by: ratio | times: 100 }}%;">
+      <a href="{{ article.url }}"
+        class="block absolute top-0 left-0 w-full h-full group overflow-hidden rounded-t-lg"
+        title="{{ article.title }}">
+        {%- if show_image == true and article.image -%}
+          <img
+            srcset="{%- if article.image.src.width >= 165 -%}
+            {{ article.image.src | image_url: width: 165 }} 165w,{%- endif -%}
+          {%- if article.image.src.width >= 360 -%}
+            {{ article.image.src | image_url: width: 360 }} 360w,{%- endif -%}
+          {%- if article.image.src.width >= 533 -%}
+            {{ article.image.src | image_url: width: 533 }} 533w,{%- endif -%}
+          {%- if article.image.src.width >= 720 -%}
+            {{ article.image.src | image_url: width: 720 }} 720w,{%- endif -%}
+          {%- if article.image.src.width >= 1000 -%}
+            {{ article.image.src | image_url: width: 1000 }} 1000w,{%- endif -%}
+          {%- if article.image.src.width >= 1500 -%}
+            {{ article.image.src | image_url: width: 1500 }} 1500w,{%- endif -%}
+          {{ article.image.src | image_url }} {{ article.image.src.width }}w"
+          src="{{ article.image.src | image_url: width: 533 }}"
+          sizes="(min-width: {{ 1440 }}px) {{ 1440 | minus: 100 | divided_by: 2 }}px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+          {% if article.image.alt != blank %}alt="{{ article.image.alt | escape }}"{% else %}alt="{{ article.image.src | split: "/" | last | replace: "-", " " | split: "." | first }}"{% endif %}
+          class="w-full h-full object-cover group-hover:scale-105 transition-all bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+          {% unless lazy_load == false %}loading="lazy"{% endunless %} width="657" height="{{ 657 | divided_by: article.image.aspect_ratio }}">
+        {% else %}
+          {{ 'collection-6' | placeholder_svg_tag: '' }}
+        {%- endif -%}
+      </a>
+    </div>
+    <div class="h-full flex flex-col justify-between p-4 pb-5 md:p-6 bg-background">
+      <div>
+        {%- if show_blog_title and blog -%}
+          <span class="block font-normal text-xs text-primary leading-none w-fit uppercase mb-2.5 py-1 px-2 bg-[#F8F8F8] rounded-sm overflow-hidden">{{ blog.title }}</span>
+        {%- endif -%}
+        <{% if template.name == 'blog' %}h2{%else%}h3{%endif%} class="mb-1">
+          <a
+            href="{{ article.url }}"
+            class="block text-lg md:text-xl !leading-4 truncate-line two-lines overflow-hidden break-words font-semibold text-primary hover:text-primary"
+            title="{{ article.title | replace: '2023', currentYear | replace: 'currentYear', currentYear }}">
+            {{ article.title | replace: '2023', currentYear | replace: 'currentYear', currentYear | escape }}
+          </a>
+        </{% if template.name == 'blog' %}h2{%else%}h3{%endif%}>
+      </div>
+      {%- if show_excerpt or show_author or show_date -%}
+        <div>
+          {%- if show_excerpt -%}
+            {%- if article.excerpt.size > 0 or article.content.size > 0 -%}
+              <p class="font-normal text-sm md:text-base text-primary !leading-5 truncate-line two-lines overflow-hidden break-words">
+                {%- if article.excerpt.size > 0 -%}
+                  {{ article.excerpt | strip_html | truncatewords: 30 | replace: '2023', currentYear | replace: 'currentYear', currentYear }}
+                {%- else -%}
+                  {{ article.content | strip_html | truncatewords: 30 | replace: '2023', currentYear | replace: 'currentYear', currentYear }}
+                {%- endif -%}
+              </p>
+            {%- endif -%}
+          {%- endif -%}
+          {%- if show_author or show_date -%}
+            <div class="flex justify-between items-center gap-2 pt-5 lg:pt-6 font-heading">
+              {%- if show_author -%}
+                <div class="flex items-center gap-2">
+                  {% for authorObj in shop.metaobjects.author.values %}
+                    {% assign reverseAuthor = article.author | split: ' ' | reverse | join: ' ' %}
+                    {% if authorObj.name == article.author or authorObj.name == reverseAuthor %}
+                      {% assign author = authorObj %}
+                    {% endif %}
+                  {% endfor %}
+                  {% if author.image  %}
+                    <img
+                    src="{{ author.image | image_url: width: 32 }}"
+                    class="w-6 h-6 lg:w-8 lg:h-8 object-cover object-center rounded-full border border-primary"
+                    alt="{{ shop.name }}"
+                    width="32"
+                    height="32"
+                    loading="lazy">
+                  {% else %}
+                    <img
+                    src="{{ settings.favicon | image_url: width: 32 }}"
+                    class="w-6 h-6 lg:w-8 lg:h-8 object-cover object-center rounded-full border border-primary"
+                    alt="{{ shop.name }}"
+                    width="32"
+                    height="32"
+                    loading="lazy">
+                  {% endif %}
+                  {% if author %}
+                    <a href="{{ author.system.url }}" class="block text-sm leading-none text-primary hover:text-primary truncate-line one-line overflow-hidden break-words font-body" title="{{ author.name }}">{{ author.name }}</a>
+                  {% else %}
+                    <span class="block text-xs md:text-sm !leading-none text-primary truncate-line one-line overflow-hidden break-words" title="{{ article.author }}">{{ article.author }}</span>
+                  {% endif %}
+                </div>
+              {%- endif -%}
+              {%- if show_date -%}
+                <div class="flex items-center gap-2">
+                  {% render 'icon-clock', class: 'w-4 h-5 text-primary' %}
+                  <span class="block text-xs md:text-sm text-primary truncate-line one-line overflow-hidden break-words !leading-none font-body" title="{{ article.published_at | date: '%d %b %Y' }}">{{ article.published_at | date: '%d %b %Y' }}</span>
+                </div>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+{%- endif -%}

@@ -1,0 +1,198 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#a8a8a8",
+        "color_text_breadcrumb_link_hover": "#2f2f2f",
+        "color_text_breadcrumb": "#2f2f2f",
+        "padding_top": 32,
+        "padding_bottom": 48,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 32
+      }
+    },
+    "template": {
+      "type": "template-page",
+      "blocks": {
+        "text-0": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Information we collect<\/h2>"
+          }
+        },
+        "text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wir sammeln verschiedene Arten von Informationen von unseren Kunden, um ihnen personalisierte Produkte und Dienstleistungen anbieten zu können, einschließlich:<\/p><ul><li>Persönliche Informationen wie Ihren Namen, E-Mail-Adresse, Telefonnummer und Versandadresse<\/li><li>Demografische Informationen wie Ihr Alter, Geschlecht und Interessen<\/li><li>Zahlungs- und Transaktionsinformationen wie Ihre Kreditkartendetails und Bestellhistorie<\/li><li>Kommunikations- und Feedbackinformationen wie Ihre Bewertungen und Kommentare<\/li><\/ul><p>Wir sammeln diese Informationen direkt von Ihnen, wenn Sie unsere Website nutzen oder mit uns per E-Mail kommunizieren.<\/p>"
+          }
+        },
+        "text-2": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Wie wir Ihre Informationen verwenden<\/h2>"
+          }
+        },
+        "text-3": {
+          "type": "text",
+          "settings": {
+            "text": "<p>We utilize your private data for an array of reasons, including:<\/p><p><strong>Bearbeitung und Erfüllung deiner Bestellungen<\/strong><\/p><p>Wir verwenden Ihre persönlichen Informationen, um Ihre Bestellungen zu bearbeiten und zu erfüllen, was beinhaltet:<\/p><ul><li>Überprüfung Ihrer Identität und Zahlungsdetails<\/li><li>Bereitstellung von Kundenservice und -unterstützung<\/li><li>Versand Ihrer Bestellungen an die von Ihnen angegebene Adresse<\/li><li>Senden von Bestellbestätigungen und Sendungsverfolgungsinformationen<br\/><\/li><\/ul><p>Wir können Ihre Informationen auch verwenden, um Betrug zu verhindern, Streitigkeiten beizulegen oder gesetzlichen Verpflichtungen nachzukommen.<\/p><p><strong>Kommunikation mit Ihnen<\/strong><\/p><p>Wir verwenden Ihre persönlichen Informationen, um mit Ihnen über Ihre Bestellungen, unsere Produkte und Dienstleistungen sowie Werbeangebote zu kommunizieren. Dazu gehören:<\/p><ul><li>Senden von Bestellbestätigungen und Updates<\/li><li>Beantwortung Ihrer Kundenserviceanfragen und Rückmeldungen<\/li><li>Benachrichtigung über neue Produkte, Dienstleistungen und Werbeangebote, die für Sie von Interesse sein könnten<\/li><li>Bereitstellung personalisierter Empfehlungen und Werbung<\/li><\/ul><p><strong>Personalisierung unserer Website und Werbung<\/strong><\/p><p>Wir verwenden Ihre persönlichen Informationen, um Ihr Erlebnis auf unserer Website zu personalisieren und unsere Werbung auf Ihre Interessen und Vorlieben zuzuschneiden. Dies beinhaltet:<\/p><ul><li>Anpassung unserer Website basierend auf Ihrem Surfverhalten und Ihren Interessen<\/li><li>Anzeige personalisierter Werbung auf unserer Website und anderen Online-Plattformen<\/li><li>Analyse Ihres Verhaltens und deiner Interessen, um unsere Produkte und Dienstleistungen zu verbessern<\/li><\/ul><p><strong>Verbesserung unserer Produkte und Dienstleistungen<\/strong><\/p><p>Wir verwenden Ihre persönlichen Informationen, um unsere Website, Produkte und Dienstleistungen aufgrund Ihres Feedbacks und Verhaltens zu verbessern. Dies beinhaltet:<\/p><ul><li>Durchführung von Marktforschung und Analysen, um die Bedürfnisse und Vorlieben unserer Kunden besser zu verstehen<br\/>Entwicklung und Testen neuer Produkte und Funktionen<\/li><li>Verbesserung der Funktionalität und Benutzererfahrung unserer Website<\/li><\/ul><p><strong>Einhaltung geltender Gesetze und Vorschriften<\/strong><\/p><p>Wir können Ihre persönlichen Informationen verwenden, um geltenden Gesetzen und Vorschriften nachzukommen, einschließlich:<\/p><ul><li>Steuer- und Buchhaltungsvorschriften<\/li><li>Produktsicherheits- und Konformitätsvorschriften<\/li><li>Datenschutz- und Privatsphäreregeln<\/li><\/ul>"
+          }
+        },
+        "text-4": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Informationsteilung<br\/><\/h2>"
+          }
+        },
+        "text-5": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wir verstehen die Bedeutung der Wahrung der Privatsphäre Ihrer persönlichen Informationen und deren Sicherheit. Es kann jedoch Umstände geben, in denen wir Ihre Informationen mit Dritten teilen müssen, um Ihnen unsere Produkte und Dienstleistungen anbieten zu können.<\/p><p><strong>Dritter Dienstleister<\/strong><\/p><p>Wir können Ihre persönlichen Informationen mit dritter Dienstleistern teilen, die uns helfen, unsere Produkte und Dienstleistungen anzubieten, wie Zahlungsabwickler, Versandunternehmen und Marketingagenturen. Diese Drittanbieter sind durch Vertraulichkeitsvereinbarungen gebunden und dürfen Ihre Informationen nur zur Erbringung von Dienstleistungen für uns verwenden. Insbesondere können wir Ihre Informationen mit folgenden Parteien teilen:<\/p><ul><li>Zahlungsabwickler, um Ihre Zahlungen sicher und effizient abzuwickeln. <\/li><li>Versandunternehmen, um deine Bestellungen an Sie zu liefern.<\/li><li>Marketingagenturen, um uns bei der Erstellung und Zustellung gezielter Werbekampagnen zu unterstützen.<\/li><\/ul><p><strong>Geschäftspartner<\/strong><\/p><p>Wir können auch Ihre persönlichen Informationen mit unseren Geschäftspartnern teilen, wie anderen Unternehmen oder Einzelpersonen, die ergänzende Produkte oder Dienstleistungen anbieten. Wir teilen Ihre Informationen nur mit diesen Partnern, wenn es für die Bereitstellung unserer Produkte und Dienstleistungen erforderlich ist oder wenn Sie uns Ihre Zustimmung gegeben haben.<\/p><p><strong>Rechtliche Compliance<\/strong><\/p><p>Wir können Ihre persönlichen Informationen mit Strafverfolgungs- oder Regulierungsbehörden teilen, um auf eine rechtmäßige Anfrage oder gerichtliche Anordnung zu reagieren oder um unsere Rechte, unser Eigentum oder unsere Sicherheit zu schützen. Dies beinhaltet:<\/p><ul><li>Reagieren auf eine Vorladung oder einen anderen rechtlichen Vorgang<\/li><li>Untersuchung möglicher Betrugs- oder anderer illegaler Aktivitäten<\/li><li>Durchsetzung unserer Richtlinien oder Verteidigung gegen rechtliche Ansprüche<\/li><\/ul><p><strong>Unternehmensgeschäfte<\/strong><\/p><p>Im Falle einer Fusion, Übernahme oder eines anderen Unternehmensgeschäfts von Geschenke Mall können Ihre persönlichen Informationen als Teil der Transaktion offengelegt werden. Wir werden die erwerbende Einheit auffordern, diese Datenschutzrichtlinie einzuhalten und Ihre persönlichen Informationen gemäß den geltenden Gesetzen und Vorschriften zu schützen.<\/p>"
+          }
+        },
+        "text-6": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Datenaufbewahrung<\/h2>"
+          }
+        },
+        "text-7": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wir bewahren Ihre persönlichen Informationen so lange auf, wie es erforderlich ist, um die Zwecke zu erfüllen, für die sie gesammelt wurden, sowie um geltenden rechtlichen Verpflichtungen nachzukommen. Wir werden Ihre persönlichen Informationen sicher löschen, wenn sie nicht mehr benötigt werden oder auf Ihre Anfrage hin, es sei denn, wir sind gesetzlich verpflichtet, sie für legitime Geschäftszwecke aufzubewahren.<\/p>"
+          }
+        },
+        "text-8": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Ihre Rechte<\/h2>"
+          }
+        },
+        "text-9": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Sie haben das Recht, auf Ihre von uns gespeicherten persönlichen Informationen zuzugreifen, sie zu korrigieren oder zu löschen. Sie haben möglicherweise auch das Recht, der Verwendung bestimmter Informationen zu widersprechen oder deren Nutzung einzuschränken oder uns aufzufordern, Ihre Informationen an eine andere Partei zu übertragen. Um diese Rechte auszuüben, kontaktiere uns bitte unter den unten angegebenen Kontaktinformationen.<br\/><\/p>"
+          }
+        },
+        "text-10": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Änderungen dieser Richtlinie<\/h2>"
+          }
+        },
+        "text-11": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wir können diese Datenschutzrichtlinie von Zeit zu Zeit aktualisieren, um Änderungen unserer Praktiken oder geltender Gesetze widerzuspiegeln. Wenn wir wesentliche Änderungen an dieser Richtlinie vornehmen, werden wir Sie per E-Mail oder durch einen Hinweis auf unserer Website darüber informieren.<\/p>"
+          }
+        },
+        "text-12": {
+          "type": "text",
+          "settings": {
+            "text": "<h2>Kontaktiere uns<\/h2>"
+          }
+        },
+        "text-13": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Wenn Sie Fragen oder Bedenken bezüglich dieser Datenschutzrichtlinie haben oder Ihre Rechte ausüben möchten, wenden Sie sich bitte an uns unter <strong>kontakt@geschenkemall.com.<\/strong><\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "text-0",
+        "text-1",
+        "text-2",
+        "text-3",
+        "text-4",
+        "text-5",
+        "text-6",
+        "text-7",
+        "text-8",
+        "text-9",
+        "text-10",
+        "text-11",
+        "text-12",
+        "text-13"
+      ],
+      "settings": {
+        "layout_secondary": true,
+        "enable_title": true,
+        "enable_content": false,
+        "padding_top": 0,
+        "padding_bottom": 120,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 56
+      }
+    },
+    "image-width-text": {
+      "type": "image-width-text",
+      "blocks": {
+        "template--image-width-text-1": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Easy_Exchange.png",
+            "img_type": "circle",
+            "title": "Einfacher Umtausch",
+            "content": "Genießen Sie einfache Transaktionen mit unserem intuitiven System.",
+            "text_align_item": "text-center"
+          }
+        },
+        "template--image-width-text-2": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/secure.png",
+            "img_type": "circle",
+            "title": "Sichere Zahlung",
+            "content": "Wir gewährleisten, dass Ihre Transaktionen sicher sind.",
+            "text_align_item": "text-center"
+          }
+        },
+        "template--image-width-text-3": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Outstanding_Support.png",
+            "img_type": "circle",
+            "title": "Exzellenter Support",
+            "content": "Service jenseits aller Erwartungen mit unserem Team.",
+            "text_align_item": "text-center"
+          }
+        },
+        "3adff2bd-eae0-4fa4-8692-194489b71fb6": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Premium_Quality.png",
+            "img_type": "circle",
+            "title": "Premium-Qualität",
+            "content": "Nous sommes minutieuxWir sind akribisch in jedem Detail.",
+            "text_align_item": "text-center"
+          }
+        }
+      },
+      "block_order": [
+        "template--image-width-text-1",
+        "template--image-width-text-2",
+        "template--image-width-text-3",
+        "3adff2bd-eae0-4fa4-8692-194489b71fb6"
+      ],
+      "settings": {
+        "heading": "",
+        "background_color": "#ffffff",
+        "columns_desktop": 4,
+        "columns_tablet": 4,
+        "columns_mobile": 2,
+        "padding_top_mb": 24,
+        "padding_bottom_mb": 48,
+        "padding_top": 64,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "template",
+    "image-width-text"
+  ]
+}

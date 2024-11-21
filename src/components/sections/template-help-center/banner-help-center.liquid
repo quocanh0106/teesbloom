@@ -1,0 +1,195 @@
+{% if section.settings.banner == blank and section.settings.banner_mobile == blank %}
+  {% assign nobanner = true %}
+{% endif %}
+
+<div class="page-width-desktop relative">
+  <div data-section-id="{{ section.id }}" class="relative lg:rounded-xl overflow-hidden">
+    {% if section.settings.banner != blank %}
+      <img
+        src="{{ section.settings.banner | image_url: width: 1380 }}"
+        class="w-full{% if section.settings.banner_mobile != blank %} hidden lg:block{% else %} block{% endif %}"
+        loading="lazy"
+        width="{{ section.settings.banner.width }}"
+        height="{{ section.settings.banner.height }}"
+        alt="{{ blog.title }}">
+    {% endif %}
+    {% if section.settings.banner_mobile != blank %}
+      <img
+        src="{{ section.settings.banner_mobile | image_url: width: 768 }}"
+        class="w-full block{% if section.settings.banner != blank %} lg:hidden{% endif %}"
+        loading="eager"
+        width="{{ section.settings.banner_mobile.width }}"
+        height="{{ section.settings.banner_mobile.height }}"
+        alt="{{ blog.title }}">
+    {% endif %}
+    <div class="{% unless nobanner %}absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2{% else %} py-10 lg:py-16 mx-auto{% endunless %} max-w-[255px] md:max-w-[615px] w-full text-center px-4">
+      <h1 class="text-h3 md:text-h1 capitalize font-semibold font-heading">{{ page.title }}</h1>
+      {% if section.settings.description != blank %}
+        <p class="text-sm leading-5 font-normal md:text-lg md:leading-6 mt-2 md:mt-3">{{ section.settings.description }}</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="max-w-[calc(100%_-_32px)] w-[652px] rounded-xl shadow-megamenu lg:shadow-box p-4 lg:p-8 grid gap-6 lg:gap-3 mx-auto relative bg-background -top-5 lg:-top-19">
+    <form
+      action="/pages/search-help-center"
+      method="get"
+      role="search">
+      <div class="relative">
+        <input
+          class="w-full border-primary border rounded-[100px] h-12.5 py-1 pl-6 pr-13 lg:pr-29 !ring-0 !ring-offset-0 !shadow-none focus:border-primary"
+          id="Search-In-Modal-1"
+          required
+          type="search"
+          name="q"
+          pattern="^(?=.*\S).+$"
+          value=""
+          placeholder="{{ 'general.search.placeholder' | t }}"><input
+          type="hidden"
+          name="options[prefix]"
+          value="last">
+        <button type="submit" class="absolute top-1/2 right-1 -translate-y-1/2 rounded-full btn !flex items-center justify-center !text-sm !leading-none !font-heading !font-bold w-10.5 h-10.5 lg:w-auto lg:px-6">
+          {% render 'icon-search', class: 'w-6 h-6 lg:hidden' %}
+          <span class="hidden lg:block">{{ 'general.search.search' | t }}</span>
+        </button>
+      </div>
+    </form>
+    <div class="flex flex-wrap gap-5 lg:px-6">
+      <span class="uppercase text-xs font-normal leading-6 text-primary w-full lg:w-fit block lg:pr-5">{{ 'templates.search_help_center.popular_search' | t }}</span>
+      <ul class="flex gap-5 flex-wrap">
+        {% for block in section.blocks %}
+          {% if block.settings.key_word %}
+            <li data-value="{{ block.settings.key_word }}" class="suggestion">
+              <a href="/pages/search-help-center?q={{ block.settings.key_word | url_encode }}" class="flex gap-1.5 items-center capitalize cursor-pointer font-heading font-normal text-sm leading-2 text-primary hover:text-primary">
+                {% render 'icon-search', class: 'w-3.5 h-3.5' %}
+                <span>{{ block.settings.key_word }}</span>
+              </a>
+            </li>
+          {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  [data-section-id="{{ section.id }}"] {
+    margin-top: {{ section.settings.margin_top_mb }}px;
+    margin-bottom: {{ section.settings.margin_bottom_mb }}px;
+  }
+  @media (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] {
+      margin-top: {{ section.settings.margin_top }}px;
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+  [data-section-id="{{ section.id }}"] h1,
+  [data-section-id="{{ section.id }}"] a,
+  [data-section-id="{{ section.id }}"] li {
+    color: {{ section.settings.color_title }};
+  }
+  [data-section-id="{{ section.id }}"] p,
+  [data-section-id="{{ section.id }}"] span {
+    color: {{ section.settings.color_subtitle }};
+  }
+{% endstyle %}
+
+{% schema %}
+  {
+    "name": "Help center banner",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_title",
+        "label": "Color title",
+        "default": "#0F0F0F"
+      },
+      {
+        "type": "color",
+        "id": "color_subtitle",
+        "label": "Color subtitle",
+        "default": "#4D4D4D"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description"
+      },
+      {
+        "type": "header",
+        "content": "Banner"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner",
+        "label": "Banner desktop"
+      },
+      {
+        "type": "image_picker",
+        "id": "banner_mobile",
+        "label": "Banner mobile"
+      },
+      {
+        "type": "header",
+        "content": "Margin desktop"
+      },
+      {
+        "type": "range",
+        "id": "margin_top",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "margin top",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "margin bottom",
+        "default": 16
+      },
+      {
+        "type": "header",
+        "content": "Margin mobile"
+      },
+      {
+        "type": "range",
+        "id": "margin_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "margin top",
+        "default": 16
+      },
+      {
+        "type": "range",
+        "id": "margin_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "margin bottom",
+        "default": 16
+      }
+    ],
+    "blocks": [
+      {
+        "type": "popular",
+        "name": "Popular search",
+        "settings": [
+          {
+            "type": "text",
+            "id": "key_word",
+            "label": "Key word"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

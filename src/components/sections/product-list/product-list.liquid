@@ -1,0 +1,160 @@
+{%- if section.settings.collection.products != blank -%}
+  {%- style -%}
+    [data-section-id="{{ section.id }}"] {
+      background: {{ section.settings.background_color }};
+      padding-top: {{ section.settings.padding_top_mb }}px;
+      padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+    }
+
+    @media screen and (min-width: 1024px) {
+      [data-section-id="{{ section.id }}"] {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+  <div data-section-id="{{ section.id }}" {% if section.settings.secondary != blank and section.settings.secondary != 'transparent' %} style="--color-secondary: {{ section.settings.secondary }}"{% endif %}>
+    <div class="block relative overflow-hidden{% unless section.settings.fullwidth %} page-width{% endunless %}">
+      {% if section.settings.heading %}
+        <h2 class="text-3xl font-semibold capitalize mb-5 text-center text-secondary">{{ section.settings.heading | escape }}</h2>
+      {% endif %}
+
+      <div class="grid gap-y-3 gap-x-5 lg:gap-10 grid-cols-{{ section.settings.product_per_row_mobile }} md:grid-cols-{{ section.settings.product_per_row_tablet }} lg:grid-cols-{{ section.settings.product_per_row }} transition-all duration-500 overflow-hidden">
+        {%- for product in section.settings.collection.products limit: section.settings.limit -%}
+          {%- render 'product-card', product: product -%}
+        {%- endfor -%}
+      </div>
+
+      <a href="{{ section.settings.collection.url }}" class="btn-2 w-fit !text-xl !font-semibold !h-12 !px-6 text-center mx-auto !rounded-[100px] mt-5">{{ section.settings.button_text }}</a>
+    </div>
+  </div>
+{%- endif -%}
+{% schema %}
+  {
+    "name": "Products list",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "fullwidth",
+        "label": "Full width",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "secondary",
+        "label": "Secondary Color"
+      },
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Collection"
+      },
+      {
+        "type": "text",
+        "id": "button_text",
+        "label": "Button text"
+      },
+      {
+        "type": "range",
+        "id": "product_per_row",
+        "label": "Products per row",
+        "min": 1,
+        "max": 5,
+        "step": 1,
+        "default": 4
+      },
+      {
+        "type": "range",
+        "id": "product_per_row_tablet",
+        "label": "Products per row tablet",
+        "min": 1,
+        "max": 4,
+        "step": 1,
+        "default": 3
+      },
+      {
+        "type": "range",
+        "id": "product_per_row_mobile",
+        "label": "Products per row mobile",
+        "min": 1,
+        "max": 3,
+        "step": 1,
+        "default": 2
+      },
+      {
+        "type": "range",
+        "id": "limit",
+        "label": "Limit",
+        "min": 1,
+        "max": 20,
+        "step": 1,
+        "default": 12
+      },
+      {
+        "type": "header",
+        "content": "Common settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 0
+      },
+      {
+        "type": "header",
+        "content": "Mobile settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile",
+        "default": 0
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 0
+      }
+    ],
+    "presets": [
+      {
+        "name": "Products list"
+      }
+    ]
+  }
+{% endschema %}

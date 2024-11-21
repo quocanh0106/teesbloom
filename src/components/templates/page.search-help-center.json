@@ -1,0 +1,133 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#a8a8a8",
+        "color_text_breadcrumb_link_hover": "#2f2f2f",
+        "color_text_breadcrumb": "#2f2f2f",
+        "padding_top": 32,
+        "padding_bottom": 48,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 24
+      }
+    },
+    "template": {
+      "type": "template-search-help-center",
+      "blocks": {
+        "popular-0": {
+          "type": "popular",
+          "settings": {
+            "key_word": "Bestellverfolgung"
+          }
+        },
+        "popular-1": {
+          "type": "popular",
+          "settings": {
+            "key_word": "Versandinformationen"
+          }
+        },
+        "popular-2": {
+          "type": "popular",
+          "settings": {
+            "key_word": "Artikel umtauschen"
+          }
+        },
+        "blog-1": {
+          "type": "blog",
+          "settings": {
+            "blog": "zahlung",
+            "url_refer": "\/pages\/help-center?section=delivery-shipping"
+          }
+        },
+        "blog-2": {
+          "type": "blog",
+          "settings": {
+            "blog": "umtausch-ruckerstattung",
+            "url_refer": "\/pages\/help-center?section=replacement-refund"
+          }
+        },
+        "blog-3": {
+          "type": "blog",
+          "settings": {
+            "blog": "versand-und-lieferung",
+            "url_refer": "\/pages\/help-center?section=payment"
+          }
+        }
+      },
+      "block_order": [
+        "popular-0",
+        "popular-1",
+        "popular-2",
+        "blog-1",
+        "blog-2",
+        "blog-3"
+      ],
+      "settings": {
+        "blog_suggestion": "versand-und-lieferung",
+        "padding_top": 0,
+        "padding_bottom": 80,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 48
+      }
+    },
+    "contact": {
+      "type": "template-contact",
+      "blocks": {
+        "contact-form": {
+          "type": "contact-form",
+          "settings": {
+            "title": "Nachricht senden",
+            "heading_tag": "h2",
+            "description": "Bitte füllen Sie das untenstehende Formular aus oder kontaktieren Sie uns unter kontakt@geschenkemall.com | Potsdamer Str. 182, 10783 Berlin | Büro: Centro Direzionale MI2, 2 20090 Milano",
+            "row_span_desktop": 1,
+            "row_span_tablet": 1,
+            "row_span_mobile": 1,
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        },
+        "live-chat": {
+          "type": "live-chat",
+          "settings": {
+            "title": "Live-Chat",
+            "heading_tag": "h2",
+            "description": "Es tut uns leid, dass Sie immer noch Probleme haben. Bitte lassen Sie uns wissen, wie wir Ihnen helfen können.",
+            "banner": "shopify:\/\/shop_images\/contact_banner.png",
+            "row_span_desktop": 1,
+            "row_span_tablet": 1,
+            "row_span_mobile": 1,
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        }
+      },
+      "block_order": [
+        "contact-form",
+        "live-chat"
+      ],
+      "settings": {
+        "background_color": "#fafafa",
+        "col_per_row_desktop": 2,
+        "col_per_row_tablet": 1,
+        "col_per_row_mobile": 1,
+        "padding_top": 64,
+        "padding_bottom": 120,
+        "padding_top_mb": 40,
+        "padding_bottom_mb": 80,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 0
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "template",
+    "contact"
+  ]
+}

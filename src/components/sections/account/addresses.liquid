@@ -1,0 +1,248 @@
+<link rel="stylesheet" href="{{ 'account.css' | asset_url }}" />
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media screen and (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top_tl }}px;
+      padding-bottom: {{ section.settings.padding_bottom_tl }}px;
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-width grid grid-cols-1 lg:grid-cols-6 gap-4">
+  {% render 'account-menu' %}
+  <div class="w-full col-span-1 lg:col-span-5 md:rounded-2xl pt-4 pb-5 md:p-8 lg:py-10 lg:px-12 md:shadow-megamenu">
+    {% if customer.addresses_count > 0 %}
+      {%- paginate customer.addresses by 5 -%}
+        <div class="flex items-center justify-between gap-2 mb-5 lg:mb-4">
+          <span class="text-h5 md:text-h4 text-primary font-heading font-semibold capitalize">{{ 'customer.addresses.address_list' | t }}</span>
+          <modal-opener class="inline-block" data-id="#address-add-new">
+            <span class="flex items-center gap-1 text-secondary hover:text-primary font-heading font-bold uppercase transition-all cursor-pointer">{% render 'icon-plus-2', class: 'w-5 h-5' %}{{ 'customer.addresses.add' | t }}</span>
+          </modal-opener>
+          <modal-dialog class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20" id="address-add-new">
+            <div class="rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_200px)] w-full md:w-[400px] lg:w-[572px] overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+              <div class="p-4 pb-0 lg:p-8 lg:pb-0 relative">
+                {% render 'account-address-form', type: 'new' %}
+                <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-5 lg:right-5 close">
+                  {% render 'icon-close', class: 'w-6 h-6' %}
+                </span>
+              </div>
+            </div>
+          </modal-dialog>
+        </div>
+        <div class="address-list grid grid-cols-1 gap-2">
+          {% if customer.default_address %}
+            <div class="p-4 rounded-lg border border-solid border-primary w-full flex items-start justify-between gap-6">
+              <div class="grid gap-2">
+                <div class="flex items-center flex-wrap gap-4 gap-y-1">
+                  <span class="text-primary text-sm md:text-base leading-4 md:leading-4 font-normal">{{ customer.default_address.address1 }}{% if customer.default_address.city %}, {{ customer.default_address.city }}{% endif %}
+                    {% if customer.default_address.country %}, {{ customer.default_address.country }}{% endif %}
+                  </span>
+                  <span class="text-primary0 text-xs capitalize font-normal leading-6 bg-backgroundSecondary py-0.5 px-2.5 rounded">
+                    {{ 'customer.addresses.default_address_label' | t }}
+                  </span>
+                </div>
+                {% assign postcodeText = 'customer.addresses.placehoder_postcode' | t %}
+                <div class="flex flex-wrap items-center gap-1.5 md:gap-2 text-primary0 text-sm leading-5 font-normal">
+                  {{ customer.default_address.name }}
+                  {% if customer.default_address.phone != blank %}
+                    {% if customer.default_address.name != blank %}
+                      {% render 'icon-dot', class: 'w-1 h-1 text-primary' %}
+                    {% endif %}
+                    {{ customer.default_address.phone }}
+                  {% endif %}
+                  {% if customer.default_address.zip != blank %}
+                    {% if customer.default_address.phone != blank or customer.default_address.name != blank %}
+                      {% render 'icon-dot', class: 'w-1 h-1 text-primary' %}
+                    {% endif %}
+                    {{ customer.default_address.zip | prepend: ": " | prepend: postcodeText }}
+                  {% endif %}
+                </div>
+              </div>
+              <modal-opener data-id="#adresss-1" class="block w-fit font-heading font-bold text-sm leading-4 text-primary hover:text-primary capitalize cursor-pointer">
+                <span class="hidden lg:block">{{ 'customer.addresses.edit' | t }}</span>
+                <span class="block lg:hidden">{% render 'icon-edit-2', class: 'w-4.5 h-4.5' %}</span>
+              </modal-opener>
+              <modal-dialog class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20" id="adresss-1">
+                <div class="rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_200px)] w-full md:w-[400px] lg:w-[572px] overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+                  <div class="p-4 pb-0 lg:p-8 lg:pb-0 relative">
+                    {% render 'account-address-form', address: customer.default_address, default_address: true %}
+                    <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-5 lg:right-5 close">
+                      {% render 'icon-close', class: 'w-6 h-6' %}
+                    </span>
+                  </div>  
+                </div>
+              </modal-dialog>
+            </div>
+          {% endif %}
+          {% for address in customer.addresses %}
+            {% unless address == customer.default_address %}
+              <div class="p-4 rounded-lg border border-solid border-primary w-full flex items-start justify-between gap-6">
+                <div class="grid gap-2">
+                  <div class="flex items-center flex-wrap gap-4">
+                    {% if address.address1 %}
+                      <span class="text-primary text-sm md:text-base leading-4 md:leading-4 font-normal">{{ address.address1 }}</span>
+                    {% endif %}
+                    {% if address == customer.default_address %}
+                      <span class="text-primary0 text-xs capitalize font-normal leading-6 bg-backgroundSecondary py-0.5 px-2.5 rounded">
+                        {{ 'customer.addresses.default_address_label' | t }}
+                      </span>
+                    {% endif %}
+                  </div>
+                  <div class="flex flex-wrap items-center gap-1.5 md:gap-2 text-primary0 text-sm leading-5 font-normal">
+                    {{ address.name }}
+                    {% if address.phone != blank %}
+                      {% if address.name != blank %}
+                        {% render 'icon-dot', class: 'w-1 h-1 text-primary' %}
+                      {% endif %}
+                      {{ address.phone }}
+                    {% endif %}
+                    {% if address.zip != blank %}
+                      {% if address.phone != blank or address.name != blank %}
+                        {% render 'icon-dot', class: 'w-1 h-1 text-primary' %}
+                      {% endif %}
+                      {{ address.zip | prepend: ": " | prepend: postcodeText }}
+                    {% endif %}
+                  </div>
+                </div>
+                <modal-opener data-id="#address-{{ forloop.index | plus: 1 }}" class="block w-fit font-heading font-bold text-sm leading-4 text-primary hover:text-primary capitalize cursor-pointer">
+                  <span class="hidden lg:block">{{ 'customer.addresses.edit' | t }}</span>
+                  <span class="block lg:hidden">{% render 'icon-edit-2', class: 'w-4.5 h-4.5' %}</span>
+                </modal-opener>
+                <modal-dialog class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20" id="address-{{ forloop.index | plus: 1 }}">
+                  <div class="rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_200px)] w-full md:w-[400px] lg:w-[572px] overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+                    <div class="p-4 pb-0 lg:p-8 lg:pb-0 relative">
+                      {% render 'account-address-form', address: address %}
+                      <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-5 lg:right-5 close">
+                        {% render 'icon-close', class: 'w-6 h-6' %}
+                      </span>
+                    </div>  
+                  </div>
+                </modal-dialog>
+              </div>
+            {% endunless %}
+          {% endfor %}
+        </div>
+        {% render 'pagination', paginate: paginate %}
+      {%- endpaginate -%}
+    {% else %}
+      <div class="text-center p-6 py-10 md:py-10 lg:py-16 rounded-2xl bg-backgroundSecondary max-w-full mx-auto">
+        <svg xmlns="http://www.w3.org/2000/svg" width="97" height="96" class="w-20 h-20 lg:w-24 lg:h-24 mb-3 lg:mb-6 mx-auto block text-center" viewBox="0 0 97 96" fill="none">
+          <path d="M76.1047 9.46855L67.9827 4.741C67.6259 4.54538 66.8688 4.30085 65.8454 4.8859L52.1953 12.8159L52.208 8.52304C52.208 7.61375 51.6356 6.76062 50.6357 6.18462C48.8842 5.1739 46.1455 5.17209 44.4048 6.18643C43.4212 6.757 42.8579 7.6047 42.8579 8.50673L42.8615 8.52847L42.8253 18.2607L22.0096 30.3603C20.7489 31.0867 19.8107 32.7295 19.8324 34.1695L19.8505 41.1703C19.8512 41.4105 19.9473 41.6406 20.1177 41.8099C20.2881 41.9792 20.5187 42.0739 20.7589 42.0732C20.9991 42.0725 21.2292 41.9764 21.3985 41.806C21.5678 41.6357 21.6626 41.405 21.6618 41.1648L21.6437 34.1532C21.6329 33.3653 22.2252 32.3238 22.9171 31.9253C74.1286 2.16349 15.5812 36.2 66.7438 6.4527C67.001 6.30779 67.1115 6.32771 67.0934 6.31685L73.3207 9.94311L30.1298 35.0661C28.8582 35.7961 27.9326 37.4535 27.9326 38.8862C28.0594 83.9446 28.0141 68.4035 28.0232 71.7653L21.8031 68.1662C21.785 68.1463 21.7289 68.034 21.7289 67.8021L21.6872 51.6397C21.6868 51.5208 21.6631 51.4031 21.6172 51.2933C21.5714 51.1836 21.5044 51.084 21.42 51.0001C21.3357 50.9163 21.2356 50.8499 21.1256 50.8047C21.0156 50.7595 20.8977 50.7364 20.7788 50.7368C20.6599 50.7371 20.5422 50.7609 20.4324 50.8068C20.3227 50.8526 20.2231 50.9196 20.1392 51.004C20.0554 51.0883 19.989 51.1883 19.9438 51.2984C19.8986 51.4084 19.8755 51.5262 19.8759 51.6452L19.9175 67.8039C19.9175 68.6679 20.2671 69.3653 20.8775 69.7221L28.985 74.4207C29.6534 74.8101 30.4522 74.6924 31.1242 74.3102L42.7293 67.563L42.7184 71.6566C41.1951 72.0062 39.7841 72.4989 38.5832 73.1981C36.0763 74.6616 34.6961 76.6504 34.6852 78.8041V78.8222L34.6816 78.8457L34.6834 78.8657V83.6439C34.6798 85.8302 36.089 87.8498 38.6502 89.3279C43.6205 92.1988 51.3929 92.1952 56.3414 89.3188C58.8464 87.8643 60.2285 85.8755 60.2357 83.711V78.8784L60.2321 78.8675V78.8602C60.2321 76.683 58.8283 74.6725 56.2816 73.1944C55.0499 72.488 53.6009 71.9537 52.0612 71.6041L52.0793 62.1273L74.9563 48.8285C76.217 48.104 77.1679 46.4648 77.1679 45.0175L77.0774 11.3668C77.0629 10.4974 76.7169 9.82356 76.1029 9.46855H76.1047ZM45.3123 7.75141C46.5077 7.05949 48.5292 7.06311 49.7282 7.75322C50.6176 8.26945 50.5886 8.7893 49.7518 9.27473C48.6451 9.91956 46.5765 9.98839 45.3267 9.26749C44.4229 8.74583 44.4917 8.23141 45.3123 7.75141ZM44.6602 10.9719C46.0911 11.6838 48.5835 11.8812 50.3876 10.9901L50.3785 13.8701L44.6384 17.2065L44.6602 10.9719ZM44.508 79.4326L44.5424 66.5125L50.2644 63.1833L50.2318 79.4489C50.2318 79.6844 49.9909 79.9615 49.5797 80.2024C48.4132 80.8744 46.3465 80.8654 45.1492 80.1807C44.7489 79.9543 44.508 79.6735 44.508 79.4326ZM58.4226 83.7073C58.4172 85.1981 57.3539 86.6344 55.4303 87.752C51.065 90.2879 43.9411 90.2915 39.5541 87.7575C37.5779 86.6163 36.4893 85.1564 36.4929 83.6439V82.8633C36.9675 83.3433 37.8261 84.0225 38.6412 84.4898L38.6484 84.4935C43.3415 87.2032 50.5053 87.3191 55.4575 84.9046C56.3595 84.4699 57.2362 84.1004 58.4226 82.9049V83.7073ZM58.4208 78.8602C58.4208 80.6045 56.9264 82.0482 55.4321 82.9176C51.4581 85.227 44.5424 85.535 39.9236 83.0987C38.1992 82.1858 36.5002 80.773 36.4929 78.8313V78.8276C36.4929 77.3351 37.558 75.8915 39.4907 74.7612C40.5012 74.1892 41.5846 73.7565 42.7112 73.4752L42.6967 79.4308C42.6967 80.351 43.2673 81.2005 44.2544 81.7547C46.0712 82.7962 48.924 82.6676 50.4908 81.771C51.6066 81.1153 52.0431 80.2477 52.0431 79.4526L52.0576 73.4516C53.2748 73.7596 54.4069 74.207 55.3741 74.7612C57.3376 75.8987 58.4172 77.355 58.4208 78.8602ZM74.0489 47.2581L30.2239 72.7398C29.9269 72.9082 29.8436 72.9336 29.8436 72.517L29.7476 38.8772C29.7476 38.0711 30.3544 37.035 31.0336 36.642L74.8658 11.1585C75.1972 10.9593 75.2588 10.9955 75.2643 11.3831L75.3566 45.0175C75.3566 45.8127 74.748 46.8578 74.0507 47.2599L74.0489 47.2581Z" fill="#A8A8A8"/>
+          <path d="M20.7741 48.8973C20.8933 48.8973 21.0132 48.8738 21.1233 48.828C21.2334 48.7823 21.3334 48.7153 21.4176 48.6308C21.5017 48.5463 21.5684 48.446 21.6137 48.3357C21.659 48.2254 21.682 48.1073 21.6816 47.9881L21.6725 44.5647C21.6715 44.3251 21.5757 44.0957 21.406 43.9266C21.2362 43.7575 21.0064 43.6626 20.7668 43.6626C20.6478 43.6626 20.528 43.6861 20.418 43.7317C20.308 43.7774 20.2081 43.8442 20.124 43.9285C20.0399 44.0128 19.9732 44.1129 19.9278 44.2229C19.8824 44.333 19.8591 44.451 19.8594 44.5701L19.8684 47.9935C19.8689 48.2334 19.9645 48.4633 20.1343 48.6327C20.3041 48.8022 20.5342 48.8973 20.7741 48.8973ZM69.2541 18.7896L52.6081 28.4674C52.5025 28.5258 52.4096 28.6047 52.335 28.6994C52.2603 28.7941 52.2053 28.9028 52.1732 29.0191C52.1411 29.1354 52.1325 29.2569 52.148 29.3765C52.1636 29.4962 52.2028 29.6115 52.2635 29.7157C52.3242 29.82 52.4051 29.9111 52.5015 29.9836C52.5978 30.0562 52.7077 30.1087 52.8247 30.1382C52.9417 30.1677 53.0634 30.1736 53.1826 30.1554C53.3019 30.1372 53.4163 30.0954 53.5192 30.0324L70.1652 20.3545C70.2708 20.2962 70.3636 20.2173 70.4383 20.1226C70.513 20.0279 70.568 19.9192 70.6001 19.8029C70.6322 19.6866 70.6407 19.5651 70.6252 19.4455C70.6097 19.3258 70.5704 19.2105 70.5097 19.1063C70.449 19.002 70.3681 18.9109 70.2718 18.8384C70.1754 18.7658 70.0655 18.7133 69.9485 18.6838C69.8316 18.6543 69.7099 18.6484 69.5906 18.6666C69.4714 18.6848 69.357 18.7266 69.2541 18.7896ZM69.2541 27.0564L58.7339 33.1733C58.6248 33.2294 58.5282 33.3072 58.4501 33.4019C58.3719 33.4965 58.3138 33.6061 58.2793 33.7239C58.2448 33.8417 58.2346 33.9653 58.2494 34.0871C58.2641 34.209 58.3034 34.3266 58.365 34.4328C58.4266 34.539 58.5091 34.6315 58.6076 34.7048C58.706 34.7782 58.8183 34.8307 58.9377 34.8593C59.0571 34.8878 59.181 34.8918 59.302 34.871C59.423 34.8502 59.5384 34.805 59.6414 34.7382L70.1652 28.6214C70.2708 28.5631 70.3636 28.4842 70.4383 28.3895C70.513 28.2947 70.568 28.186 70.6001 28.0697C70.6322 27.9535 70.6407 27.8319 70.6252 27.7123C70.6097 27.5927 70.5704 27.4774 70.5097 27.3731C70.449 27.2689 70.3681 27.1778 70.2718 27.1052C70.1754 27.0327 70.0655 26.9801 69.9485 26.9506C69.8316 26.9211 69.7099 26.9153 69.5906 26.9335C69.4714 26.9516 69.357 26.9934 69.2541 27.0564ZM69.2541 35.3215L56.1691 42.929C56.0662 42.9887 55.9761 43.0681 55.9039 43.1626C55.8317 43.2572 55.7789 43.365 55.7483 43.48C55.7178 43.5949 55.7102 43.7148 55.726 43.8327C55.7418 43.9506 55.7807 44.0642 55.8404 44.1671C55.9001 44.2699 55.9794 44.3601 56.074 44.4323C56.1685 44.5044 56.2763 44.5573 56.3913 44.5878C56.5063 44.6184 56.6261 44.626 56.744 44.6102C56.8619 44.5944 56.9755 44.5555 57.0784 44.4958L70.1634 36.8883C70.2711 36.8312 70.3661 36.7529 70.4428 36.6582C70.5195 36.5635 70.5764 36.4543 70.6099 36.3371C70.6433 36.2199 70.6528 36.0971 70.6378 35.9762C70.6227 35.8552 70.5834 35.7386 70.5221 35.6332C70.4609 35.5278 70.379 35.4358 70.2814 35.3629C70.1838 35.2899 70.0725 35.2373 69.9541 35.2084C69.8357 35.1795 69.7126 35.1747 69.5924 35.1945C69.4721 35.2142 69.357 35.2562 69.2541 35.3215ZM69.2541 43.5883L34.935 63.5437C34.8273 63.6008 34.7323 63.679 34.6556 63.7737C34.5788 63.8685 34.522 63.9777 34.4885 64.0949C34.455 64.2121 34.4455 64.3348 34.4606 64.4558C34.4757 64.5767 34.515 64.6934 34.5762 64.7988C34.6375 64.9042 34.7193 64.9961 34.817 65.0691C34.9146 65.1421 35.0259 65.1946 35.1443 65.2236C35.2627 65.2525 35.3857 65.2572 35.506 65.2375C35.6263 65.2177 35.7413 65.1739 35.8443 65.1087L70.1634 45.157C70.2663 45.0972 70.3564 45.0179 70.4286 44.9233C70.5008 44.8288 70.5536 44.721 70.5842 44.606C70.6147 44.4911 70.6223 44.3712 70.6065 44.2533C70.5907 44.1354 70.5518 44.0218 70.4921 43.9189C70.4324 43.816 70.353 43.7259 70.2585 43.6537C70.164 43.5815 70.0562 43.5287 69.9412 43.4981C69.8262 43.4676 69.7064 43.46 69.5885 43.4758C69.4706 43.4916 69.357 43.5305 69.2541 43.5902V43.5883ZM35.8551 49.9696L36.922 49.3538L36.9347 57.8362C36.935 57.995 36.9771 58.151 37.0567 58.2884C37.1363 58.4258 37.2507 58.5399 37.3883 58.6192C37.5259 58.6984 37.682 58.7401 37.8408 58.74C37.9996 58.74 38.1556 58.6981 38.2932 58.6187C39.0213 58.1985 50.813 51.3879 50.6228 51.5002C50.7611 51.4204 50.8757 51.3055 50.9552 51.1671C51.0348 51.0288 51.0763 50.8719 51.0757 50.7123L51.0449 41.1992L52.9957 40.0744C53.1318 39.9958 53.2451 39.8831 53.3244 39.7475C53.4038 39.6118 53.4465 39.4578 53.4483 39.3007C53.4501 39.1435 53.411 38.9886 53.3349 38.8511C53.2587 38.7137 53.148 38.5984 53.0138 38.5167L52.0321 37.9153L52.0139 32.0955C52.0136 31.9367 51.9715 31.7808 51.8919 31.6433C51.8123 31.5059 51.6979 31.3918 51.5603 31.3126C51.4227 31.2333 51.2666 31.1916 51.1078 31.1917C50.949 31.1918 50.793 31.2336 50.6555 31.313L47.4241 33.1787C47.2858 33.2585 47.1712 33.3734 47.0917 33.5117C47.0121 33.6501 46.9706 33.807 46.9712 33.9666L46.9748 34.8234L44.4209 33.2602C44.3171 33.1969 44.2017 33.155 44.0815 33.1373C43.9612 33.1195 43.8386 33.1261 43.721 33.1567C43.6034 33.1873 43.4931 33.2412 43.3967 33.3153C43.3004 33.3894 43.2199 33.4822 43.1602 33.588L34.6126 48.7416C34.5153 48.9146 34.4775 49.1148 34.5051 49.3114C34.5327 49.508 34.6241 49.6901 34.7653 49.8297C34.9065 49.9692 35.0897 50.0585 35.2866 50.0838C35.4835 50.1091 35.6833 50.069 35.8551 49.9696ZM43.037 50.446L45.591 48.9734L45.6001 52.3081L43.0461 53.7825L43.037 50.446ZM49.2372 42.2444L49.2625 50.1924L47.4078 51.2629L47.3969 47.4048C47.3966 47.246 47.3545 47.09 47.2749 46.9526C47.1952 46.8152 47.0809 46.7011 46.9433 46.6219C46.8056 46.5426 46.6496 46.5009 46.4908 46.501C46.3319 46.5011 46.1759 46.5429 46.0384 46.6223L41.6785 49.14C41.5405 49.22 41.4259 49.3349 41.3464 49.4732C41.2669 49.6116 41.2253 49.7684 41.2257 49.928L41.2384 54.8276L38.7442 56.2676L38.7315 48.3105L49.2372 42.2444ZM48.7844 34.4865L50.2081 33.6641L50.2153 36.805L48.788 35.9319L48.7844 34.4865ZM44.276 35.2961L50.7696 39.2684L37.8204 46.74L44.276 35.2961Z" fill="#A8A8A8"/>
+        </svg>
+        <span class="block text-center text-primary text-h5 md:text-h4 mb-1 font-heading">{{ 'customer.addresses.title_blank' | t }}</span>
+        <span class="block text-center text-primary text-sm leading-5 lg:text-base lg:leading-6 font-normal max-w-[263px] lg:max-w-[386px] mx-auto mb-4 md:mb-6">{{ 'customer.addresses.description_blank' | t }}</span>
+        <modal-opener class="block cursor-pointer mx-auto w-fit btn btn-2 px-6 lg:px-8 py-3.5 text-sm leading-none lg:text-base !uppercase lg:leading-none !font-heading !font-bold" data-id="#address-add-new">
+          <span>{{ 'customer.addresses.add_now' | t }}</span>
+        </modal-opener>
+        <modal-dialog class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20" id="address-add-new">
+          <div class="rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_200px)] w-full md:w-[400px] lg:w-[572px] overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+            <div class="p-4 pb-0 lg:p-8 lg:pb-0 relative">
+              {% render 'account-address-form', type: 'new' %}
+              <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-5 lg:right-5 close">
+                {% render 'icon-close', class: 'w-6 h-6' %}
+              </span>
+            </div>
+          </div>
+        </modal-dialog>
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/js/intlTelInput.min.js"></script>
+
+{% capture src_url %}{{ 'account.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+
+<script>window.onload = () => {typeof CustomerAddresses !== 'undefined' && new CustomerAddresses()}</script>
+
+{% schema %}
+  {
+    "name": "Address",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Padding mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      },
+      {
+        "type": "header",
+        "content": "Padding tablet"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_tl",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_tl",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 100
+      },
+      {
+        "type": "header",
+        "content": "Padding desktop"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 36
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 36
+      }
+    ]
+  }
+{% endschema %}

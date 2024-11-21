@@ -1,0 +1,160 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  #shopify-section-{{ section.id }} .slider-slide {
+    max-width: 88.4%;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} .slider-slide {
+      max-width: calc(50% - 8px);
+    }
+  }
+  @media screen and (min-width: 1024px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+    #shopify-section-{{ section.id }} .slider-slide {
+      max-width: calc(100%/3 - 10.4px);
+    }
+  }
+{%- endstyle -%}
+
+<div class="page-width">
+  <div class="flex items-center justify-between mb-4 lg:mb-8">
+    {% if section.settings.heading != blank %}
+      <h2 class="text-h5 font-semibold lg:text-h2 text-primary">{{ section.settings.heading | escape }}</h2>
+    {% else %}
+      <h2 class="text-h5 font-semibold lg:text-h2 text-primary">{{ section.settings.blog.title | escape }}</h2>
+    {% endif %}
+    <a href="{{ section.settings.blog.url }}" class="flex items-center dark-link text-sm lg:text-base font-bold no-underline font-heading tracking-wide" title="{{ 'sections.featured_blog.view_all' | t }}">
+      <span>{{ 'sections.featured_blog.view_all' | t }}</span>
+      {%- render 'icon-next-nobox', class: "w-2 h-[13px] ml-2.5" -%}
+    </a>
+  </div>
+  <slider-component class="block overflow-hidden -mx-4" visibility="true">
+    <button type="button" name="previous" aria-label="previous" class="prev-{{ block.id }} absolute top-1/2 -translate-y-[150%] left-0 w-10 h-10 bg-transparent shadow-button leading-none cursor-pointer transition-all hidden items-center justify-center p-0 rounded-full border-0 {% if settings.country == 'UK' %}text-primary disabled:!text-primary-opacity-50{% else %}text-primary disabled:!text-primary-opacity-50{% endif %}">
+      {%- render 'icon-prev', class: "w-7 h-7" -%}
+    </button>
+    <ul class="slider-wrapper gap-4 slider-on-mobile slider-on-tablet slider-on-desktop p-4 pb-8 scroll-pl-4" id="Slider-{{ section.id }}">
+      {%- for article in section.settings.blog.articles limit: section.settings.post_limit -%}
+        <li class="slider-slide !h-auto !transition-all" id="Slide-{{ section.id }}-{{ forloop.index }}">
+          {% render 'article-card', blog: section.settings.blog, article: article, media_aspect_ratio: 1.625, show_image: true, show_blog_title: section.settings.show_blog_title, show_date: section.settings.show_date, show_author: section.settings.show_author, show_excerpt: true %}
+        </li>
+      {%- endfor -%}
+    </ul>
+    <button type="button" name="next" aria-label="next" class="next-{{ block.id }} absolute top-1/2 -translate-y-[150%] right-0 w-10 h-10 bg-transparent shadow-button leading-none cursor-pointer transition-all hidden items-center justify-center p-0 rounded-full border-0 {% if settings.country == 'UK' %}text-primary disabled:!text-primary-opacity-50{% else %}text-primary disabled:!text-primary-opacity-50{% endif %}">
+      {%- render 'icon-next', class: "w-7 h-7" -%}
+    </button>
+    <div class="slider-counter caption !hidden">
+      <span class="slider-counter--current">1</span>
+      <span aria-hidden="true"> / </span>
+      <span class="slider-counter--total">{{ section.settings.post_limit }}</span>
+    </div>
+    <div class="slider-dots lg:mt-4"></div>
+  </slider-component>
+</div>
+
+{% schema %}
+  {
+    "name": "Feature blog",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Blog posts",
+        "label": "Heading"
+      },
+      {
+        "type": "blog",
+        "id": "blog",
+        "label": "Blog"
+      },
+      {
+        "type": "range",
+        "id": "post_limit",
+        "min": 2,
+        "max": 4,
+        "step": 1,
+        "default": 3,
+        "label": "Limit"
+      }, {
+        "type": "checkbox",
+        "id": "show_blog_title",
+        "default": true,
+        "label": "Show blog title"
+      }, {
+        "type": "checkbox",
+        "id": "show_date",
+        "default": true,
+        "label": "Show date"
+      }, {
+        "type": "checkbox",
+        "id": "show_author",
+        "default": true,
+        "label": "Show author"
+      }, {
+        "type": "header",
+        "content": "Common settings"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top DeskTop",
+        "default": 64
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Desktop",
+        "default": 92
+      }, {
+        "type": "header",
+        "content": "Mobile settings"
+      }, {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Top Mobile",
+        "default": 32
+      }, {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding Bottom Mobile",
+        "default": 32
+      }
+    ],
+    "presets": [
+      {
+        "name": "Feature blog",
+        "settings": {
+          "blog": "News"
+        }
+      }
+    ]
+  }
+{% endschema %}

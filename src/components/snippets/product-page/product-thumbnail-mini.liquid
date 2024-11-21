@@ -1,0 +1,18 @@
+{% assign aspect_ratio = media.aspect_ratio | default: 1.0 %}
+{% unless width %}
+  {% assign width = media.preview_image.width %}
+{% endunless %}
+<div class="relative w-full" style="padding-bottom: {{ aspect_ratio | times: 100 }}%">
+  <img
+    srcset="{{ media.preview_image | image_url: width: width }} {{ width }}w"
+    sizes="{{ width }}px"
+    src="{{ media.preview_image | image_url: width: width }}"
+    {% if lazy_load %}
+    loading="lazy"
+    {% endif %}
+    class="absolute top-0 left-0 block w-full h-full object-cover bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+    width="{{ width }}"
+    height="{{ width | divided_by: aspect_ratio }}"
+    data-media-id="{{ media.id }}"
+    alt="{{ media.preview_image | split: "/" | last | replace: "-", " " | split: "." | first }}">
+</div>

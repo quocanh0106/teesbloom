@@ -1,0 +1,443 @@
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+{% if section.blocks.size > 0 %}
+  <span class="order-1 order-2 order-3 order-4 order-5 order-6 order-7 order-8 order-9 order-10 order-11 order-12 hidden"></span>
+  <div class="page-width relative grid gap-3 lg:gap-4 grid-cols-{{ section.settings.columns_mobile }} md:grid-cols-{{ section.settings.columns_tablet }} lg:grid-cols-{{ section.settings.columns_desktop }}">
+    {% for block in section.blocks %}
+      {% case block.type %}
+        {% when 'image' %}
+          <div class="w-full overflow-hidden order-{{ block.settings.order_mobile }} md:order-none" style="
+            border-top-left-radius: {{ block.settings.rounded_top }}px;
+            border-top-right-radius: {{ block.settings.rounded_top }}px;
+            border-bottom-left-radius: {{ block.settings.rounded_bottom }}px;
+            border-bottom-right-radius: {{ block.settings.rounded_bottom }}px;
+            "
+          >
+            {% if block.settings.image %}
+              <img srcset="{%- if block.settings.image.width >= 180 -%} {{ block.settings.image | image_url: width: 180 }} 180w,{%- endif -%}
+                    {%- if block.settings.image.width >= 360 -%}
+                      {{ block.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                    {%- if block.settings.image.width >= 540 -%}
+                      {{ block.settings.image | image_url: width: 540 }} 540w,{%- endif -%}
+                    {%- if block.settings.image.width >= 720 -%}
+                      {{ block.settings.image | image_url: width: 720 }} 720w,{%- endif -%}
+                    {%- if block.settings.image.width >= 900 -%}
+                      {{ block.settings.image | image_url: width: 900 }} 900w,{%- endif -%}
+                    {%- if block.settings.image.width >= 1080 -%}
+                      {{ block.settings.image | image_url: width: 1080 }} 1080w{%- endif -%}"
+
+                src="{%- if block.settings.image.width >= 1080 -%} 
+                      {{ block.settings.image | image_url: width: 1080 }}
+                    {%- elsif block.settings.image.width >= 900 -%}
+                      {{ block.settings.image | image_url: width: 900 }}
+                    {%- elsif block.settings.image.width >= 720 -%}
+                      {{ block.settings.image | image_url: width: 720 }}
+                    {%- elsif block.settings.image.width >= 540 -%}
+                      {{ block.settings.image | image_url: width: 540 }}
+                    {%- elsif block.settings.image.width >= 360 -%}
+                      {{ block.settings.image | image_url: width: 360 }}
+                    {%- elsif block.settings.image.width >= 180 -%}
+                      {{ block.settings.image | image_url: width: 180 }}
+                    {%- endif -%}"
+                sizes="(min-width: 1024px) {{ 1440 | divided_by: section.settings.columns_desktop }}px, (min-width: 768px) calc((100vw - 60px) / {{ section.settings.columns_tablet }}), calc((100vw - 32px) / {{ section.settings.columns }})"
+                {% if block.settings.image.alt != blank %}
+                alt="{{ block.settings.image.alt | escape }}"
+                {% else %}
+                alt="{{ block.settings.image | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                {% endif %}
+                loading="lazy"
+                class="w-full h-full object-cover {% if block.settings.image_mobile %} hidden lg:block{% else %} block{% endif %} bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+                width="{{ block.settings.image.width }}"
+                height="{{ block.settings.image.height }}">
+            {% endif %}
+            {% if block.settings.image_mobile %}
+              <img srcset="{%- if block.settings.image_mobile.width >= 180 -%} {{ block.settings.image_mobile | image_url: width: 180 }} 180w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 360 -%}
+                      {{ block.settings.image_mobile | image_url: width: 360 }} 360w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 540 -%}
+                      {{ block.settings.image_mobile | image_url: width: 540 }} 540w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 720 -%}
+                      {{ block.settings.image_mobile | image_url: width: 720 }} 720w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 900 -%}
+                      {{ block.settings.image_mobile | image_url: width: 900 }} 900w,{%- endif -%}
+                    {%- if block.settings.image_mobile.width >= 1080 -%}
+                      {{ block.settings.image_mobile | image_url: width: 1080 }} 1080w{%- endif -%}"
+
+                src="{%- if block.settings.image_mobile.width >= 1080 -%} 
+                      {{ block.settings.image_mobile | image_url: width: 1080 }}
+                    {%- elsif block.settings.image_mobile.width >= 900 -%}
+                      {{ block.settings.image_mobile | image_url: width: 900 }}
+                    {%- elsif block.settings.image_mobile.width >= 720 -%}
+                      {{ block.settings.image_mobile | image_url: width: 720 }}
+                    {%- elsif block.settings.image_mobile.width >= 540 -%}
+                      {{ block.settings.image_mobile | image_url: width: 540 }}
+                    {%- elsif block.settings.image_mobile.width >= 360 -%}
+                      {{ block.settings.image_mobile | image_url: width: 360 }}
+                    {%- elsif block.settings.image_mobile.width >= 180 -%}
+                      {{ block.settings.image_mobile | image_url: width: 180 }}
+                    {%- endif -%}"
+                sizes="(min-width: 1024px) {{ 1440 | divided_by: section.settings.columns_desktop }}px, (min-width: 768px) calc((100vw - 60px) / {{ section.settings.columns_tablet }}), calc((100vw - 32px) / {{ section.settings.columns_mobile }})"
+                {% if block.settings.image_mobile.alt != blank %}
+                alt="{{ block.settings.image_mobile.alt | escape }}"
+                {% else %}
+                alt="{{ block.settings.image_mobile | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                {% endif %}
+                loading="lazy"
+                class="w-full h-full object-cover block{% if block.settings.image %} lg:hidden{% endif %} bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+                width="{{ block.settings.image_mobile.width }}"
+                height="{{ block.settings.image_mobile.height }}">
+            {% endif %}
+          </div>
+        {% when 'text_columns_1' %}
+          <div class="block w-full order-{{ block.settings.order_mobile }} md:order-none{% if block.settings.show_border %} border border-primary rounded-xl{% endif %} {% if block.settings.enable_padding %} p-12 lg:p-28{% endif %}">
+            {% if block.settings.subtitle %}
+              <span class="block text-sm font-medium leading-2 lg:text-base lg:leading-2 text-primary uppercase mb-2 lg:mb-4">{{ block.settings.subtitle }}</span>
+            {% endif %}
+            {% if  block.settings.title %}
+              <h2 class="text-h4 lg:text-h2 text-primary capitalize">{{ block.settings.title }}</h2>
+            {% endif %}
+          </div>
+        {% when 'text_columns_2' %}
+          <div class="flex flex-col justify-center w-full order-{{ block.settings.order_mobile }} md:order-none{% if block.settings.show_border %} border border-primary rounded-xl{% endif %} {% if block.settings.enable_padding %} p-12 lg:p-28{% endif %}">
+            {% if block.settings.title %}
+              <span class="block text-sm font-medium leading-2 lg:text-base lg:leading-2 text-primary uppercase mb-2 lg:mb-4">{{ block.settings.title }}</span>
+            {% endif %}
+            {% if block.settings.paragraph %}
+              <div class="banner-text-columns-wrapper">{{ block.settings.paragraph }}</div>
+            {% endif %}
+          </div>
+      {% endcase %}
+    {%- endfor -%}
+  </div>
+{% endif %}
+
+{% schema %}
+  {
+    "name": "Banner text columns",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Row span"
+      },
+      {
+        "type": "range",
+        "id": "row_span_desktop",
+        "label": "Rows span desktop",
+        "min": 1,
+        "max": 6,
+        "default": 1,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "row_span_tablet",
+        "label": "Rows span tablet",
+        "min": 1,
+        "max": 6,
+        "default": 1,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "row_span_mobile",
+        "label": "Rows span mobile",
+        "min": 1,
+        "max": 6,
+        "default": 1,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "columns_desktop",
+        "label": "Items per row in desktop",
+        "min": 1,
+        "max": 6,
+        "default": 6,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "columns_tablet",
+        "label": "Items per row in tablet",
+        "min": 1,
+        "max": 6,
+        "default": 4,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "columns_mobile",
+        "label": "Items per row in mobile",
+        "min": 1,
+        "max": 6,
+        "default": 2,
+        "step": 1
+      },
+      {
+        "type": "header",
+        "content": "Padding desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 64
+      },
+      {
+        "type": "header",
+        "content": "Padding mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 40
+      }
+    ],
+    "blocks": [
+      {
+        "type": "image",
+        "name": "Image",
+        "settings": [
+          {
+            "type": "number",
+            "id": "order_mobile",
+            "label": "Order mobile"
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "image_picker",
+            "id": "image_mobile",
+            "label": "Image mobile"
+          },
+          {
+            "type": "range",
+            "id": "rounded_top",
+            "label": "Radius",
+            "min": 1,
+            "max": 30,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "rounded_bottom",
+            "label": "Radius ",
+            "min": 1,
+            "max": 30,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "header",
+            "content": "Col span"
+          },
+          {
+            "type": "range",
+            "id": "col_span_desktop",
+            "label": "Cols span desktop",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_tablet",
+            "label": "Cols span tablet",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_mobile",
+            "label": "Cols span mobile",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          }
+        ]
+      },
+      {
+        "type": "text_columns_1",
+        "name": "Text columns style 1",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_border",
+            "label": "Show border",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_padding",
+            "label": "Enable padding",
+            "default": false
+          },
+          {
+            "type": "number",
+            "id": "order_mobile",
+            "label": "Order mobile"
+          },
+          {
+            "type": "text",
+            "id": "subtitle",
+            "label": "Sub title"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "header",
+            "content": "Col span"
+          },
+          {
+            "type": "range",
+            "id": "col_span_desktop",
+            "label": "Cols span desktop",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_tablet",
+            "label": "Cols span tablet",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_mobile",
+            "label": "Cols span mobile",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          }
+        ]
+      },
+      {
+        "type": "text_columns_2",
+        "name": "Text columns style 2",
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "show_border",
+            "label": "Show border",
+            "default": false
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_padding",
+            "label": "Enable padding",
+            "default": false
+          },
+          {
+            "type": "number",
+            "id": "order_mobile",
+            "label": "Order mobile"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "title"
+          },
+          {
+            "type": "richtext",
+            "id": "paragraph",
+            "label": "Paragraph"
+          },
+          {
+            "type": "header",
+            "content": "Col span"
+          },
+          {
+            "type": "range",
+            "id": "col_span_desktop",
+            "label": "Cols span desktop",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_tablet",
+            "label": "Cols span tablet",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_mobile",
+            "label": "Cols span mobile",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Banner text columns"
+      }
+    ]
+  }
+{% endschema %}

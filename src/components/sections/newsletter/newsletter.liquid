@@ -1,0 +1,196 @@
+{%- style -%}
+  [data-section-id="{{ section.id }}"] {
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+
+  [data-section-id="{{ section.id }}"] .newsletter-wrapper {
+    background: {{ section.settings.background_section_mb }};
+  }
+
+  [data-section-id="{{ section.id }}"] .heading {
+    color: {{ section.settings.color_heading_mb }};
+  }
+
+  [data-section-id="{{ section.id }}"] p {
+    color: {{ section.settings.color_paragraph_mb }};
+  }
+
+  @media(min-width: 768px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  @media(min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] .newsletter-wrapper {
+      background: {{ section.settings.background_section }};
+    }
+
+    [data-section-id="{{ section.id }}"] .heading {
+      color: {{ section.settings.color_heading }};
+    }
+
+    [data-section-id="{{ section.id }}"] p {
+      color: {{ section.settings.color_paragraph }};
+    }
+  }
+{%- endstyle -%}
+
+<div class="text-center" data-section-id="{{ section.id }}">
+  <div class="block px-4 py-12 lg:py-16 newsletter-wrapper">
+    {% if section.settings.heading %}
+      <div class="heading text-h3 lg:text-h2 m-0 font-bold font-heading">{{ section.settings.heading | escape }}</div>
+    {% endif %}
+    {% if section.settings.text %}
+      <p class="{% if section.settings.heading %}mt-2 lg:mt-3{% endif %} font-normal text-sm leading-5 lg:text-base lg:leading-6 max-w-[420px] mx-auto">{{ section.settings.text }}</p>
+    {% endif %}
+    {% if section.settings.text or section.settings.heading %}
+      {% assign mg = 'mt-4 lg:mt-6 scroll-m-96' %}
+    {% endif %}
+    {% form 'customer', class: mg %}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="relative max-w-[790px] mx-auto flex flex-col lg:flex-row items-center gap-2">
+        <input id="NewsletterForm--{{ section.id }}" placeholder="{{- 'newsletter.input_placeholder' | t -}}" type="email" name="contact[email]" 
+          class="border border-secondary {% if form.posted_successfully? %}!border-success{% endif %} {% if form.errors %}!border-error{% endif %} focus:border-primary hover:border-primary active:border-primary md:pr-20 !ring-0 font-normal text-base leading-normal h-13.5 tracking-normal px-4 pl-6 py-2 rounded-lg border-solid w-full" aria-required="true" autocorrect="off" autocapitalize="off" autocomplete="email" {% if form.errors %} autofocusaria-invalid="true" aria-describedby="Newsletter-error--{{ section.id }}" {% elsif form.posted_successfully? %} aria-describedby="Newsletter-success--{{ section.id }}" {% endif %} placeholder="{{ 'newsletter.label' | t }}" required>
+        <button type="submit" class="!text-xl font-bold font-heading align-middle whitespace-nowrap w-full lg:w-auto h-14 btn-2 leading-none transition-all px-8 flex items-center justify-center rounded-lg" name="commit" id="Subscribe" aria-label="{{ 'newsletter.submit' | t }}">
+          {{ 'newsletter.submit' | t }}
+        </button>
+      </div>
+      {%- if form.errors -%}
+        <small class="mt-2 block text-xs leading-5 text-error" id="Newsletter-error--{{ section.id }}">
+          {{ form.errors.translated_fields['email'] | capitalize }}
+          {{ form.errors.messages['email'] }}
+        </small>
+      {%- endif -%}
+      {%- if form.posted_successfully? -%}
+        <small class="mt-2 block text-xs leading-5 text-success" id="Newsletter-success--{{ section.id }}">
+          {{ 'newsletter.success' | t }}
+        </small>
+      {%- endif -%}
+    {% endform %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Newsletter",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_section",
+        "default": "#E6E6E6",
+        "label": "Background color desktop"
+      },
+      {
+        "type": "color",
+        "id": "background_section_mb",
+        "default": "#0F0F0F",
+        "label": "Background color mobile"
+      },
+      {
+        "type": "checkbox",
+        "id": "full_width",
+        "default": true,
+        "label": "Fullwidth"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_only_mb",
+        "default": false,
+        "label": "Show only mobile"
+      },
+      {
+        "type": "header",
+        "content": "Heading"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Subscribe to our emails",
+        "label": "Heading"
+      },
+      {
+        "type": "color",
+        "id": "color_heading",
+        "default": "#0F0F0F",
+        "label": "Color heading desktop"
+      },
+      {
+        "type": "color",
+        "id": "color_heading_mb",
+        "default": "#FFFFFF",
+        "label": "Color heading mobile"
+      },
+      {
+        "type": "header",
+        "content": "Paragraph"
+      },
+      {
+        "type": "text",
+        "id": "text",
+        "default": "Be the first to know about new collections and exclusive offers.",
+        "label": "Description"
+      },
+      {
+        "type": "color",
+        "id": "color_paragraph",
+        "default": "#333333",
+        "label": "Color paragraph desktop"
+      },
+      {
+        "type": "color",
+        "id": "color_paragraph_mb",
+        "default": "#B3B3B3",
+        "label": "Color paragraph mobile"
+      },
+      {
+        "type": "header",
+        "content": "Padding"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Top padding desktop",
+        "default": 92
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Bottom padding desktop",
+        "default": 92
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Top padding mobile",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Bottom padding mobile",
+        "default": 0
+      }
+    ]
+  }
+{% endschema %}

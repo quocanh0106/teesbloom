@@ -1,0 +1,189 @@
+{% assign priceMin = 0 %}
+{% assign priceMinValue = filter.min_value.value | money_without_currency | round %}
+{% assign priceMax = filter.range_max | money_without_currency | ceil %}
+{% assign priceMaxValue = filter.max_value.value | money_without_currency | ceil %}
+
+<ul class="grid grid-cols-2 gap-2 items-center" role="list">
+  <li class="flex items-center relative">
+    <input 
+      type="radio" 
+      name="{{ filter.min_value.param_name }}" 
+      {% if uses_comma_decimals %}
+        value="{{ priceMin | replace: '.', '' | replace: ',', '.' }}"
+      {% else %}
+        value="{{ priceMin | replace: ',', '' }}"
+      {% endif %}
+      class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin and priceMinValue <= priceMax and priceMax <= priceMaxValue %}checked{% endif %} 
+      id="Filter-price-1">
+      <input 
+        type="radio" 
+        name="{{ filter.max_value.param_name }}" 
+        {% if uses_comma_decimals %}
+          value="{{ priceMax | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ priceMax | replace: ',', '' }}"
+        {% endif %}
+        class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin and priceMinValue <= priceMax and priceMax <= priceMaxValue %}checked{% endif %} 
+        id="Filter-price-1-1">
+    <label 
+      for="Filter-price-1" 
+      onclick="document.getElementById('Filter-price-1-1').click()"
+      class="relative font-normal text-sm leading-5 transition-all text-center w-full px-4 py-2 flex items-center justify-center border border-primary rounded-[4px] cursor-pointer whitespace-nowrap">
+      {{ 'products.facets.anyprice' | t }}
+    </label>
+  </li>
+
+  <li class="flex items-center relative">
+    {% assign priceMin2 = settings.price_filter_2 |  append: '00' | plus: 0 | money_without_currency | round %}
+    {% assign priceMax2 = settings.price_filter_3 | minus: 1 |  append: '00' | plus: 0 | money_without_currency | ceil %}
+    <input 
+      type="radio" 
+      name="{{ filter.min_value.param_name }}" 
+      {% if uses_comma_decimals %}
+        value="{{ priceMin2 | replace: '.', '' | replace: ',', '.' }}"
+      {% else %}
+        value="{{ priceMin2 | replace: ',', '' }}"
+      {% endif %}
+      class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin2 and priceMinValue <= priceMax2 and priceMax2 <= priceMaxValue %}checked{% endif %} 
+      id="Filter-price-2">
+      <input 
+        type="radio" 
+        name="{{ filter.max_value.param_name }}" 
+        {% if uses_comma_decimals %}
+          value="{{ priceMax2 | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ priceMax2 | replace: ',', '' }}"
+        {% endif %}
+        class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin2 and priceMinValue <= priceMax2 and priceMax2 <= priceMaxValue %}checked{% endif %} 
+        id="Filter-price-2-1">
+    <label 
+      for="Filter-price-2" 
+      onclick="document.getElementById('Filter-price-2-1').click()"
+      class="relative font-normal text-sm leading-5 transition-all text-center w-full px-4 py-2 flex items-center justify-center border border-primary rounded-[4px] cursor-pointer whitespace-nowrap">
+      {{ cart.currency.symbol }}{{ priceMin2 }} - {{ cart.currency.symbol }}{{ priceMax2 }}
+    </label>
+  </li>
+
+  <li class="flex items-center relative">
+    {% assign priceMin3 = settings.price_filter_3 |  append: '00' | plus: 0 | money_without_currency | round %}
+    {% assign priceMax3 = settings.price_filter_4 | minus: 1 |  append: '00' | plus: 0 | money_without_currency | ceil %}
+    <input 
+      type="radio" 
+      name="{{ filter.min_value.param_name }}" 
+      {% if uses_comma_decimals %}
+        value="{{ priceMin3 | replace: '.', '' | replace: ',', '.' }}"
+      {% else %}
+        value="{{ priceMin3 | replace: ',', '' }}"
+      {% endif %}
+      class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin3 and priceMinValue <= priceMax3 and priceMax3 <= priceMaxValue %}checked{% endif %} 
+      id="Filter-price-3">
+      <input 
+        type="radio" 
+        name="{{ filter.max_value.param_name }}" 
+        {% if uses_comma_decimals %}
+          value="{{ priceMax3 | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ priceMax3 | replace: ',', '' }}"
+        {% endif %}
+        class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin3 and priceMinValue <= priceMax3 and priceMax3 <= priceMaxValue %}checked{% endif %} 
+        id="Filter-price-3-1">
+    <label 
+      for="Filter-price-3" 
+      onclick="document.getElementById('Filter-price-3-1').click()"
+      class="relative font-normal text-sm leading-5 transition-all text-center w-full px-4 py-2 flex items-center justify-center border border-primary rounded-[4px] cursor-pointer whitespace-nowrap">
+      {{ cart.currency.symbol }}{{ priceMin3 }} - {{ cart.currency.symbol }}{{ priceMax3 }}
+    </label>
+  </li>
+
+  <li class="flex items-center relative">
+    {% assign priceMin4 = settings.price_filter_4 |  append: '00' | plus: 0 | money_without_currency | round %}
+    {% assign priceMax4 = settings.price_filter_5 | minus: 1 |  append: '00' | plus: 0 | money_without_currency | ceil %}
+    <input 
+      type="radio" 
+      name="{{ filter.min_value.param_name }}" 
+      {% if uses_comma_decimals %}
+        value="{{ priceMin4 | replace: '.', '' | replace: ',', '.' }}"
+      {% else %}
+        value="{{ priceMin4 | replace: ',', '' }}"
+      {% endif %}
+      class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin4 and priceMinValue <= priceMax4 and priceMax4 <= priceMaxValue %}checked{% endif %} 
+      id="Filter-price-4">
+      <input 
+        type="radio" 
+        name="{{ filter.max_value.param_name }}" 
+        {% if uses_comma_decimals %}
+          value="{{ priceMax4 | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ priceMax4 | replace: ',', '' }}"
+        {% endif %}
+        class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin4 and priceMinValue <= priceMax4 and priceMax4 <= priceMaxValue %}checked{% endif %} 
+        id="Filter-price-4-1">
+    <label 
+      for="Filter-price-4" 
+      onclick="document.getElementById('Filter-price-4-1').click()"
+      class="relative font-normal text-sm leading-5 transition-all text-center w-full px-4 py-2 flex items-center justify-center border border-primary rounded-[4px] cursor-pointer whitespace-nowrap">
+      {{ cart.currency.symbol }}{{ priceMin4 }} - {{ cart.currency.symbol }}{{ priceMax4 }}
+    </label>
+  </li>
+
+  <li class="flex items-center relative">
+    {% assign priceMin5 = settings.price_filter_5 |  append: '00' | plus: 0 | money_without_currency | round %}
+    {% assign priceMax5 = settings.price_filter_6 | minus: 1 |  append: '00' | plus: 0 | money_without_currency | ceil %}
+    <input 
+      type="radio" 
+      name="{{ filter.min_value.param_name }}" 
+      {% if uses_comma_decimals %}
+        value="{{ priceMin5 | replace: '.', '' | replace: ',', '.' }}"
+      {% else %}
+        value="{{ priceMin5 | replace: ',', '' }}"
+      {% endif %}
+      class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin5 and priceMinValue <= priceMax5 and priceMax5 <= priceMaxValue %}checked{% endif %} 
+      id="Filter-price-5">
+      <input 
+        type="radio" 
+        name="{{ filter.max_value.param_name }}" 
+        {% if uses_comma_decimals %}
+          value="{{ priceMax5 | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ priceMax5 | replace: ',', '' }}"
+        {% endif %}
+        class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin5 and priceMinValue <= priceMax5 and priceMax5 <= priceMaxValue %}checked{% endif %} 
+        id="Filter-price-5-1">
+    <label 
+      for="Filter-price-5" 
+      onclick="document.getElementById('Filter-price-5-1').click()"
+      class="relative font-normal text-sm leading-5 transition-all text-center w-full px-4 py-2 flex items-center justify-center border border-primary rounded-[4px] cursor-pointer whitespace-nowrap">
+      {{ cart.currency.symbol }}{{ priceMin5 }} - {{ cart.currency.symbol }}{{ priceMax5 }}
+    </label>
+  </li>
+
+  <li class="flex items-center relative">
+    {% assign priceMin6 = settings.price_filter_6 |  append: '00' | plus: 0 | money_without_currency | round %}
+    <input 
+      type="radio" 
+      name="{{ filter.min_value.param_name }}" 
+      {% if uses_comma_decimals %}
+        value="{{ priceMin6 | replace: '.', '' | replace: ',', '.' }}"
+      {% else %}
+        value="{{ priceMin6 | replace: ',', '' }}"
+      {% endif %}
+      class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin6 and priceMinValue <= priceMax and priceMax <= priceMaxValue %}checked{% endif %} 
+      id="Filter-price-6">
+      <input 
+        type="radio" 
+        name="{{ filter.max_value.param_name }}" 
+        {% if uses_comma_decimals %}
+          value="{{ priceMax | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ priceMax | replace: ',', '' }}"
+        {% endif %}
+        class="box-option opacity-0 invisible absolute top-0 left-0" {% if priceMinValue >= priceMin6 and priceMinValue <= priceMax and priceMax <= priceMaxValue %}checked{% endif %} 
+        id="Filter-price-6-1">
+    <label 
+      for="Filter-price-6" 
+      onclick="document.getElementById('Filter-price-6-1').click()"
+      class="relative font-normal text-sm leading-5 transition-all text-center w-full px-4 py-2 flex items-center justify-center border border-primary rounded-[4px] cursor-pointer whitespace-nowrap">
+      {{ cart.currency.symbol }}{{ priceMin6 }} ~
+    </label>
+  </li>
+</ul>

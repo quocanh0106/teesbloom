@@ -1,0 +1,180 @@
+{%- style -%}
+  [data-section-id="{{ section.id }}"] {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media screen and (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+<div data-section-id="{{ section.id }}">
+  <div class="page-width">
+    <div class="flex flex-wrap lg:flex-nowrap gap-8 items-center justify-between">
+      <div class="mx-auto lg:m-0 lg:max-w-2/5">
+        {% if section.settings.heading %}
+          <div class="text-h5 lg:text-h2 capitalize font-heading text-primary text-center lg:text-left font-semibold mb-2 lg:2.5">{{ section.settings.heading | escape }}</div>
+        {% endif %}
+        {% if section.settings.description %}
+          <p class="text-sm lg:text-base text-center lg:text-left font-body text-primary !leading-5">{{ section.settings.description }}</p>
+        {% endif %}
+      </div>
+      <link-to-collection class="flex items-center flex-wrap lg:flex-nowrap gap-6 w-full lg:max-w-3/5">
+        <div class="selector md:max-w-[calc(50%_-_12px)] lg:max-w-[250px] w-full">
+          <label class="block text-primary font-heading font-normal text-base leading-4 mb-2">{{ 'products.facets.gift_for' | t }}</label>
+          <accordion-toggle class="collection-links block relative cursor-pointer clickout-accordion">
+            <div class="summary flex items-center justify-between gap-2.5 w-full pl-6 pr-4 py-3 bg-background border border-primary hover:border-primary focus:border-primary rounded-[100px] overflow-hidden">
+              <span class="text-primary text-sm lg:text-base font-normal leading-normal" data-value="{{ routes.all_products_collection_url }}">{{ 'products.facets.all_collection' | t }}</span>
+              {% render 'icon-down', class: 'w-6 h-6' %}
+            </div>
+            <div class="shadow-megamenu dropitem details absolute z-10 left-0 top-full rounded-lg bg-background py-3 pl-4 pr-3 w-full opacity-0 invisible">
+              <ul class="max-h-60 overflow-auto scroll-thin scroll-brighter">
+                {%- for block in section.blocks -%}
+                  {% if forloop.first %}                  
+                    <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4] active"
+                      data-value="{{ routes.all_products_collection_url }}"
+                      data-id="{{ block.id }}">
+                      {{ 'products.facets.all_collection' | t }}
+                    </li>
+                  {% endif %}
+                  <li
+                    class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4] "
+                    data-value="{{ block.settings.collection.url }}"
+                    data-id="{{ block.id }}">
+                    {{ block.settings.title }}
+                  </li>
+                {%- endfor -%}
+              </ul>
+            </div>
+          </accordion-toggle>
+        </div>
+        <div class="selector md:max-w-[calc(50%_-_12px)] lg:max-w-[250px] w-full">
+          <label class="block text-primary font-heading font-normal text-base leading-4 mb-2">{{ 'products.facets.what_occasion' | t }}</label>
+          <accordion-toggle class="param-links block relative cursor-pointer clickout-accordion">
+            <div class="summary flex items-center justify-between gap-2.5 w-full pl-6 pr-4 py-3 bg-background border border-primary hover:border-primary focus:border-primary rounded-[100px] overflow-hidden">
+              <span class="text-primary text-sm lg:text-base font-normal leading-normal" data-default="{{ 'products.facets.occasions_option.all' | t }}">{{ 'products.facets.occasions_option.all' | t }}</span>
+              {% render 'icon-down', class: 'w-6 h-6' %}
+            </div>
+            <div class="shadow-megamenu dropitem details absolute z-10 left-0 top-full rounded-lg bg-background py-3 pl-4 pr-3 w-full opacity-0 invisible">
+              <ul class="max-h-60 overflow-auto scroll-thin scroll-brighter">
+                <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4] active" data-value="">{{ 'products.facets.occasions_option.all' | t }}</li>
+                <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]" data-value="{{ 'products.facets.occasions_option.chrismas' | t }}">{{ 'products.facets.occasions_option.chrismas' | t }}</li>
+                <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]" data-value="{{ 'products.facets.occasions_option.father' | t }}">{{ 'products.facets.occasions_option.father' | t }}</li>
+                <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]" data-value="{{ 'products.facets.occasions_option.mother' | t }}">{{ 'products.facets.occasions_option.mother' | t }}</li>
+                <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]" data-value="{{ 'products.facets.occasions_option.halloween' | t }}">{{ 'products.facets.occasions_option.halloween' | t }}</li>
+                <li class="cursor-pointer transition-all text-primary text-sm lg:text-base font-normal leading-normal p-2 mr-2 rounded hover:bg-[#f4f4f4]" data-value="{{ 'products.facets.occasions_option.valentino' | t }}">{{ 'products.facets.occasions_option.valentino' | t }}</li>
+              </ul>
+            </div>
+          </accordion-toggle>
+        </div>
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          id="button-redirect"
+          class="submit btn max-w-[200px] w-full p-4 text-center text-sm lg:text-base !leading-none font-bold mx-auto lg:mt-7.5"
+          title="Find Your Gifts">Find Your Gifts</a>
+      </link-to-collection>
+    </div>
+  </div>
+</div>
+
+{% capture src_url %}{{ 'link-to-collection.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+
+{% schema %}
+  {
+    "name": "Link to collection",
+    "tag": "section",
+    "class": "section",
+    "limit": 1,
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading",
+        "default": "To find a Gift is hard?"
+      },
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description",
+        "default": "We will make it much easier. Let’s take our 10-second selection!"
+      },
+      {
+        "type": "header",
+        "content": "Padding settings"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "label": "Padding mobile top",
+        "min": 0,
+        "max": 200,
+        "unit": "px",
+        "step": 2,
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "label": "Padding mobile bottom",
+        "min": 0,
+        "max": 200,
+        "unit": "px",
+        "step": 2,
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "label": "Padding desktop top",
+        "min": 0,
+        "max": 200,
+        "unit": "px",
+        "step": 2,
+        "default": 92
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "label": "Padding desktop bottom",
+        "min": 0,
+        "max": 200,
+        "unit": "px",
+        "step": 2,
+        "default": 92
+      }
+    ],
+    "blocks": [
+      {
+        "type": "collection",
+        "name": "Collection",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "collection",
+            "id": "collection",
+            "label": "Collection"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Link to collection"
+      }
+    ]
+  }
+{% endschema %}

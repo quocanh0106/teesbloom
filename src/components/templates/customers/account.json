@@ -1,0 +1,31 @@
+{
+  "sections": {
+    "9f2b9177-09c6-4cc6-ae26-a11d8e1df5e2": {
+      "type": "breadcrumb",
+      "disabled": true,
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#a8a8a8",
+        "color_text_breadcrumb_link_hover": "#2f2f2f",
+        "color_text_breadcrumb": "#2f2f2f",
+        "padding_top": 32,
+        "padding_bottom": 0,
+        "padding_top_mb": 24,
+        "padding_bottom_mb": 0
+      }
+    },
+    "main": {
+      "type": "account",
+      "settings": {
+        "padding_top_mb": 24,
+        "padding_bottom_mb": 64,
+        "padding_top": 64,
+        "padding_bottom": 100
+      }
+    }
+  },
+  "order": [
+    "9f2b9177-09c6-4cc6-ae26-a11d8e1df5e2",
+    "main"
+  ]
+}

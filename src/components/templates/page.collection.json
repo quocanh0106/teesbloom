@@ -1,0 +1,303 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "banner_text_columns_4aqYii": {
+      "type": "banner-text-columns",
+      "blocks": {
+        "image_aXcddf": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Christmas_Gifts_For_Moms.webp",
+            "image_mobile": "shopify://shop_images/Christmas_Gifts_For_Moms.webp",
+            "rounded_top": 1,
+            "rounded_bottom": 12,
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        }
+      },
+      "block_order": [
+        "image_aXcddf"
+      ],
+      "settings": {
+        "row_span_desktop": 1,
+        "row_span_tablet": 1,
+        "row_span_mobile": 1,
+        "columns_desktop": 1,
+        "columns_tablet": 1,
+        "columns_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 0
+      }
+    },
+    "product_list_9DaHHG": {
+      "type": "product-list",
+      "settings": {
+        "fullwidth": false,
+        "secondary": "#c91b1d",
+        "background_color": "#ffffff",
+        "heading": "Holiday Best-Sellers That Mom Can’t Get Enough Of",
+        "collection": "grandparents",
+        "product_per_row": 5,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 10,
+        "padding_top": 64,
+        "padding_bottom": 0,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 32
+      }
+    },
+    "image_width_text_TThaiJ": {
+      "type": "image-width-text",
+      "blocks": {
+        "image_with_text_twnKCz": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify://shop_images/5_27b0db91-b354-4d44-a8c4-87f42629f9c9.png",
+            "img_type": "normal",
+            "title": "Lorem ipsum",
+            "url": "",
+            "text_align_item": "text-center"
+          }
+        },
+        "image_with_text_8iGeXd": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify://shop_images/6_9834c030-0338-4d92-bd29-2180cf57a42d.png",
+            "img_type": "normal",
+            "title": "Lorem ipsum",
+            "url": "",
+            "text_align_item": "text-center"
+          }
+        },
+        "image_with_text_9rw4Am": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify://shop_images/3_e7195764-b522-40cc-8c29-2accb5028a03.webp",
+            "img_type": "normal",
+            "title": "Lorem ipsum",
+            "url": "",
+            "text_align_item": "text-center"
+          }
+        },
+        "image_with_text_WjPNDW": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify://shop_images/4_34e2e7d6-dc18-4bcc-8a57-8e332c486d18.webp",
+            "img_type": "normal",
+            "title": "Lorem ipsum",
+            "url": "",
+            "text_align_item": "text-center"
+          }
+        },
+        "image_with_text_Rqgyh4": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify://shop_images/1_1131ad28-7aa1-4d15-8f25-e41a4d1ce297.webp",
+            "img_type": "normal",
+            "title": "Lorem ipsum",
+            "url": "",
+            "text_align_item": "text-center"
+          }
+        },
+        "image_with_text_fQRG7C": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify://shop_images/2_4847a79a-1d50-443f-a920-4d762b71f8ca.webp",
+            "img_type": "normal",
+            "title": "Lorem ipsum",
+            "url": "",
+            "text_align_item": "text-center"
+          }
+        }
+      },
+      "block_order": [
+        "image_with_text_twnKCz",
+        "image_with_text_8iGeXd",
+        "image_with_text_9rw4Am",
+        "image_with_text_WjPNDW",
+        "image_with_text_Rqgyh4",
+        "image_with_text_fQRG7C"
+      ],
+      "settings": {
+        "heading_tag": "h2",
+        "colors_heading": "#c91b1d",
+        "heading": "Festive Finds for Mom Handpicked by Product",
+        "background_color": "#ffffff",
+        "columns_desktop": 6,
+        "columns_tablet": 3,
+        "columns_mobile": 2,
+        "padding_top_mb": 64,
+        "padding_bottom_mb": 64,
+        "padding_top": 92,
+        "padding_bottom": 92
+      }
+    },
+    "banner_ALbETr": {
+      "type": "banner",
+      "blocks": {
+        "slide_Jf88iM": {
+          "type": "slide",
+          "settings": {
+            "rounded": true,
+            "content_position": "left",
+            "colors_background": "#efefef",
+            "image": "shopify://shop_images/Mom-_-Children-Sitting-On-The-Be.jpg",
+            "image_mobile": "shopify://shop_images/Mom-_-Children-Sitting-On-The-Be.jpg",
+            "heading_tag": "h2",
+            "colors_heading": "#121212",
+            "heading_size": 23,
+            "heading_size_mb": 18,
+            "heading": "Christmas Gifts For Mom",
+            "colors_description": "#ffffff",
+            "description_size": 0,
+            "description_size_mb": 0,
+            "description": "Description",
+            "button_label": "SHOP NOW",
+            "link": "",
+            "colors_text_button": "#678f1f",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        },
+        "slide_RWhUPz": {
+          "type": "slide",
+          "settings": {
+            "rounded": true,
+            "content_position": "left",
+            "colors_background": "#efefef",
+            "image": "shopify://shop_images/My-Grandkids-2024-Personalized-C.jpg",
+            "image_mobile": "shopify://shop_images/My-Grandkids-2024-Personalized-C.jpg",
+            "heading_tag": "h2",
+            "colors_heading": "#121212",
+            "heading_size": 23,
+            "heading_size_mb": 18,
+            "heading": "Christmas Gifts For Grandma",
+            "colors_description": "#ffffff",
+            "description_size": 0,
+            "description_size_mb": 0,
+            "description": "Description",
+            "button_label": "SHOP NOW",
+            "link": "",
+            "colors_text_button": "#678f1f",
+            "colors_background_button": "#ffffff",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        }
+      },
+      "block_order": [
+        "slide_Jf88iM",
+        "slide_RWhUPz"
+      ],
+      "settings": {
+        "heading_tag": "h2",
+        "colors_heading": "#c91b1d",
+        "heading": "Perfect Christmas Gifts By Recipient",
+        "fullwidth": false,
+        "enable_swipe_on_mobile": false,
+        "col_per_row_mobile": 1,
+        "col_per_row_desktop": 2,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 0
+      }
+    },
+    "link_box_6yhqiM": {
+      "type": "link-box",
+      "blocks": {
+        "box_pnHbdH": {
+          "type": "box",
+          "settings": {
+            "heading": "For New Moms",
+            "url": "shopify://pages/contact",
+            "border_color": "#678f1f"
+          }
+        },
+        "box_Cf8FN8": {
+          "type": "box",
+          "settings": {
+            "heading": "For Loss of Moms",
+            "url": "shopify://collections/car-decoration",
+            "border_color": "#678f1f"
+          }
+        },
+        "box_mKdErK": {
+          "type": "box",
+          "settings": {
+            "heading": "For Wives",
+            "url": "",
+            "border_color": "#678f1f"
+          }
+        },
+        "box_PQQwak": {
+          "type": "box",
+          "settings": {
+            "heading": "For Pet Moms",
+            "url": "",
+            "border_color": "#678f1f"
+          }
+        }
+      },
+      "block_order": [
+        "box_pnHbdH",
+        "box_Cf8FN8",
+        "box_mKdErK",
+        "box_PQQwak"
+      ],
+      "settings": {
+        "heading_tag": "h2",
+        "colors_heading": "#ffffff",
+        "heading": "",
+        "background_color": "#ffffff",
+        "columns_desktop": 4,
+        "columns_tablet": 2,
+        "columns_mobile": 2,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 0,
+        "padding_top": 32,
+        "padding_bottom": 0
+      }
+    },
+    "page_banner": {
+      "type": "page-banner",
+      "settings": {
+        "color_title": "#121212",
+        "color_link": "#fc6514",
+        "color_subtitle": "#121212",
+        "background_color": "#ffffff",
+        "subtile": "<p>Slash Sales begins in April. Get up to 80% Discount on all products...</p>",
+        "padding_vertical": 0,
+        "padding_horizontal": 64,
+        "padding_vertical_mb": 0,
+        "padding_horizontal_mb": 32,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 0
+      }
+    }
+  },
+  "order": [
+    "banner_text_columns_4aqYii",
+    "product_list_9DaHHG",
+    "image_width_text_TThaiJ",
+    "banner_ALbETr",
+    "link_box_6yhqiM",
+    "page_banner"
+  ]
+}

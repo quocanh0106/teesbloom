@@ -1,0 +1,46 @@
+{% style %}
+  [data-section-id="{{ section.id }}"] {
+    margin-top: {{ section.settings.margin_top_mb }}px;
+    margin-bottom: {{ section.settings.margin_bottom_mb }}px;
+  }
+
+  @media(min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] {
+      margin-top: {{ section.settings.margin_top }}px;
+      margin-bottom: {{ section.settings.margin_bottom }}px;
+    }
+  }
+{% endstyle %}
+
+<div class="w-full relative{% unless collection.image != blank %} px-3 py-16{% endunless %} border-b border-primary">
+  {% if collection.image != blank %}
+    <img srcset="{%- if collection.image.width >= 180 -%}{{ collection.image | image_url: width: 180 }} 180w,{%- endif -%}
+      {%- if collection.image.width >= 360 -%} {{ collection.image | image_url: width: 360 }} 360w,{%- endif -%}
+      {%- if collection.image.width >= 540 -%} {{ collection.image | image_url: width: 540 }} 540w,{%- endif -%}
+      {%- if collection.image.width >= 720 -%} {{ collection.image | image_url: width: 720 }} 720w,{%- endif -%}
+      {%- if collection.image.width >= 900 -%} {{ collection.image | image_url: width: 900 }} 900w,{%- endif -%}
+      {%- if collection.image.width >= 1080 -%} {{ collection.image | image_url: width: 1080 }} 1080w{%- endif -%}"
+      src="{{ collection.image | image_url: width: 700 }}"
+      sizes="(min-width: 1100px) 900px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)"
+      alt="{{ altDt }}"
+      loading="eager"
+      class="w-full h-full transition-all {% if collection.image_mobile %} hidden md:block{% else %} block{% endif %}"
+      width="{{ collection.image.width }}"
+      height="{{ collection.image.height }}">
+  {% endif %}
+  <h1 class="text-h4 md:text-h3 lg:text-h2 absolute text-primary uppercase top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">{{ collection.title }}</h1>
+</div>
+
+{% schema %}
+  {
+    "name": "Collection banner",
+    "tag": "section",
+    "settings": [
+    ],
+    "presets": [
+      {
+        "name": "Collection banner"
+      }
+    ]
+  }
+{% endschema %}

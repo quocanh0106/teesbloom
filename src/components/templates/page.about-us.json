@@ -1,0 +1,561 @@
+{
+  "sections": {
+    "breadcrumb": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#a8a8a8",
+        "color_text_breadcrumb_link_hover": "#2f2f2f",
+        "color_text_breadcrumb": "#2f2f2f",
+        "padding_top": 32,
+        "padding_bottom": 16,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 16
+      }
+    },
+    "080c29ed-4428-4763-9a48-639db691d7d3": {
+      "type": "banner-text-columns",
+      "blocks": {
+        "df32ec90-5d63-4af2-abd4-cddf22ddf5dc": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/banner_about.png",
+            "image_mobile": "shopify:\/\/shop_images\/banner_about_mb.png",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        }
+      },
+      "block_order": [
+        "df32ec90-5d63-4af2-abd4-cddf22ddf5dc"
+      ],
+      "settings": {
+        "row_span_desktop": 1,
+        "row_span_tablet": 1,
+        "row_span_mobile": 1,
+        "columns_desktop": 1,
+        "columns_tablet": 1,
+        "columns_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 0
+      }
+    },
+    "dd354861-00fd-4e2b-b990-70ca68de9db5": {
+      "type": "rich-text",
+      "blocks": {
+        "template--20101304516938__dd354861-00fd-4e2b-b990-70ca68de9db5-heading-1": {
+          "type": "heading",
+          "settings": {
+            "heading": "<h1><strong>Über uns<\/strong><\/h1>"
+          }
+        },
+        "template--20101304516938__dd354861-00fd-4e2b-b990-70ca68de9db5-text-1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Qualitativ hochwertige Produkte, die nachhaltig produziert und zu einem erschwinglichen Preis angeboten werden, können Ihr Leben verbessern. Diese Überzeugung steht im Mittelpunkt unserer Werte.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "template--20101304516938__dd354861-00fd-4e2b-b990-70ca68de9db5-heading-1",
+        "template--20101304516938__dd354861-00fd-4e2b-b990-70ca68de9db5-text-1"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "center",
+        "background": "#ffffff",
+        "padding_top": 48,
+        "padding_bottom": 80,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 64
+      }
+    },
+    "7b3b0b45-ca44-4cef-a454-8058a9cc5853": {
+      "type": "column-text",
+      "blocks": {
+        "fbeb13ea-5777-4008-810f-1a5c73effaf4": {
+          "type": "text",
+          "settings": {
+            "heading": "500+",
+            "description": "Einzigartige Designs"
+          }
+        },
+        "b42e9e3d-0610-4e00-830b-0c45088ace72": {
+          "type": "text",
+          "settings": {
+            "heading": "50k+",
+            "description": "Zufriedene Kunden"
+          }
+        },
+        "66bee737-1c8a-46d9-884a-668b8b2fc6f3": {
+          "type": "text",
+          "settings": {
+            "heading": "99.9%",
+            "description": "Pünktliche Lieferung"
+          }
+        },
+        "81b57638-4457-464c-8836-75a8c9236f4f": {
+          "type": "text",
+          "settings": {
+            "heading": "100%",
+            "description": "Qualitätsgarantie"
+          }
+        }
+      },
+      "block_order": [
+        "fbeb13ea-5777-4008-810f-1a5c73effaf4",
+        "b42e9e3d-0610-4e00-830b-0c45088ace72",
+        "66bee737-1c8a-46d9-884a-668b8b2fc6f3",
+        "81b57638-4457-464c-8836-75a8c9236f4f"
+      ],
+      "settings": {
+        "background_color": "#fafafa",
+        "columns_desktop": 4,
+        "columns_tablet": 4,
+        "columns_mobile": 2,
+        "padding_top": 48,
+        "padding_bottom": 48,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 32
+      }
+    },
+    "template": {
+      "type": "template-page",
+      "disabled": true,
+      "settings": {
+        "layout_secondary": false,
+        "enable_title": true,
+        "enable_content": false,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 0
+      }
+    },
+    "8ef37efb-1bc8-4404-ba32-1eb08a3841b7": {
+      "type": "banner-text-columns",
+      "blocks": {
+        "2347f733-eedb-4c61-be76-9ef5991a17da": {
+          "type": "text_columns_1",
+          "settings": {
+            "show_border": false,
+            "enable_padding": false,
+            "subtitle": "UNSERE GESCHICHTE",
+            "title": "Wie es zu unserer Firma kam",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        },
+        "cc03d553-9760-46f1-b5b0-dcdb1baff919": {
+          "type": "text_columns_2",
+          "settings": {
+            "show_border": false,
+            "enable_padding": false,
+            "title": "",
+            "paragraph": "<p>Geschenke Mall entstand aus der Leidenschaft zweier Kindheitsfreunde, die die Kunst des Schenkens stets zu schätzen wussten. Ihnen wurde klar, dass es eine überwältigende Aufgabe sein konnte, das perfekte Geschenk für jemand Besondereren zu finden.<\/p><p>Nach Jahren des Brainstormings und der Marktforschung beschlossen sie, ihre Liebe für Kreativität und Personalisierung zu vereinen, was 2021 zur Gründung von Geschenke Mall führte.<\/p><p>Ihre Reise begann in einer kleinen Garage, wo sie handgemachte, personalisierte Geschenke für Freunde und Familie anfertigten. Die überwältigende Resonanz, die sie erhielten, ermutigte sie dazu, ihre Grenzen zu erweitern und ihre Dienste einem breiteren Publikum anzubieten.<\/p><p>Heute ist Geschenke Mall zu einem florierenden Online-Shop gewachsen, der Tausende von Kunden weltweit bedient und ihnen hilft, die kostbaren Momente des Lebens mit einzigartigen und herzlichen Geschenken zu feiern.<\/p>",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        }
+      },
+      "block_order": [
+        "2347f733-eedb-4c61-be76-9ef5991a17da",
+        "cc03d553-9760-46f1-b5b0-dcdb1baff919"
+      ],
+      "settings": {
+        "row_span_desktop": 1,
+        "row_span_tablet": 1,
+        "row_span_mobile": 1,
+        "columns_desktop": 2,
+        "columns_tablet": 1,
+        "columns_mobile": 1,
+        "padding_top": 120,
+        "padding_bottom": 120,
+        "padding_top_mb": 64,
+        "padding_bottom_mb": 64
+      }
+    },
+    "972a6846-78a1-4145-a407-5eb3806a9b36": {
+      "type": "banner-text-columns",
+      "blocks": {
+        "776cdd7e-cb62-4427-855a-7ecd7501c865": {
+          "type": "image",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/banner-1.jpg",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        }
+      },
+      "block_order": [
+        "776cdd7e-cb62-4427-855a-7ecd7501c865"
+      ],
+      "settings": {
+        "row_span_desktop": 1,
+        "row_span_tablet": 1,
+        "row_span_mobile": 1,
+        "columns_desktop": 1,
+        "columns_tablet": 1,
+        "columns_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 32,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 24
+      }
+    },
+    "4d6826db-610a-4fbb-883d-adc1c0607b8f": {
+      "type": "banner-text-columns",
+      "blocks": {
+        "f331fce5-a80c-44c5-8732-6d882f0ec1d7": {
+          "type": "text_columns_1",
+          "settings": {
+            "show_border": false,
+            "enable_padding": false,
+            "subtitle": "SEI EINZIGARTIG",
+            "title": "Was uns besonders macht?",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        },
+        "b9ebb1cb-7351-4038-ad57-4c028261784b": {
+          "type": "text_columns_2",
+          "settings": {
+            "show_border": false,
+            "enable_padding": false,
+            "title": "",
+            "paragraph": "<p>Bei Geschenke Mall glauben wir, dass jede Person einzigartig ist und ihre Geschenke es ebenfalls sein sollten. Unser Team aus talentierten Kunsthandwerkern und Designern ist darauf spezialisiert, hochwertige, maßgeschneiderte Geschenke zu kreieren, die auf die individuellen Geschmäcker und Vorlieben abgestimmt sind.<\/p><p>Wir sind stolz darauf, eine umfangreiche Palette an personalisierbaren Produkten anzubieten, von graviertem Schmuck bis hin zu personalisierter Wohnkultur und allem, was dazwischen liegt.<\/p><p>Mit unserer benutzerfreundlichen Online-Plattform können Sie Ihr Geschenk mühelos mit einem Namen, Datum, einer Nachricht oder sogar einem Foto personalisieren, sodass Ihr Präsent die Essenz Ihrer Gefühle einfängt und die Bindung zu Ihren Liebsten stärkt.<\/p>",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        }
+      },
+      "block_order": [
+        "f331fce5-a80c-44c5-8732-6d882f0ec1d7",
+        "b9ebb1cb-7351-4038-ad57-4c028261784b"
+      ],
+      "settings": {
+        "row_span_desktop": 1,
+        "row_span_tablet": 1,
+        "row_span_mobile": 1,
+        "columns_desktop": 2,
+        "columns_tablet": 1,
+        "columns_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 120,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 64
+      }
+    },
+    "25748084-2bf7-4f5a-a446-ef6ef03da839": {
+      "type": "banner-text-columns",
+      "blocks": {
+        "1686c1ef-d4c9-4aca-9de6-d37c4ff833e5": {
+          "type": "image",
+          "settings": {
+            "order_mobile": 1,
+            "image": "shopify:\/\/shop_images\/banner-2.jpg",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        },
+        "9021d562-20db-4cf9-923c-b811259be375": {
+          "type": "text_columns_2",
+          "settings": {
+            "show_border": true,
+            "enable_padding": true,
+            "order_mobile": 2,
+            "title": "UNSERE VISION",
+            "paragraph": "<p>Unsere Vision ist es, der weltweit führende Anbieter für personalisierte Geschenke zu werden, bekannt für unsere außergewöhnliche Qualität, Innovation und ein unvergleichliches Kundenerlebnis.<\/p>",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        },
+        "dd5cd179-4b02-427a-a740-95800ceb2d2c": {
+          "type": "text_columns_2",
+          "settings": {
+            "show_border": true,
+            "enable_padding": true,
+            "order_mobile": 4,
+            "title": "UNSERE MISSION",
+            "paragraph": "<p>Unsere Mission ist es, unvergessliche Erinnerungen zu schaffen, indem wir einzigartige und bedeutungsvolle Geschenke anbieten, die Menschen näher zusammenbringen, Beziehungen stärken und in jedem Winkel der Welt Freude verbreiten.<\/p>",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        },
+        "ad2abdca-45ae-4614-b570-af4fec155ddd": {
+          "type": "image",
+          "settings": {
+            "order_mobile": 3,
+            "image": "shopify:\/\/shop_images\/banner-3.jpg",
+            "col_span_desktop": 1,
+            "col_span_tablet": 1,
+            "col_span_mobile": 1
+          }
+        }
+      },
+      "block_order": [
+        "1686c1ef-d4c9-4aca-9de6-d37c4ff833e5",
+        "9021d562-20db-4cf9-923c-b811259be375",
+        "dd5cd179-4b02-427a-a740-95800ceb2d2c",
+        "ad2abdca-45ae-4614-b570-af4fec155ddd"
+      ],
+      "settings": {
+        "row_span_desktop": 1,
+        "row_span_tablet": 1,
+        "row_span_mobile": 1,
+        "columns_desktop": 2,
+        "columns_tablet": 1,
+        "columns_mobile": 1,
+        "padding_top": 0,
+        "padding_bottom": 120,
+        "padding_top_mb": 0,
+        "padding_bottom_mb": 48
+      }
+    },
+    "a6bef151-2000-46f7-b8a0-bd0ac9592bcd": {
+      "type": "promise",
+      "settings": {
+        "background_color": "#fafafa",
+        "heading": "UNSER VERSPRECHEN",
+        "description": "Wir versprechen Ihnen, außergewöhnliche Produkte zu liefern, die mit Sorgfalt und Präzision hergestellt werden, um Ihre Erwartungen zu übertreffen. Wir sind dazu verpflichtet, Ihnen ein nahtloses und angenehmes Einkaufserlebnis zu bieten, und garantieren Ihre Zufriedenheit vom Moment Ihres Besuchs auf unserer Webseite bis zur Lieferung Ihres personalisierten Geschenks.",
+        "padding_top": 64,
+        "padding_bottom": 100,
+        "padding_top_mb": 64,
+        "padding_bottom_mb": 64,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 0
+      }
+    },
+    "8f6d69ed-63b0-4e11-a70d-c76e34e0e748": {
+      "type": "question-contact",
+      "blocks": {
+        "036930b9-ac98-4416-871e-9775d94f4529": {
+          "type": "image_with_text",
+          "settings": {
+            "heading": "E-Mail",
+            "description": "kontakt@geschenkemall.com",
+            "description_type": "link",
+            "description_link_type": "mailto:"
+          }
+        },
+        "f15865ba-1672-4f51-9223-79637f2f74b2": {
+          "type": "image_with_text",
+          "settings": {
+            "heading": "Adresse",
+            "description": "Potsdamer Str. 182, 10783 Berlin",
+            "description_type": "text",
+            "description_link_type": ""
+          }
+        },
+        "image_with_text_EAFbHb": {
+          "type": "image_with_text",
+          "settings": {
+            "heading": "Frankreich-Büro",
+            "description": "6 place Wilson, 31000 Toulouse Frankreich",
+            "description_type": "text",
+            "description_link_type": ""
+          }
+        },
+        "b81e1492-64db-44ed-a30a-c69be03e1e18": {
+          "type": "image_with_text",
+          "settings": {
+            "heading": "Arbeitszeit",
+            "description": "Montag - Sonntag 8:00 - 22:00 Uhr",
+            "description_type": "text",
+            "description_link_type": ""
+          }
+        }
+      },
+      "block_order": [
+        "036930b9-ac98-4416-871e-9775d94f4529",
+        "f15865ba-1672-4f51-9223-79637f2f74b2",
+        "image_with_text_EAFbHb",
+        "b81e1492-64db-44ed-a30a-c69be03e1e18"
+      ],
+      "settings": {
+        "heading": "Kontakt",
+        "description": "IRGENDWELCHE FRAGEN?",
+        "padding_top": 120,
+        "padding_bottom": 80,
+        "padding_top_mb": 64,
+        "padding_bottom_mb": 64
+      }
+    },
+    "testimonial": {
+      "type": "testimonial",
+      "blocks": {
+        "template-testimonial-2": {
+          "type": "testimonial",
+          "settings": {
+            "customer": "Wolfgang Frings",
+            "star": "5",
+            "title_review": "Ich liebe mein neues T-Shirt",
+            "description_review": "Ich habe ein paar Produkte von euch als Geschenke für meine Familie und Freunde bestellt.",
+            "product": "personalisiertes-dieser-papa-gehort-zu-t-shirt-0855a297b",
+            "product_text": "Produktdetail",
+            "date_picker": "8th Aug 2023"
+          }
+        },
+        "template-testimonial-1": {
+          "type": "testimonial",
+          "settings": {
+            "customer": "Katharina Staffeld",
+            "star": "5",
+            "title_review": "Tolle Geschenkidee",
+            "description_review": "Das T-Shirt, das ich bei euch bestellt habe, ist einfach toll. Der Druck ist hochwertig, die Farben sind leuchtend und der Stoff ist weich",
+            "product": "personalisierte-50-jahrestag-papa-mama-leinwand-1132c580g",
+            "product_text": "Produktdetail",
+            "date_picker": "8th Aug 2023"
+          }
+        },
+        "template-testimonial-3": {
+          "type": "testimonial",
+          "settings": {
+            "customer": "Sabine",
+            "star": "4",
+            "title_review": "Super Service und schnelle Lieferung!",
+            "description_review": "Ich bin sehr zufrieden mit meiner Bestellung. Der Service war freundlich und hilfsbereit, die Lieferung war schnell und die Produkte waren gut verpackt",
+            "product": "das-einzige-personalisierte-geschenke-leinwand-fur-oma-opa-0732c267i",
+            "product_text": "Produktdetail",
+            "date_picker": "9th Aug 2023"
+          }
+        },
+        "template-testimonial-4": {
+          "type": "testimonial",
+          "settings": {
+            "customer": "Astrid Aly",
+            "star": "4.5",
+            "title_review": "Einzigartige und kreative Produkte",
+            "description_review": "Ich bin begeistert von den Produkten, die ihr anbietet. Sie sind originell, kreativ und individuell. Ihr seid die besten!",
+            "product": "personalisierte-50-jahrestag-grosseltern-leinwand-1130c580g",
+            "product_text": "Produktdetail",
+            "date_picker": "8th Aug 2023"
+          }
+        }
+      },
+      "block_order": [
+        "template-testimonial-2",
+        "template-testimonial-1",
+        "template-testimonial-3",
+        "template-testimonial-4"
+      ],
+      "settings": {
+        "background_color": "#ffffff",
+        "heading": "Unsere Kundenbewertung",
+        "columns_desktop": 3,
+        "columns_tablet": 2,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mb": 40,
+        "padding_bottom_mb": 40
+      }
+    },
+    "featured-blog": {
+      "type": "featured-blog",
+      "settings": {
+        "background_color": "#ffffff",
+        "heading": "Blogbeiträge",
+        "blog": "weihnachtsgeschenke",
+        "post_limit": 4,
+        "show_blog_title": true,
+        "show_date": true,
+        "show_author": true,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 32
+      }
+    },
+    "image-width-text": {
+      "type": "image-width-text",
+      "blocks": {
+        "template--image-width-text-1": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Easy_Exchange.png",
+            "img_type": "circle",
+            "title": "Einfacher Umtausch",
+            "content": "Genießen Sie einfache Transaktionen mit unserem intuitiven System.",
+            "text_align_item": "text-center"
+          }
+        },
+        "template--image-width-text-2": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/secure.png",
+            "img_type": "circle",
+            "title": "Sichere Zahlung",
+            "content": "Wir gewährleisten, dass Ihre Transaktionen sicher sind.",
+            "text_align_item": "text-center"
+          }
+        },
+        "template--image-width-text-3": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Outstanding_Support.png",
+            "img_type": "circle",
+            "title": "Exzellenter Support",
+            "content": "Service jenseits aller Erwartungen mit unserem Team.",
+            "text_align_item": "text-center"
+          }
+        },
+        "3adff2bd-eae0-4fa4-8692-194489b71fb6": {
+          "type": "image_with_text",
+          "settings": {
+            "image": "shopify:\/\/shop_images\/Premium_Quality.png",
+            "img_type": "circle",
+            "title": "Premium-Qualität",
+            "content": "Nous sommes minutieuxdans les moindres détails",
+            "text_align_item": "text-center"
+          }
+        }
+      },
+      "block_order": [
+        "template--image-width-text-1",
+        "template--image-width-text-2",
+        "template--image-width-text-3",
+        "3adff2bd-eae0-4fa4-8692-194489b71fb6"
+      ],
+      "settings": {
+        "heading": "",
+        "background_color": "#ffffff",
+        "columns_desktop": 4,
+        "columns_tablet": 4,
+        "columns_mobile": 2,
+        "padding_top_mb": 24,
+        "padding_bottom_mb": 48,
+        "padding_top": 64,
+        "padding_bottom": 0
+      }
+    }
+  },
+  "order": [
+    "breadcrumb",
+    "080c29ed-4428-4763-9a48-639db691d7d3",
+    "dd354861-00fd-4e2b-b990-70ca68de9db5",
+    "7b3b0b45-ca44-4cef-a454-8058a9cc5853",
+    "template",
+    "8ef37efb-1bc8-4404-ba32-1eb08a3841b7",
+    "972a6846-78a1-4145-a407-5eb3806a9b36",
+    "4d6826db-610a-4fbb-883d-adc1c0607b8f",
+    "25748084-2bf7-4f5a-a446-ef6ef03da839",
+    "a6bef151-2000-46f7-b8a0-bd0ac9592bcd",
+    "8f6d69ed-63b0-4e11-a70d-c76e34e0e748",
+    "testimonial",
+    "featured-blog",
+    "image-width-text"
+  ]
+}

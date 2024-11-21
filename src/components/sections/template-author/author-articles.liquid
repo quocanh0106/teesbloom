@@ -1,0 +1,116 @@
+{% for link in linklists['list-blogs'].links %}
+  {%- paginate blogs[link.handle].articles by 10000 -%}
+    {% if allArticle %}
+      {% assign allArticle = allArticle | concat: link.object.articles %}
+    {% else %}
+      {% assign allArticle = link.object.articles %}
+    {% endif %}
+  {%- endpaginate -%}
+{% endfor %}
+{% assign allArticle = allArticle | where: 'author', metaobject.name.value %}
+
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<pagination-custom class="block page-width" data-length="{{ allArticle.size }}" data-limit="{{ section.settings.limit }}" data-current-page="1">
+  <h2 class="text-h5 lg:text-h2 capitalize text-primary mb-6 lg:mb-8">{{ metaobject.name.value | split: ' ' | first | append: "'s Article" }}</h2>
+  <div class="grid gap-y-8 gap-x-4 lg:gap-y-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 -mx-4 px-4 pb-8 lg:pb-12">
+    {% for article in allArticle %}
+      {% assign customClass = 'item' %}
+      {% if forloop.index > section.settings.limit %}
+        {% assign customClass = 'item hidden' %}
+      {% endif %}
+      {% render 'article-card', article: article , media_aspect_ratio: 1.625, show_image: true, show_blog_title: true, show_date: true, show_author: true, show_excerpt: true, customClass: customClass %}
+    {% endfor %}
+  </div>
+  
+  <button type="button" class="loadmore !block text-center w-fit mx-auto btn btn-2 border border-primary !text-sm lg:text-base !leading-none !font-bold hover:border-primary py-3.5 px-6 lg:py-4 lg:px-8{% if allArticle.size < section.settings.limit %} !hidden{% endif %}">
+    {{ 'sections.collection_template.load_more' | t }}
+  </button>
+</pagination-custom>
+
+{% capture src_url %}{{ 'author-articles.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+
+{% schema %}
+  {
+    "name": "Author Articles",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#FAFAFA"
+      },
+      {
+        "type": "range",
+        "id": "limit",
+        "min": 0,
+        "max": 20,
+        "step": 1,
+        "label": "Limit per page",
+        "default": 12
+      },
+      {
+        "type": "header",
+        "content": "Padding desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 64
+      },
+      {
+        "type": "header",
+        "content": "Padding mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+      },
+      {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 40
+      }
+    ]
+  }
+{% endschema %}

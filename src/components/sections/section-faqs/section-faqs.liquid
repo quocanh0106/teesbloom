@@ -1,0 +1,165 @@
+{% if template contains 'article' %}
+  {% assign temp = article %}
+{% elsif template contains 'collection' %}
+  {% assign temp = collection %}
+{% elsif template contains 'blog' %}
+  {% assign temp = blog %}
+{% endif %}
+{% if temp.metafields.custom.faqs_list.value != blank %}
+  {% style %}
+    {% if section.settings.background != blank %}
+      #shopify-section-{{ section.id }} {
+        background: {{ section.settings.background }};
+      }
+    {% endif %}
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top_mobile }}px;
+      padding-bottom: {{ section.settings.padding_mobile }}px;
+    }
+    @media(min-width: 768px) {
+      [data-section-id="{{ section.id }}"] {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding }}px;
+      }
+    }
+  {% endstyle %}
+  <div class="page-width section-faqs" data-section-id="{{ section.id }}">
+    {% if temp == collection %}
+      <h2 class="text-h5 font-heading font-semibold text-primary mb-8 lg:text-h2 capitalize text-center lg:mb-10">{{ temp.title | append: ' FAQs' }}</h2>
+    {% elsif temp == article %}
+      {% if shop.locale == 'en' %}
+        <h2 class="text-h5 font-heading font-semibold text-primary mb-8 lg:text-h2 capitalize text-center lg:mb-10">FAQs - News</h2>
+      {% elsif shop.locale == 'de' %}
+        <h2 class="text-h5 font-heading font-semibold text-primary mb-8 lg:text-h2 capitalize text-center lg:mb-10">FAQs - Nachricht</h2>
+      {% elsif shop.locale == 'it' %}
+        <h2 class="text-h5 font-heading font-semibold text-primary mb-8 lg:text-h2 capitalize text-center lg:mb-10">FAQs - Notizia</h2>
+      {% elsif shop.locale == 'fr' %}
+        <h2 class="text-h5 font-heading font-semibold text-primary mb-8 lg:text-h2 capitalize text-center lg:mb-10">FAQs - Nouvelles</h2>
+      {% endif %}
+    {% elsif temp == blog %}
+      <h2 class="text-h5 font-heading font-semibold text-primary mb-8 lg:text-h2 capitalize text-center lg:mb-10">{{ temp.title | append: ' FAQs' }}</h2>
+    {% endif %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-2 lg:gap-4 grid-rows-[min-content] auto-rows-min">
+      <div class="grid grid-cols-1 gap-2 lg:gap-4 grid-rows-[min-content] auto-rows-min">
+        {% for item in temp.metafields.custom.faqs_list.value %}
+          {% assign modulo = forloop.index | modulo: 2 %}
+          {% if modulo != 0 %}
+            <accordion-toggle class="inline-block relative cursor-pointer bg-background rounded shadow-megamenu p-4 lg:p-6">
+              <div class="summary flex items-start justify-between gap-3 before:content-empty before:absolute before:top-0 before:left-0 before:w-full before:h-full before:block before:p-4 before:lg:p-6 before:lg:z-10">
+                <h3 class="inline-block text-base text-primary leading-4 font-heading font-semibold lg:text-lg lg:leading-4">{{ item.ask }}</h3>
+                <span class="icon-add">{%- render 'icon-down', class: 'w-6 h-6 text-primary' -%}</span>
+                <span class="icon-minus">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
+              </div>
+              <div class="details p-0">
+                {{ item.answer }}
+              </div>
+            </accordion-toggle>
+          {% endif %}
+        {% endfor %}
+      </div>
+      <div class="grid grid-cols-1 gap-2 lg:gap-4 grid-rows-[min-content] auto-rows-min">
+        {% for item in temp.metafields.custom.faqs_list.value %}
+          {% assign modulo = forloop.index | modulo: 2 %}
+          {% if modulo == 0 %}
+            <accordion-toggle class="inline-block relative cursor-pointer bg-background rounded shadow-megamenu p-4 lg:p-6">
+              <div class="summary flex items-start justify-between gap-3 before:content-empty before:absolute before:top-0 before:left-0 before:w-full before:h-full before:block before:p-4 before:lg:p-6 before:lg:z-10">
+                <h3 class="inline-block text-base text-primary leading-4 font-heading font-semibold lg:text-lg lg:leading-4">{{ item.ask }}</h3>
+                <span class="icon-add">{%- render 'icon-down', class: 'w-6 h-6 text-primary' -%}</span>
+                <span class="icon-minus">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
+              </div>
+              <div class="details p-0">
+                {{ item.answer }}
+              </div>
+            </accordion-toggle>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% if temp.metafields.custom.faqs_list.value != blank %}
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {% for item in temp.metafields.custom.faqs_list.value %}
+          {
+            "@type": "Question",
+            "name": "{{ item.ask | remove: '"' | remove: "'" }}",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "{{ item.answer | remove: '"' | remove: "'" }}"
+            }
+          }{% unless forloop.last == true %},{% endunless %}
+        {% endfor %}
+      ]
+    }
+  </script>
+{% endif %}
+{% schema %}
+  {
+    "name": "Section FAQ",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background color"
+      },
+      {
+        "type": "header",
+        "content": "Padding desktop"
+      },
+      {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 64
+      },
+      {
+        "type": "range",
+        "id": "padding",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 64
+      },
+      {
+        "type": "header",
+        "content": "Padding mobile"
+      },
+      {
+        "type": "range",
+        "id": "padding_top_mobile",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 32
+      },
+      {
+        "type": "range",
+        "id": "padding_mobile",
+        "min": 0,
+        "max": 200,
+        "step": 4,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 32
+      }
+    ],
+    "presets": [
+      {
+        "name": "Section FAQ"
+      }
+    ]
+  }
+{% endschema %}

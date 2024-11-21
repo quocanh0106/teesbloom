@@ -1,0 +1,49 @@
+{%- comment -%}
+  Renders the country picker for the localization form
+
+  Accepts:
+    - localPosition: pass in the position in which the form is coming up to create specific IDs
+{%- endcomment -%}
+
+<div class="disclosure relative flex items-center">
+  <button
+    type="button"
+    class="flex items-center gap-2 disclosure__button localization-form__select localization-selector !outline-none !shadow-none !border-none"
+    aria-expanded="false"
+    aria-controls="{{ localPosition }}List"
+    aria-describedby="{{ localPosition }}Label"
+  >
+    {% if small %}
+      {% render 'icon-world', class: "w-5 h-5 text-primary" %}
+    {% else %}
+      <span class="text-sm">
+        {{- localization.country.currency.iso_code }}
+        {{ localization.country.currency.symbol }} | {{ localization.country.name -}}
+      </span>
+      {% render 'icon-caret', class: 'w-4 h-4' %}
+    {% endif %}
+  </button>
+  <div class="disclosure__list-wrapper absolute left-0{% if small %} top-full{% else %} bottom-full{% endif %} z-[11] bg-background p-3 rounded overflow-auto max-h-25 border border-primary" hidden>
+    <ul id="{{ localPosition }}List" role="list" class="disclosure__list list-unstyled flex flex-col">
+      {%- for country in localization.available_countries -%}
+        <li class="disclosure__item text-sm py-1" tabindex="-1">
+          <a
+            class="link link--text disclosure__link caption-large focus-inset{% if country.iso_code == localization.country.iso_code %} disclosure__link--active{% endif %}"
+            href="#"
+            {% if country.iso_code == localization.country.iso_code %}
+              aria-current="true"
+            {% endif %}
+            data-value="{{ country.iso_code }}"
+          >
+            <span class="localization-form__currency">
+              {{- country.currency.iso_code }}
+              {{ country.currency.symbol }} |</span
+            >
+            {{ country.name }}
+          </a>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+<input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">

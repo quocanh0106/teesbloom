@@ -1,0 +1,444 @@
+{% style %}
+  #shopify-section-{{ section.id }} .heading,
+  #shopify-section-{{ section.id }} a:hover,
+  #shopify-section-{{ section.id }} .link:hover {
+    color: {{ section.settings.heading_color }};
+  }
+  #shopify-section-{{ section.id }},
+  #shopify-section-{{ section.id }} li,
+  #shopify-section-{{ section.id }} p,
+  #shopify-section-{{ section.id }} a,
+  #shopify-section-{{ section.id }} .link {
+    color: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} a.social {
+    color: {{ section.settings.social_color }};
+  }
+  #shopify-section-{{ section.id }} a.social:hover {
+    color: {{ section.settings.social_hover_color }};
+  }
+{% endstyle %}
+
+<div style="background-color: {{ section.settings.background }};">
+  <span class="md:grid-cols-1 md:col-span-1 md:grid-cols-2 md:col-span-2 md:grid-cols-3 md:col-span-3 md:grid-cols-4 md:col-span-4 md:grid-cols-5 md:col-span-5 md:grid-cols-6 md:col-span-6 
+  lg:grid-cols-1 lg:col-span-1 lg:grid-cols-2 lg:col-span-2 lg:grid-cols-3 lg:col-span-3 lg:grid-cols-4 lg:col-span-4 lg:grid-cols-5 lg:col-span-5 lg:grid-cols-6 lg:col-span-6 hidden"></span>
+
+  {%- if section.blocks.size > 0 -%}
+    <div class="page-width gap-x-4 py-2 lg:py-10 grid grid-cols-{{ section.settings.col_per_row_mobile }} md:grid-cols-{{ section.settings.col_per_row_tablet }} lg:grid-cols-{{ section.settings.col_per_row_desktop }}">
+      {%- for block in section.blocks -%}
+        <{% unless block.type == 'link_list' %}div{% else %}accordion-toggle{% endunless %} data-block-id="{{ block.id }}" class="{% if forloop.index > 2 %}{% if forloop.last %} lg:justify-end{% endif %}{% endif %} col-span-{{ block.settings.col_span_mobile }} md:col-span-{{ block.settings.col_span_tablet }} lg:col-span-{{ block.settings.col_span_desktop }} auto-cols-max {% if block.type == 'link_list' %}md:grid md:grid-rows-[min-content] md:auto-rows-min{% endif %}
+          py-4 border-t border-primary lg:border-none">
+          {%- if block.settings.heading != blank -%}
+            <div class="summary flex items-center justify-between gap-x-2 h-fit">
+              <div class="heading text-lg font-heading p-0 leading-4 text-primary font-medium uppercase">{{- block.settings.heading | escape -}}</div>
+              {% if block.type == 'link_list' %}
+                <span class="heading icon-add md:!hidden text-primary">{%- render 'icon-down', class: 'w-6 h-6' -%}</span>
+                <span class="heading icon-minus md:!hidden text-primary">{%- render 'icon-up', class: 'w-6 h-6' -%}</span>
+              {%- endif -%}
+            </div>
+          {%- endif -%}
+          {%- case block.type -%}
+            {%- when 'text' -%}
+              <div class="flex flex-col md:flex-row md:justify-between md:items-start lg:flex-col col-span-2">
+                {% if block.settings.image %}
+                  <img src="{{ block.settings.image | image_url: width: 533 }}" srcset="{%- if block.settings.image.width >= 375 -%}{{ block.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
+                    {%- if block.settings.image.width >= 750 -%}{{ block.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
+                    {%- if block.settings.image.width >= 1100 -%}{{ block.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if block.settings.image.width >= 1500 -%}{{ block.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
+                    {%- if block.settings.image.width >= 1780 -%}{{ block.settings.image | image_url: width: 1780 }} 1780w,{%- endif -%}
+                    {%- if block.settings.image.width >= 2000 -%}{{ block.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%}
+                    {%- if block.settings.image.width >= 2800 -%}{{ block.settings.image | image_url: width: 2800 }} 2800w{%- endif -%}" 
+                    sizes="(min-width: 1100px) 535px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)" 
+                    {% if block.settings.image.alt != blank %}
+                    alt="{{ block.settings.image.alt | escape }}"
+                    {% else %}
+                    alt="{{ block.settings.image | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                    {% endif %}
+                    loading="lazy" 
+                    class="block object-cover {{ block.settings.alignment }}"
+                    width="{{ block.settings.image.width }}" 
+                    height="{{ block.settings.image.height }}"
+                    style="max-width: {{ block.settings.image_width }}px"/>
+                {% endif %}
+                {%- if block.settings.email != blank or block.settings.address != blank or block.settings.address2 != blank or block.settings.time_work != blank -%}
+                  <div class="mt-4 lg:mb-8">
+                    <ul class="grid gap-3">
+                      {%- if block.settings.email != blank -%}
+                        <li>
+                          <a href="mailto:{{ block.settings.email }}" class="flex items-center gap-2 lg:gap-2.5 text-sm font-medium leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="{{ block.settings.email }}">
+                            {{ block.settings.email }}
+                          </a>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.address != blank -%}
+                        <li>
+                          <p class="flex items-center gap-2 lg:gap-2.5 text-sm font-medium leading-normal text-primary">
+                            {{ block.settings.address }}
+                          </p>
+                        </li>
+                      {%- endif -%}
+                      {%- if block.settings.time_work != blank -%}
+                        <li>
+                          <p class="flex items-center gap-2 lg:gap-2.5 text-sm font-medium leading-normal text-primary">
+                            {{ block.settings.time_work }}
+                          </p>
+                        </li>
+                      {%- endif -%}
+                    </ul>
+                    {%- if block.settings.show_social == true -%}
+                      <ul class="flex flex-wrap gap-5 items-center mt-4" role="list">
+                        {%- if settings.social_facebook_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_facebook_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Facebook">
+                              {%- render 'icon-facebook' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+    
+                        {%- if settings.social_twitter_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_twitter_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Twitter">
+                              {%- render 'icon-twitter' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+    
+                        {%- if settings.social_instagram_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_instagram_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Instagram">
+                              {%- render 'icon-instagram' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+    
+                        {%- if settings.social_tiktok_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_tiktok_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Tiktok">
+                              {%- render 'icon-tiktok' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+    
+                        {%- if settings.social_youtube_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_youtube_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Youtube">
+                              {%- render 'icon-youtube' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+    
+                        {%- if settings.social_pinterest_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_pinterest_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Pinterest">
+                              {%- render 'icon-pinterest' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+    
+                        {%- if settings.social_tumblr_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_tumblr_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Tumblr">
+                              {%- render 'icon-tumblr' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+    
+                        {%- if settings.social_snapchat_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_snapchat_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Snapchat">
+                              {%- render 'icon-snapchat' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+    
+                        {%- if settings.social_vimeo_link != blank -%}
+                          <li class="w-5 h-5">
+                            <a href="{{ settings.social_vimeo_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Vimeo">
+                              {%- render 'icon-vimeo' -%}
+                            </a>
+                          </li>
+                        {%- endif -%}
+                      </ul>
+                    {%- endif -%}
+
+                  </div>
+                {% endif %}
+
+              </div>
+            {%- when 'link_list' -%}
+              {%- if block.settings.menu != blank -%}
+                <ul class="details md:!mt-4 md:!max-h-full p-0 grid gap-y-3">
+                  {%- for link in block.settings.menu.links -%}
+                    <li>
+                      {% if link.url contains 'help-center' or link.url contains 'centre-daides' or link.url contains 'hilfe-center' %}
+                        <span-link href="{{ link.url }}" class="link cursor-pointer text-sm leading-normal text-primary hover:text-primary">
+                          {{ link.title }}
+                        </span-link>
+                      {% else %}
+                        <a href="{{ link.url }}" class="text-sm leading-normal text-primary hover:text-primary" title="{{ link.title }}">
+                          {{ link.title }}
+                        </a>
+                      {% endif %}
+                    </li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+          {%- endcase -%}
+        </{% unless block.type == 'link_list' %}div{% else %}accordion-toggle{% endunless %}>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+
+  <div id="scrollToTop" class="hidden">
+    {%- render 'icon-back' -%}
+  </div>
+</div>
+<div>
+  <div class="page-width flex flex-col lg:flex-row items-center justify-center lg:justify-between py-4">
+    {%- if section.blocks.size > 0 -%}
+      {% if  section.settings.copyright != blank %}
+        <p class="text-center text-xs !text-primary order-2 md:order-1">{{ section.settings.copyright }}</p>
+      {% endif %}
+    {% endif %}
+    <ul class="flex flex-wrap items-center gap-2 justify-center mb-3 md:mb-0 md:order-2" role="list">
+      {% for type in shop.enabled_payment_types %}
+        {% if type == 'american_express' %}
+          <li>
+            {% render 'icon-amex', class: 'icon icon--full-color w-9.5 h-auto' %}
+          </li>
+        {% else %}
+          <li>
+            {%- assign first_svg = type | payment_type_svg_tag: class: 'icon icon--full-color' | split: '<title' | first -%}
+            {%- assign last_svg = type | payment_type_svg_tag: class: 'icon icon--full-color' | split: '</title>' | last -%}
+            {{- first_svg -}}{{- last_svg -}}
+          </li>
+        {% endif %}
+      {%- endfor -%}
+    </ul>
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "Footer",
+    "tag": "footer",
+    "blocks": [
+      {
+        "type": "link_list",
+        "name": "Link list",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Col span"
+          },
+          {
+            "type": "range",
+            "id": "col_span_desktop",
+            "label": "Cols span desktop",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_tablet",
+            "label": "Cols span tablet",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_mobile",
+            "label": "Cols span mobile",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "default": "Quick links",
+            "label": "Heading"
+          }, 
+          {
+            "type": "link_list",
+            "id": "menu",
+            "default": "footer",
+            "label": "Menu"
+          }
+        ]
+      }, 
+      {
+        "type": "text",
+        "name": "Text",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Col span"
+          },
+          {
+            "type": "range",
+            "id": "col_span_desktop",
+            "label": "Cols span desktop",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_tablet",
+            "label": "Cols span tablet",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "range",
+            "id": "col_span_mobile",
+            "label": "Cols span mobile",
+            "min": 1,
+            "max": 6,
+            "default": 1,
+            "step": 1
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          }, 
+          {
+            "type": "range",
+            "id": "image_width",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "label": "Image width",
+            "default": 60
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "default": "Get In Touch",
+            "label": "Heading"
+          }, 
+          {
+            "type": "text",
+            "id": "email",
+            "label": "Email"
+          },
+          {
+            "type": "text",
+            "id": "address",
+            "label": "Address"
+          }, 
+          {
+            "type": "text",
+            "id": "time_work",
+            "label": "Time work"
+          },
+          {
+            "type": "header",
+            "content": "Setting social media"
+          },
+          {
+            "type": "checkbox",
+            "id": "show_social",
+            "default": false,
+            "label": "Show social"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background color",
+        "default": "#0F0F0F"
+      },
+      {
+        "type": "color",
+        "id": "heading_color",
+        "label": "Heading color",
+        "default": "#FEFEFE"
+      },
+      {
+        "type": "color",
+        "id": "text_color",
+        "label": "Text color",
+        "default": "#CDCDCD"
+      },
+      {
+        "type": "color",
+        "id": "social_color",
+        "label": "Social color",
+        "default": "#CDCDCD"
+      },
+      {
+        "type": "color",
+        "id": "social_hover_color",
+        "label": "Social hover color",
+        "default": "#FEFEFE"
+      },
+      {
+        "type": "color",
+        "id": "border_color",
+        "label": "Border color",
+        "default": "#2F2F2F"
+      },
+      {
+        "type": "range",
+        "id": "col_per_row_desktop",
+        "label": "Cols per row desktop",
+        "min": 1,
+        "max": 6,
+        "default": 6,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "col_per_row_tablet",
+        "label": "Cols per row tablet",
+        "min": 1,
+        "max": 6,
+        "default": 6,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "col_per_row_mobile",
+        "label": "Cols per row mobile",
+        "min": 1,
+        "max": 6,
+        "default": 6,
+        "step": 1
+      },
+      {
+        "type": "header",
+        "content": "Copyright section"
+      },
+      {
+        "type": "textarea",
+        "id": "copyright",
+        "default": "© 2022 CustomChic™️. Powered by Shopify",
+        "label": "Copyright"
+      },
+      {
+        "type": "header",
+        "content": "Setting localization"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_localization",
+        "default": false,
+        "label": "Show localization"
+      }
+    ]
+  }
+{% endschema %}

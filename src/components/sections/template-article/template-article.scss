@@ -1,0 +1,206 @@
+.article-template__content h1,
+.article-template__content h2,
+.article-template__content h3,
+.article-template__content h4,
+.article-template__content h5,
+.article-template__content h6 {
+  @apply my-4 mx-0 text-primary !font-bold;
+}
+
+.article-template__content h1,
+h1.article-template__title {
+  @apply text-h3 lg:text-h2;
+}
+
+.article-template__content h2 {
+  @apply text-h4 lg:text-h3;
+}
+
+.article-template__content h3 {
+  @apply text-h3 lg:text-h4;
+}
+
+.article-template__content h4 {
+  @apply text-base lg:text-h5;
+}
+
+.article-template__content h5 {
+  @apply text-sm lg:text-base;
+}
+
+.article-template__content h6 {
+  @apply text-xs lg:text-sm;
+}
+
+.article-template__content h1,
+.article-template__content h2,
+.article-template__content h3,
+.article-template__content h4,
+.article-template__content h5,
+.article-template__content h6 {
+  @apply lg:mx-0 mb-4;
+}
+
+.article-template__content a,
+.article-template__content li,
+.article-template__content p,
+.article-template__content ul {
+  @apply font-normal text-sm leading-5 md:text-base md:leading-6 mb-4 lg:mb-5;
+}
+
+.article-template__content span {
+  @apply font-normal text-sm leading-5 md:text-base md:leading-6 mb-4 lg:mb-5;
+}
+
+.article-template__content b * {
+  @apply !font-bold;
+}
+
+.article-template__content ul {
+  @apply list-inside text-primary font-body;
+}
+.article-template__content ul > ul {
+  @apply pl-5 lg:pl-10;
+}
+
+.article-template__content ul li p {
+  @apply inline;
+}
+
+.article-template__content ul li,
+.article-template__content ul li * {
+  @apply list-disc marker:text-primary text-sm leading-5 md:text-base md:leading-6;
+}
+.article-template__content ul li strong,
+.article-template__content ul li strong *,
+.article-template__content ul li b,
+.article-template__content ul li b * {
+  @apply !font-bold;
+}
+
+.article-template__content blockquote,
+.article-template__content blockquote * {
+  @apply !font-normal !font-heading text-xs md:text-sm italic m-0 p-0 !text-center;
+}
+
+.article-template__content blockquote {
+  @apply mx-auto mt-2 mb-4 lg:mb-5;
+}
+
+.article-template__content table {
+  @apply !w-full !rounded-lg !my-5 !mx-auto;
+}
+
+.article-template__content  table tr {
+  @apply !border-t !border-b !border-primary;
+}
+
+.article-template__content table tr td,
+.article-template__content table tr th {
+  @apply !border-x !border-primary !text-center !p-2;
+}
+
+.article-template__content table tr td * {
+  @apply !m-0;
+}
+
+.article-template__content a,
+.article-template__content a * {
+  @apply inline !font-bold;
+}
+
+.article-template__content a {
+  @apply underline;
+}
+
+
+.article-template__content {
+  @apply text-primary;
+}
+
+.article-template__content a[title="Acheter Maintenant"],
+.article-template__content a[title="Jetzt Kaufen"],
+.article-template__content a[title="Shop Now"] {
+  @apply !text-primary !bg-secondary !border !not-italic !no-underline !text-sm !leading-none !font-bold !font-heading !capitalize !overflow-hidden !block !w-fit !min-w-[116px] !max-w-full !text-center !transition-all !duration-300 !ease-[ease] !mx-auto !my-6 lg:!mb-8 !py-[13px] !px-6 !rounded-[100px] !border-solid !border-secondary;
+  * {
+    @apply !font-bold !text-primary !text-sm !leading-none !not-italic;
+  }
+}
+
+.article-template__content a[title="Acheter Maintenant"] {
+  @apply !max-w-[182px];
+}
+
+.article-template__content a[title="Jetzt Kaufen"] {
+  @apply !max-w-[140px];
+}
+
+.article-template__content a[title="Shop Now"]:hover,
+.article-template__content a[title="Acheter Maintenant"]:hover,
+.article-template__content a[title="Jetzt Kaufen"]:hover {
+  @apply !bg-background !text-secondary;
+  * {
+    @apply !text-secondary;
+  }
+}
+
+.sticky-header .article-sidebar {
+  @apply lg:top-31;
+}
+
+.article-template__content img {
+  @apply h-fit object-contain max-w-full rounded-[10px] !mx-auto block;
+}
+.article-template__content img[data-product="true"] + .image_logo {
+  @apply absolute top-4 left-4 !block z-10 w-28;
+}
+
+accordion-toggle.toc {
+  .details {
+    @apply lg:!max-h-[calc(100vh_-_504px)] lg:!duration-300;
+  }
+  .icon-toc {
+    @apply block;
+  }
+  .icon-close {
+    @apply hidden;
+  }
+  &.active {
+    @apply p-5;
+    .icon-toc {
+      @apply hidden;
+    }
+    .icon-close {
+      @apply block;
+    }
+    .details {
+      @apply !max-h-90 lg:!max-h-[calc(100vh_-_504px)] static opacity-100 visible !overflow-auto w-full !duration-300;
+    }
+  }
+  a, a * {
+    @apply !font-semibold;
+  }
+}
+.sticky-header {
+  accordion-toggle.toc {
+    @apply top-15;
+    .details {
+      @apply lg:!max-h-[calc(100vh_-_619px)];
+    }
+    &.active {
+      @apply top-15;
+      .details {
+        @apply lg:!max-h-[calc(100vh_-_619px)];
+      }
+    } 
+  }
+}
+
+.sticky-header.search-active, .header-on-top {
+  accordion-toggle.toc {
+    @apply top-44;
+    &.active {
+      @apply top-[152px];
+    } 
+  }
+}
