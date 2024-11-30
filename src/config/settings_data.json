@@ -9,13 +9,17 @@
  */
  {
   "current": {
-    "logo_width": 200,
+    "logo": "shopify://shop_images/Logo_Wander_Prints.png",
+    "logo_width": 160,
+    "logo_mb": "shopify://shop_images/Logo_Wander_Prints.png",
     "logo_width_mb": 140,
     "type_heading_font_medium": "poppins_n5",
     "type_body_font": "poppins_n4",
     "type_body_font_medium": "poppins_n5",
-    "color_body_text": "#353535",
-    "color_subtext": "#595959",
+    "color_primary": "#000000",
+    "color_secondary": "#044d79",
+    "color_body_text": "#000000",
+    "color_subtext": "#8e8e8e",
     "color_border": "#d3d3d3",
     "sections": {
       "header": {
@@ -114,8 +118,7 @@
           "mega_menu_4pLgK9",
           "mega_menu_KrEdcd"
         ],
-        "settings": {
-        }
+        "settings": {}
       },
       "footer": {
         "type": "footer",
@@ -141,7 +144,7 @@
               "col_span_tablet": 1,
               "col_span_mobile": 1,
               "heading": "Feature Collection",
-              "menu": "feature-collections"
+              "menu": ""
             }
           },
           "link_list_G4UJ3k": {
@@ -150,8 +153,8 @@
               "col_span_desktop": 1,
               "col_span_tablet": 1,
               "col_span_mobile": 1,
-              "heading": "MoonGift",
-              "menu": "moongift"
+              "heading": "Macorner",
+              "menu": ""
             }
           },
           "link_list_M4fCNc": {
@@ -161,7 +164,7 @@
               "col_span_tablet": 1,
               "col_span_mobile": 1,
               "heading": "Help and Support",
-              "menu": "help-and-support"
+              "menu": ""
             }
           }
         },
@@ -201,7 +204,7 @@
           "announcement-bar-0"
         ],
         "settings": {
-          "background_color": "#0b2a4a",
+          "background_color": "#044d79",
           "text_color": "#ffffff"
         }
       },
@@ -225,12 +228,9 @@
         }
       }
     },
-    "content_for_index": [
-
-    ]
+    "content_for_index": []
   },
   "presets": {
-    "Default": {
-    }
+    "Default": {}
   }
 }
