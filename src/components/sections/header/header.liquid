@@ -1,4 +1,4 @@
-<div class="relative page-width flex bg-background justify-between items-center py-4 lg:h-auto lg:min-h-[46px] gap-5 border-b border-border lg:border-none">
+<div class="relative page-width flex bg-background justify-between items-center lg:h-auto lg:min-h-[41px] gap-5 border-b border-border lg:border-none">
   <ul class="w-full flex items-center lg:hidden gap-3 lg:gap-5" style="max-width: calc((100% - {{ settings.logo_width }}px)/2)">
     <li class="block w-6 h-6">
       <modal-opener class="inline-block cursor-pointer menu-drawer-out-search hover:text-primary text-primary" data-id="#menu-drawer">
@@ -56,9 +56,9 @@
     {% endif %}
   </div>
   <predictive-search id="predictive-search" class="absolute top-full bg-background left-0 lg:static py-2 lg:py-0 flex justify-end lg:justify-start w-full lg:max-w-[600px] opacity-0 invisible lg:!opacity-100 lg:!visible">
-    <form action="{{ routes.search_url }}" method="get" role="search" class="bg-background shadow-search lg:shadow-none flex items-center gap-3 top-full left-0 h-12 px-4 lg:p-0 z-10 transition-all  lg:static lg:h-12 w-full lg:overflow-hidden">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="bg-background shadow-search lg:shadow-none flex items-center gap-3 top-full left-0 h-12 px-4 lg:p-0 z-10 transition-all lg:static lg:h-11 w-full lg:overflow-hidden">
       <div class="relative w-full center h-full lg:h-auto">
-        <input class="placeholder:!text-gray-500 !border !border-primary !rounded-3xl w-full h-full lg:h-12 px-14 lg:pl-8 lg:overflow-hidden appearance-none !outline-none !shadow-none !ring-transparent"
+        <input class="placeholder:!text-gray-500 !border !border-primary !rounded-3xl w-full h-full lg:h-11 px-14 lg:pl-8 lg:overflow-hidden appearance-none !outline-none !shadow-none !ring-transparent"
           id="Search-In-Modal-1"
           type="search"
           name="q"

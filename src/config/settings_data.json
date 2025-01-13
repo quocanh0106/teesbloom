@@ -10,9 +10,9 @@
  {
   "current": {
     "logo": "shopify://shop_images/Logo_Wander_Prints.png",
-    "logo_width": 160,
+    "logo_width": 184,
     "logo_mb": "shopify://shop_images/Logo_Wander_Prints.png",
-    "logo_width_mb": 140,
+    "logo_width_mb": 116,
     "type_heading_font_medium": "poppins_n5",
     "type_body_font": "poppins_n4",
     "type_body_font_medium": "poppins_n5",
@@ -194,7 +194,7 @@
           "announcement-bar-0": {
             "type": "announcement",
             "settings": {
-              "text": "<p>Welcome to our store</p>",
+              "text": "<p>Save 10% for order 2+ with code:<strong> WP2</strong></p>",
               "link": "",
               "open_new_window": false
             }

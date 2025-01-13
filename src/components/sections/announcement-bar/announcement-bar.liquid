@@ -1,9 +1,9 @@
 <div
-  class="box-border py-2 relative z-10"
+  class="box-border relative z-10"
   {%- if section.settings.background_color -%}
   style="color:{{- section.settings.text_color -}};background-color: {{- section.settings.background_color -}};"
   {%- endif -%}>
-  <div class="page-width overflow-hidden">
+  <div class="page-width py-[3px] h-7.5 overflow-hidden">
     <slider-component class="flex" data-autoplay="5000" data-loop="true">
       <button type="button" name="previous" aria-label="previous" class="prev-{{ section.id }} hidden"></button>
       <div class="slider-wrapper list flex justify-between slider-on-mobile slider-on-tablet slider-on-desktop w-full">
@@ -24,7 +24,7 @@
                       {% endif %}>
                   {%- endif -%}
                   <span
-                    class="block font-normal text-xxs lg:text-xs uppercase"
+                    class="block font-normal text-sm lg:text-base"
                     {%- if section.settings.text_color -%}
                     style="color:{{- section.settings.text_color -}};"
                     {%- endif -%}>
