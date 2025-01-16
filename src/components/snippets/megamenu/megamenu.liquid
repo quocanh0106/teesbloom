@@ -1,6 +1,6 @@
 <menu-drawer class="block fixed lg:static z-20 w-full h-full top-0 left-0 invisible lg:visible lg:before:content-none lg:translate-x-0 lg:bg-none 
                         before:content-empty before:bg-overlay before:top-0 before:left-0 before:absolute before:w-full before:h-full 
-                        before:transition-all before:duration-500 before:backdrop-blur-sm lg:border-b lg:border-border" id="menu-drawer">
+                        before:transition-all before:duration-500 before:backdrop-blur-sm lg:border-y lg:border-primary" id="menu-drawer">
   <div class="megamenu duration-500 lg:duration-0 -translate-x-full lg:translate-x-0 flex flex-col lg:block w-3/4 lg:w-full h-full bg-background relative py-10 px-6 pr-4 lg:p-0">
     <ul class="flex flex-col lg:flex-row items-start justify-start w-full h-full lg:h-fit lg:items-center transition-all lg:justify-center bg-background lg:bg-background relative pr-2 lg:pr-0">
       <span class="lg:hidden close-menu bg-background absolute top-1 -right-9 w-10 h-10 flex lg:hidden justify-center items-center rounded-full translate-x-full z-30 cursor-pointer">
@@ -63,7 +63,7 @@
             {% endif %}
             <a
               href="{% if block.settings.url != blank %}{{ block.settings.url }}{% else %}#{% endif %}"
-              class="{% if block.settings.primary %} !text-secondary{% endif %} text-subtext hover:text-secondary text-base font-medium capitalize no-underline font-body gap-1 lg:py-2 lg:px-4"
+              class="{% if block.settings.primary %} !text-secondary !font-medium{% endif %} text-primary hover:text-secondary text-base font-normal capitalize no-underline font-body gap-1 lg:py-3 lg:px-4"
               title="{{ titleCollection0 }}">
                 {{ block.settings.title }}
             </a>
@@ -74,12 +74,12 @@
           {% if link.links != blank %}
             <div class="details-head lg:pt-8 lg:pb-12 -translate-x-full lg:translate-x-0 absolute top-0 left-0 lg:top-full z-20 text-left list-none block invisible opacity-0 text-sm w-full h-[calc(100vh_-_80px)] lg:h-fit bg-background group-hover:lg:visible group-hover:lg:opacity-100 transition-all transition-menu lg:shadow-megamenu">
               <div class="z-20 bg-background !px-0 lg:!px-12.5 flex flex-col lg:flex-row h-full lg:justify-between overflow-x-hidden lg:overflow-auto lg:h-max lg:max-h-menudt relative">
-                <div class="back lg:hidden flex items-center w-full text-subtext hover:text-secondary transition-all mb-12.5 pr-2 lg:pr-0 z-0">
+                <div class="back lg:hidden flex items-center w-full text-primary hover:text-secondary transition-all mb-12.5 pr-2 lg:pr-0 z-0">
                   <span class="inline-block pr-1.5">{% render 'icon-prev', class: "w-5 h-5" %}</span>
                   <span class="text-base leading-4 font-normal capitalize">{{ 'sections.header.back' | t }}</span>
                 </div>
                 <div class="grid grid-cols-1 pr-2 gap-5 w-full h-fit overflow-auto static lg:overflow-unset lg:pb-0 lg:px-8 z-20 bg-background lg:grid-cols-4">
-                  <span-link class="lg:hidden text-subtext hover:text-secondary" href="{% if block.settings.url != blank %}{{ block.settings.url }}{% else %}#{% endif %}"
+                  <span-link class="lg:hidden text-primary hover:text-secondary" href="{% if block.settings.url != blank %}{{ block.settings.url }}{% else %}#{% endif %}"
                     class="flex relative items-center text-base leading-4 lg:p-3 lg:px-4 text-primary-800 hover:text-primary-opacity-80 font-bold font-heading capitalize no-underline gap-1 mb-1 cursor-pointer transition-all"
                     title="{{ titleCollection0 }}">
                     <span class="before:!hidden before:lg:!block before:!-bottom-3 before:!h-0.5 before:bg-primary-opacity-80 lg:leading-4 group-hover:before:w-full">
@@ -101,9 +101,9 @@
                       {% else %}
                         {% assign titleCollection1 = child_link.title %}
                       {% endif %}
-                      <div class="summary-head w-full flex items-center justify-between gap-x-2.5 text-subtext hover:text-secondary transition-all">
+                      <div class="summary-head w-full flex items-center justify-between gap-x-2.5 text-primary hover:text-secondary transition-all">
                         <a href="{{ child_link.url }}" title="{{ titleCollection1 }}"
-                          class="font-normal capitalize lg:font-medium lg:uppercase text-subtext hover:text-secondary text-sm leading-4 font-body">
+                          class="font-normal capitalize lg:font-medium lg:uppercase text-primary hover:text-secondary text-sm leading-4 font-body">
                           {{ child_link.title }}
                         </a>
                         {% if hasChild %}
@@ -120,7 +120,7 @@
                           </li>
                           <li class="w-full pb-6 lg:hidden">
                             <span-link href="{% if block.settings.url != blank %}{{ block.settings.url }}{% else %}#{% endif %}" title="{{ titleCollection0 }}"
-                                       class="text-base font-bold text-subtext hover:text-secondary font-heading capitalize">
+                                       class="text-base font-bold text-primary hover:text-secondary font-heading capitalize">
                               {{ child_link.title }}
                             </span-link>
                           </li>
@@ -140,7 +140,7 @@
                                   {% if grandchild_link.url != '#' %}
                                     <a
                                       href="{{ grandchild_link.url }}"
-                                      class="{{ grandchild_link.title | downcase | replace: ' ', '_' }} block w-fit font-normal text-sm leading-4 font-body capitalize transition-all text-subtext hover:text-secondary lg:text-primary"
+                                      class="{{ grandchild_link.title | downcase | replace: ' ', '_' }} block w-fit font-normal text-sm leading-4 font-body capitalize transition-all text-primary hover:text-secondary lg:text-primary"
                                       title="{{ titleCollection2 }}">
                                       <span>
                                         {{ grandchild_link.title }}
@@ -150,7 +150,7 @@
                                       </span>
                                     </a>
                                   {% else %}
-                                    <span class="block w-fit font-normal text-sm leading-4 font-body capitalize transition-all text-subtext hover:text-secondary lg:text-primary">
+                                    <span class="block w-fit font-normal text-sm leading-4 font-body capitalize transition-all text-primary hover:text-secondary lg:text-primary">
                                       {{ grandchild_link.title }}
                                       {%- if grandchild_link.title contains '[' -%}
                                         <span class="label-menu bg-background" {% if grandchild_link.title contains '(' %}style="background: {{ grandchild_link.title | split: '(' | last | split: ')' | first }}"{% endif %}>{{ grandchild_link.title | split: '[' | last | split: ']' | first }}</span>
@@ -172,7 +172,7 @@
                                         {% else %}
                                           {% assign titleCollection3 = lastchild_link.title %}
                                         {% endif %}
-                                        <a href="{{ lastchild_link.url }}" title="{{ titleCollection3 }}" class="{{ lastchild_link.title | downcase | replace: ' ', '_' }} text-sm leading-5 font-normal text-subtext hover:text-secondary lg:text-primary">
+                                        <a href="{{ lastchild_link.url }}" title="{{ titleCollection3 }}" class="{{ lastchild_link.title | downcase | replace: ' ', '_' }} text-sm leading-5 font-normal text-primary hover:text-secondary lg:text-primary">
                                           {{ lastchild_link.title }}
                                           {%- if lastchild_link.title contains '[' -%}
                                             <span class="label-menu bg-background" {% if lastchild_link.title contains '(' %}style="background: {{ grandchild_link.title | split: '(' | last | split: ')' | first }}"{% endif %}>{{ grandchild_link.title | split: '[' | last | split: ']' | first }}</span>

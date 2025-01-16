@@ -26,11 +26,11 @@
   {%- if section.blocks.size > 0 -%}
     <div class="page-width gap-x-4 py-2 lg:py-10 grid grid-cols-{{ section.settings.col_per_row_mobile }} md:grid-cols-{{ section.settings.col_per_row_tablet }} lg:grid-cols-{{ section.settings.col_per_row_desktop }}">
       {%- for block in section.blocks -%}
-        <{% unless block.type == 'link_list' %}div{% else %}accordion-toggle{% endunless %} data-block-id="{{ block.id }}" class="{% if forloop.index > 2 %}{% if forloop.last %} lg:justify-end{% endif %}{% endif %} col-span-{{ block.settings.col_span_mobile }} md:col-span-{{ block.settings.col_span_tablet }} lg:col-span-{{ block.settings.col_span_desktop }} auto-cols-max {% if block.type == 'link_list' %}md:grid md:grid-rows-[min-content] md:auto-rows-min{% endif %}
+        <{% unless block.type == 'link_list' %}div{% else %}accordion-toggle{% endunless %} data-block-id="{{ block.id }}" class="col-span-{{ block.settings.col_span_mobile }} md:col-span-{{ block.settings.col_span_tablet }} lg:col-span-{{ block.settings.col_span_desktop }} auto-cols-max 
           py-4 border-t border-primary lg:border-none">
           {%- if block.settings.heading != blank -%}
             <div class="summary flex items-center justify-between gap-x-2 h-fit">
-              <div class="heading text-lg font-heading p-0 leading-4 text-primary font-medium uppercase">{{- block.settings.heading | escape -}}</div>
+              <div class="heading text-base font-heading p-0 leading-4 text-primary font-bold uppercase">{{- block.settings.heading | escape -}}</div>
               {% if block.type == 'link_list' %}
                 <span class="heading icon-add md:!hidden text-primary">{%- render 'icon-down', class: 'w-6 h-6' -%}</span>
                 <span class="heading icon-minus md:!hidden text-primary">{%- render 'icon-up', class: 'w-6 h-6' -%}</span>
@@ -39,47 +39,27 @@
           {%- endif -%}
           {%- case block.type -%}
             {%- when 'text' -%}
-              <div class="flex flex-col md:flex-row md:justify-between md:items-start lg:flex-col col-span-2">
-                {% if block.settings.image %}
-                  <img src="{{ block.settings.image | image_url: width: 533 }}" srcset="{%- if block.settings.image.width >= 375 -%}{{ block.settings.image | image_url: width: 375 }} 375w,{%- endif -%}
-                    {%- if block.settings.image.width >= 750 -%}{{ block.settings.image | image_url: width: 750 }} 750w,{%- endif -%}
-                    {%- if block.settings.image.width >= 1100 -%}{{ block.settings.image | image_url: width: 1100 }} 1100w,{%- endif -%}
-                    {%- if block.settings.image.width >= 1500 -%}{{ block.settings.image | image_url: width: 1500 }} 1500w,{%- endif -%}
-                    {%- if block.settings.image.width >= 1780 -%}{{ block.settings.image | image_url: width: 1780 }} 1780w,{%- endif -%}
-                    {%- if block.settings.image.width >= 2000 -%}{{ block.settings.image | image_url: width: 2000 }} 2000w,{%- endif -%}
-                    {%- if block.settings.image.width >= 2800 -%}{{ block.settings.image | image_url: width: 2800 }} 2800w{%- endif -%}" 
-                    sizes="(min-width: 1100px) 535px, (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)" 
-                    {% if block.settings.image.alt != blank %}
-                    alt="{{ block.settings.image.alt | escape }}"
-                    {% else %}
-                    alt="{{ block.settings.image | split: "/" | last | replace: "-", " " | split: "." | first }}"
-                    {% endif %}
-                    loading="lazy" 
-                    class="block object-cover {{ block.settings.alignment }}"
-                    width="{{ block.settings.image.width }}" 
-                    height="{{ block.settings.image.height }}"
-                    style="max-width: {{ block.settings.image_width }}px"/>
-                {% endif %}
+              <div class="flex flex-col md:flex-row md:justify-between md:items-start lg:flex-col col-span-1">
                 {%- if block.settings.email != blank or block.settings.address != blank or block.settings.address2 != blank or block.settings.time_work != blank -%}
-                  <div class="mt-4 lg:mb-8">
-                    <ul class="grid gap-3">
+                  <div class="mt-4">
+                    <ul class="grid gap-4">
                       {%- if block.settings.email != blank -%}
                         <li>
-                          <a href="mailto:{{ block.settings.email }}" class="flex items-center gap-2 lg:gap-2.5 text-sm font-medium leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="{{ block.settings.email }}">
+                          <a href="mailto:{{ block.settings.email }}" class="flex items-center gap-2 lg:gap-2.5 text-sm font-normal leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="{{ block.settings.email }}">
                             {{ block.settings.email }}
                           </a>
                         </li>
                       {%- endif -%}
                       {%- if block.settings.address != blank -%}
                         <li>
-                          <p class="flex items-center gap-2 lg:gap-2.5 text-sm font-medium leading-normal text-primary">
+                          <p class="flex items-center gap-2 lg:gap-2.5 text-sm font-normal leading-normal text-primary">
                             {{ block.settings.address }}
                           </p>
                         </li>
                       {%- endif -%}
                       {%- if block.settings.time_work != blank -%}
                         <li>
-                          <p class="flex items-center gap-2 lg:gap-2.5 text-sm font-medium leading-normal text-primary">
+                          <p class="flex items-center gap-2 lg:gap-2.5 text-sm font-normal leading-normal text-primary">
                             {{ block.settings.time_work }}
                           </p>
                         </li>
@@ -167,7 +147,7 @@
               </div>
             {%- when 'link_list' -%}
               {%- if block.settings.menu != blank -%}
-                <ul class="details md:!mt-4 md:!max-h-full p-0 grid gap-y-3">
+                <ul class="details md:!mt-4 md:!max-h-full p-0 grid gap-y-4">
                   {%- for link in block.settings.menu.links -%}
                     <li>
                       {% if link.url contains 'help-center' or link.url contains 'centre-daides' or link.url contains 'hilfe-center' %}
@@ -305,21 +285,6 @@
             "max": 6,
             "default": 1,
             "step": 1
-          },
-          {
-            "type": "image_picker",
-            "id": "image",
-            "label": "Image"
-          }, 
-          {
-            "type": "range",
-            "id": "image_width",
-            "min": 0,
-            "max": 100,
-            "step": 1,
-            "unit": "px",
-            "label": "Image width",
-            "default": 60
           },
           {
             "type": "text",

@@ -21,6 +21,10 @@
     "color_body_text": "#000000",
     "color_subtext": "#8e8e8e",
     "color_border": "#d3d3d3",
+    "container": 1280,
+    "padding_desktop": 16,
+    "padding_tablet": 16,
+    "padding_mobile": 16,
     "sections": {
       "header": {
         "type": "header",
@@ -126,11 +130,10 @@
           "text_naNeVg": {
             "type": "text",
             "settings": {
-              "col_span_desktop": 2,
-              "col_span_tablet": 2,
+              "col_span_desktop": 1,
+              "col_span_tablet": 1,
               "col_span_mobile": 1,
-              "image_width": 60,
-              "heading": "Get In Touch",
+              "heading": "Wander Prints™",
               "email": "",
               "address": "",
               "time_work": "Support Time: 9 AM to 5 PM, Mon-Sat",
@@ -143,8 +146,8 @@
               "col_span_desktop": 1,
               "col_span_tablet": 1,
               "col_span_mobile": 1,
-              "heading": "Feature Collection",
-              "menu": ""
+              "heading": "Informations",
+              "menu": "customer-services"
             }
           },
           "link_list_G4UJ3k": {
@@ -153,8 +156,8 @@
               "col_span_desktop": 1,
               "col_span_tablet": 1,
               "col_span_mobile": 1,
-              "heading": "Macorner",
-              "menu": ""
+              "heading": "Policies",
+              "menu": "customer-services"
             }
           },
           "link_list_M4fCNc": {
@@ -163,8 +166,8 @@
               "col_span_desktop": 1,
               "col_span_tablet": 1,
               "col_span_mobile": 1,
-              "heading": "Help and Support",
-              "menu": ""
+              "heading": "Help",
+              "menu": "topbar"
             }
           }
         },
@@ -181,10 +184,10 @@
           "social_color": "#ffffff",
           "social_hover_color": "#ffffff",
           "border_color": "#d3d3d3",
-          "col_per_row_desktop": 5,
+          "col_per_row_desktop": 4,
           "col_per_row_tablet": 2,
           "col_per_row_mobile": 1,
-          "copyright": "© 2024 Paradis Perso. Powered by Shopify",
+          "copyright": "© 2025 Teesbloom. Powered by Shopify",
           "show_localization": false
         }
       },

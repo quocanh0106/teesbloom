@@ -1,15 +1,11 @@
-<div class="relative page-width flex bg-background justify-between items-center lg:h-auto lg:min-h-[41px] gap-5 border-b border-border lg:border-none">
-  <ul class="w-full flex items-center lg:hidden gap-3 lg:gap-5" style="max-width: calc((100% - {{ settings.logo_width }}px)/2)">
+<div class="relative page-width flex bg-background lg:justify-between items-center lg:h-auto lg:min-h-[41px] gap-5 border-b border-border lg:border-none">
+  <ul class="w-full flex items-center lg:hidden gap-3 lg:gap-5" style="max-width: fit-content; @media (min-width: 1024px) {max-width: calc((100% - {{ settings.logo_width }}px)/2);}">
     <li class="block w-6 h-6">
       <modal-opener class="inline-block cursor-pointer menu-drawer-out-search hover:text-primary text-primary" data-id="#menu-drawer">
         {% render 'icon-hamburger', class: "w-6 h-6" %}
       </modal-opener>
     </li>
-    <li class="block">
-      <modal-opener class="no-underline flex items-center justify-center relative hover:text-primary text-primary" data-id="#predictive-search">
-        {% render 'icon-search', class: "w-6 h-6" %}
-      </modal-opener>
-    </li>
+
   </ul>
   <div class="flex items-center gap-x-10 flex-none lg:!max-w-1/4 lg:w-full">
     {%- if settings.logo != blank -%}
@@ -55,7 +51,7 @@
       <h1 class="hidden opacity-0 invisible">{{ shop.name }}</h1>
     {% endif %}
   </div>
-  <predictive-search id="predictive-search" class="absolute top-full bg-background left-0 lg:static py-2 lg:py-0 flex justify-end lg:justify-start w-full lg:max-w-[600px] opacity-0 invisible lg:!opacity-100 lg:!visible">
+  <predictive-search id="predictive-search" class="absolute top-full bg-background left-0 lg:static py-0 flex justify-end lg:justify-start w-full lg:max-w-[600px] opacity-0 invisible lg:!opacity-100 lg:!visible">
     <form action="{{ routes.search_url }}" method="get" role="search" class="bg-background shadow-search lg:shadow-none flex items-center gap-3 top-full left-0 h-12 px-4 lg:p-0 z-10 transition-all lg:static lg:h-11 w-full lg:overflow-hidden">
       <div class="relative w-full center h-full lg:h-auto">
         <input class="placeholder:!text-gray-500 !border !border-primary !rounded-3xl w-full h-full lg:h-11 px-14 lg:pl-8 lg:overflow-hidden appearance-none !outline-none !shadow-none !ring-transparent"
@@ -88,7 +84,7 @@
       </div>
     </div>
   </predictive-search>
-  <ul class="w-full flex justify-end lg:!max-w-1/4 gap-3 lg:gap-5" style="max-width: calc((100% - {{ settings.logo_width }}px)/2)">
+  <ul class="w-full flex justify-end lg:!max-w-1/4 gap-3 lg:gap-5 ml-auto" style="max-width: calc((100% - {{ settings.logo_width }}px)*2/3 - 24px); @media (min-width: 1024px) {max-width: calc((100% - {{ settings.logo_width }}px)/2);}">
     {% comment %} <li class="lg:block hidden py-0.5 px-2">
       <localization-form class="block">
         {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
@@ -96,10 +92,16 @@
         {%- endform -%}
       </localization-form>
     </li> {% endcomment %}
+    <li class="block lg:hidden">
+      <modal-opener class="lg:hidden no-underline flex items-center justify-center relative hover:text-primary text-primary" data-id="#predictive-search">
+        {% render 'icon-search', class: "w-5 h-5" %}
+      </modal-opener>
+    </li>
+
     <li>
-      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" title="account" class="no-underline flex items-center justify-center relative hover:text-primary text-primary{% if customer %} border border-primary rounded-full{% endif %}">
+      <a href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}" title="account" class="no-underline flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary{% if customer %} border border-primary rounded-full{% endif %}">
         <img src="{{ 'icon-user.png' | asset_img_url }}" class="block" width="20" height="20" alt="user">
-        <span class="hidden lg:block capitalize text-base font-normal font-body leading-loose text-center">
+        <span class="hidden lg:block capitalize text-base font-normal font-body leading-none text-center">
           {% if customer %}Account{% else %}Login{% endif %}
         </span>
       </a>
@@ -111,35 +113,37 @@
       {% render 'atom_script', src: cartDrawer, priority: 'normal', type: "defer" %}
       <modal-opener class="cursor-pointer flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary" title="cart" data-id="#cart-drawer">
         <img src="{{ 'icon-cart.png' | asset_img_url }}" class="block" width="20" height="20" alt="cart">
-        <span class="hidden lg:block capitalize text-base font-normal font-body leading-loose text-center">
-          Cart
-        </span>
-        <div class="absolute bg-primary text-background min-w-[1rem] h-4 rounded-full flex justify-center items-center bottom-3 left-4 empty:hidden" id="cart-icon-bubble">
-          {%- if cart != empty -%}
-            {%- if cart.item_count < 100 -%}
-              <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs leading-none">{{ cart.item_count }}</span>
-            {% else %}
-              <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs">+99</span>
+        <div id="cart-icon-bubble">
+          <span class="hidden lg:block capitalize text-base font-normal font-body leading-none text-center">
+            <span class="hidden lg:inline">{% if cart.item_count < 100 %}({{ cart.item_count }}) {% else %}(+99) {% endif %}</span> Cart
+          </span>
+          <div class="lg:hidden absolute bg-primary text-background min-w-[1rem] h-4 rounded-full flex justify-center items-center bottom-3 left-4 empty:hidden">
+            {%- if cart != empty -%}
+              {%- if cart.item_count < 100 -%}
+                <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs leading-none">{{ cart.item_count }}</span>
+              {% else %}
+                <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs">+99</span>
+              {%- endif -%}
             {%- endif -%}
-          {%- endif -%}
+          </div>
         </div>
       </modal-opener>
-      
-
     {% else %}
       <a href="{{ routes.cart_url }}" class="flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary" title="cart">
         <img src="{{ 'icon-cart.png' | asset_img_url }}" class="block" width="20" height="20" alt="cart">
-        <span class="hidden lg:block capitalize text-base font-normal font-body leading-loose text-center">
-          Cart
-        </span>
-        <div class="absolute bg-primary text-background min-w-[1rem] h-4 rounded-full flex justify-center items-center bottom-3 left-4 empty:hidden" id="cart-icon-bubble">
-          {%- if cart != empty -%}
-            {%- if cart.item_count < 100 -%}
-              <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs leading-none">{{ cart.item_count }}</span>
-            {% else %}
-              <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs">+99</span>
+        <div id="cart-icon-bubble">
+          <span class="hidden lg:block capitalize text-base font-normal font-body leading-none text-center">
+            <span class="hidden lg:inline">{% if cart.item_count < 100 %}({{ cart.item_count }}) {% else %}(+99) {% endif %}</span> Cart
+          </span>
+          <div class="lg:hidden absolute bg-primary text-background min-w-[1rem] h-4 rounded-full flex justify-center items-center bottom-3 left-4 empty:hidden">
+            {%- if cart != empty -%}
+              {%- if cart.item_count < 100 -%}
+                <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs leading-none">{{ cart.item_count }}</span>
+              {% else %}
+                <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs">+99</span>
+              {%- endif -%}
             {%- endif -%}
-          {%- endif -%}
+          </div>
         </div>
       </a>
     {% endif %}
