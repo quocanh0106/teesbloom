@@ -30,7 +30,7 @@
           py-4 border-t border-primary lg:border-none">
           {%- if block.settings.heading != blank -%}
             <div class="summary flex items-center justify-between gap-x-2 h-fit">
-              <div class="heading text-base font-heading p-0 leading-4 text-primary font-bold uppercase">{{- block.settings.heading | escape -}}</div>
+              <div class="heading text-base font-heading p-0 leading-4 text-primary font-bold">{{- block.settings.heading | escape -}}</div>
               {% if block.type == 'link_list' %}
                 <span class="heading icon-add md:!hidden text-primary">{%- render 'icon-down', class: 'w-6 h-6' -%}</span>
                 <span class="heading icon-minus md:!hidden text-primary">{%- render 'icon-up', class: 'w-6 h-6' -%}</span>
