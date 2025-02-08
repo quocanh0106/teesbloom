@@ -51,69 +51,71 @@
     <div class="{% if section.settings.enable_swipe_on_mobile %}slider-wrapper slider-on-mobile slider-on-mobile slider-on-tablet slider-on-desktop flex{% else %}grid grid-cols-{{ section.settings.col_per_row_mobile }} md:grid-cols-{{ section.settings.col_per_row_desktop }} gap-4{% endif %}" id="Slider-{{ section.id }}">
       {%- for block in section.blocks -%}
         <div data-block-id="{{ block.id }}" id="Slide-{{ section.id }}-{{ forloop.index }}" class="slider-slide {% if block.settings.rounded %}rounded-xl {% endif %} w-full group relative overflow-hidden md:!m-0 md:!w-full md:row-span-{{ block.settings.row_span_desktop }} md:col-span-{{ block.settings.col_span_desktop }}">
-          <div class="{% if section.settings.fullwidth %}page-width-desktop{% endif %} {% if block.settings.content_position != 'hide' %}grid grid-cols-1 lg:grid-cols-2{% endif %} w-full">
-            {% if block.settings.image == blank and block.settings.image_mobile == blank %}
-              <a {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %} title="{{ block.settings.link.title }}" class="w-full h-full block{% if block.settings.content_position == 'left' %} order-1 lg:order-2{% elsif block.settings.content_position == 'right' %} order-1{% endif %}">
-                {{ 'collection-1' | placeholder_svg_tag }}
-              </a>
-            {% else %}
-              {% assign ratioMb = block.settings.image_mobile.aspect_ratio | default: 1 %}
-              {% assign ratioDt = block.settings.image.aspect_ratio | default: 1 %}
-              {% assign altMb = block.settings.image_mobile | split: "/" | last | replace: "-", " " | split: "." | first %}
-              {% assign altDt = block.settings.image | split: "/" | last | replace: "-", " " | split: "." | first %}
-              <a {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %} title="{{ block.settings.link.title }}" class="w-full h-full block{% if block.settings.content_position == 'left' %} order-1 lg:order-2{% elsif block.settings.content_position == 'right' %} order-1{% endif %}">
-                <img srcset="{%- if block.settings.image.width >= 180 -%}{{ block.settings.image | image_url: width: 180 }} 180w,{%- endif -%}
-                    {%- if block.settings.image.width >= 360 -%} {{ block.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
-                    {%- if block.settings.image.width >= 540 -%} {{ block.settings.image | image_url: width: 540 }} 540w,{%- endif -%}
-                    {%- if block.settings.image.width >= 720 -%} {{ block.settings.image | image_url: width: 720 }} 720w,{%- endif -%}
-                    {%- if block.settings.image.width >= 900 -%} {{ block.settings.image | image_url: width: 900 }} 900w,{%- endif -%}
-                    {%- if block.settings.image.width >= 1080 -%} {{ block.settings.image | image_url: width: block.settings.image.width }} 1080w{%- endif -%}"
-                    src="{{ block.settings.image | image_url: width: block.settings.image.width }}"
-                    sizes="(min-width: 1024px) {{block.settings.image.width}}px, (min-width: 768px) calc(100vw - 30px), calc(100vw - 32px)"
-                    alt="{{ altDt }}"
-                    loading="lazy"
-                    class="w-full h-full object-cover transition-all {% if block.settings.image_mobile %} hidden md:block{% else %} block{% endif %}"
-                    width="{{ block.settings.image.width }}"
-                    height="{{ block.settings.image.height }}">
-                <img srcset="{%- if block.settings.image_mobile.width >= 180 -%} {{ block.settings.image_mobile | image_url: width: 180 }} 180w,{%- endif -%}
-                    {%- if block.settings.image_mobile.width >= 360 -%} {{ block.settings.image_mobile | image_url: width: 360 }} 360w,{%- endif -%}
-                    {%- if block.settings.image_mobile.width >= 540 -%} {{ block.settings.image_mobile | image_url: width: 540 }} 540w,{%- endif -%}
-                    {%- if block.settings.image_mobile.width >= 720 -%} {{ block.settings.image_mobile | image_url: width: 720 }} 720w,{%- endif -%}
-                    {%- if block.settings.image_mobile.width >= 900 -%} {{ block.settings.image_mobile | image_url: width: 900 }} 900w,{%- endif -%}
-                    {%- if block.settings.image_mobile.width >= 1080 -%} {{ block.settings.image_mobile | image_url: width: 1080 }} 1080w{%- endif -%}"
-                    src="{%- if block.settings.image_mobile.width >= 1080 -%} {{ block.settings.image_mobile | image_url: width: block.settings.image_mobile.width }}
-                    {%- elsif block.settings.image_mobile.width >= 900 -%} {{ block.settings.image_mobile | image_url: width: 900 }}
-                    {%- elsif block.settings.image_mobile.width >= 720 -%} {{ block.settings.image_mobile | image_url: width: 720 }}
-                    {%- elsif block.settings.image_mobile.width >= 540 -%} {{ block.settings.image_mobile | image_url: width: 540 }}
-                    {%- elsif block.settings.image_mobile.width >= 360 -%} {{ block.settings.image_mobile | image_url: width: 360 }}
-                    {%- elsif block.settings.image_mobile.width >= 180 -%} {{ block.settings.image_mobile | image_url: width: 180 }}{%- endif -%}"
-                  sizes="100vw"
-                  alt="{{ altMb }}"
-                  {% if forloop.first %}
-                    loading="eager"
-                  {% else %}
-                    loading="lazy"
+          <div class="{% if section.settings.fullwidth %}page-width-desktop{% endif %} w-full">
+            <div class="relative w-full">
+              {% if block.settings.image == blank and block.settings.image_mobile == blank %}
+                <a {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %} title="{{ block.settings.link.title }}" class="w-full h-full block{% if block.settings.content_position == 'left' %} order-1 lg:order-2{% elsif block.settings.content_position == 'right' %} order-1{% endif %}">
+                  {{ 'collection-1' | placeholder_svg_tag }}
+                </a>
+              {% else %}
+                {% assign ratioMb = block.settings.image_mobile.aspect_ratio | default: 1 %}
+                {% assign ratioDt = block.settings.image.aspect_ratio | default: 1 %}
+                {% assign altMb = block.settings.image_mobile | split: "/" | last | replace: "-", " " | split: "." | first %}
+                {% assign altDt = block.settings.image | split: "/" | last | replace: "-", " " | split: "." | first %}
+                <a {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %} title="{{ block.settings.link.title }}" class="w-full h-full block{% if block.settings.content_position == 'left' %} order-1 lg:order-2{% elsif block.settings.content_position == 'right' %} order-1{% endif %}">
+                  <img srcset="{%- if block.settings.image.width >= 180 -%}{{ block.settings.image | image_url: width: 180 }} 180w,{%- endif -%}
+                      {%- if block.settings.image.width >= 360 -%} {{ block.settings.image | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if block.settings.image.width >= 540 -%} {{ block.settings.image | image_url: width: 540 }} 540w,{%- endif -%}
+                      {%- if block.settings.image.width >= 720 -%} {{ block.settings.image | image_url: width: 720 }} 720w,{%- endif -%}
+                      {%- if block.settings.image.width >= 900 -%} {{ block.settings.image | image_url: width: 900 }} 900w,{%- endif -%}
+                      {%- if block.settings.image.width >= 1080 -%} {{ block.settings.image | image_url: width: block.settings.image.width }} 1080w{%- endif -%}"
+                      src="{{ block.settings.image | image_url: width: block.settings.image.width }}"
+                      sizes="(min-width: 1024px) {{block.settings.image.width}}px, (min-width: 768px) calc(100vw - 30px), calc(100vw - 32px)"
+                      alt="{{ altDt }}"
+                      loading="lazy"
+                      class="w-full h-full object-cover transition-all {% if block.settings.image_mobile %} hidden md:block{% else %} block{% endif %}"
+                      width="{{ block.settings.image.width }}"
+                      height="{{ block.settings.image.height }}">
+                  <img srcset="{%- if block.settings.image_mobile.width >= 180 -%} {{ block.settings.image_mobile | image_url: width: 180 }} 180w,{%- endif -%}
+                      {%- if block.settings.image_mobile.width >= 360 -%} {{ block.settings.image_mobile | image_url: width: 360 }} 360w,{%- endif -%}
+                      {%- if block.settings.image_mobile.width >= 540 -%} {{ block.settings.image_mobile | image_url: width: 540 }} 540w,{%- endif -%}
+                      {%- if block.settings.image_mobile.width >= 720 -%} {{ block.settings.image_mobile | image_url: width: 720 }} 720w,{%- endif -%}
+                      {%- if block.settings.image_mobile.width >= 900 -%} {{ block.settings.image_mobile | image_url: width: 900 }} 900w,{%- endif -%}
+                      {%- if block.settings.image_mobile.width >= 1080 -%} {{ block.settings.image_mobile | image_url: width: 1080 }} 1080w{%- endif -%}"
+                      src="{%- if block.settings.image_mobile.width >= 1080 -%} {{ block.settings.image_mobile | image_url: width: block.settings.image_mobile.width }}
+                      {%- elsif block.settings.image_mobile.width >= 900 -%} {{ block.settings.image_mobile | image_url: width: 900 }}
+                      {%- elsif block.settings.image_mobile.width >= 720 -%} {{ block.settings.image_mobile | image_url: width: 720 }}
+                      {%- elsif block.settings.image_mobile.width >= 540 -%} {{ block.settings.image_mobile | image_url: width: 540 }}
+                      {%- elsif block.settings.image_mobile.width >= 360 -%} {{ block.settings.image_mobile | image_url: width: 360 }}
+                      {%- elsif block.settings.image_mobile.width >= 180 -%} {{ block.settings.image_mobile | image_url: width: 180 }}{%- endif -%}"
+                    sizes="100vw"
+                    alt="{{ altMb }}"
+                    {% if forloop.first %}
+                      loading="eager"
+                    {% else %}
+                      loading="lazy"
+                    {% endif %}
+                    class="w-full object-cover{% if block.settings.image %} block md:hidden{% else %} block{% endif %}"
+                    width="{{ block.settings.image_mobile.width }}"
+                    height="{{ block.settings.image_mobile.height }}">
+                </a>
+              {% endif %}
+              {% if block.settings.button_label != blank or block.settings.heading != blank or block.settings.description != blank %}
+                <div class="banner-content px-3 py-5 text-center flex flex-col items-center justify-center {% if block.settings.content_position == 'left' %} order-2 lg:order-1{% elsif block.settings.content_position == 'right' %} order-2{% else %} !hidden{% endif %}">
+                  {% if block.settings.heading != blank %}
+                    <{{ block.settings.heading_tag }} class="banner__heading text-current leading-5 tracking-[0.5px]">{{ block.settings.heading }}</{{ block.settings.heading_tag }}>
                   {% endif %}
-                  class="w-full object-cover{% if block.settings.image %} block md:hidden{% else %} block{% endif %}"
-                  width="{{ block.settings.image_mobile.width }}"
-                  height="{{ block.settings.image_mobile.height }}">
-              </a>
-            {% endif %}
-            {% if block.settings.button_label != blank or block.settings.heading != blank or block.settings.description != blank %}
-              <div class="banner-content px-3 py-5 text-center flex flex-col items-center justify-center {% if block.settings.content_position == 'left' %} order-2 lg:order-1{% elsif block.settings.content_position == 'right' %} order-2{% else %} !hidden{% endif %}">
-                {% if block.settings.heading != blank %}
-                  <{{ block.settings.heading_tag }} class="banner__heading text-current leading-5 tracking-[0.5px]">{{ block.settings.heading }}</{{ block.settings.heading_tag }}>
-                {% endif %}
-                {% if block.settings.description != blank %}
-                  <p class="banner__description mt-2.5 leading-5 text-current max-w-[530px]">{{ block.settings.description }}</p>
-                {% endif %}
-                {% if block.settings.button_label %}
-                  <a class="banner__buttons mt-4 rounded-[100px] transition-all flex items-center justify-center text-base lg:text-xl leading-none lg:leading-none px-5 py-2 font-bold" {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %}>
-                    {{ block.settings.button_label }}
-                  </a>
-                {% endif %}
-              </div>
-            {% endif %}
+                  {% if block.settings.description != blank %}
+                    <p class="banner__description mt-2.5 leading-5 text-current max-w-[530px]">{{ block.settings.description }}</p>
+                  {% endif %}
+                  {% if block.settings.button_label %}
+                    <a class="banner__buttons mt-4 rounded-[100px] transition-all flex items-center justify-center text-base lg:text-xl leading-none lg:leading-none px-5 py-2 font-bold" {% if block.settings.link %}href="{{ block.settings.link }}"{% endif %}>
+                      {{ block.settings.button_label }}
+                    </a>
+                  {% endif %}
+                </div>
+              {% endif %}
+            </div>
           </div>  
         </div>
       {%- endfor -%}
@@ -298,6 +300,10 @@
               {
                 "value": "hide",
                 "label": "Hide"
+              },
+              {
+                "value": "absolute",
+                "label": "Absolute"
               }
             ]
           },

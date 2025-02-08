@@ -25,7 +25,7 @@
 {%- if product and product != empty -%}
   <div class="card-wrapper product-card-wrapper" data-handle="{{ product.handle }}">
     {%- if media -%}
-      <a href="{{ product.url | split: '?' | first }}" class="relative block group overflow-hidden rounded-[10px]" title="{{ product.title }}">
+      <a href="{{ product.url | split: '?' | first }}" class="relative block group overflow-hidden rounded-[15px]" title="{{ product.title }}">
         <img
           srcset="
           {%- if media.width >= 165 -%}
@@ -43,7 +43,7 @@
           src="{{ media | image_url: width: 533 }}"
           sizes="(min-width: {{ 1440 }}px) {{ 1440 | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
           alt="{{ media | split: "/" | last | replace: "-", " " | split: "." | first }}"
-          class="block {% if secondMedia != null %} top-0 left-0 group-hover:opacity-0 group-hover:invisible{% else %}group-hover:scale-105{% endif %} transition-all duration-300 bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+          class="aspect-1 block {% if secondMedia != null %} top-0 left-0 group-hover:opacity-0 group-hover:invisible{% else %}group-hover:scale-105{% endif %} transition-all duration-300 bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
           loading="{{ lazy_load }}"
           width="512"
           height="{{ 512 | divided_by: media.aspect_ratio }}">
@@ -65,29 +65,37 @@
           src="{{ secondMedia | image_url: width: 533 }}"
           sizes="(min-width: {{ 1440 }}px) {{ 1440 | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
           alt="{{ secondMedia | split: "/" | last | replace: "-", " " | split: "." | first }}"
-          class="block opacity-0 invisible top-0 left-0 absolute w-full h-full group-hover:opacity-100 group-hover:visible group-hover:scale-105 transition-all duration-300"
+          class="aspect-1 block opacity-0 invisible top-0 left-0 absolute w-full h-full group-hover:opacity-100 group-hover:visible group-hover:scale-105 transition-all duration-300"
           loading="lazy"
           width="{{ secondMedia.width }}"
           height="{{ secondMedia.height }}">
       {%- endif -%}
       </a>
     {%- endif -%}
-    <div class="relative mt-2.5">
-      <{{ heading }}><a href="{{ product.url | split: '?' | first }}" class="text-primary font-body font-normal text-base !leading-6 mb-2.5 tracking-[0] truncate-line two-lines overflow-hidden break-words">{{ product.title | escape }}</a></{{ heading }}>
+    <div class="relative mt-0.5">
+      <{{ heading }}>
+        <a href="{{ product.url | split: '?' | first }}" class="text-subtext font-body font-normal text-sm !leading-7 tracking-[0] truncate-line one-line overflow-hidden break-words">
+          {{ product.title | escape }}
+        </a>
+      </{{ heading }}>
       {% render 'price', product: product, use_variant: true %}
     </div>
   </div>
 {%- else -%}
   <div class="card-wrapper product-card-wrapper">
-    <div class="relative block group overflow-hidden">
+    <div class="relative block group overflow-hidden rounded-[15px]">
       {%- if placeholder_image -%}
-        {{ placeholder_image | placeholder_svg_tag: 'block group-hover:scale-105 w-full h-fit transition-all' }}
+        {{ placeholder_image | placeholder_svg_tag: 'aspect-1 block group-hover:scale-105 w-full h-fit transition-all' }}
       {%- else -%}
-        {{ 'product-apparel-2' | placeholder_svg_tag: 'block group-hover:scale-105 w-full h-fit transition-all' }}
+        {{ 'product-apparel-2' | placeholder_svg_tag: 'aspect-1 block group-hover:scale-105 w-full h-fit transition-all' }}
       {%- endif -%}
     </div>
-    <div class="relative mt-2.5">
-      <{{ heading }}><a role="link" aria-disabled="true" class="text-primary font-body font-normal text-base !leading-6 mb-2.5 tracking-[0] truncate-line two-lines overflow-hidden break-words">{{ 'products.product.example_product_title' | t }}</a></{{ heading }}>
+    <div class="relative mt-0.5">
+      <{{ heading }}>
+        <a role="link" aria-disabled="true" class="text-subtext font-body font-normal text-sm !leading-7 tracking-[0] truncate-line one-line overflow-hidden break-words">
+          {{ 'products.product.example_product_title' | t }}
+        </a>
+      </{{ heading }}>
       {% render 'price' %}
     </div>
   </div>

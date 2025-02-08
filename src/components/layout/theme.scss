@@ -260,7 +260,7 @@ body.sticky-header header {
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-primary rounded-[50px] overflow-hidden cursor-pointer;
+  @apply bg-border rounded-[50px] overflow-hidden cursor-pointer;
 }
 
 ::-webkit-scrollbar-track {

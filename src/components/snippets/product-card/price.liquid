@@ -23,7 +23,7 @@
   assign percent = compare_at_price | minus: price | times: 100.0 | divided_by: compare_at_price | round
 -%}
 
-<div class="flex font-heading gap-2 lg:gap-3 items-center{% if template.name contains 'product' and show %} mb-2{% endif %} {{ class }}">
+<div class="flex font-heading gap-2 items-center {{ class }}">
   {% if product %}
     {% if compare_at_price > price %}
       {% if template.name contains 'product' and show  %}
@@ -31,8 +31,8 @@
         <div class="relative text-body line-through{% if template.name contains 'product' and show %} {% if template.suffix == 'ajax' %} text-sm lg:text-lg leading-6 {% else %} text-base {% endif %}{% endif %} font-normal ">{{ compare_at_price | money }}</div>
         <div class="text-background bg-secondary px-2 py-1.5 rounded-3xl text-base leading-6 font-semibold">{{ 'products.product.saveprice' | t | default: 'save' }} {{ compare_at_price | minus: price | money_without_trailing_zeros }}</div>
       {% else %}
-        <div class="relative !block before:content-[var(--price)] text-secondary text-lg !leading-5 font-medium" style="--price: '{{ price | money }}'"></div>
-        <div class="relative !block before:content-[var(--price)] text-body line-through text-lg !leading-5 font-normal" style="--price: '{{ compare_at_price | money }}'"></div>
+        <div class="relative !block before:content-[var(--price)] text-secondary text-base font-semibold" style="--price: '{{ price | money }}'"></div>
+        <div class="relative !block before:content-[var(--price)] text-subtext line-through text-sm font-normal" style="--price: '{{ compare_at_price | money }}'"></div>
         <div class="!block before:content-[var(--price)] text-sale text-xs md:text-sm font-medium leading-4" style="--price: '{{ percent | prepend: '-' | append: '%' }}'"></div>
       {% endif %}
     {% else %}
