@@ -11,7 +11,7 @@
     "devhome": "cd dist && shopify theme serve",
     "loginhometb": "shopify login --store d730tz-zq.myshopify.com",
     "loginhomefs": "shopify login --store familystoregmc1.myshopify.com",
-    "deploy": "cd dist && shopify theme push --ignore templates/*.json templates/metaobject/*.json templates/robots.txt.liquid templates/customers/*.json config/settings_data.json",
+    "deploy": "cd dist && shopify theme push --ignore templates/*.json templates/metaobject/*.json templates/robots.txt.liquid templates/customers/*.json config/settings_data.json -t 175098167582",
     "fetch": "cd src && cd components && shopify theme pull --only templates/*.json",
     "cy": "cypress open",
     "cy:run": "cypress run",
