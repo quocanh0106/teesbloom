@@ -7,7 +7,7 @@
     "build": "webpack",
     "webpack": "yarn install && webpack --watch --progress",
     "devctytb": "cd dist && shopify theme dev --store d730tz-zq.myshopify.com",
-    "devctyfs": "cd dist && shopify theme dev --store familystoregmc1.myshopify.com --ignore templates/*.json templates/metaobject/*.json templates/robots.txt.liquid templates/customers/*.json config/settings_data.json",
+    "devctyfs": "cd dist && shopify theme dev --store familystoregmc1.myshopify.com --ignore templates/*.json templates/metaobject/*.json templates/customers/*.json",
     "devhome": "cd dist && shopify theme serve",
     "loginhometb": "shopify login --store d730tz-zq.myshopify.com",
     "loginhomefs": "shopify login --store familystoregmc1.myshopify.com",

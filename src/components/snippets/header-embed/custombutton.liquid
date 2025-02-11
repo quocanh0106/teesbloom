@@ -1,0 +1,13 @@
+<script>
+  window.addEventListener("customily-preview-modal-show", () => {
+  document.querySelector('.customily-modal-preview-only .main').insertAdjacentHTML('beforeend', `
+    <div class="p-4 lg:p-8 border-t border-primary-200">
+      <button class="add-to-cart-preview btn py-3 px-6">Add to Cart</button>
+    </div>
+  `);
+  const addToCartButton = document.querySelector('.add-to-cart-preview');
+  addToCartButton.addEventListener('click', () => {
+    document.querySelector('product-form').onSubmitHandler();
+  });
+}, { once: true });
+</script>

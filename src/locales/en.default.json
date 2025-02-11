@@ -53,7 +53,7 @@
     "label": "Email",
     "success": "Thanks for subscribing",
     "input_placeholder": "Enter Your Email",
-    "submit": "REVEAL NOW"
+    "submit": "Subscribe!"
   },
   "paginate": {
     "previous": "Previous",
