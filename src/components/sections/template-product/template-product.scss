@@ -1,12 +1,12 @@
 input:checked + label:not(.color) {
-  @apply border-secondary bg-background text-secondary border-2;
+  @apply border-special bg-background text-primary border-2;
 }
 input.disabled + label {
   @apply line-through bg-gray-400 border-gray-400;
 }
 
 input:checked + label.color {
-  @apply border-secondary;
+  @apply border-special;
 }
 .dark-link {
   @apply text-primary hover:text-primary;
@@ -42,7 +42,7 @@ input:checked + label.color {
 #customily-preview-button,
 .product-form__buttons #customily-preview-button {
   -webkit-text-fill-color: initial !important;
-  @apply !w-full !z-10 !h-16 !py-3.5 !flex-[0_0_100%] !relative !left-0 !top-0 !mb-0 lg:!mb-0 !uppercase !border !text-h4 !font-heading !leading-none !text-secondary !bg-background !border-secondary hover:!text-background hover:!bg-secondary hover:!border-secondary !whitespace-nowrap !flex !items-center !justify-center !flex-row-reverse !tracking-[0] !transition-colors !cursor-pointer !shadow-none !underline-offset-[0.3rem] !no-underline !rounded-xl !font-bold after:content-eye after:block after:h-5 after:mr-1.5 after:hover:content-eye-hover after:!transition-all;
+  @apply !w-full !z-[9] !h-13.5 !py-3.5 !flex-[0_0_100%] !relative !left-0 !top-0 !mb-0 lg:!mb-0 !uppercase !border !text-h5 !font-heading !font-semibold !leading-none !text-secondary !bg-background !border-secondary hover:!text-background hover:!bg-secondary hover:!border-secondary !whitespace-nowrap !flex !items-center !justify-center !flex-row-reverse !tracking-[0] !transition-colors !cursor-pointer !shadow-none !underline-offset-[0.3rem] !no-underline !rounded-[20px] after:content-eye after:block after:h-5 after:mr-1.5 after:hover:content-eye-hover after:!transition-all;
 }
 .cl-canvas-container {
   @apply !h-auto;
@@ -53,7 +53,7 @@ input:checked + label.color {
 
 .product-form__submit,
 .product-form__submit.ld-over-inverse {
-  @apply !w-full !h-16 !relative !uppercase !border !text-h4 !font-heading !whitespace-nowrap !inline-block !tracking-[0] !transition-colors !cursor-pointer !shadow-none !underline-offset-[0.3rem] !no-underline !font-bold !rounded-xl;
+  @apply !w-full !h-13.5 !relative !capitalize !border !text-h5 !font-heading !font-semibold !whitespace-nowrap !inline-block !tracking-[0] !transition-colors !cursor-pointer !shadow-none !underline-offset-[0.3rem] !no-underline !rounded-[20px];
 }
 
 .product-form__submit.hidden-cart-btn {
@@ -220,17 +220,24 @@ tabs-component.product-infortab .tab-detail.lg\:hidden {
 .product-description .product-details ul li * {
   @apply !mb-0;
 }
-button.product-form__submit:disabled ~ .button-unavailable {
+
+button#customily-cart-btn:disabled ~ .button-unavailable, 
+.button-unavailable.onload {
   display: block;
-  width: calc(64% - 4px - var(--container-pading-mobile));
+  width: 100%;
   height: 64px;
   position: absolute;
   bottom: 0;
   right: 0;
   flex: 0 0 100%;
   cursor: pointer;
+  @media (min-width: 1024px) {
+    width: 100%;
+  }
 }
-.btn-wrapper-sticky button.product-form__submit:disabled ~ .button-unavailable {
+
+.btn-wrapper-sticky button#customily-cart-btn:disabled ~ .button-unavailable,
+.btn-wrapper-sticky .button-unavailable.onload {
   width: calc(64% - 4px);
   bottom: var(--container-pading-mobile);
   right: var(--container-pading-mobile);
@@ -248,7 +255,7 @@ product-infor accordion-toggle .details * {
 }
 
 #customily-options {
-  @apply p-0 pt-6 mt-6 lg:p-6 lg:mt-6 lg:pb-0 !mb-2 lg:!mb-6 lg:bg-[#f6f6f6] lg:rounded-xl border-border lg:border;
+  @apply p-0 pt-6 mt-6 lg:p-6 lg:mt-6 lg:pb-0 !mb-2 lg:!mb-6 lg:bg-[#f6f6f6] lg:rounded-xl border-border border-t lg:border;
   #cl_optionsapp {
     label {
       @apply mt-0;
@@ -282,9 +289,12 @@ product-infor accordion-toggle .details * {
     .swatch-container .swatch, .cl-color-picker-container .cl-color-picker {
       @apply m-0;
     }
+    .mapboxgl-ctrl-geocoder {
+      @apply rounded-[100px];
+    }
   }
   .option_name {
-    @apply font-heading text-base leading-4 text-primary font-normal mb-2 mt-0;
+    @apply font-heading text-base leading-4 text-primary font-medium mb-2 mt-0;
     .customily-required-label {
       @apply text-error;
     }
@@ -302,4 +312,26 @@ product-infor accordion-toggle .details * {
   .cl_remove-image {
     @apply bg-primary rounded-full font-heading text-xs !border-none ml-3 w-8 h-8 flex items-center justify-center text-primary;
   } 
+
+  .customily-download-button {
+    @apply text-[0px] leading-[0px];
+  } 
+
+  .customily-download-button::after {
+    content: 'Cliquez Ici Pour Voir Les Résultats'!important;
+    display: inline;
+    font-size: 14px;
+  }
+}
+
+inbox-online-store-chat {
+  @apply !bottom-20 lg:!bottom-4
+}
+
+.jdgm-review-widget {
+  @apply mx-auto px-container-mobile md:px-container-tablet lg:px-container-desktop max-w-container;
+}
+
+slider-component.gallery .slider-dots .slider-dot.active {
+  @apply border-[3px] !border-special
 }

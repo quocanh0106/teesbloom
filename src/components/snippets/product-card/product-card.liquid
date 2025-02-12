@@ -25,7 +25,7 @@
 {%- if product and product != empty -%}
   <div class="card-wrapper product-card-wrapper" data-handle="{{ product.handle }}">
     {%- if media -%}
-      <a href="{{ product.url | split: '?' | first }}" class="relative block group overflow-hidden rounded-[15px]" title="{{ product.title }}">
+      <a href="{{ product.url | split: '?' | first }}" class="relative block group overflow-hidden" title="{{ product.title }}">
         <img
           srcset="
           {%- if media.width >= 165 -%}
@@ -72,27 +72,28 @@
       {%- endif -%}
       </a>
     {%- endif -%}
-    <div class="relative mt-0.5">
+    <div class="relative mt-1">
       <{{ heading }}>
-        <a href="{{ product.url | split: '?' | first }}" class="text-subtext font-body font-normal text-sm !leading-7 tracking-[0] truncate-line one-line overflow-hidden break-words">
+        <a href="{{ product.url | split: '?' | first }}" class="text-secondaryDark font-body font-normal text-sm !leading-7 tracking-[0] truncate-line two-lines overflow-hidden break-words">
           {{ product.title | escape }}
         </a>
       </{{ heading }}>
+      <span class="text-sm text-[#8e8e8e]">{{ product.type }}</span>
       {% render 'price', product: product, use_variant: true %}
     </div>
   </div>
 {%- else -%}
   <div class="card-wrapper product-card-wrapper">
-    <div class="relative block group overflow-hidden rounded-[15px]">
+    <div class="relative block group overflow-hidden">
       {%- if placeholder_image -%}
         {{ placeholder_image | placeholder_svg_tag: 'aspect-1 block group-hover:scale-105 w-full h-fit transition-all' }}
       {%- else -%}
         {{ 'product-apparel-2' | placeholder_svg_tag: 'aspect-1 block group-hover:scale-105 w-full h-fit transition-all' }}
       {%- endif -%}
     </div>
-    <div class="relative mt-0.5">
+    <div class="relative mt-1">
       <{{ heading }}>
-        <a role="link" aria-disabled="true" class="text-subtext font-body font-normal text-sm !leading-7 tracking-[0] truncate-line one-line overflow-hidden break-words">
+        <a role="link" aria-disabled="true" class="text-primary font-body font-normal text-sm !leading-7 tracking-[0] truncate-line two-lines overflow-hidden break-words">
           {{ 'products.product.example_product_title' | t }}
         </a>
       </{{ heading }}>

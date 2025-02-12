@@ -1,43 +1,21 @@
-<slider-component class="gallery block">
-  <div class="relative overflow-hidden order-1 lg:order-2 w-full h-fit">
-    <ul class="flex slider-wrapper slider-on-mobile slider-on-tablet slider-on-desktop !aspect-1 !h-fit">
+<slider-component class="gallery flex flex-col lg:flex-row gap-3 lg:gap-4">
+  <div class="relative overflow-hidden order-1 lg:order-2 {% if product.media.size > 1 %} lg:max-w-[calc(100%_-_96px)]{% endif %} w-full h-fit aspect-1 rounded-md">
+    <ul class="flex slider-wrapper slider-on-mobile slider-on-tablet slider-on-desktop">
       {%- if product.selected_or_first_available_variant.featured_media != null -%}
         {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
-        {% assign aspect_ratio = featured_media.aspect_ratio | default: 1.0 %}
-        {% if aspect_ratio %}
-          <style>
-            .product-aspect-ratio {
-              aspect-ratio: {{ aspect_ratio }};
-              @media (min-width: 1024px) {
-                aspect-ratio: auto;
-              }
-            }
-          </style>
-        {% endif %}
-        <li class="slider-slide h-full w-full active !aspect-1">
+        <li class="slider-slide !h-fit w-full active">
           {%- assign media_position = 1 -%}
-          {% render 'product-media', media: featured_media, lazy_load: false %}
+          {% render 'product-thumbnail', media: featured_media, lazy_load: false %}
         </li>
       {%- endif -%}
       {%- for media in product.media -%}
         {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
         {% if featured_media == null and forloop.first %}
           {% assign lazy_load = false %}
-          {% assign aspect_ratio = media.aspect_ratio | default: 1.0 %}
-          {% if aspect_ratio %}
-            <style>
-              .product-aspect-ratio {
-                aspect-ratio: {{ aspect_ratio }};
-                @media (min-width: 1024px) {
-                  aspect-ratio: auto;
-                }
-              }
-            </style>
-          {% endif %}
         {% else %}
           {% assign lazy_load = true %}
         {% endif %}
-          <li class="slider-slide h-full w-full{% if featured_media == null and forloop.first %} active{% endif %} !aspect-1">
+          <li class="slider-slide !h-fit w-full{% if featured_media == null and forloop.first %} active{% endif %}">
             {%- liquid
               assign media_position = media_position | default: 0 | plus: 1
               assign lazy_load = false
@@ -45,51 +23,54 @@
                 assign lazy_load = true
               endif
             -%}
-            {% render 'product-media', media: media, lazy_load: lazy_load, thumb: false %}
+            {% render 'product-thumbnail', media: media, lazy_load: lazy_load, thumb: false %}
           </li>
         {%- endunless -%}
       {%- endfor -%}
     </ul>
     {% if template.suffix != 'ajax' %}
-      <wishlist-button
-        class="absolute top-4 right-4 z-[1] flex justify-center text-secondary border-border items-center bg-background w-7 h-7 lg:w-11 lg:h-11 rounded-full overflow-hidden cursor-pointer 
-        before:content-empty before:absolute before:w-10 before:h-10 before:block before:-top-1.5 before:-left-1.5 transition-all" 
-        data-product-handle="{{ product.handle }}">
-        {% render 'icon-wishlist', class: "w-6 h-6 lg:w-8 lg:h-8" %}
-        {% render 'icon-wishlist-2', class: "active w-6 h-6 lg:w-8 lg:h-8" %}
-      </wishlist-button>
+      {% comment %} <div class="flex flex-col gap-2.5 items-center absolute top-2 lg:top-4 right-2 lg:right-4 z-10">
+        {% render 'product-badges', product: product, collection: collections, class: ' gap-1.5 lg:gap-2.5' %}
+        <wishlist-button
+          class="relative flex justify-center border-primary items-center bg-background w-7 h-7 lg:w-11 lg:h-11 rounded-full overflow-hidden cursor-pointer 
+          before:content-empty before:absolute before:w-10 before:h-10 before:block before:-top-1.5 before:-left-1.5 transition-all" 
+          data-product-handle="{{ product.handle }}">
+          {% render 'icon-wishlist', class: "w-4 h-4 lg:w-6 lg:h-6 text-secondary-800" %}
+          {% render 'icon-wishlist-2', class: "active w-4 h-4 lg:w-6 lg:h-6 text-secondary-800" %}
+        </wishlist-button>
+      </div> {% endcomment %}
       <button
         type="button"
-        class="prev-main-{{ section.id }}{% if product.media.size == 1 %} !hidden{% endif %} absolute top-1/2 -translate-y-1/2 left-2.5 z-[1] w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary hover:text-primary disabled:text-primary-opacity-40"
+        class="prev-main-{{ section.id }} absolute top-1/2 -translate-y-1/2 left-2.5 z-10 w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary-700 hover:text-primary-900 disabled:text-primary-700-opacity-40"
         name="previous"
         aria-label="previous">
         {%- render 'icon-prev', class: 'w-6 h-6 lg:w-7 lg:h-7' -%}</button>
       <button
         type="button"
-        class="next-main-{{ section.id }}{% if product.media.size == 1 %} !hidden{% endif %} absolute top-1/2 -translate-y-1/2 right-2.5 z-[1] w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary hover:text-primary disabled:text-primary-opacity-40"
+        class="next-main-{{ section.id }} absolute top-1/2 -translate-y-1/2 right-2.5 z-10 w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary-700 hover:text-primary-900 disabled:text-primary-700-opacity-40"
         name="next"
         aria-label="next">{%- render 'icon-next', class: 'w-6 h-6 lg:w-7 lg:h-7' -%}</button>
     {% endif %}
-    {%- if product.media.size > 1 -%}
-      <ul class="slider-dots !gap-4 lg:h-fit w-full overflow-hidden order-2 mt-4 !justify-start">
-        {%- if featured_media != null -%}
-          <li class="slider-dot !w-full max-w-[calc(20%_-_13px)] !rounded-none relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer !h-fit !border-none border-transparent overflow-hidden active" data-position="1">
-            {% render 'product-thumbnail-mini', media: featured_media, lazy_load: true, width: 90 %}
+  </div>
+  {%- if product.media.size > 1 -%}
+    <ul class="slider-dots !grid gap-3 lg:gap-4 grid-cols-5 lg:grid-cols-1 lg:h-fit lg:max-w-[80px] w-full overflow-hidden order-2 lg:order-1">
+      {%- if featured_media != null -%}
+        <li class="slider-dot !w-full !rounded-md relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer lg:max-w-full !h-fit border-solid border border-transparent overflow-hidden active" data-position="1">
+          {% render 'product-thumbnail-mini', media: featured_media, lazy_load: true, width: 90 %}
+        </li>
+      {%- endif -%}
+      {%- for media in product.media -%}
+        {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
+          <li class="slider-dot !w-full !rounded-md relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer lg:max-w-full !h-fit border-solid border border-transparent overflow-hidden{% if featured_media == null and forloop.first %} active{% endif %}" data-position="{{ forloop.index }}">
+            {% render 'product-thumbnail-mini', media: media, lazy_load: true, width: 90 %}
           </li>
-        {%- endif -%}
-        {%- for media in product.media -%}
-          {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
-            <li class="slider-dot !w-full max-w-[calc(20%_-_13px)] !rounded-none relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer !h-fit !border-none border-transparent overflow-hidden{% if featured_media == null and forloop.first %} active{% endif %}" data-position="{{ forloop.index }}">
-              {% render 'product-thumbnail-mini', media: media, lazy_load: true, width: 90 %}
-            </li>
-          {%- endunless -%}
-        {%- endfor -%}
-      </ul>
-    {%- endif -%}
-    <div class="slider-counter caption !hidden">
-      <span class="slider-counter--current">1</span>
-      <span aria-hidden="true"> / </span>
-      <span class="slider-counter--total">{{ product.media.size }}</span>
-    </div>
+        {%- endunless -%}
+      {%- endfor -%}
+    </ul>
+  {%- endif -%}
+  <div class="slider-counter caption !hidden">
+    <span class="slider-counter--current">1</span>
+    <span aria-hidden="true"> / </span>
+    <span class="slider-counter--total">{{ section.settings.collection.products.count }}</span>
   </div>
 </slider-component>

@@ -163,6 +163,18 @@
       },
       {
         "type": "color",
+        "id": "color_secondary_dark",
+        "label": "Color secondary darker",
+        "default": "#10263e"
+      },
+      {
+        "type": "color",
+        "id": "color_special",
+        "label": "Color special",
+        "default": "#e95d2c"
+      },
+      {
+        "type": "color",
         "id": "color_body_text",
         "label": "Color body text",
         "default": "#000"

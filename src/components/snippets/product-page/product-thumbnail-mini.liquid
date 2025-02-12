@@ -2,7 +2,7 @@
 {% unless width %}
   {% assign width = media.preview_image.width %}
 {% endunless %}
-<div class="relative w-full" style="padding-bottom: {{ aspect_ratio | times: 100 }}%">
+<div class="relative w-full gallery-thumb" style="padding-bottom: 100%">
   <img
     srcset="{{ media.preview_image | image_url: width: width }} {{ width }}w"
     sizes="{{ width }}px"
@@ -15,4 +15,7 @@
     height="{{ width | divided_by: aspect_ratio }}"
     data-media-id="{{ media.id }}"
     alt="{{ media.preview_image | split: "/" | last | replace: "-", " " | split: "." | first }}">
+  {%- if media.media_type != 'image' -%}
+    {% render 'icon-play', class: 'text-secondary-800 w-5 h-5 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2' %}
+  {% endif %}
 </div>

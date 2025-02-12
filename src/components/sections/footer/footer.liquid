@@ -1,7 +1,5 @@
 {% style %}
-  #shopify-section-{{ section.id }} .heading,
-  #shopify-section-{{ section.id }} a:hover,
-  #shopify-section-{{ section.id }} .link:hover {
+  #shopify-section-{{ section.id }} .heading {
     color: {{ section.settings.heading_color }};
   }
   #shopify-section-{{ section.id }},
@@ -10,6 +8,10 @@
   #shopify-section-{{ section.id }} a,
   #shopify-section-{{ section.id }} .link {
     color: {{ section.settings.text_color }};
+  }
+  #shopify-section-{{ section.id }} a:hover,
+  #shopify-section-{{ section.id }} .link:hover {
+    color: {{ section.settings.text_hover_color }};
   }
   #shopify-section-{{ section.id }} a.social {
     color: {{ section.settings.social_color }};
@@ -27,7 +29,7 @@
       <div class="gap-x-4 py-5 grid grid-cols-{{ section.settings.col_per_row_mobile }} md:grid-cols-{{ section.settings.col_per_row_tablet }} lg:grid-cols-{{ section.settings.col_per_row_desktop }}">
         {%- for block in section.blocks -%}
           <{% unless block.type == 'link_list' %}div{% else %}accordion-toggle{% endunless %} data-block-id="{{ block.id }}" class="col-span-{{ block.settings.col_span_mobile }} md:col-span-{{ block.settings.col_span_tablet }} lg:col-span-{{ block.settings.col_span_desktop }} auto-cols-max 
-            py-4 border-t border-primary lg:border-none">
+            py-4{% if block.type == 'link_list' %} border-t border-border md:border-none{% endif %}">
             {%- if block.settings.heading != blank -%}
               <div class="summary flex items-center justify-between gap-x-2 h-fit">
                 <div class="heading text-base font-heading p-0 leading-4 text-primary font-bold">{{- block.settings.heading | escape -}}</div>
@@ -42,31 +44,44 @@
                 <div class="flex flex-col md:flex-row md:justify-between md:items-start lg:flex-col col-span-1">
                   {%- if block.settings.email != blank or block.settings.address != blank or block.settings.address2 != blank or block.settings.time_work != blank -%}
                     <div class="mt-4">
-                      <ul class="grid gap-4">
+                      <ul class="grid gap-1">
                         {%- if block.settings.email != blank -%}
                           <li>
-                            <a href="mailto:{{ block.settings.email }}" class="flex items-center gap-2 lg:gap-2.5 text-sm font-normal leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="{{ block.settings.email }}">
+                            <a href="mailto:{{ block.settings.email }}" class="text-sm font-normal leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="{{ block.settings.email }}">
                               {{ block.settings.email }}
                             </a>
                           </li>
                         {%- endif -%}
                         {%- if block.settings.address != blank -%}
                           <li>
-                            <p class="flex items-center gap-2 lg:gap-2.5 text-sm font-normal leading-normal text-primary">
+                            <p class="text-sm font-normal leading-normal text-primary">
                               {{ block.settings.address }}
                             </p>
                           </li>
                         {%- endif -%}
-                        {%- if block.settings.time_work != blank -%}
+                        {%- if block.settings.address_2 != blank -%}
                           <li>
-                            <p class="flex items-center gap-2 lg:gap-2.5 text-sm font-normal leading-normal text-primary">
-                              {{ block.settings.time_work }}
+                            <p class="text-sm font-normal leading-normal text-primary">
+                              {{ block.settings.address_2 }}
                             </p>
                           </li>
                         {%- endif -%}
                       </ul>
+                      {%- if block.settings.heading_2 != blank -%}
+                        <div class="text-sm font-semibold uppercase mt-4">
+                          {{ block.settings.heading_2 }}
+                        </div>
+                      {%- endif -%}
+                      {%- if block.settings.time_work != blank -%}
+                        <div>
+                          <p class="text-sm font-normal leading-normal text-primary">
+                            {{ block.settings.time_work }}
+                          </p>
+                        </div>
+                      {%- endif -%}
                       {%- if block.settings.show_social == true -%}
-                        <ul class="flex flex-wrap gap-5 items-center mt-4" role="list">
+                        <div class="text-sm font-semibold mt-4">{{ block.settings.heading_social }}</div>
+                        <ul class="flex flex-wrap gap-5 items-center" role="list">
                           {%- if settings.social_facebook_link != blank -%}
                             <li class="w-5 h-5">
                               <a href="{{ settings.social_facebook_link }}" class="social text-xs leading-normal text-primary hover:text-primary" rel="nofollow" target="_blank" title="Facebook">
@@ -305,12 +320,27 @@
           }, 
           {
             "type": "text",
+            "id": "address_2",
+            "label": "Address 2"
+          }, 
+          {
+            "type": "text",
+            "id": "heading_2",
+            "label": "Heading 2"
+          },
+          {
+            "type": "text",
             "id": "time_work",
             "label": "Time work"
           },
           {
             "type": "header",
             "content": "Setting social media"
+          },
+          {
+            "type": "text",
+            "id": "heading_social",
+            "label": "Heading social"
           },
           {
             "type": "checkbox",
@@ -338,6 +368,12 @@
         "type": "color",
         "id": "text_color",
         "label": "Text color",
+        "default": "#CDCDCD"
+      },
+      {
+        "type": "color",
+        "id": "text_hover_color",
+        "label": "Text hover color",
         "default": "#CDCDCD"
       },
       {

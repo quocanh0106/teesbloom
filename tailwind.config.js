@@ -110,6 +110,8 @@ module.exports = {
       colors: {
         primary: 'var(--color-primary)',
         secondary: 'var(--color-secondary)',
+        secondaryDark: 'var(--color-secondary-dark)',
+        special: 'var(--color-special)',
         body: 'var(--color-body)',
         subtext: 'var(--color-subtext)',
         border: 'var(--color-border)',

@@ -14,7 +14,7 @@ if (!customElements.get('quantity-input')) {
     constructor() {
       super();
       this.input = this.querySelector('input');
-      this.line = this.dataset.lineitem;
+      this.line = this.dataset.index;
       this.removePopup = document.querySelector(`#Popup-Remove-${this.line}`)
       this.changeEvent = new Event('change', { bubbles: true });
 
@@ -27,8 +27,9 @@ if (!customElements.get('quantity-input')) {
       event.preventDefault();
       const previousValue = this.input.value;
       event.target.name == 'plus' ? this.input.stepUp() : this.input.stepDown();
-      if (previousValue !== this.input.value)
 
+      if (previousValue !== this.input.value)
+      
       if (this.input.value == '0') {
         this.removePopup?.open();
         this.input.stepUp();
@@ -50,8 +51,15 @@ class VariantSelects extends HTMLElement {
   }
   
   init() {
-    
     this.initCheckOption(document.querySelector(`#product-form-${this.dataset.section} input[name="id"]`).value)
+    if(!window.location.href.includes('variant=') && this.getVariantData().length > 1) {
+      this.querySelectorAll('label, input').forEach(el => {el.classList.remove('active');el.checked=false})
+      this.querySelectorAll('.selected-value').forEach(el => el.textContent = '');
+      document.querySelector(`#product-form-${this.dataset.section} input[name="id"]`).value = ''
+      this.toggleAddButton(true, '', false);
+      this.setUnavailable();
+      document.getElementById(`product-form-${this.dataset.section}`).querySelector('.button-unavailable').classList.add('onload')
+    }
   }
   
   initCheckOption(id) {
@@ -76,7 +84,8 @@ class VariantSelects extends HTMLElement {
   }
 
   checkOption(option_name, option_value) {
-    var data = this.getVariantData();
+    var data = this.getVariantData(); 
+    document.getElementById(`product-form-${this.dataset.section}`).querySelector('.button-unavailable').classList.remove('onload')
     switch (parseInt(option_name)) {
       case 0:
         document.querySelectorAll('.data-layer-1 label, .data-layer-1 input, .data-layer-2 label, .data-layer-2 input').forEach(el => el.classList.remove('active'));
@@ -94,6 +103,7 @@ class VariantSelects extends HTMLElement {
           }
           this.refresh= [...new Set(available_products.map(o => o.option2))]
           this.refresh.push(...new Set(available_products.map(o => o.option3)));
+          document.querySelector('.data-layer-0 .require-option')?.classList.add('hidden');
           document.querySelector('.data-layer-0 .form__label .selected-value').innerHTML = option_value;
           if(document.querySelector('.data-layer-2 .message-option')) document.querySelector('.data-layer-2 .message-option').classList.add('hidden');
           document.querySelectorAll('.data-layer-1 .form__label .selected-value').forEach((item) => {
@@ -153,6 +163,10 @@ class VariantSelects extends HTMLElement {
     if(parseInt(evt.target.getAttribute('data-index')) == 0) this.querySelectorAll('.data-layer-0 label, .data-layer-0 input').forEach(el => el.classList.remove('active'));
     this.checkOption(evt.target.getAttribute('data-index'), evt.target.value);
     if(parseInt(evt.target.getAttribute('data-index')) != 1 && parseInt(evt.target.getAttribute('data-index')) != 2) this.querySelectorAll('.data-layer-1 label, .data-layer-1 input').forEach(el => {el.classList.remove('active');el.checked=false});
+    if(parseInt(evt.target.getAttribute('data-index')) == 1 && document.querySelector('.data-layer-0 .selected-value').textContent == '') {
+      this.querySelectorAll('.data-layer-1 label, .data-layer-1 input').forEach(el => {el.classList.remove('active');el.checked=false});
+      this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
+    }
     if(parseInt(evt.target.getAttribute('data-index')) != 2) this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
     if(parseInt(evt.target.getAttribute('data-index')) == 2 && document.querySelector('.data-layer-1 .selected-value').textContent == '') {
       this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
@@ -160,8 +174,6 @@ class VariantSelects extends HTMLElement {
       evt.target.classList.add('active');
       this.querySelector(`label[for="${evt.target.id}"]`).classList.add('active');
     }
-
-
   }
   
   changeValue(selector) {
@@ -312,9 +324,10 @@ class VariantSelects extends HTMLElement {
     const addButton = button.querySelector('[name="add"]');
     const buttonUnavailable = button.querySelector('.button-unavailable');
     buttonUnavailable.addEventListener('click', () => {
-      if(document.querySelector('.data-layer-1 .selected-value')?.textContent == '') document.querySelector('.data-layer-1 .require-option')?.classList.remove('hidden');
-      if(document.querySelector('.data-layer-2 .selected-value')?.textContent == '') document.querySelector('.data-layer-2 .require-option')?.classList.remove('hidden');
-      if(window.innerWidth >= 1024) {window.scrollTo(0, this.offsetTop - 124)} else { window.scrollTo(0, this.offsetTop - 56) }
+      if(document.querySelector('.data-layer-0 .selected-value') && document.querySelector('.data-layer-0 .selected-value').textContent == '') document.querySelector('.data-layer-0 .require-option').classList.remove('hidden');
+      if(document.querySelector('.data-layer-1 .selected-value') && document.querySelector('.data-layer-1 .selected-value').textContent == '') document.querySelector('.data-layer-1 .require-option').classList.remove('hidden');
+      if(document.querySelector('.data-layer-2 .selected-value') && document.querySelector('.data-layer-2 .selected-value').textContent == '') document.querySelector('.data-layer-2 .require-option').classList.remove('hidden');
+      if(window.innerWidth >= 1024) {window.scrollTo(0, this.offsetTop - 250)} else { window.scrollTo(0, this.offsetTop - 200) }
     })
 
     if (!addButton) return;
