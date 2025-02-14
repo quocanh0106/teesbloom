@@ -4,7 +4,7 @@ import './template-product-uk.scss';
 function fetchConfig(type = 'json') {
   return {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', 'Accept': `application/${type}` }
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': `application/json, application/${type}, text/${type}` }
   };
 }
 
@@ -378,7 +378,6 @@ class ProductForm extends HTMLElement {
   onSubmitHandler(evt) {
     evt.preventDefault();
     if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
-
     this.handleErrorMessage();
 
     this.submitButton.setAttribute('aria-disabled', true);
@@ -386,7 +385,6 @@ class ProductForm extends HTMLElement {
 
     const config = fetchConfig('javascript');
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
-    delete config.headers['Content-Type'];
     const formData = new FormData(this.form);
     if (this.cart) {
       formData.append('sections', this.getSectionsToRender().map((section) => section.id));
@@ -396,26 +394,28 @@ class ProductForm extends HTMLElement {
       formData.append('sections_url', window.routes.cart_url);
     }
     config.body = formData;
-
+    console.log(config, formData)
+    
     fetch(`${routes.cart_add_url}`, config)
-      .then((response) => response.json())
       .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        if (this.cart) {
+          this.cart.open();
+          this.renderContents(response);
+        } else {
+          this.renderCartPageContents(response);
+        }
         if (response.status) {
           this.handleErrorMessage(response.description);
           const soldOutMessage = this.submitButton.querySelector('.sold-out-message');
           if (!soldOutMessage) return;
           this.submitButton.setAttribute('aria-disabled', true);
-          this.submitButton.querySelector('span').classList.add('hidden');
+          this.submitButton.querySelector('span')?.classList.add('hidden');
           soldOutMessage.classList.remove('hidden');
           this.error = true;
           return;
-        } else {
-          if (this.cart) {
-            this.cart.open();
-            this.renderContents(response);
-          } else {
-            this.renderCartPageContents(response);
-          }
         }
       })
       .catch((e) => {
