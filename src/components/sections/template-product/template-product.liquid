@@ -189,7 +189,7 @@
                       <div class="title-option-size-bt flex flex-wrap gap-2">
                         {%- for value in option.values -%}
                           <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
-                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[40px] bg-background text-primary border border-border p-2 flex text-center rounded-2xl items-center justify-center option-size-label min-w-12 max-w-6-col-variant w-full">
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center option-size-label min-w-12 max-w-6-col-variant w-full">
                             {{ value }}
                           </label>
                         {%- endfor -%}
@@ -210,7 +210,7 @@
                       <div class="option-values flex flex-wrap gap-2">
                         {%- for value in option.values -%}
                           <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
-                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-none lg:leading-none min-h-[40px] bg-background text-primary border border-border p-2 flex text-center rounded-2xl items-center justify-center max-w-3-col-variant w-full option-label">
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-none lg:leading-none min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center {% if option.values.size > 2 %} max-w-3-col-variant w-full{% else %} max-w-2-col-variant w-auto{% endif %} option-label">
                             {{ value }}
                           </label>
                         {%- endfor -%}
