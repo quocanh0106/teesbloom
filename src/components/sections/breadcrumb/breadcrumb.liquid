@@ -22,7 +22,7 @@
 {%- endstyle -%}
 <div class="page-width overflow-hidden{% if template.suffix contains 'reviews' %} !max-w-[1096px]{% endif %}" data-section-id="{{ section.id }}">
   <ul class="flex items-center gap-1 overflow-x-auto slider-mobile">
-    <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+    <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
       <a href="{{ routes.root_url }}" class="whitespace-nowrap capitalize" title="{{ 'general.breadcrumbs.home' | t }}">{{ 'general.breadcrumbs.home' | t }}</a>
     </li>
     {% if template contains 'product' %}
@@ -36,12 +36,12 @@
         {%- endif -%}
       {%- endfor -%}
       {%- if product_type_link != nil -%}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           {% render 'icon-right', class: 'w-4 h-4' %}
           <a class="whitespace-nowrap capitalize" href="{{ product_type_link.url }}">{{ product_type_link.title | downcase }}</a>
         </li>
       {%- endif -%}
-      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+      <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
         <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
         <span class="whitespace-nowrap capitalize">{{ product.title }}</span>
       </li>
@@ -80,7 +80,7 @@
           }
       </script>
     {% elsif template == 'cart' %}
-      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+      <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
         <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
         <span class="whitespace-nowrap capitalize">{{ 'cart.title' | t }}</span>
       </li>
@@ -108,29 +108,29 @@
         {%- endif -%}
       {%- endfor -%}
       {%- if grandparent_collection != nil -%}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           {% render 'icon-right', class: 'w-4 h-4' %}
           <a class="whitespace-nowrap capitalize" href="{{ grandparent_collection.url }}">{{- grandparent_collection.title -}}</a>
         </li>
       {%- endif -%}
       {%- if parent_collection != nil -%}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           {% render 'icon-right', class: 'w-4 h-4' %}
           <a class="whitespace-nowrap capitalize" href="{{ parent_collection.url }}">{{- parent_collection.title -}}</a>
         </li>
       {%- endif -%}
       {% if current_tags %}
         {% capture url %}/collections/{{ collection.handle }}{% endcapture %}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           {% render 'icon-right', class: 'w-4 h-4' %}
           <a class="whitespace-nowrap capitalize" href="{{ current_link.url }}">{{- current_link.title -}}</a>
         </li>
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
           <span class="whitespace-nowrap capitalize">{{ current_tags | join: " + " }}</span>
         </li>
       {% else %}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
           <span class="whitespace-nowrap capitalize">{{ current_link.title }}</span>
         </li>
@@ -191,20 +191,20 @@
       </script>
     {% elsif template == 'blog' %}
       {% if current_tags %}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           {% render 'icon-right', class: 'w-4 h-4' %}
           <a
             href="{{ blog.url }}"
             class="whitespace-nowrap capitalize"
             title="{{ blog.title }}">{{ blog.title }}</a>
         </li>
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           {% render 'icon-right', class: 'w-4 h-4' %}
           <span>{{ current_tags | join: " + " }}</span>
         </li>
 
       {% else %}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
           <span class="whitespace-nowrap capitalize">{{ blog.title }}</span>
         </li>
@@ -230,14 +230,14 @@
         }
       </script>
     {% elsif template == 'article' %}
-      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+      <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
         {% render 'icon-right', class: 'w-4 h-4' %}
         <a
           href="{{ blog.url }}"
           class="whitespace-nowrap capitalize"
           title="{{ blog.title }}">{{ blog.title }}</a>
       </li>
-      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+      <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
         <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
         <span class="whitespace-nowrap capitalize">{{ article.title }}</span>
       </li>
@@ -269,27 +269,27 @@
       </script>
     {% elsif template contains 'page' %}
       {%- if template.suffix == 'search-help-center' -%}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           {% render 'icon-right', class: 'w-4 h-4' %}
           <a class="whitespace-nowrap capitalize" href="/pages/help-center">{{ 'general.breadcrumbs.help_center' | t }}</a>
         </li>
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
           <span class="whitespace-nowrap capitalize">{{ 'general.breadcrumbs.search_results' | t }}</span>
         </li>
       {%- else -%}
-        <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+        <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
           <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
           <span class="whitespace-nowrap capitalize">{{ page.title }}</span>
         </li>
       {%- endif -%}
     {% elsif template contains 'search' %}
-      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+      <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
         <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
         <span class="whitespace-nowrap capitalize">{{ 'general.search.title' | t }}</span>
       </li>
     {% else %}
-      <li class="flex items-center gap-1 text-sm leading-3 lg:text-base lg:leading-4 font-medium font-heading">
+      <li class="flex items-center gap-1 text-sm leading-3 font-normal font-heading">
         <span>{% render 'icon-right', class: 'w-4 h-4' %}</span>
         <span class="whitespace-nowrap capitalize">{{ page_title }}</span>
       </li>
