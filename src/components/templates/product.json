@@ -92,9 +92,10 @@
     }
   },
   "order": [
-    "breadcrumb_gwQ4Th",
     "template",
     "product_recommendations_7Up4gQ",
-    "recently_viewed_product_qgmcEj"
+    "recently_viewed_product_qgmcEj",
+    "breadcrumb_gwQ4Th"
+
   ]
 }
