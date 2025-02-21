@@ -13,130 +13,12 @@
   assign variants_option3_arr = product.variants | map: 'option3'
   assign product_form_id = 'product-form-' | append: section.id
 
-  if product.type == "Vêtement"
-    assign estimate_arrival_min = settings.estimate_arrival_min_1
-    assign estimate_arrival_max = settings.estimate_arrival_max_1
-
-    assign order_ship_min = settings.order_ship_min_1
-    assign order_ship_max = settings.order_ship_max_1
-  elsif product.type == "Mug"
-    assign estimate_arrival_min = settings.estimate_arrival_min_2
-    assign estimate_arrival_max = settings.estimate_arrival_max_2
-
-    assign order_ship_min = settings.order_ship_min_2
-    assign order_ship_max = settings.order_ship_max_2
-  elsif product.type == "Coussin"
-    assign estimate_arrival_min = settings.estimate_arrival_min_3
-    assign estimate_arrival_max = settings.estimate_arrival_max_3
-
-    assign order_ship_min = settings.order_ship_min_3
-    assign order_ship_max = settings.order_ship_max_3
-  elsif product.type == "Poster"
-    assign estimate_arrival_min = settings.estimate_arrival_min_4
-    assign estimate_arrival_max = settings.estimate_arrival_max_4
-
-    assign order_ship_min = settings.order_ship_min_4
-    assign order_ship_max = settings.order_ship_max_4
-  else
-    assign estimate_arrival_min = settings.estimate_arrival_min_5
-    assign estimate_arrival_max = settings.estimate_arrival_max_5
-
-    assign order_ship_min = settings.order_ship_min_5
-    assign order_ship_max = settings.order_ship_max_5
-  endif
+  for ship in shop.metaobjects.shipping.values
+    if ship.product_type == product.type
+      assign shipping = ship
+    endif
+  endfor
 %}
-
-{%- liquid
-  if estimate_arrival_min != blank and  estimate_arrival_max != blank
-    assign min_arrival = estimate_arrival_min | plus: 0
-    assign max_arrival = estimate_arrival_max | plus: 0
-    assign seconds3 = min_arrival | times: 24 | times: 60 | times: 60
-    assign seconds4 = max_arrival | times: 24 | times: 60 | times: 60
-  else
-    assign seconds3 = 11 | times: 24 | times: 60 | times: 60
-    assign seconds4 = 61 | times: 24 | times: 60 | times: 60
-  endif
-
-  assign duration_min = seconds3 | divided_by: 24 | divided_by: 60 | divided_by: 60
-  assign duration_max = seconds4 | divided_by: 24 | divided_by: 60 | divided_by: 60
-
-  for i in (1..duration_min)
-    assign days = 86400 | times: i
-    assign mod_date = 'now' | date: '%s' | plus: days | date: '%a'
-    if forloop.last == false
-      if mod_date == 'Sat'
-        assign seconds3 = seconds3 | plus: 86400
-      endif
-    else
-      if mod_date == 'Sat'
-        assign seconds3 = seconds3 | plus: 172800
-      endif
-    endif
-    if mod_date == 'Sun'
-      assign seconds3 = seconds3 | plus: 86400
-    endif
-  endfor
-
-  for i in (1..duration_max)
-    assign days = 86400 | times: i
-    assign mod_date = 'now' | date: '%s' | plus: days | date: '%a'
-    if mod_date == 'Sat'
-      assign seconds4 = seconds4 | plus: 86400
-    endif
-    if mod_date == 'Sun'
-      assign seconds4 = seconds4 | plus: 86400
-    endif
-  endfor
-
-  if order_ship_min != blank and order_ship_max != blank
-    assign min_order_ship = order_ship_min | plus: 0
-    assign max_order_ship = order_ship_max | plus: 0
-    assign seconds = min_order_ship | times: 24 | times: 60 | times: 60
-    assign seconds2 = max_order_ship | times: 24 | times: 60 | times: 60
-  else
-    assign seconds = 3 | times: 24 | times: 60 | times: 60
-    assign seconds2 = 6 | times: 24 | times: 60 | times: 60
-  endif
-  assign duration_min = seconds | divided_by: 24 | divided_by: 60 | divided_by: 60
-  assign duration_max = seconds2 | divided_by: 24 | divided_by: 60 | divided_by: 60
-
-  for i in (1..duration_min)
-    assign days_min_1 = 86400 | times: i
-    assign mod_date_min_1 = 'now' | date: '%s' | plus: days_min_1 | date: '%a'
-
-    if forloop.last == false
-      if mod_date_min_1 == 'Sat'
-        assign seconds = seconds | plus: 86400
-      endif
-    else
-      if mod_date_min_1 == 'Sat'
-        assign seconds = seconds | plus: 172800
-      endif
-    endif
-    if mod_date_min_1 == 'Sun'
-      assign seconds = seconds | plus: 86400
-    endif
-  endfor
-
-
-  for i in (1..duration_max)
-    assign days_max_1 = 86400 | times: i
-    assign mod_date_max_1 = 'now' | date: '%s' | plus: days_max_1 | date: '%a'
-
-    if forloop.last == false
-      if mod_date_max_1 == 'Sat'
-        assign seconds2 = seconds2 | plus: 86400
-      endif
-    else
-      if mod_date_max_1 == 'Sat'
-        assign seconds2 = seconds2 | plus: 172800
-      endif
-    endif
-    if mod_date_max_1 == 'Sun'
-      assign seconds2 = seconds2 | plus: 86400
-    endif
-  endfor
--%}
 
 <section id="MainProduct-{{ section.id }}" data-section="{{ section.id }}">
   <div class="page-width flex flex-wrap lg:flex-nowrap mt-5">
@@ -163,13 +45,373 @@
               {%- render 'price' , product: product , use_variant: true , show_badges: true , show: true, class: '!mb-4' -%}
             </div>
           {%- when 'shipping-box' -%}
-            <div class="w-fit">
-              <span class="text-subtext text-base leading-5 font-normal">{% render 'icon-mini-truck' , class: 'w-6 h-6 text-primary inline mr-2' %} {{ 'products.product.estimated_delivery' | t }}</span>
-              <span class="text-primary text-base leading-5 font-semibold underline ml-2">{{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }} - {{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}</span>
-            </div>
+            <delivery-wrapper data-assets-folder="{{ 'us.svg' | asset_url }}" class="relative grid gap-2 mt-5 lg:mt-6 mb-5 lg:mb-6 w-[343px] rounded border border-border bg-background py-3 px-4 min-w-fit max-w-full" data-content='{{ shipping | json }}'>
+              <div class="flex gap-2 items-center">
+                {% render 'icon-clock', class: 'w-5 h-5 text-primary flex-none' %}
+                <span class="text-primary text-sm leading-5 font-light flex-none">
+                  Get it by
+                </span>
+                <div class="group cursor-pointer">
+                  <span class="estimate-arrival text-primary text-sm leading-5 font-normal underline">{{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }} - {{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}</span>
+                  <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible bg-background shadow-tooltip rounded p-3 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-[343px] max-w-[calc(100vw_-_32px)]">
+                    <div class="icon-text grid grid-cols-3 items-start bg-background w-full rounded py-2">
+                      <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-center text-center">
+                        <div class="group relative mb-2 w-full before:border-border before:border-dashed before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                          <span class="icon p-1.5 mx-auto bg-background rounded-full leading-none block w-8 h-8 relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                        </div>
+                        <div class="date-text group px-1">
+                          <span class="text-sm text-primary font-heading font-semibold leading-4 block">
+                            {%- assign mod_today = 'now' | date: '%a' -%}
+                            {% if shop.locale == 'de' %}
+                              {% if mod_today == 'Sat' %}
+                                <span>{{ "now" | date: '%s' | date: "%d %b" }}</span>
+                              {% elsif mod_today == 'Sun' %}
+                                <span>{{ "now" | date: '%s' | date: "%d %b" }}</span>
+                              {%- else -%}
+                                <span>{{ "now" | date: "%d %b" }}</span>
+                              {% endif %}
+                            {% else %}
+                              {% if mod_today == 'Sat' %}
+                                <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
+                              {% elsif mod_today == 'Sun' %}
+                                <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
+                              {%- else -%}
+                                <span>{{ "now" | date: "%b %d" }}</span>
+                              {% endif %}
+                            {% endif %}
+                          </span>
+                          <span class="note text-xs mt-0.5 font-light leading-5 text-primary block">
+                            {{ 'products.shipping_information.order_placed' | t }}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-center text-center">
+                        <div class="group relative mb-2 w-full before:border-border before:border-dashed before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                          <span class="icon p-1.5 mx-auto bg-background rounded-full leading-none block w-8 h-8 relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                        </div>
+                        <div class="date-text group px-1">
+                          <span class="order-ship text-sm text-primary font-heading font-semibold leading-4 block"></span>
+                          <span class="note text-xs mt-0.5 font-light leading-5 text-primary block">
+                            {{ 'products.shipping_information.order_ships' | t }}
+                          </span>
+                        </div>
+                      </div>
+                      <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-center text-center">
+                        <div class="group relative mb-2 w-full before:border-border before:border-dashed before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                          <span class="icon p-1.5 mx-auto bg-background rounded-full leading-none block w-8 h-8 relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                        </div>
+                        <div class="date-text group px-1">
+                          <span class="estimate-arrival text-sm text-primary font-heading font-semibold leading-4 block"></span>
+                          <span class="note text-xs mt-0.5 font-light leading-5 text-primary block">
+                            {{ 'products.shipping_information.delivered' | t }}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    {% if section.settings.shipping_mini_description != blank %}
+                      <div class="mt-1 shipping-mini-description text-center">
+                        {{ section.settings.shipping_mini_description }}
+                      </div>
+                    {% endif %}
+
+                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-primaryrotate-45 !block shadow-[10px_3px_10px_0px_rgba(0,_0,_0,_0.12)]"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="flex gap-2 items-center">
+                {% render 'icon-truck', class: 'w-5 h-5 text-primary flex-none' %}
+                <span class="text-primary text-sm leading-5 font-light flex-none">
+                  Deliver to
+                </span>
+                <img src="{{ 'us.svg' | asset_url }}" class="flag rounded-sm overflow-hidden flex-none" width="30" height="18" loading="lazy" />
+
+                <modal-opener data-id="#select-country" class="flex gap-2 items-center cursor-pointer">
+                  <span class="country-name text-sm leading-4 font-normal text-[#32ADE6]">United States</span>
+                  {% render 'icon-down', class: 'w-4.5 h-4.5 text-secondary-800 flex-none' %}
+                </modal-opener>
+
+                <select-country id="select-country" class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20">
+                  <div class="rounded-2xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[343px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+                    <div class="px-5 py-6">
+                      <div class="flex items-center justify-between"> 
+                        <span class="font-heading text-lg leading-4 text-primary font-semibold">Select your shipping country</span>
+                        <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full close">
+                          {% render 'icon-close', class: 'w-5 h-5' %}
+                        </span>
+                      </div>
+                
+                      <div class="mt-6">
+                        <label for="select-country-form" class="block text-base font-normal leading-4 font-heading text-primary mb-2">Select your country</label>
+                        <select class="w-full rounded-[100px] h-12.5 border border-border py-3 px-5 pr-10 text-base" name="select-country" id="select-country-form">
+                          <option value="AD">Andorra</option>
+                          <option value="AE">United Arab Emirates</option>
+                          <option value="AF">Afghanistan</option>
+                          <option value="AG">Antigua and Barbuda</option>
+                          <option value="AI">Anguilla</option>
+                          <option value="AL">Albania</option>
+                          <option value="AM">Armenia</option>
+                          <option value="AO">Angola</option>
+                          <option value="AQ">Antarctica</option>
+                          <option value="AR">Argentina</option>
+                          <option value="AS">American Samoa</option>
+                          <option value="AT">Austria</option>
+                          <option value="AU">Australia</option>
+                          <option value="AW">Aruba</option>
+                          <option value="AX">&#197;land Islands</option>
+                          <option value="AZ">Azerbaijan</option>
+                          <option value="BA">Bosnia and Herzegovina</option>
+                          <option value="BB">Barbados</option>
+                          <option value="BD">Bangladesh</option>
+                          <option value="BE">Belgium</option>
+                          <option value="BF">Burkina Faso</option>
+                          <option value="BG">Bulgaria</option>
+                          <option value="BH">Bahrain</option>
+                          <option value="BI">Burundi</option>
+                          <option value="BJ">Benin</option>
+                          <option value="BL">Saint Barthélemy</option>
+                          <option value="BM">Bermuda</option>
+                          <option value="BN">Brunei Darussalam</option>
+                          <option value="BO">Bolivia, Plurinational State of</option>
+                          <option value="BQ">Caribbean Netherlands</option>
+                          <option value="BR">Brazil</option>
+                          <option value="BS">Bahamas</option>
+                          <option value="BT">Bhutan</option>
+                          <option value="BV">Bouvet Island</option>
+                          <option value="BW">Botswana</option>
+                          <option value="BY">Belarus</option>
+                          <option value="BZ">Belize</option>
+                          <option value="CA">Canada</option>
+                          <option value="CC">Cocos (Keeling) Islands</option>
+                          <option value="CD">Congo, the Democratic Republic of the</option>
+                          <option value="CF">Central African Republic</option>
+                          <option value="CG">Republic of the Congo</option>
+                          <option value="CH">Switzerland</option>
+                          <option value="CI">C&#244;te d'Ivoire</option>
+                          <option value="CK">Cook Islands</option>
+                          <option value="CL">Chile</option>
+                          <option value="CM">Cameroon</option>
+                          <option value="CN">China (People's Republic of China)</option>
+                          <option value="CO">Colombia</option>
+                          <option value="CR">Costa Rica</option>
+                          <option value="CU">Cuba</option>
+                          <option value="CV">Cape Verde</option>
+                          <option value="CW">Cura&#231;ao</option>
+                          <option value="CX">Christmas Island</option>
+                          <option value="CY">Cyprus</option>
+                          <option value="CZ">Czech Republic</option>
+                          <option value="DE">Germany</option>
+                          <option value="DJ">Djibouti</option>
+                          <option value="DK">Denmark</option>
+                          <option value="DM">Dominica</option>
+                          <option value="DO">Dominican Republic</option>
+                          <option value="DZ">Algeria</option>
+                          <option value="EC">Ecuador</option>
+                          <option value="EE">Estonia</option>
+                          <option value="EG">Egypt</option>
+                          <option value="EH">Western Sahara</option>
+                          <option value="ER">Eritrea</option>
+                          <option value="ES">Spain</option>
+                          <option value="ET">Ethiopia</option>
+                          <option value="EU">Europe</option>
+                          <option value="FI">Finland</option>
+                          <option value="FJ">Fiji</option>
+                          <option value="FK">Falkland Islands (Malvinas)</option>
+                          <option value="FM">Micronesia, Federated States of</option>
+                          <option value="FO">Faroe Islands</option>
+                          <option value="FR">France</option>
+                          <option value="GA">Gabon</option>
+                          <option value="GB-ENG">England</option>
+                          <option value="GB-NIR">Northern Ireland</option>
+                          <option value="GB-SCT">Scotland</option>
+                          <option value="GB-WLS">Wales</option>
+                          <option value="GB">United Kingdom</option>
+                          <option value="GD">Grenada</option>
+                          <option value="GE">Georgia</option>
+                          <option value="GF">French Guiana</option>
+                          <option value="GG">Guernsey</option>
+                          <option value="GH">Ghana</option>
+                          <option value="GI">Gibraltar</option>
+                          <option value="GL">Greenland</option>
+                          <option value="GM">Gambia</option>
+                          <option value="GN">Guinea</option>
+                          <option value="GP">Guadeloupe</option>
+                          <option value="GQ">Equatorial Guinea</option>
+                          <option value="GR">Greece</option>
+                          <option value="GS">South Georgia and the South Sandwich Islands</option>
+                          <option value="GT">Guatemala</option>
+                          <option value="GU">Guam</option>
+                          <option value="GW">Guinea-Bissau</option>
+                          <option value="GY">Guyana</option>
+                          <option value="HK">Hong Kong</option>
+                          <option value="HM">Heard Island and McDonald Islands</option>
+                          <option value="HN">Honduras</option>
+                          <option value="HR">Croatia</option>
+                          <option value="HT">Haiti</option>
+                          <option value="HU">Hungary</option>
+                          <option value="ID">Indonesia</option>
+                          <option value="IE">Ireland</option>
+                          <option value="IL">Israel</option>
+                          <option value="IM">Isle of Man</option>
+                          <option value="IN">India</option>
+                          <option value="IO">British Indian Ocean Territory</option>
+                          <option value="IQ">Iraq</option>
+                          <option value="IR">Iran, Islamic Republic of</option>
+                          <option value="IS">Iceland</option>
+                          <option value="IT">Italy</option>
+                          <option value="JE">Jersey</option>
+                          <option value="JM">Jamaica</option>
+                          <option value="JO">Jordan</option>
+                          <option value="JP">Japan</option>
+                          <option value="KE">Kenya</option>
+                          <option value="KG">Kyrgyzstan</option>
+                          <option value="KH">Cambodia</option>
+                          <option value="KI">Kiribati</option>
+                          <option value="KM">Comoros</option>
+                          <option value="KN">Saint Kitts and Nevis</option>
+                          <option value="KP">Korea, Democratic People's Republic of</option>
+                          <option value="KR">Korea, Republic of</option>
+                          <option value="KW">Kuwait</option>
+                          <option value="KY">Cayman Islands</option>
+                          <option value="KZ">Kazakhstan</option>
+                          <option value="LA">Laos (Lao People's Democratic Republic)</option>
+                          <option value="LB">Lebanon</option>
+                          <option value="LC">Saint Lucia</option>
+                          <option value="LI">Liechtenstein</option>
+                          <option value="LK">Sri Lanka</option>
+                          <option value="LR">Liberia</option>
+                          <option value="LS">Lesotho</option>
+                          <option value="LT">Lithuania</option>
+                          <option value="LU">Luxembourg</option>
+                          <option value="LV">Latvia</option>
+                          <option value="LY">Libya</option>
+                          <option value="MA">Morocco</option>
+                          <option value="MC">Monaco</option>
+                          <option value="MD">Moldova, Republic of</option>
+                          <option value="ME">Montenegro</option>
+                          <option value="MF">Saint Martin</option>
+                          <option value="MG">Madagascar</option>
+                          <option value="MH">Marshall Islands</option>
+                          <option value="MK">North Macedonia</option>
+                          <option value="ML">Mali</option>
+                          <option value="MM">Myanmar</option>
+                          <option value="MN">Mongolia</option>
+                          <option value="MO">Macao</option>
+                          <option value="MP">Northern Mariana Islands</option>
+                          <option value="MQ">Martinique</option>
+                          <option value="MR">Mauritania</option>
+                          <option value="MS">Montserrat</option>
+                          <option value="MT">Malta</option>
+                          <option value="MU">Mauritius</option>
+                          <option value="MV">Maldives</option>
+                          <option value="MW">Malawi</option>
+                          <option value="MX">Mexico</option>
+                          <option value="MY">Malaysia</option>
+                          <option value="MZ">Mozambique</option>
+                          <option value="NA">Namibia</option>
+                          <option value="NC">New Caledonia</option>
+                          <option value="NE">Niger</option>
+                          <option value="NF">Norfolk Island</option>
+                          <option value="NG">Nigeria</option>
+                          <option value="NI">Nicaragua</option>
+                          <option value="NL">Netherlands</option>
+                          <option value="NO">Norway</option>
+                          <option value="NP">Nepal</option>
+                          <option value="NR">Nauru</option>
+                          <option value="NU">Niue</option>
+                          <option value="NZ">New Zealand</option>
+                          <option value="OM">Oman</option>
+                          <option value="PA">Panama</option>
+                          <option value="PE">Peru</option>
+                          <option value="PF">French Polynesia</option>
+                          <option value="PG">Papua New Guinea</option>
+                          <option value="PH">Philippines</option>
+                          <option value="PK">Pakistan</option>
+                          <option value="PL">Poland</option>
+                          <option value="PM">Saint Pierre and Miquelon</option>
+                          <option value="PN">Pitcairn</option>
+                          <option value="PR">Puerto Rico</option>
+                          <option value="PS">Palestine</option>
+                          <option value="PT">Portugal</option>
+                          <option value="PW">Palau</option>
+                          <option value="PY">Paraguay</option>
+                          <option value="QA">Qatar</option>
+                          <option value="RE">Réunion</option>
+                          <option value="RO">Romania</option>
+                          <option value="RS">Serbia</option>
+                          <option value="RU">Russian Federation</option>
+                          <option value="RW">Rwanda</option>
+                          <option value="SA">Saudi Arabia</option>
+                          <option value="SB">Solomon Islands</option>
+                          <option value="SC">Seychelles</option>
+                          <option value="SD">Sudan</option>
+                          <option value="SE">Sweden</option>
+                          <option value="SG">Singapore</option>
+                          <option value="SH">Saint Helena, Ascension and Tristan da Cunha</option>
+                          <option value="SI">Slovenia</option>
+                          <option value="SJ">Svalbard and Jan Mayen Islands</option>
+                          <option value="SK">Slovakia</option>
+                          <option value="SL">Sierra Leone</option>
+                          <option value="SM">San Marino</option>
+                          <option value="SN">Senegal</option>
+                          <option value="SO">Somalia</option>
+                          <option value="SR">Suriname</option>
+                          <option value="SS">South Sudan</option>
+                          <option value="ST">Sao Tome and Principe</option>
+                          <option value="SV">El Salvador</option>
+                          <option value="SX">Sint Maarten (Dutch part)</option>
+                          <option value="SY">Syrian Arab Republic</option>
+                          <option value="SZ">Kingdom of Eswatini</option>
+                          <option value="TC">Turks and Caicos Islands</option>
+                          <option value="TD">Chad</option>
+                          <option value="TF">French Southern Territories</option>
+                          <option value="TG">Togo</option>
+                          <option value="TH">Thailand</option>
+                          <option value="TJ">Tajikistan</option>
+                          <option value="TK">Tokelau</option>
+                          <option value="TL">Timor-Leste</option>
+                          <option value="TM">Turkmenistan</option>
+                          <option value="TN">Tunisia</option>
+                          <option value="TO">Tonga</option>
+                          <option value="TR">Republic of Türkiye</option>
+                          <option value="TT">Trinidad and Tobago</option>
+                          <option value="TV">Tuvalu</option>
+                          <option value="TW">Taiwan (Republic of China)</option>
+                          <option value="TZ">Tanzania, United Republic of</option>
+                          <option value="UA">Ukraine</option>
+                          <option value="UG">Uganda</option>
+                          <option value="UM">US Minor Outlying Islands</option>
+                          <option value="US" selected>United States</option>
+                          <option value="UY">Uruguay</option>
+                          <option value="UZ">Uzbekistan</option>
+                          <option value="VA">Holy See (Vatican City State)</option>
+                          <option value="VC">Saint Vincent and the Grenadines</option>
+                          <option value="VE">Venezuela, Bolivarian Republic of</option>
+                          <option value="VG">Virgin Islands, British</option>
+                          <option value="VI">Virgin Islands, U.S.</option>
+                          <option value="VN">Vietnam</option>
+                          <option value="VU">Vanuatu</option>
+                          <option value="WF">Wallis and Futuna Islands</option>
+                          <option value="WS">Samoa</option>
+                          <option value="XK">Kosovo</option>
+                          <option value="YE">Yemen</option>
+                          <option value="YT">Mayotte</option>
+                          <option value="ZA">South Africa</option>
+                          <option value="ZM">Zambia</option>
+                          <option value="ZW">Zimbabwe</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="p-5 grid grid-cols-2 gap-2 border-t border-border">
+                      <button class="close btn btn-2 h-[42px]">CANCEL</button>
+                      <button class="submit btn h-[42px]">SUBMIT</button>
+                    </div>
+                  </div>
+                </select-country>
+              </div>
+            </delivery-wrapper>
           {%- when 'variant_picker' -%}
             {%- unless product.has_only_default_variant -%}
-              <variant-radios class="block pt-6 scroll-m-14 lg:scroll-m-31" id="variant-radios-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" {% if update_url == false %} data-update-url="false" {% endif %}>
+              <variant-radios class="block pt-1 scroll-m-14 lg:scroll-m-31" id="variant-radios-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" {% if update_url == false %} data-update-url="false" {% endif %}>
                 {%- for option in product.options_with_values -%}
                   {% assign fatherIndex = forloop.index0 %}
                   {% assign optionName = option.name | downcase %}
@@ -266,31 +508,32 @@
             <product-form class="block pb-6">
               {%- form 'product', product, id: product_form_id, class: 'form mt-8', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
-                <label for="Quantity-{{ section.id }}" class="block text-base font-medium mb-2.5 text-primary">Quantity</label>
-                <quantity-input class="flex items-center bg-[#f6f6f6] relative w-fit h-10 rounded mb-4">
-                  <button class="w-10 h-10 border border-border bg-background rounded-l relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button" role="button" aria-label="minus">
-                    {% render 'icon-minus', class: 'w-4 h-4 mx-auto' %}
-                  </button>
-                  <input class="appearance-none border-none bg-[#f6f6f6] text-primary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-6 lg:w-12 h-full font-medium text-center !ring-0 shadow-none focus:border-none" 
-                    type="number"
-                    name="quantity"
-                    id="Quantity-{{ section.id }}"
-                    data-cart-quantity="{{ cart_qty }}"
-                    data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                    min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                    {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
-                      data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                      max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
-                    {% endif %}
-                    step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
-                    value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
-                    form="{{ product_form_id }}"
-                    aria-label="quantity">
-                  <button class="w-10 h-10 border border-border bg-background rounded-r relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="plus" type="button" role="button" aria-label="plus">
-                    {% render 'icon-plus', class: 'w-4 h-4 mx-auto' %}
-                  </button>
-                </quantity-input>
-
+                <div class="flex items-center gap-4 mb-4 mt-6">
+                  <label for="Quantity-{{ section.id }}" class="block text-base font-medium mb-2.5 text-primary">Qty</label>
+                  <quantity-input class="flex items-center relative w-fit h-8 rounded-3xl">
+                    <button class="w-8 h-8 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button" role="button" aria-label="minus">
+                      {% render 'icon-minus', class: 'w-4 h-4 mx-auto' %}
+                    </button>
+                    <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-6 lg:w-12 h-full font-medium text-center !ring-0 shadow-none focus:border-none" 
+                      type="number"
+                      name="quantity"
+                      id="Quantity-{{ section.id }}"
+                      data-cart-quantity="{{ cart_qty }}"
+                      data-min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                      min="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                      {% if product.selected_or_first_available_variant.quantity_rule.max != null %}
+                        data-max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                        max="{{ product.selected_or_first_available_variant.quantity_rule.max }}"
+                      {% endif %}
+                      step="{{ product.selected_or_first_available_variant.quantity_rule.increment }}"
+                      value="{{ product.selected_or_first_available_variant.quantity_rule.min }}"
+                      form="{{ product_form_id }}"
+                      aria-label="quantity">
+                    <button class="w-8 h-8 border border-[#f2f2f6] bg-[#f2f2f6] rounded-r-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="plus" type="button" role="button" aria-label="plus">
+                      {% render 'icon-plus', class: 'w-4 h-4 mx-auto' %}
+                    </button>
+                  </quantity-input>
+                </div>
                 <div class="product-form__error-message-wrapper flex gap-1 items-center text-base text-error px-3 py-1.5 fixed top-3 right-3 bg-background shadow-megamenu rounded transition-all" role="alert" hidden>
                   <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-error w-4 h-4"  viewBox="0 0 13 13">
                     <circle cx="6.5" cy="6.50049" r="5.5" stroke="white" stroke-width="2"/>
@@ -360,11 +603,11 @@
                 <div class="details p-0">
                   <div class="icon-text grid grid-cols-3 items-start p-4">
                     <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary-100 before:border before:border-t-2 before:block before:w-1/2 before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary before:border before:border-t-2 before:block before:w-1/2 before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
                         <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                       </div>
                       <div class="date-text group">
-                        <span class="text-xs lg:text-sm text-primary-700 font-heading font-semibold leading-4 block">
+                        <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
                           {%- assign mod_today = 'now' | date: '%a' -%}
                           {% if mod_today == 'Sat' %}
                             <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
@@ -374,20 +617,20 @@
                             <span>{{ "now" | date: "%b %d" }}</span>
                           {% endif %}
                         </span>
-                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary-700 block">
+                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary block">
                           {{ 'products.shipping_information.order_placed' | t }}
                         </span>
                       </div>
                     </div>
                     <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary-100 before:border before:border-t-2 before:block before:w-full left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary before:border before:border-t-2 before:block before:w-full left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
                         <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                       </div>
                       <div class="date-text group">
-                        <span class="text-xs lg:text-sm text-primary-700 font-heading font-semibold leading-4 block">
+                        <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
                           {{ 'now' | date: "%s" | plus: seconds | date: "%b %d" }}-{{ 'now' | date: "%s" | plus: seconds2 | date: "%b %d" }}
                         </span>
-                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary-700 block">
+                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary block">
                           {{ 'products.shipping_information.order_ships' | t }}
                         </span>
                       </div>
@@ -396,14 +639,14 @@
                       {% assign datec = 'now' | date: "%s" | plus: seconds3 | date: "%b %d" %}
                       {% assign datecc = 'now' | date: "%s" | plus: seconds4 | date: "%b %d" %}
                       {% assign date = datec | append: '-' | append: datecc %}
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary-100 before:border before:border-t-2 before:block before:w-1/2 left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary before:border before:border-t-2 before:block before:w-1/2 left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
                         <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                       </div>
                       <div class="date-text group">
-                        <span class="text-xs lg:text-sm text-primary-700 font-heading font-semibold leading-4 block">
+                        <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
                           {{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }}-{{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}
                         </span>
-                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary-700 block">
+                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary block">
                           {{ 'products.shipping_information.delivered' | t }}
                         </span>
                       </div>

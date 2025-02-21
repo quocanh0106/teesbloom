@@ -667,3 +667,471 @@ if (!customElements.get('max-height')) {
 
   customElements.define('max-height', MaxHeight)
 }
+
+class DeliveryWrapper extends HTMLElement {
+  constructor() {
+    super();
+    
+    this.content = JSON.parse(this.dataset.content)
+    this.assetsFolderUrl = this.dataset.assetsFolder.split('/').slice(0, -1).join('/');
+    this.flags = {
+      'AD': 'Andorra',
+      'AE': 'United Arab Emirates',
+      'AF': 'Afghanistan',
+      'AG': 'Antigua and Barbuda',
+      'AI': 'Anguilla',
+      'AL': 'Albania',
+      'AM': 'Armenia',
+      'AO': 'Angola',
+      'AQ': 'Antarctica',
+      'AR': 'Argentina',
+      'AS': 'American Samoa',
+      'AT': 'Austria',
+      'AU': 'Australia',
+      'AW': 'Aruba',
+      'AX': '\u00c5land Islands',
+      'AZ': 'Azerbaijan',
+      'BA': 'Bosnia and Herzegovina',
+      'BB': 'Barbados',
+      'BD': 'Bangladesh',
+      'BE': 'Belgium',
+      'BF': 'Burkina Faso',
+      'BG': 'Bulgaria',
+      'BH': 'Bahrain',
+      'BI': 'Burundi',
+      'BJ': 'Benin',
+      'BL': 'Saint Barthélemy',
+      'BM': 'Bermuda',
+      'BN': 'Brunei Darussalam',
+      'BO': 'Bolivia, Plurinational State of',
+      'BQ': 'Caribbean Netherlands',
+      'BR': 'Brazil',
+      'BS': 'Bahamas',
+      'BT': 'Bhutan',
+      'BV': 'Bouvet Island',
+      'BW': 'Botswana',
+      'BY': 'Belarus',
+      'BZ': 'Belize',
+      'CA': 'Canada',
+      'CC': 'Cocos (Keeling) Islands',
+      'CD': 'Congo, the Democratic Republic of the',
+      'CF': 'Central African Republic',
+      'CG': 'Republic of the Congo',
+      'CH': 'Switzerland',
+      'CI': "C\u00f4te d'Ivoire",
+      'CK': 'Cook Islands',
+      'CL': 'Chile',
+      'CM': 'Cameroon',
+      'CN': "China (People's Republic of China)",
+      'CO': 'Colombia',
+      'CR': 'Costa Rica',
+      'CU': 'Cuba',
+      'CV': 'Cape Verde',
+      'CW': 'Cura\u00e7ao',
+      'CX': 'Christmas Island',
+      'CY': 'Cyprus',
+      'CZ': 'Czech Republic',
+      'DE': 'Germany',
+      'DJ': 'Djibouti',
+      'DK': 'Denmark',
+      'DM': 'Dominica',
+      'DO': 'Dominican Republic',
+      'DZ': 'Algeria',
+      'EC': 'Ecuador',
+      'EE': 'Estonia',
+      'EG': 'Egypt',
+      'EH': 'Western Sahara',
+      'ER': 'Eritrea',
+      'ES': 'Spain',
+      'ET': 'Ethiopia',
+      'EU': 'Europe',
+      'FI': 'Finland',
+      'FJ': 'Fiji',
+      'FK': 'Falkland Islands (Malvinas)',
+      'FM': 'Micronesia, Federated States of',
+      'FO': 'Faroe Islands',
+      'FR': 'France',
+      'GA': 'Gabon',
+      'GB-ENG': 'England',
+      'GB-NIR': 'Northern Ireland',
+      'GB-SCT': 'Scotland',
+      'GB-WLS': 'Wales',
+      'GB': 'United Kingdom',
+      'GD': 'Grenada',
+      'GE': 'Georgia',
+      'GF': 'French Guiana',
+      'GG': 'Guernsey',
+      'GH': 'Ghana',
+      'GI': 'Gibraltar',
+      'GL': 'Greenland',
+      'GM': 'Gambia',
+      'GN': 'Guinea',
+      'GP': 'Guadeloupe',
+      'GQ': 'Equatorial Guinea',
+      'GR': 'Greece',
+      'GS': 'South Georgia and the South Sandwich Islands',
+      'GT': 'Guatemala',
+      'GU': 'Guam',
+      'GW': 'Guinea-Bissau',
+      'GY': 'Guyana',
+      'HK': 'Hong Kong',
+      'HM': 'Heard Island and McDonald Islands',
+      'HN': 'Honduras',
+      'HR': 'Croatia',
+      'HT': 'Haiti',
+      'HU': 'Hungary',
+      'ID': 'Indonesia',
+      'IE': 'Ireland',
+      'IL': 'Israel',
+      'IM': 'Isle of Man',
+      'IN': 'India',
+      'IO': 'British Indian Ocean Territory',
+      'IQ': 'Iraq',
+      'IR': 'Iran, Islamic Republic of',
+      'IS': 'Iceland',
+      'IT': 'Italy',
+      'JE': 'Jersey',
+      'JM': 'Jamaica',
+      'JO': 'Jordan',
+      'JP': 'Japan',
+      'KE': 'Kenya',
+      'KG': 'Kyrgyzstan',
+      'KH': 'Cambodia',
+      'KI': 'Kiribati',
+      'KM': 'Comoros',
+      'KN': 'Saint Kitts and Nevis',
+      'KP': "Korea, Democratic People's Republic of",
+      'KR': 'Korea, Republic of',
+      'KW': 'Kuwait',
+      'KY': 'Cayman Islands',
+      'KZ': 'Kazakhstan',
+      'LA': "Laos (Lao People's Democratic Republic)",
+      'LB': 'Lebanon',
+      'LC': 'Saint Lucia',
+      'LI': 'Liechtenstein',
+      'LK': 'Sri Lanka',
+      'LR': 'Liberia',
+      'LS': 'Lesotho',
+      'LT': 'Lithuania',
+      'LU': 'Luxembourg',
+      'LV': 'Latvia',
+      'LY': 'Libya',
+      'MA': 'Morocco',
+      'MC': 'Monaco',
+      'MD': 'Moldova, Republic of',
+      'ME': 'Montenegro',
+      'MF': 'Saint Martin',
+      'MG': 'Madagascar',
+      'MH': 'Marshall Islands',
+      'MK': 'North Macedonia',
+      'ML': 'Mali',
+      'MM': 'Myanmar',
+      'MN': 'Mongolia',
+      'MO': 'Macao',
+      'MP': 'Northern Mariana Islands',
+      'MQ': 'Martinique',
+      'MR': 'Mauritania',
+      'MS': 'Montserrat',
+      'MT': 'Malta',
+      'MU': 'Mauritius',
+      'MV': 'Maldives',
+      'MW': 'Malawi',
+      'MX': 'Mexico',
+      'MY': 'Malaysia',
+      'MZ': 'Mozambique',
+      'NA': 'Namibia',
+      'NC': 'New Caledonia',
+      'NE': 'Niger',
+      'NF': 'Norfolk Island',
+      'NG': 'Nigeria',
+      'NI': 'Nicaragua',
+      'NL': 'Netherlands',
+      'NO': 'Norway',
+      'NP': 'Nepal',
+      'NR': 'Nauru',
+      'NU': 'Niue',
+      'NZ': 'New Zealand',
+      'OM': 'Oman',
+      'PA': 'Panama',
+      'PE': 'Peru',
+      'PF': 'French Polynesia',
+      'PG': 'Papua New Guinea',
+      'PH': 'Philippines',
+      'PK': 'Pakistan',
+      'PL': 'Poland',
+      'PM': 'Saint Pierre and Miquelon',
+      'PN': 'Pitcairn',
+      'PR': 'Puerto Rico',
+      'PS': 'Palestine',
+      'PT': 'Portugal',
+      'PW': 'Palau',
+      'PY': 'Paraguay',
+      'QA': 'Qatar',
+      'RE': 'Réunion',
+      'RO': 'Romania',
+      'RS': 'Serbia',
+      'RU': 'Russian Federation',
+      'RW': 'Rwanda',
+      'SA': 'Saudi Arabia',
+      'SB': 'Solomon Islands',
+      'SC': 'Seychelles',
+      'SD': 'Sudan',
+      'SE': 'Sweden',
+      'SG': 'Singapore',
+      'SH': 'Saint Helena, Ascension and Tristan da Cunha',
+      'SI': 'Slovenia',
+      'SJ': 'Svalbard and Jan Mayen Islands',
+      'SK': 'Slovakia',
+      'SL': 'Sierra Leone',
+      'SM': 'San Marino',
+      'SN': 'Senegal',
+      'SO': 'Somalia',
+      'SR': 'Suriname',
+      'SS': 'South Sudan',
+      'ST': 'Sao Tome and Principe',
+      'SV': 'El Salvador',
+      'SX': 'Sint Maarten (Dutch part)',
+      'SY': 'Syrian Arab Republic',
+      'SZ': 'Kingdom of Eswatini',
+      'TC': 'Turks and Caicos Islands',
+      'TD': 'Chad',
+      'TF': 'French Southern Territories',
+      'TG': 'Togo',
+      'TH': 'Thailand',
+      'TJ': 'Tajikistan',
+      'TK': 'Tokelau',
+      'TL': 'Timor-Leste',
+      'TM': 'Turkmenistan',
+      'TN': 'Tunisia',
+      'TO': 'Tonga',
+      'TR': 'Republic of Türkiye',
+      'TT': 'Trinidad and Tobago',
+      'TV': 'Tuvalu',
+      'TW': 'Taiwan (Republic of China)',
+      'TZ': 'Tanzania, United Republic of',
+      'UA': 'Ukraine',
+      'UG': 'Uganda',
+      'UM': 'US Minor Outlying Islands',
+      'US': 'United States',
+      'UY': 'Uruguay',
+      'UZ': 'Uzbekistan',
+      'VA': 'Holy See (Vatican City State)',
+      'VC': 'Saint Vincent and the Grenadines',
+      'VE': 'Venezuela, Bolivarian Republic of',
+      'VG': 'Virgin Islands, British',
+      'VI': 'Virgin Islands, U.S.',
+      'VN': 'Vietnam',
+      'VU': 'Vanuatu',
+      'WF': 'Wallis and Futuna Islands',
+      'WS': 'Samoa',
+      'XK': 'Kosovo',
+      'YE': 'Yemen',
+      'YT': 'Mayotte',
+      'ZA': 'South Africa',
+      'ZM': 'Zambia',
+      'ZW': 'Zimbabwe'
+    }
+
+    this.EU = ['AT', 'BE', 'BG', 'HR', 'CY', 'CZ', 'DK', 'EE', 'FI', 'FR', 'DE', 'GR', 'EL', 'HU', 'IE', 'IT', 'LV', 'LT', 'LU', 'MT', 'NL', 'PL', 'PT', 'RO', 'SK', 'SI', 'ES', 'SE', 'EU'];
+    this.select = this.querySelector('#select-country-form')
+    this.countryName = this.querySelectorAll('.country-name')
+    this.estimateArrivalWrapper = this.querySelectorAll('.estimate-arrival')
+    this.orderShipWrapper = this.querySelectorAll('.order-ship')
+
+    this.getLocation()
+  }
+
+  genDom() {
+    this.estimateArrivalWrapper.forEach((dom) => {
+      dom.innerHTML = this.processEstimateArrival()
+    })
+
+    this.orderShipWrapper.forEach((dom) => {
+      dom.innerHTML = this.processOrderShip()
+    })
+  }
+
+  changeLocation(countryCode) {
+    localStorage.setItem('country', countryCode)
+
+    this.countryName.forEach((dom) => {
+      dom.innerHTML = this.getCountryName(countryCode)
+    })
+
+    if(this.EU.includes(countryCode)) {
+      this.genFlag(countryCode)
+      this.location = 'EU'
+    } else if(countryCode == 'CN') {
+      this.genFlag(countryCode)
+      this.location = 'CN'
+    } else if(countryCode == 'UK') {
+      this.genFlag(countryCode)
+      this.location = 'UK'
+    } else if(countryCode == 'US') {
+      this.genFlag(countryCode)
+      this.location = 'US'
+    } else if(countryCode == 'VN') {
+      this.genFlag(countryCode)
+      this.location = 'VN'
+    } else {
+      this.genFlag(countryCode)
+      this.location = 'WW'
+    }
+
+    if(this.location == 'EU') {
+      this.estimateArrival = this.content?.estimate_arrival_eu
+      this.orderShip = this.content?.order_ship_eu
+    } else if(this.location == 'CN') {
+      this.estimateArrival = this.content?.estimate_arrival_cn
+      this.orderShip = this.content?.order_ship_cn
+    } else if(this.location == 'UK') {
+      this.estimateArrival = this.content?.estimate_arrival_uk
+      this.orderShip = this.content?.order_ship_uk
+    } else if(this.location == 'US') {
+      this.estimateArrival = this.content?.estimate_arrival_us
+      this.orderShip = this.content?.order_ship_us
+    } else {
+      this.estimateArrival = this.content?.estimate_arrival_ww || '5-7'
+      this.orderShip = this.content?.order_ship_ww || '2-3'
+    }
+
+    this.genDom()
+  }
+
+  changeForAllElement(countryCode) {
+    document.querySelectorAll('delivery-wrapper').forEach((deliveryWrapper) => {
+      deliveryWrapper.changeLocation(countryCode)
+    })
+  }
+
+  async getLocation() {
+    const result = !localStorage.getItem('country') ? await fetch('https://ipinfo.io/json?token=93329ec3c2d129')
+    .then(response => response.json())
+    .then(data => { return data }) : { country: localStorage.getItem('country') }
+    if(!localStorage.getItem('country')) {
+      localStorage.setItem('country', result.country)
+    }
+
+    this.countryName.forEach((dom) => {
+      dom.innerHTML = this.getCountryName(result.country)
+    })
+
+    if(this.select) {
+      this.select.value = result.country
+    }
+
+    if(this.EU.includes(result.country)) {
+      this.genFlag(result.country)
+      this.location = 'EU'
+    } else if(result.country == 'CN') {
+      this.genFlag(result.country)
+      this.location = 'CN'
+    } else if(result.country == 'UK') {
+      this.genFlag(result.country)
+      this.location = 'UK'
+    } else if(result.country == 'US') {
+      this.genFlag(result.country)
+      this.location = 'US'
+    } else if(result.country == 'VN') {
+      this.genFlag(result.country)
+      this.location = 'VN'
+    } else {
+      this.genFlag(result.country)
+      this.location = 'WW'
+    }
+
+    if(this.location == 'EU') {
+      this.estimateArrival = this.content?.estimate_arrival_eu
+      this.orderShip = this.content?.order_ship_eu
+    } else if(this.location == 'CN') {
+      this.estimateArrival = this.content?.estimate_arrival_cn
+      this.orderShip = this.content?.order_ship_cn
+    } else if(this.location == 'UK') {
+      this.estimateArrival = this.content?.estimate_arrival_uk
+      this.orderShip = this.content?.order_ship_uk
+    } else if(this.location == 'US') {
+      this.estimateArrival = this.content?.estimate_arrival_us
+      this.orderShip = this.content?.order_ship_us
+    } else {
+      this.estimateArrival = this.content?.estimate_arrival_ww || '5-7'
+      this.orderShip = this.content?.order_ship_ww || '2-3'
+    }
+
+    this.genDom()
+  }
+
+  async genFlag(countryCode) {
+    if(this.querySelector('.flag')) {
+      this.querySelector('.flag').src = this.assetsFolderUrl + '/' + countryCode.toLowerCase() + '.svg';
+    }
+  }
+
+  getCountryName(countryCode) {
+    return this.flags[countryCode]
+  }
+
+  calculateSeconds(minValue, maxValue) {
+    const weekendDays = {
+      'Sat': true,
+      'Sun': true,
+    };
+  
+    function addDaysSkippingWeekends(startDate, daysToAdd) {
+      let currentDate = new Date(startDate);
+      while (daysToAdd > 0) {
+        currentDate.setDate(currentDate.getDate() + 1);
+        let dayName = currentDate.toLocaleString('en-US', { weekday: 'short' });
+        if (!weekendDays[dayName]) {
+          daysToAdd--;
+        }
+      }
+      return currentDate;
+    }
+  
+    let startDate = new Date();
+    let minDate = addDaysSkippingWeekends(startDate, minValue);
+    let maxDate = addDaysSkippingWeekends(startDate, maxValue);
+  
+    let options = { month: 'short', day: 'numeric' };
+    let minDateFormatted = minDate.toLocaleString('en-US', options);
+    let maxDateFormatted = maxDate.toLocaleString('en-US', options);
+  
+    if (minDate.getMonth() === maxDate.getMonth()) {
+      let month = minDate.toLocaleString('en-US', { month: 'short' });
+      let minDay = minDate.getDate();
+      let maxDay = maxDate.getDate();
+      return `${month} ${minDay}-${maxDay}`;
+    }
+  
+    return `${minDateFormatted} - ${maxDateFormatted}`;
+  }
+  
+  
+  processEstimateArrival() {
+    let minArrival, maxArrival;
+  
+    if (this.estimateArrival) {
+      const arrivalSplit = this.estimateArrival.replace(/\s/g, '').split('-');
+      minArrival = parseInt(arrivalSplit[0], 10);
+      maxArrival = parseInt(arrivalSplit[1], 10);
+    }
+  
+    return this.calculateSeconds(minArrival, maxArrival);
+  }
+  
+  processOrderShip() {
+    let minOrderShip, maxOrderShip;
+  
+    if (this.orderShip) {
+      const shipSplit = this.orderShip.replace(/\s/g, '').split('-');
+      minOrderShip = parseInt(shipSplit[0], 10);
+      maxOrderShip = parseInt(shipSplit[1], 10);
+    }
+  
+    return this.calculateSeconds(minOrderShip, maxOrderShip);
+  }
+}
+
+if (!customElements.get('delivery-wrapper')) {
+  customElements.define('delivery-wrapper', DeliveryWrapper);
+}
