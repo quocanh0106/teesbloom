@@ -250,6 +250,11 @@ button#customily-cart-btn:disabled ~ .button-unavailable,
 product-infor accordion-toggle .details * {
   @apply !text-sm;
 }
+
+product-infor accordion-toggle .details ul {
+  @apply !list-inside list-disc;
+}
+
 .installment shopify-payment-terms {
   @apply w-fit block mx-auto;
 }

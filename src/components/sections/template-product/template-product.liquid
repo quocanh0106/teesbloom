@@ -505,7 +505,7 @@
               {%- endif -%}
             </div>
           {%- when 'buy_buttons' -%}
-            <product-form class="block pb-6">
+            <product-form class="block">
               {%- form 'product', product, id: product_form_id, class: 'form mt-8', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
                 <div class="flex items-center gap-4 mb-4 mt-6">
@@ -559,13 +559,22 @@
                     <div class="button-unavailable"></div>
                   </div>
                 </sticky-add-to-cart>
+                <div class="h-4 mb-8 lg:mb-6 relative mt-4">
+                  <div 
+                    class="absolute top-0 left-0 block w-full h-full" 
+                    data-pp-style-text-align="left"
+                    data-pp-message 
+                    data-pp-style-text-size="16"
+                    data-pp-pageType="product-details">
+                  </div>
+                </div>   
               {%- endform -%}
             </product-form>
           {%- when 'collapsible_tab' -%}
             {% if block.settings.title != blank %}
               <accordion-toggle class="block w-full relative cursor-pointer bg-background py-3">
                 <div class="summary flex items-center justify-between gap-3">
-                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading uppercase">
+                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading">
                     {% if block.settings.icon == 'note' %}
                       {% render 'icon-mini-note' %}    
                     {% elsif block.settings.icon == 'truck' %}
@@ -589,7 +598,7 @@
             {% if block.settings.title != blank %}
               <accordion-toggle class="block w-full relative cursor-pointer bg-background py-3">
                 <div class="summary flex items-center justify-between gap-3">
-                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading uppercase">
+                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading">
                     {% if block.settings.icon == 'note' %}
                       {% render 'icon-mini-note' %}    
                     {% elsif block.settings.icon == 'truck' %}
@@ -603,8 +612,8 @@
                 <div class="details p-0">
                   <div class="icon-text grid grid-cols-3 items-start p-4">
                     <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary before:border before:border-t-2 before:block before:w-1/2 before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-[#77c888] before:border before:border-t-2 before:block before:w-1/2 before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-[#f1f1f1] rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                       </div>
                       <div class="date-text group">
                         <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
@@ -623,8 +632,8 @@
                       </div>
                     </div>
                     <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary before:border before:border-t-2 before:block before:w-full left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-[#77c888] before:border before:border-t-2 before:block before:w-full left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-[#f1f1f1] rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                       </div>
                       <div class="date-text group">
                         <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
@@ -639,8 +648,8 @@
                       {% assign datec = 'now' | date: "%s" | plus: seconds3 | date: "%b %d" %}
                       {% assign datecc = 'now' | date: "%s" | plus: seconds4 | date: "%b %d" %}
                       {% assign date = datec | append: '-' | append: datecc %}
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-primary before:border before:border-t-2 before:block before:w-1/2 left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-border-opacity-70 rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                      <div class="group relative mb-2.5 w-full before:content-empty before:border-[#77c888] before:border before:border-t-2 before:block before:w-1/2 left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-[#f1f1f1] rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                       </div>
                       <div class="date-text group">
                         <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
@@ -652,6 +661,12 @@
                       </div>
                     </div>
                   </div>
+                          
+                  {% if block.settings.description %}
+                    <div class="mt-3">
+                      {{ block.settings.description }}
+                    </div>
+                  {% endif %}
                 </div>
               </accordion-toggle>
             {% endif %}
@@ -864,6 +879,7 @@
 <script src="https://cdn.customily.com/shopify/static/customily.shopify.script.unified.js" defer></script>
 {% capture src_url %}{{ 'template-product.js' | asset_url }}{% endcapture %}
 {% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+<script defer src="https://www.paypal.com/sdk/js?client-id=ATBEvCNMEBg4vADetZKPULe2uR5RVw7lQhTnaP76nuCG3ZrZK74g--zENE-gPybdLVIXlAugJA1in3Au&components=messages" data-namespace="PayPalSDK"></script>
 
 {% schema %}
   {
@@ -937,7 +953,12 @@
               }
             ],
             "default": "note",
-            "label": "Text style"
+            "label": "Icon"
+          },
+          {
+            "type": "richtext",
+            "id": "description",
+            "label": "Description"
           }
         ]
       },
@@ -1046,7 +1067,7 @@
               }
             ],
             "default": "note",
-            "label": "Text style"
+            "label": "Icon"
           },
           {
             "type": "text",
@@ -1059,7 +1080,7 @@
             "label": "Use product description"
           },
           {
-            "type": "text",
+            "type": "richtext",
             "id": "description",
             "label": "Description"
           }

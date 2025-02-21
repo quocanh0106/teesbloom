@@ -14,11 +14,11 @@
 {%- endstyle -%}
 <div data-section-id="{{ section.id }}">
   <recently-viewed class="{% unless section.settings.fullwidth %} page-width{% endunless %} block relative overflow-hidden">
-    <div class="flex items-center justify-center mb-5 lg:mb-10">
-      <h2 class="text-3xl font-semibold capitalize text-center text-secondary">{{ section.settings.heading | escape }}</h2>
+    <div class="flex items-center justify-center pb-3">
+      <h2 class="text-base font-semibold capitalize text-center text-secondary">{{ section.settings.heading | escape }}</h2>
     </div>
 
-    <ul class="product-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 transition-all duration-500 gap-y-3 gap-x-5 lg:gap-10  overflow-hidden">
+    <ul class="product-wrapper grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 transition-all duration-500 gap-y-8 gap-x-5 overflow-hidden">
       <span class="!block w-full pb-52"></span>
     </ul>
   </recently-viewed>
