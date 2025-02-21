@@ -34,7 +34,7 @@
       {% for block in section.blocks %}
         <div class="tab-wrapper md:px-7.5 lg:px-0 lg:!bg-transparent lg:!py-0 lg:!mt-0" data-block-id="{{ block.id }}">
           <div class="tab-detail{% unless forloop.first %} hidden{% endunless %}" data-id="{{ block.id }}">
-              <div class="grid gap-y-3 gap-x-5 lg:gap-10 grid-cols-{{ section.settings.product_per_row_mobile }} md:grid-cols-{{ section.settings.product_per_row_tablet }} lg:grid-cols-{{ section.settings.product_per_row }} transition-all duration-500 overflow-hidden">
+              <div class="grid gap-y-8 gap-x-5 grid-cols-{{ section.settings.product_per_row_mobile }} md:grid-cols-{{ section.settings.product_per_row_tablet }} lg:grid-cols-{{ section.settings.product_per_row }} transition-all duration-500 overflow-hidden">
                 {%- for product in block.settings.collection.products limit: section.settings.limit -%}
                   {%- render 'product-card', product: product, collection: block.settings.collection, freeship_placeholder: true -%}
                 {%- endfor -%}

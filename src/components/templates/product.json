@@ -9,45 +9,52 @@
  */
  {
   "sections": {
-    "breadcrumb_gwQ4Th": {
-      "type": "breadcrumb",
-      "settings": {
-        "background_color": "#FFFFFF",
-        "color_text_breadcrumb_link": "#808080",
-        "color_text_breadcrumb_link_hover": "#0F0F0F",
-        "color_text_breadcrumb": "#0F0F0F",
-        "padding_top": 16,
-        "padding_bottom": 16,
-        "padding_top_mb": 16,
-        "padding_bottom_mb": 16
-      }
-    },
     "template": {
       "type": "template-product",
       "blocks": {
         "title": {
           "type": "title",
-          "settings": {
-          }
+          "settings": {}
         },
         "price": {
           "type": "price",
-          "settings": {
-          }
+          "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
-          "settings": {
-          }
+          "settings": {}
         },
         "quantity_selector": {
           "type": "quantity_selector",
-          "settings": {
-          }
+          "settings": {}
         },
         "buy_buttons": {
           "type": "buy_buttons",
+          "settings": {}
+        },
+        "collapsible_tab_rgNGfA": {
+          "type": "collapsible_tab",
           "settings": {
+            "icon": "none",
+            "title": "Item details",
+            "product_description": true,
+            "description": ""
+          }
+        },
+        "collapsible_shipping_JrMi6N": {
+          "type": "collapsible-shipping",
+          "settings": {
+            "title": "Shipping Time",
+            "icon": "none"
+          }
+        },
+        "collapsible_tab_qkcXEy": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "title": "Personalization",
+            "product_description": false,
+            "description": ""
           }
         }
       },
@@ -56,10 +63,12 @@
         "price",
         "variant_picker",
         "quantity_selector",
-        "buy_buttons"
+        "buy_buttons",
+        "collapsible_tab_rgNGfA",
+        "collapsible_shipping_JrMi6N",
+        "collapsible_tab_qkcXEy"
       ],
-      "settings": {
-      }
+      "settings": {}
     },
     "product_recommendations_7Up4gQ": {
       "type": "product-recommendations",
@@ -89,6 +98,19 @@
         "padding_top_mb": 32,
         "padding_bottom_mb": 32
       }
+    },
+    "breadcrumb_gwQ4Th": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#808080",
+        "color_text_breadcrumb_link_hover": "#0f0f0f",
+        "color_text_breadcrumb": "#0f0f0f",
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 16
+      }
     }
   },
   "order": [
@@ -96,6 +118,5 @@
     "product_recommendations_7Up4gQ",
     "recently_viewed_product_qgmcEj",
     "breadcrumb_gwQ4Th"
-
   ]
 }
