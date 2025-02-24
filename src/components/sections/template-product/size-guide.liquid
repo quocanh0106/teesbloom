@@ -15,11 +15,16 @@
 {% endfor %}
 
 <modal-dialog id="PopupModal-Sizeguide" class="hidden fixed top-0 left-0 bg-black bg-opacity-20 w-full h-full z-20">
-  <div class="absolute p-4 pt-8 lg:p-12 bg-background h-fit left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[calc(100vh_-_30px)] w-[746px] max-w-[calc(100vw_-_30px)] scrollbar-thin overflow-y-auto rounded-xl">
+  <div class="absolute p-4 lg:p-6 bg-background h-fit left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[calc(100vh_-_32px)] w-[865px] max-w-[calc(100vw_-_32px)] scrollbar-thin overflow-y-auto rounded-xl">
     <tabs-component class="sizeguide normal-tab">
-      <div class="mb-4 lg:mb-6 w-fit mx-auto flex flex-col justify-center items-center gap-2">
-        <span class="text-h5 lg:text-h3 text-primary capitalize font-heading">{{ 'products.product.size_guide' | t }}</span>
-        <select-toggle class="block py-2 pl-4 pr-3 border border-solid border-primary relative rounded-[100px] clickout-accordion">
+      <div class="mb-4 lg:mb-6 w-fit mx-auto ">
+        <div class="flex items-center justify-between">
+          <span class="text-h5 lg:text-h4 text-center !font-medium text-primary capitalize font-heading">{{ 'products.product.size_guide' | t }}</span>
+          <span class="text-primary cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full close">
+            {% render 'icon-close', class: 'w-6 h-6' %}
+          </span>
+        </div>
+        <select-toggle class="hidden py-2 pl-4 pr-3 border border-solid border-primary relative rounded-[100px] clickout-accordion">
           <div class="summary flex items-center gap-2 text-primary cursor-pointer">
             <span class="value text-sm leading-5 text-primary" data-value="{{ activeElement }}">{{ activeElement }}</span>
             {% render 'icon-down', class: 'w-5 h-5 icon-add' %}
@@ -95,9 +100,7 @@
         {% endfor %}
       </div>
     </tabs-component>
-    <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-5 lg:right-5 close">
-      {% render 'icon-close', class: 'w-6 h-6' %}
-    </span>
+
   </div>
 </modal-dialog>
 <script defer>

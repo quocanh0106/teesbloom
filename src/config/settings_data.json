@@ -124,7 +124,9 @@
           "mega_menu_4pLgK9",
           "mega_menu_KrEdcd"
         ],
-        "settings": {}
+        "settings": {
+          "top_menu": ""
+        }
       },
       "footer": {
         "type": "footer",
@@ -136,10 +138,11 @@
               "col_span_tablet": 1,
               "col_span_mobile": 1,
               "heading": "Wander Prints™",
-              "address": "<b>United States:<\/b>  PMB 3398 201 E Center St Ste 112 Anaheim, CA 92805",
-              "address_2": "<b>United Kingdom:<\/b> 24-26, Arcadia Avenue, Dephna House #105, London, Greater London, N3 2JU, UK",
+              "email": "",
+              "address": "<b>United States:</b>  PMB 3398 201 E Center St Ste 112 Anaheim, CA 92805",
+              "address_2": "<b>United Kingdom:</b> 24-26, Arcadia Avenue, Dephna House #105, London, Greater London, N3 2JU, UK",
               "heading_2": "GET IN TOUCH!",
-              "time_work": "<b>Support Time:<\/b> 9 AM to 5 PM, Mon-Sat",
+              "time_work": "<b>Support Time:</b> 9 AM to 5 PM, Mon-Sat",
               "heading_social": "Be Social Stay Connected!",
               "show_social": true
             }
@@ -182,12 +185,12 @@
           "link_list_M4fCNc"
         ],
         "settings": {
-          "background": "#F7F7F7",
+          "background": "#f7f7f7",
           "heading_color": "#000000",
           "text_color": "#000000",
-          "text_hover_color": "#044D79",
+          "text_hover_color": "#044d79",
           "social_color": "#000000",
-          "social_hover_color": "#044D79",
+          "social_hover_color": "#044d79",
           "border_color": "#d6d6d6",
           "col_per_row_desktop": 4,
           "col_per_row_tablet": 2,
@@ -219,16 +222,16 @@
       "newsletter": {
         "type": "newsletter",
         "settings": {
-          "background_section": "#F7F7F7",
-          "background_section_mb": "#F7F7F7",
+          "background_section": "#f7f7f7",
+          "background_section_mb": "#f7f7f7",
           "full_width": true,
           "show_only_mb": false,
           "heading": "UNLOCK YOUR 10% OFF!",
+          "color_heading": "#044d79",
+          "color_heading_mb": "#044d79",
           "text": "Deals and handpicked gift ideas, made just for you!",
-          "color_heading": "#044D79",
-          "color_heading_mb": "#044D79",
-          "color_paragraph": "#044D79",
-          "color_paragraph_mb": "#044D79",
+          "color_paragraph": "#044d79",
+          "color_paragraph_mb": "#044d79",
           "padding_top": 0,
           "padding_bottom": 0,
           "padding_top_mb": 0,
@@ -236,7 +239,14 @@
         }
       }
     },
-    "content_for_index": []
+    "content_for_index": [],
+    "blocks": {
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
+      }
+    }
   },
   "presets": {
     "Default": {}

@@ -26,10 +26,7 @@
         <span class="text-sm font-normal text-sale leading-5">-{{ cart.total_discount | money }}</span>
       </li>
     {% endif %}
-    <li class="flex items-center justify-between gap-2">
-      <span class="text-sm font-normal text-error capitalize leading-5">{{ 'sections.cart.totalsaving' | t }}</span>
-      <span class="text-sm font-normal text-error leading-5">{{ original_price | minus: cart.total_price | money }}</span>
-    </li>
+
     <li class="flex items-center justify-between gap-2">
       <span class="text-sm font-medium text-primary capitalize leading-5">{{ 'sections.cart.subtotal' | t }}</span>
       <span class="text-base font-semibold text-primary font-heading leading-4 uppercase totals__subtotal-value">

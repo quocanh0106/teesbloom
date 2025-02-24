@@ -128,7 +128,7 @@ tabs-component.product-infortab .tab-detail.lg\:hidden {
 }
 
 .sticky-header .product-media-wrapper {
-  @apply lg:top-[137px];
+  @apply lg:top-[158px];
 }
 
 
@@ -321,12 +321,6 @@ product-infor accordion-toggle .details ul {
   .customily-download-button {
     @apply text-[0px] leading-[0px];
   } 
-
-  .customily-download-button::after {
-    content: 'Cliquez Ici Pour Voir Les Résultats'!important;
-    display: inline;
-    font-size: 14px;
-  }
 }
 
 inbox-online-store-chat {
@@ -339,4 +333,283 @@ inbox-online-store-chat {
 
 slider-component.gallery .slider-dots .slider-dot.active {
   @apply border-[3px] !border-special
+}
+
+
+.product-description div {
+  @apply mb-4 lg:mb-6 mt-2 lg:mt-3 first:!mt-0 last:!mb-0;
+}
+
+.product-description div * {
+  @apply text-sm leading-5 mb-4 last:mb-0 ;
+}
+
+.product-description div ul li {
+  @apply !mb-2 last:!mb-0
+}
+
+.product-description div ul li * {
+  @apply !mb-0;
+}
+
+.product-description img {
+  @apply w-full rounded mb-4 lg:mb-6 last:mb-0;
+}
+
+.product-details * {
+  @apply text-sm leading-5 mb-4 last:mb-0;
+}
+
+.product-details a {
+  @apply !inline;
+}
+
+.product-details p:empty {
+  @apply !block h-[0.02px];
+}
+
+.product-details.special p {
+  @apply !inline;
+}
+
+.product-details ul {
+  @apply list-inside list-disc mb-4 ml-2 -mt-2 first:mt-0;
+}
+
+.product-details ol {
+  @apply list-inside list-decimal mb-4 ml-2 -mt-2 first:mt-0;
+}
+
+.product-details ul li,
+.product-details ol li {
+  @apply !mb-1 last:!mb-0;
+}
+
+.product-details ul li *,
+.product-details ol li * {
+  @apply !mb-0;
+}
+
+.shipping-description {
+  @apply font-light text-primary text-sm leading-5;
+}
+
+.shipping-mini-description {
+  @apply font-light text-primary text-xxs leading-4.5;
+}
+
+.shipping-description *, .shipping-mini-description * {
+  @apply mb-4 last:mb-0 
+}
+
+.shipping-description h1,
+.shipping-description h2,
+.shipping-description h3,
+.shipping-description h4,
+.shipping-description h5,
+.shipping-description h6,
+.shipping-mini-description h1,
+.shipping-mini-description h2,
+.shipping-mini-description h3,
+.shipping-mini-description h4,
+.shipping-mini-description h5,
+.shipping-mini-description h6 {
+  @apply font-semibold mb-4 text-primary;
+}
+
+.shipping-description p+p,
+.shipping-mini-description p+p {
+  @apply -mt-3;
+}
+
+.shipping-description ul,
+.shipping-mini-description ul {
+  @apply list-inside list-disc mb-4 ml-2 -mt-2 first:mt-0;
+}
+
+.shipping-description ol,
+.shipping-mini-description ol {
+  @apply list-inside list-decimal mb-4 ml-2 -mt-2 first:mt-0;
+}
+
+.shipping-description ul li,
+.shipping-description ol li,
+.shipping-mini-description ul li,
+.shipping-mini-description ol li {
+  @apply !mb-1 last:!mb-0;
+}
+
+.shipping-description ul li *,
+.shipping-description ol li *,
+.shipping-mini-description ul li *,
+.shipping-mini-description ol li * {
+  @apply !mb-0;
+}
+
+.shipping-description strong,
+.shipping-description b,
+.shipping-mini-description strong,
+.shipping-mini-description b {
+  @apply font-medium mb-0;
+}
+
+.content-wrapper {
+  @apply text-primary font-light text-sm leading-5 md:text-base md:leading-6;
+}
+
+.content-wrapper h1,
+.content-wrapper h2,
+.content-wrapper h3,
+.content-wrapper h4,
+.content-wrapper h5,
+.content-wrapper h6,
+.content-wrapper h1 *,
+.content-wrapper h2 *,
+.content-wrapper h3 *,
+.content-wrapper h4 *,
+.content-wrapper h5 *,
+.content-wrapper h6 * {
+  @apply mx-0 text-primary !font-semibold;
+}
+
+.content-wrapper h2,
+.content-wrapper h2 * {
+  @apply !text-base lg:!text-h5 !font-semibold;
+}
+
+.content-wrapper h3,
+.content-wrapper h3 *,
+.content-wrapper h4,
+.content-wrapper h4 *,
+.content-wrapper h5,
+.content-wrapper h5 *,
+.content-wrapper h6,
+.content-wrapper h6 * {
+  @apply !text-sm lg:!text-base !font-semibold;
+}
+
+.content-wrapper h1,
+.content-wrapper h2,
+.content-wrapper h3,
+.content-wrapper h4,
+.content-wrapper h5,
+.content-wrapper h6 {
+  @apply lg:mx-0 my-2 first:mt-0;
+}
+
+.content-wrapper a,
+.content-wrapper p,
+.content-wrapper ul {
+  @apply mb-4;
+}
+
+.content-wrapper a,
+.content-wrapper a * {
+  @apply inline !font-semibold;
+}
+
+.content-wrapper a {
+  @apply underline;
+}
+
+.content-wrapper p+h2,
+.content-wrapper p+h3,
+.content-wrapper p+h4,
+.content-wrapper p+h5 {
+  @apply mt-5;
+}
+
+.content-wrapper p+p {
+  @apply -mt-3 lg:-mt-4;
+}
+
+.content-wrapper b * {
+  @apply !font-semibold;
+}
+
+.content-wrapper ul {
+  @apply list-inside text-primary font-body;
+}
+
+.content-wrapper ol {
+  @apply list-inside list-decimal text-primary font-body;
+}
+
+.content-wrapper ul > ul {
+  @apply pl-5 lg:pl-10;
+}
+
+.content-wrapper ul li p {
+  @apply inline;
+}
+
+.content-wrapper ul li,
+.content-wrapper ul li * {
+  @apply list-disc marker:text-primary text-sm leading-5 md:text-base md:leading-6;
+}
+
+.content-wrapper ul li * {
+  @apply !mb-0;
+}
+
+.content-wrapper strong,
+.content-wrapper strong *,
+.content-wrapper b,
+.content-wrapper b * {
+  @apply !font-medium;
+}
+
+.content-wrapper blockquote,
+.content-wrapper blockquote * {
+  @apply !font-light !font-heading text-xs md:text-sm italic m-0 p-0 !text-center;
+}
+
+.content-wrapper blockquote {
+  @apply mx-auto mt-2 mb-4 lg:mb-5;
+}
+
+.content-wrapper table {
+  @apply !w-full !rounded-lg !mx-auto;
+}
+
+.content-wrapper table tr {
+  @apply !border-t !border-b !border-primary;
+}
+
+.content-wrapper table tr td,
+.content-wrapper table tr th {
+  @apply !border-x !border-primary !text-center !p-2 first:!text-left;
+}
+
+.content-wrapper table tr td * {
+  @apply !m-0;
+}
+
+.content-wrapper img {
+  @apply h-fit object-contain max-w-full rounded-[10px] !mx-auto block;
+}
+
+
+.sizeguide-mobile {
+  h2 {
+    @apply text-center mb-3;
+  }
+  table {
+    @apply w-full rounded-lg overflow-hidden mb-8 last:mb-0 border border-border;
+    tbody {
+      @apply w-full border border-border;
+      tr {
+        @apply w-full text-center odd:bg-border border border-border;
+        th {
+          @apply text-sm leading-2 md:text-base md:leading-2 font-medium font-heading text-primary p-3 md:px-4 border border-border;
+        }
+        td {
+          @apply text-sm leading-5 md:text-base md:leading-6 font-light text-primary p-3 md:px-4 border border-border;
+        }
+        &:not(:first-child) th {
+          @apply mx-auto font-light text-primary font-body py-2;
+        }
+      }
+    }
+  }
 }

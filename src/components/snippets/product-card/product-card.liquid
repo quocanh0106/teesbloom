@@ -23,6 +23,7 @@
   {% endif %}
 {% endif %}
 {%- if product and product != empty -%}
+  {% assign numberRating = product.metafields.judgeme.badge | split: "data-number-of-reviews='" | last | split: "'" | first | plus: 0 %}
   <div class="card-wrapper product-card-wrapper" data-handle="{{ product.handle }}">
     {%- if media -%}
       <a href="{{ product.url | split: '?' | first }}" class="relative block group overflow-hidden rounded-xl" title="{{ product.title }}">
@@ -78,6 +79,9 @@
           {{ product.title | escape }}
         </a>
       </{{ heading }}>
+      {% if numberRating > 0 %}
+        {{ product.metafields.judgeme.badge }}
+      {% endif %}
       <span class="text-sm text-[#8e8e8e]">{{ product.type }}</span>
       {% render 'price', product: product, use_variant: true %}
     </div>

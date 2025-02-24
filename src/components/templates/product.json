@@ -16,8 +16,16 @@
           "type": "title",
           "settings": {}
         },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
         "price": {
           "type": "price",
+          "settings": {}
+        },
+        "shipping_box_rEnepE": {
+          "type": "shipping-box",
           "settings": {}
         },
         "variant_picker": {
@@ -45,7 +53,8 @@
           "type": "collapsible-shipping",
           "settings": {
             "title": "Shipping Time",
-            "icon": "none"
+            "icon": "none",
+            "description": ""
           }
         },
         "collapsible_tab_qkcXEy": {
@@ -60,7 +69,9 @@
       },
       "block_order": [
         "title",
+        "rating",
         "price",
+        "shipping_box_rEnepE",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
@@ -99,6 +110,12 @@
         "padding_bottom_mb": 32
       }
     },
+    "sizeguide": {
+      "type": "size-guide",
+      "settings": {
+
+      }
+    },
     "breadcrumb_gwQ4Th": {
       "type": "breadcrumb",
       "settings": {
@@ -117,6 +134,7 @@
     "template",
     "product_recommendations_7Up4gQ",
     "recently_viewed_product_qgmcEj",
+    "sizeguide",
     "breadcrumb_gwQ4Th"
   ]
 }

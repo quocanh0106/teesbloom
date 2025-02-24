@@ -422,3 +422,13 @@ predictive-search[open=true] button[type=reset] {
 inbox-online-store-chat {
   @apply !z-10
 }
+
+.jdgm-prev-badge {
+  @apply after:content-[attr(data-number-of-reviews)] after:font-semibold after:text-subtext after:text-sm after:leading-none;
+  .jdgm-prev-badge__text {
+    @apply hidden;
+  }
+  .jdgm-star {
+    @apply !text-sm !leading-none !text-special;
+  }
+}

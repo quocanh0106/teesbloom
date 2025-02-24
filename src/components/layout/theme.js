@@ -54,6 +54,29 @@ if (!customElements.get('modal-dialog')) {
   customElements.define('modal-dialog', ModalDialog);
 }
 
+class SelectCountry extends ModalDialog {
+  constructor() {
+    super();
+    this.select = this.querySelector('select')
+
+    this.select.value = localStorage.getItem('country') ? localStorage.getItem('country') : 'US'
+    this.submit = this.querySelector('.submit')
+    this.submit.addEventListener('click', () => {
+      this.updateCountry()
+    })
+  }
+
+  updateCountry() {
+    document.querySelector('delivery-wrapper').changeForAllElement(this.select.value)
+    this.hide()
+  }
+}
+
+if (!customElements.get('select-country')) {
+  customElements.define('select-country', SelectCountry);
+}
+
+
 if (!customElements.get('accordion-toggle')) {
   class Accordion extends HTMLElement {
     constructor() {
