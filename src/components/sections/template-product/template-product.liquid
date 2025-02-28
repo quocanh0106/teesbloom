@@ -883,8 +883,8 @@
     }
   </script>
 </section>
-<script src="https://cdn.customily.com/customily.js" defer></script>
-<script src="https://cdn.customily.com/shopify/static/customily.shopify.script.unified.js" defer></script>
+{% comment %} <script src="https://cdn.customily.com/customily.js" defer></script>
+<script src="https://cdn.customily.com/shopify/static/customily.shopify.script.unified.js" defer></script> {% endcomment %}
 {% capture src_url %}{{ 'template-product.js' | asset_url }}{% endcapture %}
 {% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
 <script defer src="https://www.paypal.com/sdk/js?client-id=ATBEvCNMEBg4vADetZKPULe2uR5RVw7lQhTnaP76nuCG3ZrZK74g--zENE-gPybdLVIXlAugJA1in3Au&components=messages" data-namespace="PayPalSDK"></script>

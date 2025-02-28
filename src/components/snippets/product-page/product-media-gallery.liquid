@@ -41,13 +41,13 @@
       </div> {% endcomment %}
       <button
         type="button"
-        class="prev-main-{{ section.id }} absolute top-1/2 -translate-y-1/2 left-2.5 z-10 w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary-700 hover:text-primary-900 disabled:text-primary-700-opacity-40"
+        class="prev-main-{{ section.id }} absolute top-1/2 -translate-y-1/2 left-2.5 z-[1] w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary-700 hover:text-primary-900 disabled:text-primary-700-opacity-40"
         name="previous"
         aria-label="previous">
         {%- render 'icon-prev', class: 'w-6 h-6 lg:w-7 lg:h-7' -%}</button>
       <button
         type="button"
-        class="next-main-{{ section.id }} absolute top-1/2 -translate-y-1/2 right-2.5 z-10 w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary-700 hover:text-primary-900 disabled:text-primary-700-opacity-40"
+        class="next-main-{{ section.id }} absolute top-1/2 -translate-y-1/2 right-2.5 z-[1] w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary-700 hover:text-primary-900 disabled:text-primary-700-opacity-40"
         name="next"
         aria-label="next">{%- render 'icon-next', class: 'w-6 h-6 lg:w-7 lg:h-7' -%}</button>
     {% endif %}
