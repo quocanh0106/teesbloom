@@ -76,7 +76,6 @@ if (!customElements.get('modal-dialog')) {
   }
 }
 
-
 if (!customElements.get('accordion-toggle')) {
   class Accordion extends HTMLElement {
     constructor() {

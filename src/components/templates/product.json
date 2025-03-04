@@ -112,9 +112,20 @@
     },
     "sizeguide": {
       "type": "size-guide",
-      "settings": {
-
-      }
+      "blocks": {
+        "type_XUjiVV": {
+          "type": "type",
+          "settings": {
+            "title": "T-Shirt",
+            "feature_image": "shopify://shop_images/T-shirt.png",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "type_XUjiVV"
+      ],
+      "settings": {}
     },
     "breadcrumb_gwQ4Th": {
       "type": "breadcrumb",
