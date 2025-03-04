@@ -296,6 +296,17 @@
     ]
   },
   {
+    "name": "Customily",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "customily",
+        "label": "Enable script customily",
+        "default": false
+      }
+    ]
+  },
+  {
     "name": "Social media",
     "settings": [
       {

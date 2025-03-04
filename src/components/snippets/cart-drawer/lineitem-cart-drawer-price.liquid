@@ -28,7 +28,6 @@
     {% if compare_at_price > price %}
       <div class="text-primary text-sm leading-4 font-bold">{{ price | money }}</div>
       <div class="text-primary line-through text-xs leading-6 font-normal">{{ compare_at_price | money }}</div>
-      <div class="text-sale text-xs font-medium leading-4">{{ percent | prepend: '-' | append: '%' }}</div>
     {% else %}
       <div class="text-primary text-sm leading-4 font-bold">{{ price | money }}</div>
     {% endif %}

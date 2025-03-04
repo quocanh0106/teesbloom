@@ -66,17 +66,12 @@
 
                 <select-country id="select-country" class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20">
                   <div class="rounded-2xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[343px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
-                    <div class="px-5 py-6">
-                      <div class="flex items-center justify-between"> 
-                        <span class="font-heading text-lg leading-4 text-primary font-semibold">Select your shipping country</span>
-                        <span class="text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full close">
-                          {% render 'icon-close', class: 'w-5 h-5' %}
-                        </span>
-                      </div>
-                
-                      <div class="mt-6">
-                        <label for="select-country-form" class="block text-base font-normal leading-4 font-heading text-primary mb-2">Select your country</label>
-                        <select class="w-full rounded-[100px] h-12.5 border border-border py-3 px-5 pr-10 text-base" name="select-country" id="select-country-form">
+                    <div class="px-6 pt-6">
+                      <span class="absolute top-2 right-2 text-primary cursor-pointer bg-background flex items-center justify-center close">
+                        {% render 'icon-close', class: 'w-5 h-5' %}
+                      </span>
+                      <label for="select-country-form" class="block text-base font-normal leading-4 font-heading text-primary mb-2">Select your shipping country</label>
+                      <select class="w-full rounded-lg h-11 border border-border py-2 px-5 pr-10 text-base" name="select-country" id="select-country-form">
                           <option value="AD">Andorra</option>
                           <option value="AE">United Arab Emirates</option>
                           <option value="AF">Afghanistan</option>
@@ -332,12 +327,10 @@
                           <option value="ZA">South Africa</option>
                           <option value="ZM">Zambia</option>
                           <option value="ZW">Zimbabwe</option>
-                        </select>
-                      </div>
+                      </select>
                     </div>
-                    <div class="p-5 grid grid-cols-2 gap-2 border-t border-border">
-                      <button class="close btn btn-2 h-[42px]">CANCEL</button>
-                      <button class="submit btn h-[42px]">SUBMIT</button>
+                    <div class="px-6 pb-6 pt-4">
+                      <button class="submit btn w-full !h-10 !rounded-[100px]">SUBMIT</button>
                     </div>
                   </div>
                 </select-country>
@@ -440,6 +433,27 @@
                         {%- for value in option.values -%}
                           <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
                           <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center option-size-label min-w-12 max-w-6-col-variant w-full">
+                            {{ value }}
+                          </label>
+                        {%- endfor -%}
+                      </div>
+                    </fieldset>
+                  {% elsif optionName == 'color' or optionName == 'farbe' or optionName == 'colore' or optionName == 'couleur' %}
+                    <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} selector-wrapper data-layer-{{ fatherIndex }}">
+                      <legend class="form__label mb-3 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
+                        {{ option.name }}
+                        <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
+                        <span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>
+                        {% unless forloop.first %}<span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>{% endunless %}
+                        {% if forloop.index == 3 %}
+                          {% assign option1 = product.options_with_values[1].name | split: " " | last %}
+                          <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: option1 }}</span>
+                        {% endif %}
+                      </legend>
+                      <div class="option-values flex flex-wrap gap-2">
+                        {%- for value in option.values -%}
+                          <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-none lg:leading-none min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center {% if option.values.size > 2 %} max-w-3-col-variant w-full{% else %} max-w-2-col-variant w-auto{% endif %} option-label">
                             {{ value }}
                           </label>
                         {%- endfor -%}
@@ -883,8 +897,10 @@
     }
   </script>
 </section>
-<script src="https://cdn.customily.com/customily.js" defer></script>
-<script src="https://cdn.customily.com/shopify/static/customily.shopify.script.unified.js" defer></script>
+{% if settings.customily %}
+  <script src="https://cdn.customily.com/customily.js" defer></script>
+  <script src="https://cdn.customily.com/shopify/static/customily.shopify.script.unified.js" defer></script>
+{% endif %}
 {% capture src_url %}{{ 'template-product.js' | asset_url }}{% endcapture %}
 {% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
 <script defer src="https://www.paypal.com/sdk/js?client-id=ATBEvCNMEBg4vADetZKPULe2uR5RVw7lQhTnaP76nuCG3ZrZK74g--zENE-gPybdLVIXlAugJA1in3Au&components=messages" data-namespace="PayPalSDK"></script>

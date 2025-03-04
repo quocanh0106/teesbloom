@@ -4,7 +4,7 @@ import './template-product-uk.scss';
 function fetchConfig(type = 'json') {
   return {
     method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': `application/json, application/${type}, text/${type}` }
+    headers: { 'Content-Type': 'application/json', 'Accept': `application/${type}` }
   };
 }
 
@@ -385,6 +385,7 @@ class ProductForm extends HTMLElement {
 
     const config = fetchConfig('javascript');
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    delete config.headers['Content-Type'];
     const formData = new FormData(this.form);
     if (this.cart) {
       formData.append('sections', this.getSectionsToRender().map((section) => section.id));

@@ -147,12 +147,12 @@
                           </modal-dialog>
                           <div class="flex items-center gap-2 justify-between mt-auto">
                             {% render 'lineitem-cart-drawer-price', product: item.variant %}
-                            <quantity-input class="flex items-center relative w-fit h-5 rounded-3xl" data-index="{{ item.index | plus: 1 }}">
-                              <button class="w-5 h-5 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button">
+                            <quantity-input class="flex items-center relative w-fit h-6 rounded-3xl" data-index="{{ item.index | plus: 1 }}">
+                              <button class="w-6 h-6 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button">
                                 {% render 'icon-minus', class: 'w-3 h-3 mx-auto' %}
                               </button>
-                              <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-6 lg:w-12 h-full font-medium text-center !ring-0 shadow-none focus:border-none" inputmode="numeric" pattern="[0-9]*" type="number" name="updates[]" value="{{ item.quantity }}" min="0" id="Quantity-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
-                              <button class="w-5 h-5 border border-[#f2f2f6] bg-[#f2f2f6] rounded-r-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="plus" type="button">
+                              <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-8 h-full font-medium text-center !ring-0 shadow-none focus:border-none" inputmode="numeric" pattern="[0-9]*" type="number" name="updates[]" value="{{ item.quantity }}" min="0" id="Quantity-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                              <button class="w-6 h-6 border border-[#f2f2f6] bg-[#f2f2f6] rounded-r-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="plus" type="button">
                                 {% render 'icon-plus', class: 'w-3 h-3 mx-auto' %}
                               </button>
                             </quantity-input>
