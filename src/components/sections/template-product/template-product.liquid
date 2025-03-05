@@ -59,9 +59,9 @@
                 <span class="text-primary text-sm leading-5 font-light flex-none">
                   Deliver to
                 </span>
-                <modal-opener data-id="#select-country" class="flex gap-2 items-center cursor-pointer">
+                <modal-opener data-id="#select-country" class="flex gap-1 items-center cursor-pointer">
                   <span class="country-name text-sm leading-4 font-normal text-[#32ADE6]">United States</span>
-                  {% render 'icon-down', class: 'w-4.5 h-4.5 text-secondary-800 flex-none' %}
+                  {% render 'icon-down', class: 'w-4.5 h-4.5 text-[#32ADE6] flex-none' %}
                 </modal-opener>
 
                 <select-country id="select-country" class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20">
@@ -342,8 +342,8 @@
                   Order today and get it by:
                 </span>
 
-                <div class="group cursor-pointer">
-                  <span class="estimate-arrival text-primary text-sm leading-5 font-normal underline">{{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }} - {{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}</span>
+                <div class="group cursor-pointer relative">
+                  <span class="estimate-arrival text-[#444] text-sm leading-5 font-semibold border-b-2 border-dashed border-[#444]">{{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }} - {{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}</span>
                   <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible bg-background shadow-tooltip rounded p-3 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-[343px] max-w-[calc(100vw_-_32px)]">
                     <div class="icon-text grid grid-cols-3 items-start bg-background w-full rounded py-2">
                       <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-start text-left">
@@ -404,8 +404,6 @@
                         {{ section.settings.shipping_mini_description }}
                       </div>
                     {% endif %}
-
-                    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-4 h-4 bg-background rotate-45 !block shadow-[10px_3px_10px_0px_rgba(0,_0,_0,_0.12)]"></div>
                   </div>
                 </div>
               </div>
@@ -422,9 +420,12 @@
                         <legend class="form__label flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">{{ 'products.product.size' | t }}
                           <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
                           <span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>
-                          {% if forloop.index == 3 %}
-                            {% assign option1 = product.options_with_values[1].name | split: " " | last %}
-                            <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: option1 }}</span>
+                          {% if forloop.index > 1 %}
+                            {% assign optionMes = product.options_with_values[0].name | split: " " | last %}
+                            {% if forloop.index == 3 %}
+                              {% assign optionMes = product.options_with_values[1].name | split: " " | last %}
+                            {% endif %}
+                            <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: optionMes }}</span>
                           {% endif %}
                         </legend>
                         <modal-opener data-id="#PopupModal-Sizeguide" data-active="{{ activeType }}" class="size-popup flex gap-2 text-sm items-center capitalize cursor-pointer font-semibold font-heading text-[#0070BA] underline underline-offset-2">{{ 'products.product.size_guide' | t }}{% render 'icon-right' %}</modal-opener>
@@ -439,23 +440,64 @@
                       </div>
                     </fieldset>
                   {% elsif optionName == 'color' or optionName == 'farbe' or optionName == 'colore' or optionName == 'couleur' %}
-                    <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} selector-wrapper data-layer-{{ fatherIndex }}">
+                    <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} option-color-wrapper data-layer-{{ fatherIndex }}" data-name="Color">
                       <legend class="form__label mb-3 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
                         {{ option.name }}
                         <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
                         <span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>
                         {% unless forloop.first %}<span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>{% endunless %}
-                        {% if forloop.index == 3 %}
-                          {% assign option1 = product.options_with_values[1].name | split: " " | last %}
-                          <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: option1 }}</span>
+                        {% if forloop.index > 1 %}
+                          {% assign optionMes = product.options_with_values[0].name | split: " " | last %}
+                          {% if forloop.index == 3 %}
+                            {% assign optionMes = product.options_with_values[1].name | split: " " | last %}
+                          {% endif %}
+                          <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: optionMes }}</span>
                         {% endif %}
                       </legend>
-                      <div class="option-values flex flex-wrap gap-2">
+                      <div class="option-color flex flex-wrap gap-2">
+                        {% assign values = '' %}
                         {%- for value in option.values -%}
-                          <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
-                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-none lg:leading-none min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center {% if option.values.size > 2 %} max-w-3-col-variant w-full{% else %} max-w-2-col-variant w-auto{% endif %} option-label">
-                            {{ value }}
-                          </label>
+                          {%- liquid
+                          assign swatch_value = null
+                          if value.swatch.image
+                            assign image_url = value.swatch.image | image_url: width: 150
+                            assign swatch_value = 'url(' | append: image_url | append: ')'
+                          elsif value.swatch.color
+                            assign swatch_value = value.swatch.color
+                          else
+                            assign swatch_value = value | downcase | remove: ' ' 
+                          endif
+                        -%}
+
+                        {% assign newValue = value | prepend: ' '  %}
+                          {%- unless values contains value -%}
+                            {%- liquid
+                              assign values = values | join: ','
+                              assign values = values | append: ',' | append: value
+                              assign values = values | split: ','
+                              assign bgColor = value | split: ' ' | first | handle
+                            -%}
+                            <input
+                              type="radio"
+                              class="{% if selected_option != '' %}{% unless selected_option contains newValue %}hidden {% endunless %}{% endif %}absolute opacity-0 invisible option-item"
+                              id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                              data-index="{{ fatherIndex }}"
+                              name="{{ option.name }}"
+                              value="{{ value | escape }}"
+                              form="{{ product_form_id }}"
+                              {% if option.selected_value == value %}
+                              checked{% endif %}>
+                            <label
+                              for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                              class="cursor-pointer relative {% if selected_option != '' %}{% unless selected_option contains newValue %}hidden {% endunless %}{% endif %}color border-2 w-10 h-10 border-border overflow-hidden option-item p-[3px] rounded-full"
+                              data-product-id="{{ product.id }}"
+                              data-variant-id="{{ variant.id }}"
+                              data-option="{{ option.name | handleize }}"
+                              data-value="{{ value | escape }}"
+                            >
+                              <span class="color w-full h-full rounded-full border border-border !inline-block bg-center bg-no-repeat bg-cover" style="background-color:{{ swatch_value }}; background-image: url({{ image_url }});"></span>
+                            </label>
+                          {%- endunless -%}
                         {%- endfor -%}
                       </div>
                     </fieldset>
@@ -465,16 +507,18 @@
                         {{ option.name }}
                         <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
                         <span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>
-                        {% unless forloop.first %}<span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>{% endunless %}
-                        {% if forloop.index == 3 %}
-                          {% assign option1 = product.options_with_values[1].name | split: " " | last %}
-                          <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: option1 }}</span>
+                        {% if forloop.index > 1 %}
+                          {% assign optionMes = product.options_with_values[0].name | split: " " | last %}
+                          {% if forloop.index == 3 %}
+                            {% assign optionMes = product.options_with_values[1].name | split: " " | last %}
+                          {% endif %}
+                          <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: optionMes }}</span>
                         {% endif %}
                       </legend>
                       <div class="option-values flex flex-wrap gap-2">
                         {%- for value in option.values -%}
                           <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
-                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-none lg:leading-none min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center {% if option.values.size > 2 %} max-w-3-col-variant w-full{% else %} max-w-2-col-variant w-auto{% endif %} option-label">
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-none lg:leading-none min-h-[44px] bg-background text-primary border border-border py-2 px-3 flex text-center rounded-2xl items-center justify-center w-auto whitespace-nowrap option-label">
                             {{ value }}
                           </label>
                         {%- endfor -%}

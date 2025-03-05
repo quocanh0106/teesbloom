@@ -4,20 +4,11 @@
 {% assign free_shipping = shippingLimit | money_without_trailing_zeros %}
 {% assign one = 'templates.cart.pluralizatio.one' | t %}
 {% assign other = 'templates.cart.pluralizatio.other' | t %}
-{% if settings.country == 'US' %}
-  {% assign placeholderImage = 'placeholder-image-us.svg' | asset_url %}
-{% elsif settings.country == 'UK' %}
-  {% assign placeholderImage = 'placeholder-image-uk.svg' | asset_url %}
-{% elsif settings.country == 'DE' %}
-  {% assign placeholderImage = 'placeholder-image-de.svg' | asset_url %}
-{% elsif settings.country == 'FR' %}
-  {% assign placeholderImage = 'placeholder-image-fr.svg' | asset_url %}
-{% endif %}
+{% assign placeholderImage = 'placeholder-image.png' | asset_url %}
+
 {%- if cart.item_count > 0 -%}
   <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-16 hidden">
-    {% render 'icon-shoppingcartfilled', class: 'mx-auto w-16 h-16 mb-3' %}
     <span class="block mx-auto text-base font-heading leading-4 font-semibold text-primary mb-1">{{ 'sections.cart.empty' | t }}</span>
-    <span class="block mx-auto text-sm leading-5 text-primary mb-5 max-w-[386px]">{{ 'sections.cart.empty_description' | t  }}</span>
     <a href="{{ routes.all_products_collection_url }}" class="block cursor-pointer mx-auto w-fit btn btn-2 px-6 lg:px-8 py-3.5 text-sm leading-none lg:text-base !uppercase lg:leading-none !font-heading !font-bold">
       {{ 'general.continue_shopping' | t }}
     </a>
@@ -211,9 +202,7 @@
   </div>
 {%- else -%}
   <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-16">
-    {% render 'icon-shoppingcartfilled', class: 'mx-auto w-16 h-16 mb-3' %}
     <span class="block mx-auto text-base font-heading leading-4 font-semibold text-primary mb-1">{{ 'sections.cart.empty' | t }}</span>
-    <span class="block mx-auto text-sm leading-5 text-primary mb-5 max-w-[386px]">{{ 'sections.cart.empty_description' | t  }}</span>
     <a href="{{ routes.all_products_collection_url }}" class="block cursor-pointer mx-auto w-fit btn btn-2 px-6 lg:px-8 py-3.5 text-sm leading-none lg:text-base !uppercase lg:leading-none !font-heading !font-bold">
       {{ 'general.continue_shopping' | t }}
     </a>

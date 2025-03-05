@@ -216,6 +216,7 @@ module.exports = {
         62.5: '15.625rem',
         97.5: '24.375rem',
         132: '33rem',
+        '2-col-variant': 'calc((100% - 0.5rem)/2)',
         '3-col-variant': 'calc((100% - 1rem)/3)',
         '6-col-variant': 'calc((100% - 2.5rem)/6)',
         'main-article': 'calc(200%/3 - 5px)',
@@ -224,6 +225,9 @@ module.exports = {
       },
       minWidth: {
         12: '3rem',
+        '2-col-variant': 'calc((100% - 0.5rem)/2)',
+        '3-col-variant': 'calc((100% - 1rem)/3)',
+        '6-col-variant': 'calc((100% - 2.5rem)/6)',
       },
       maxHeight: {
         35: '8.75rem',

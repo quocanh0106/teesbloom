@@ -1,5 +1,5 @@
 <slider-component class="gallery flex flex-col lg:flex-row gap-3 lg:gap-4">
-  <div class="relative overflow-hidden order-1 lg:order-2 {% if product.media.size > 1 %} lg:max-w-[calc(100%_-_96px)]{% endif %} w-full h-fit aspect-1 rounded-lg">
+  <div class="group relative overflow-hidden order-1 lg:order-2 {% if product.media.size > 1 %} lg:max-w-[calc(100%_-_96px)]{% endif %} w-full h-fit aspect-1 rounded-lg">
     <ul class="flex slider-wrapper slider-on-mobile slider-on-tablet slider-on-desktop">
       {%- if product.selected_or_first_available_variant.featured_media != null -%}
         {%- assign featured_media = product.selected_or_first_available_variant.featured_media -%}
@@ -29,25 +29,15 @@
       {%- endfor -%}
     </ul>
     {% if template.suffix != 'ajax' %}
-      {% comment %} <div class="flex flex-col gap-2.5 items-center absolute top-2 lg:top-4 right-2 lg:right-4 z-10">
-        {% render 'product-badges', product: product, collection: collections, class: ' gap-1.5 lg:gap-2.5' %}
-        <wishlist-button
-          class="relative flex justify-center border-primary items-center bg-background w-7 h-7 lg:w-11 lg:h-11 rounded-full overflow-hidden cursor-pointer 
-          before:content-empty before:absolute before:w-10 before:h-10 before:block before:-top-1.5 before:-left-1.5 transition-all" 
-          data-product-handle="{{ product.handle }}">
-          {% render 'icon-wishlist', class: "w-4 h-4 lg:w-6 lg:h-6 text-secondary-800" %}
-          {% render 'icon-wishlist-2', class: "active w-4 h-4 lg:w-6 lg:h-6 text-secondary-800" %}
-        </wishlist-button>
-      </div> {% endcomment %}
       <button
         type="button"
-        class="prev-main-{{ section.id }} absolute top-1/2 -translate-y-1/2 left-2.5 z-[1] w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary-700 hover:text-primary-900 disabled:text-primary-700-opacity-40"
+        class="prev-main-{{ section.id }} opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-200 absolute top-1/2 -translate-y-1/2 left-2.5 z-[1] w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all hidden lg:flex items-center justify-center p-0 !rounded-lg bg-background text-primary disabled:text-subtext"
         name="previous"
         aria-label="previous">
         {%- render 'icon-prev', class: 'w-6 h-6 lg:w-7 lg:h-7' -%}</button>
       <button
         type="button"
-        class="next-main-{{ section.id }} absolute top-1/2 -translate-y-1/2 right-2.5 z-[1] w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-full bg-background text-primary-700 hover:text-primary-900 disabled:text-primary-700-opacity-40"
+        class="next-main-{{ section.id }} opacity-0 invisible group-hover:opacity-100 group-hover:visible duration-200 absolute top-1/2 -translate-y-1/2 right-2.5 z-[1] w-8 h-8 lg:h-10 lg:w-10 leading-none cursor-pointer transition-all hidden lg:flex items-center justify-center p-0 !rounded-lg bg-background text-primary disabled:text-subtext"
         name="next"
         aria-label="next">{%- render 'icon-next', class: 'w-6 h-6 lg:w-7 lg:h-7' -%}</button>
     {% endif %}
@@ -71,6 +61,6 @@
   <div class="slider-counter caption !hidden">
     <span class="slider-counter--current">1</span>
     <span aria-hidden="true"> / </span>
-    <span class="slider-counter--total">{{ section.settings.collection.products.count }}</span>
+    <span class="slider-counter--total">{{ product.media.size }}</span>
   </div>
 </slider-component>
