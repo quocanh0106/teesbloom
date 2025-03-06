@@ -19,7 +19,7 @@ class CartDrawer extends HTMLElement {
     document.body.classList.add('!overflow-hidden');
     document.querySelector('#fc_frame')?.classList.add('!hidden');
     this.classList.remove('before:opacity-0', 'before:invisible');
-    this.wrapper.classList.remove('invisible','opacity-0', '-translate-x-10');
+    this.wrapper.classList.remove('invisible','opacity-0');
     this.wrapper.classList.add('spinning-cart');
 
     fetch(`${routes.cart_ajax_url}`)
@@ -40,7 +40,7 @@ class CartDrawer extends HTMLElement {
     document.body.classList.remove('!overflow-hidden');
     document.querySelector('#fc_frame')?.classList.remove('!hidden');
     this.classList.add('before:opacity-0', 'before:invisible');
-    this.wrapper.classList.add('invisible','opacity-0', '-translate-x-10');
+    this.wrapper.classList.add('invisible','opacity-0');
   }
 
   setInnerHTML(element) {

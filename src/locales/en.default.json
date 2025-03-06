@@ -1,6 +1,6 @@
 {
   "general": {
-    "continue_shopping": "Continue shopping",
+    "continue_shopping": "Keep Shopping",
     "breadcrumbs": {
       "home": "Home",
       "help_center": "Help center",
@@ -246,7 +246,7 @@
     "cart": {
       "preview_your_design": "Preview Your Item",
       "edit_your_design": "Edit Product",
-      "view_bag": "View Cart",
+      "view_bag": "Go to Cart",
       "pluralizatio": {
         "one": "Item",
         "other": "Items"
@@ -290,12 +290,12 @@
     "cart": {
       "remove": "Remove",
       "cancel": "Cancel",
-      "cart_drawer_title": "Your Cart",
+      "cart_drawer_title": "Cart",
       "content": "Are you sure to remove this item?",
       "original_price": "Original Price",
       "shipping": "Shipping",
       "shipping_calculated": "Caculated at Checkout",
-      "continue_shopping": "Continue shopping",
+      "continue_shopping": "Keep Shopping",
       "subtotal": "Subtotal",
       "save": "You Save",
       "discount": "Discount",
@@ -303,7 +303,7 @@
       "freeship_html": "Congrats! You qualify for <span class=\"font-normal\">FREE<\/span> Shipping",
       "checkout": "Checkout",
       "empty": "Your Cart is Empty",
-      "empty_description": "Let’s gather some delightful items together & remember",
+      "empty_description": "It looks like you haven't added anything to your cart",
       "cart_error": "There was an error while updating your cart. Please try again.",
       "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart."
     },

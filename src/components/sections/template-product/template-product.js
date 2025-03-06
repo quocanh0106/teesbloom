@@ -469,11 +469,6 @@ class ProductForm extends HTMLElement {
   getSectionsToRender() {
     return [
       {
-        id: 'cart-icon-bubble-drawer',
-        section: 'cart-icon-bubble-drawer',
-        selector: '.shopify-section'
-      },
-      {
         id: 'cart-icon-bubble',
         section: 'cart-icon-bubble',
         selector: '.shopify-section'

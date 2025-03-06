@@ -147,11 +147,6 @@ if (!customElements.get('cart-items')) {
           selector: '.shopify-section',
         },
         {
-          id: 'cart-icon-bubble-drawer',
-          section: 'cart-icon-bubble-drawer',
-          selector: '.shopify-section',
-        },
-        {
           id: 'cart-drawer-total',
           section: 'cart-drawer-total',
           selector: '.shopify-section',

@@ -1,26 +1,15 @@
 {% if settings.enable_cart_drawer and template != 'cart' %}
   <cart-drawer class="cart-drawer before:fixed before:w-full before:h-full before:bg-black before:bg-opacity-20 before:top-0 before:left-0 before:z-20 before:transition-all before:invisible before:opacity-0" id="cart-drawer">
-    <div class="cart-drawer-wrapper transition-all shadow-popup max-w-[343px] w-full h-full md:max-w-[507px] overflow-auto bg-background fixed top-0 right-0 z-30 invisible opacity-0 -translate-x-10">
-      <div class="cart-drawer-header flex justify-between mb-4 p-4">
-        <div class="flex items-center gap-3">
-          <span class="block text-h5 font-semibold font-heading text-primary lg:text-h4">
-            {{ 'sections.cart.cart_drawer_title' | t }}
-          </span>
-          <div class="bg-primary text-background min-w-[1.25rem] h-5 rounded-full flex justify-center px-1 items-center empty:hidden" id="cart-icon-bubble-drawer">
-            {%- if cart != empty -%}
-              {%- if cart.item_count < 100 -%}
-                <span aria-hidden="true" class="text-background flex justify-center items-center h-full text-xs leading-none">{{ cart.item_count }}</span>
-              {% else %}
-                <span aria-hidden="true" class="text-background flex justify-center items-center h-full text-xs">+99</span>
-              {%- endif -%}
-            {%- endif -%}
-          </div>
-        </div>
-        <button class="close w-6 h-6 lg:w-8 lg:h-8 flex rounded-full items-center justify-center bg-primary text-background transition-all">
-          {% render 'icon-close', class: 'w-5 h-5' %}
+    <div class="cart-drawer-wrapper transition-all shadow-popup max-w-[calc(100vw_-_32px)] w-[600px] h-[600px] max-h-[calc(100vh_-_32px)] rounded-[20px] overflow-auto bg-background fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invisible opacity-0">
+      <div class="cart-drawer-header flex justify-between p-4">
+        <span class="block text-h5 lg:text-h4 !font-normal font-heading text-primary">
+          {{ 'sections.cart.cart_drawer_title' | t }}
+        </span>
+        <button class="close w-6 h-6 lg:w-8 lg:h-8 flex rounded-full items-center justify-center bg-transparent text-primary transition-all">
+          {% render 'icon-close', class: 'w-6 h-6' %}
         </button>
       </div>
-      <div class="cart-drawer-body flex flex-col h-full max-h-[calc(100%_-_82px)] lg:max-h-[calc(100%_-_88px)]">
+      <div class="cart-drawer-body flex flex-col h-full max-h-[calc(100%_-_57px)] lg:max-h-[calc(100%_-_64px)]">
 
       </div>
     </div>
