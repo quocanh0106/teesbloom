@@ -53,7 +53,7 @@
             "button_label": "Button label",
             "link": "",
             "colors_text_button": "#ffffff",
-            "colors_background_button": "#0F0F0F",
+            "colors_background_button": "#0f0f0f",
             "row_span_desktop": 1,
             "col_span_desktop": 1
           }
@@ -64,9 +64,6 @@
         "slide_MaqQwW"
       ],
       "settings": {
-        "heading_tag": "h2",
-        "colors_heading": "#ffffff",
-        "heading": "",
         "fullwidth": false,
         "enable_swipe_on_mobile": true,
         "col_per_row_mobile": 1,
@@ -76,9 +73,121 @@
         "margin_top_mb": 0,
         "margin_bottom_mb": 0
       }
+    },
+    "product_list_A4Gg66": {
+      "type": "product-list",
+      "settings": {
+        "fullwidth": false,
+        "secondary": "",
+        "background_color": "#FAFAFA",
+        "heading": "Exciting new arrivals",
+        "collection": "t-shirt-dad",
+        "button_text": "See all",
+        "product_per_row": 5,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 9,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_top_mb": 20,
+        "padding_bottom_mb": 160
+      }
+    },
+    "our_recipients_whrbdx": {
+      "type": "our-recipients",
+      "blocks": {
+        "recipients_item_1": {
+          "type": "recipients_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/home_christmas24_sbr-starwar.png",
+            "image-type": "rounded-none",
+            "title": "Star War Costumes",
+            "url_item": "shopify://collections/for-pet-lovers",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "recipients_item_2": {
+          "type": "recipients_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/home_christmas24_sbr-harryposter.png",
+            "image-type": "rounded-none",
+            "title": "Personalized Harry Potter",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "recipients_item_3": {
+          "type": "recipients_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/home_christmas24_sbr-zelda.png",
+            "image-type": "rounded-none",
+            "title": "Personalized Zelda",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "recipients_item_4": {
+          "type": "recipients_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/home_christmas24_sbr-dragonball.png",
+            "image-type": "rounded-none",
+            "title": "Personalized Dragon Ball",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "recipients_item_5": {
+          "type": "recipients_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/home_christmas24_sbr-superhero.png",
+            "image-type": "rounded-none",
+            "title": "Personalized Super Hero",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "recipients_item_6": {
+          "type": "recipients_item",
+          "settings": {
+            "icon_image": "shopify://shop_images/home_christmas24_sbr-grinch.png",
+            "image-type": "rounded-none",
+            "title": "Personalized Grinches",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        }
+      },
+      "block_order": [
+        "recipients_item_1",
+        "recipients_item_2",
+        "recipients_item_3",
+        "recipients_item_4",
+        "recipients_item_5",
+        "recipients_item_6"
+      ],
+      "settings": {
+        "background_color": "#FAFAFA",
+        "url": "",
+        "heading": "SHOP BY FAN ART",
+        "columns_desktop": 6,
+        "columns_tablet": 4,
+        "columns_mobile": 2,
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mb": 40,
+        "padding_bottom_mb": 40
+      }
     }
   },
   "order": [
-    "banner_4"
+    "banner_4",
+    "product_list_A4Gg66",
+    "our_recipients_whrbdx"
   ]
 }

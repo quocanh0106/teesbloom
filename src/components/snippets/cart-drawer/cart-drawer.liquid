@@ -1,6 +1,6 @@
 {% if settings.enable_cart_drawer and template != 'cart' %}
   <cart-drawer class="cart-drawer before:fixed before:w-full before:h-full before:bg-black before:bg-opacity-20 before:top-0 before:left-0 before:z-20 before:transition-all before:invisible before:opacity-0" id="cart-drawer">
-    <div class="cart-drawer-wrapper transition-all shadow-popup max-w-[calc(100vw_-_32px)] w-[600px] h-[600px] max-h-[calc(100vh_-_32px)] rounded-[20px] overflow-auto bg-background fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invisible opacity-0">
+    <div class="cart-drawer-wrapper transition-all shadow-popup max-w-[calc(100vw_-_32px)] w-[600px] h-[600px] max-h-[calc(100vh_-_32px)] rounded-[20px] bg-background fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invisible opacity-0">
       <div class="cart-drawer-header flex justify-between p-4">
         <span class="block text-h5 lg:text-h4 !font-normal font-heading text-primary">
           {{ 'sections.cart.cart_drawer_title' | t }}

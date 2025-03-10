@@ -1,5 +1,5 @@
 import './template-product.scss';
-import './template-product-uk.scss';
+import './template-product-customily.scss';
 
 function fetchConfig(type = 'json') {
   return {
@@ -105,6 +105,7 @@ class VariantSelects extends HTMLElement {
           this.refresh.push(...new Set(available_products.map(o => o.option3)));
           document.querySelector('.data-layer-0 .require-option')?.classList.add('hidden');
           document.querySelector('.data-layer-0 .form__label .selected-value').innerHTML = option_value;
+          if(document.querySelector('.data-layer-1 .message-option')) document.querySelector('.data-layer-1 .message-option').classList.add('hidden');
           if(document.querySelector('.data-layer-2 .message-option')) document.querySelector('.data-layer-2 .message-option').classList.add('hidden');
           document.querySelectorAll('.data-layer-1 .form__label .selected-value').forEach((item) => {
             item.innerHTML = '';
@@ -121,11 +122,13 @@ class VariantSelects extends HTMLElement {
         let option1_value = document.querySelector('.data-layer-0 .form__label .selected-value').textContent
         var available_products = data.filter(variant => {return variant.option1 == option1_value && variant.option2 == option_value;});
         this.fakeCurrentVariant = available_products[0];
+        if(document.querySelector('.data-layer-0 .selected-value')?.textContent == '') document.querySelector('.data-layer-1 .message-option')?.classList.remove('hidden')
 
         if (available_products && available_products.length > 0) {
           this.refresh = [...new Set(available_products.map(o => o.option3))];
           document.querySelector('.data-layer-1 .require-option').classList.add('hidden');
           if(document.querySelector('.data-layer-2 .message-option')) document.querySelector('.data-layer-2 .message-option').classList.add('hidden');
+          
           document.querySelectorAll('.data-layer-1 .form__label .selected-value').forEach((item) => {
             item.innerHTML = option_value.replace('-1', '').replace('-2', '').replace('-3', '').replace('-4', '').replace('-5', '');
           })
@@ -556,42 +559,25 @@ if (!customElements.get('caculator-size')) {
   customElements.define('caculator-size', CaculatorSize);
 }
 
-class StickyAddCart extends HTMLElement {
+class AddToCart extends HTMLElement {
   constructor() {
     super();
-    window.addEventListener('scroll', function() {
-      document.querySelector('sticky-add-to-cart').init();
-    }, { once: true, passive: true });
   }
 
-  init() {
-    this.observe = new IntersectionObserver(function(entries) {
-      if (entries[0].isIntersecting === true) {
-        entries[0].target.querySelector('.product-form__buttons').classList.remove('btn-wrapper-sticky');
-        if(document.querySelector('scroll-to-top')) {
-          document.querySelector('scroll-to-top').classList.remove('space-sticky');
-        }
-        if(document.querySelector('#fc_frame')) {
-          document.querySelector('#fc_frame').classList.remove('space-sticky');
-        }
-      } else {
-        entries[0].target.querySelector('.product-form__buttons').classList.add('btn-wrapper-sticky');
-        if(document.querySelector('scroll-to-top')) {
-          document.querySelector('scroll-to-top').classList.add('space-sticky');
-        }
-        if(document.querySelector('#fc_frame')) {
-          document.querySelector('#fc_frame').classList.add('space-sticky');
-        }
-      }
-    },
-    {threshold: 0});
+  addToCart() {
+    this.customilyAddToCart = this.querySelector('#customily-cart-btn') || this.querySelector('.product-form__submit')
+    this.buttonUnavailable = this.querySelector('.button-unavailable')
 
-    this.observe.observe(this);
+    if(this.customilyAddToCart.disabled || this.buttonUnavailable.classList.contains('onload')) {
+      this.buttonUnavailable.click()
+    } else {
+      this.customilyAddToCart.click()
+    }
   }
 }
 
-if (!customElements.get('sticky-add-to-cart')) {
-  customElements.define('sticky-add-to-cart', StickyAddCart);
+if (!customElements.get('add-to-cart')) {
+  customElements.define('add-to-cart', AddToCart);
 }
 
 document.addEventListener('jdgm.doneSetup', () => {

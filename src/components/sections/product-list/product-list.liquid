@@ -15,17 +15,20 @@
   {%- endstyle -%}
   <div data-section-id="{{ section.id }}" {% if section.settings.secondary != blank and section.settings.secondary != 'transparent' %} style="--color-secondary: {{ section.settings.secondary }}"{% endif %}>
     <div class="block relative overflow-hidden{% unless section.settings.fullwidth %} page-width{% endunless %}">
-      {% if section.settings.heading %}
-        <h2 class="text-base font-semibold capitalize text-center text-secondary mb-3">{{ section.settings.heading | escape }}</h2>
-      {% endif %}
-
-      <div class="grid gap-y-8 gap-x-5 grid-cols-{{ section.settings.product_per_row_mobile }} md:grid-cols-{{ section.settings.product_per_row_tablet }} lg:grid-cols-{{ section.settings.product_per_row }} transition-all duration-500 overflow-hidden">
+      <div class="flex items-center justify-between gap-2 mb-5">
+        {% if section.settings.heading %}
+          <h2 class="text-base lg:text-lg font-semibold capitalize text-center text-primary mb-0">{{ section.settings.heading | escape }}</h2>
+        {% endif %}
+        <a href="{{ section.settings.collection.url }}" class="text-base leading-none flex items-center gap-1.5 !text-secondary no-underline hover:underline">
+          <span>{{ section.settings.button_text }}</span>
+          {% render 'icon-right', class: 'w-4 h-4' %}
+       </a>
+      </div>
+      <div class="grid gap-y-8 gap-x-4 lg:gap-x-6 grid-cols-{{ section.settings.product_per_row_mobile }} md:grid-cols-{{ section.settings.product_per_row_tablet }} lg:grid-cols-{{ section.settings.product_per_row }} transition-all duration-500 overflow-hidden">
         {%- for product in section.settings.collection.products limit: section.settings.limit -%}
           {%- render 'product-card', product: product -%}
         {%- endfor -%}
       </div>
-
-      <a href="{{ section.settings.collection.url }}" class="btn-2 w-fit !text-xl !font-semibold !h-12 !px-6 text-center mx-auto !rounded-[100px] mt-5">{{ section.settings.button_text }}</a>
     </div>
   </div>
 {%- endif -%}

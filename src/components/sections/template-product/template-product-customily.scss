@@ -1,0 +1,35 @@
+.btn {
+  @apply flex items-center justify-center border border-primary text-background bg-primary hover:bg-background hover:text-primary transition-all rounded-lg h-13.5 px-3 text-sm uppercase no-underline;
+}
+
+.btn-2 {
+  @apply flex items-center justify-center border border-secondary text-background bg-secondary hover:bg-background hover:text-secondary transition-all rounded-lg h-13.5 px-3 text-sm uppercase no-underline;
+}
+
+.btn-outline {
+  @apply flex items-center justify-center border border-primary text-primary bg-background hover:text-background hover:bg-primary transition-all rounded-lg h-13.5 px-3 text-sm uppercase no-underline;
+}
+
+.btn-2-outline {
+  @apply flex items-center justify-center border border-secondary text-secondary bg-background hover:text-background hover:bg-secondary transition-all rounded-lg h-13.5 px-3 text-sm uppercase no-underline;
+}
+
+.btn-error {
+  @apply hover:text-primary hover:bg-error text-error bg-primary border-error;
+}
+
+.btn.active {
+  @apply btn-2;
+}
+
+#customily-preview-button,
+.product-form__buttons #customily-preview-button {
+  -webkit-text-fill-color: initial !important;
+  @apply !w-full !z-[9] !h-13.5 !py-3.5 !flex-[0_0_100%] !relative !left-0 !top-0 !mb-0 lg:!mb-0 !uppercase !border !text-h5 !font-heading !font-semibold !leading-none !text-secondary !bg-background !border-secondary hover:!text-background hover:!bg-secondary hover:!border-secondary !whitespace-nowrap !flex !items-center !justify-center !flex-row-reverse !tracking-[0] !transition-colors !cursor-pointer !shadow-none !underline-offset-[0.3rem] !no-underline !rounded-[20px] after:content-eye after:block after:h-5 after:mr-1.5 after:hover:content-eye-hover after:!transition-all;
+}
+.cl-canvas-container {
+  @apply !h-auto;
+}
+.cl-canvas-container .canvas-wrapper {
+  @apply !m-0;
+}

@@ -34,10 +34,10 @@
                               {% render 'icon-zoom', class: 'w-3 h-3 lg:w-4 lg:h-4' %} Preview
                             </div>
                           </modal-opener>
-                          <modal-dialog class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20 group" id="preview-image-{{ item.index | plus: 1 }}">
+                          <modal-dialog class="hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group" id="preview-image-{{ item.index | plus: 1 }}">
                             <div class="group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
                               <img src="{{ item.image | image_url: width: item.image.width }}" class="w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" width="{{ item.image.width }}" height="{{ item.image.height }}" loading="lazy" alt="{{ item.title | escape }}" />
-                              <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute -top-3 left-1/2 -translate-x-1/2 -translate-y-full lg:top-7 lg:right-7 lg:left-auto lg:translate-y-0 lg:translate-x-0 close">
+                              <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
                                 {% render 'icon-close', class: 'w-6 h-6' %}
                               </span>
                             </div>
@@ -52,10 +52,10 @@
                             </modal-opener>
                           {% endif %}
                           {% if item.properties['_customily-preview'] %}
-                            <modal-dialog class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20" id="preview-image-{{ item.index | plus: 1 }}">
+                            <modal-dialog class="hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20" id="preview-image-{{ item.index | plus: 1 }}">
                               <div class="group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
                                 <img src="{{ item.properties['_customily-preview'] }}" data-placeholder="{{ placeholderImage }}" data-thumb-src="{{ item.properties['_customily-preview'] }}" class="customily-item-image w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" style="--image-placeholder: url({{ placeholderImage }});" width="765" height="765" loading="lazy" alt="{{ item.title | escape }}" />
-                                <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute -top-3 left-1/2 -translate-x-1/2 -translate-y-full lg:top-7 lg:right-7 lg:left-auto lg:translate-y-0 lg:translate-x-0 close">
+                                <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
                                   {% render 'icon-close', class: 'w-6 h-6' %}
                                 </span>
                               </div>
