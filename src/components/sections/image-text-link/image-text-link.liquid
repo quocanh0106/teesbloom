@@ -28,9 +28,9 @@
 
 <div data-section-id="{{ section.id }}">
   <div class="page-width relative">
-    <div class="flex items-center justify-between mb-5">
-      <h2 class="text-base lg:text-lg font-semibold capitalize text-center text-primary mb-0">{{ section.settings.heading | escape }}</h2>
-    </div>
+    {% if section.settings.heading != blank %}
+      <h2 class="text-base lg:text-lg font-semibold text-center text-primary mb-5">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
 
     {% if section.blocks.size > 0 %}
       <slider-component>
@@ -38,49 +38,42 @@
           type="button"
           name="previous"
           aria-label="previous" 
-          class="prev-{{ section.id }} after:absolute after:w-full after:h-full after:z-10 after:block absolute top-1/2 -translate-y-1/2 left-0 w-10 h-10 bg-transparent disabled:!bg-transparent shadow-button leading-none cursor-pointer transition-all hidden lg:flex items-center justify-center p-0 rounded-[10px] border text-primary disabled:!text-primary-opacity-50">
+          class="prev-{{ section.id }} z-[1] after:absolute after:w-full after:h-full after:z-10 after:block absolute top-[calc(50%_+_15px)] translate-x-1/4 -translate-y-1/2 left-0 w-10 h-10 bg-background shadow-button leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-[10px] border text-primary disabled:!opacity-35">
           {%- render 'icon-prev', class: "w-7 h-7" -%}
         </button>
         <ul class="slider-wrapper flex gap-3 md:gap-6 lg:gap-9 slider-on-mobile slider-on-tablet slider-on-desktop" id="Slider-{{ section.id }}">
-
-          {% assign gapMB =  %}
-          {% assign gapTL = 24 | times: section.settings.columns_tablet | minus: 24 | divided_by: section.settings.columns_tablet %}
-          {% assign gapDT = 36 | times: section.settings.columns_desktop | minus: 36 | divided_by: section.settings.columns_desktop %}
-
           {% for block in section.blocks %}
-            <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="block {{ block.settings.align_item}} slider-slide w-full">
+            <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="block {{ block.settings.align_item }} slider-slide w-full">
               <a
                 href="{{ block.settings.url_item | split: '?' | first }}"
-                class="relative block mx-auto {{ block.settings.image-type }} overflow-hidden group pb-[100%]"
+                class="relative block mx-auto {{ block.settings.image_type }} overflow-hidden group pb-[100%]"
                 title="{{ block.settings.anchor_text | default: block.settings.title }}">
-                {% if block.settings.icon_image != blank %}
+                {% if block.settings.image != blank %}
                   <img
-                    src="{{ block.settings.icon_image | image_url: width: 200 }}"
-                    srcset="{{ block.settings.icon_image | image_url: width: 200 }} 200w"
+                    src="{{ block.settings.image | image_url: width: 200 }}"
+                    srcset="{{ block.settings.image | image_url: width: 200 }} 200w"
                     sizes="200px"
-                    {% if block.settings.icon_image.alt != blank %}
-                    alt="{{ block.settings.icon_image.alt | escape }}"
+                    {% if block.settings.image.alt != blank %}
+                    alt="{{ block.settings.image.alt | escape }}"
                     {% else %}
-                    alt="{{ block.settings.icon_image | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                    alt="{{ block.settings.image | split: "/" | last | replace: "-", " " | split: "." | first }}"
                     {% endif %}
-                    class="group-hover:scale-105 transition-all absolute top-0 left-0 w-full h-full object-cover object-center {{ block.settings.image-type }} bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+                    class="group-hover:scale-105 transition-all absolute top-0 left-0 w-full h-full object-cover object-center {{ block.settings.image_type }} bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
                     loading="lazy"
                     width="200"
-                    height="{{ 200 | divided_by: block.settings.icon_image.aspect_ratio }}"
+                    height="{{ 200 | divided_by: block.settings.image.aspect_ratio }}"
                     class="motion-reduce" />
                 {% else %}
                   {{ 'image' | placeholder_svg_tag: 'group-hover:scale-105 transition-all mx-auto' }}
                 {% endif %}
               </a>
-              {% if block.settings.content_services != blank or block.settings.title != blank %}
-                {% if block.settings.title %}
-                  <a
-                    href="{{ block.settings.url_item | split: '?' | first }}"
-                    class="block overflow-hidden"
-                    title="{{ block.settings.anchor_text | default: block.settings.title }}">
-                    <h3 class="font-body font-medium capitalize text-sm leading-none mt-2 lg:text-lg lg:mt-3 text-inherit">{{ block.settings.title }}</h3>
-                  </a>
-                {% endif %}
+              {% if block.settings.title != blank %}
+                <a
+                  href="{{ block.settings.url_item | split: '?' | first }}"
+                  class="block overflow-hidden"
+                  title="{{ block.settings.anchor_text | default: block.settings.title }}">
+                  <h3 class="font-body font-medium capitalize text-sm leading-2 mt-2.5 lg:text-base text-inherit">{{ block.settings.title }}</h3>
+                </a>
               {% endif %}
             </li>
           {%- endfor -%}
@@ -89,16 +82,15 @@
           type="button"
           name="next"
           aria-label="next"
-          class="next-{{ section.id }} after:absolute after:w-full after:h-full after:z-10 after:block absolute top-1/2 -translate-y-1/2 right-0 w-10 h-10 bg-transparent disabled:!bg-transparent shadow-button leading-none cursor-pointer transition-all hidden lg:flex items-center justify-center p-0 rounded-[10px] border text-primary disabled:!text-primary-opacity-50{% endif %}">
-          {%- render 'icon-next'
-            , class: "w-7 h-7" -%}
+          class="next-{{ section.id }} z-[1] after:absolute after:w-full after:h-full after:z-10 after:block absolute top-[calc(50%_+_15px)] -translate-y-1/2 -translate-x-1/4 right-0 w-10 h-10 bg-background shadow-button leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-[10px] border text-primary disabled:!opacity-35">
+          {%- render 'icon-next', class: "w-7 h-7" -%}
         </button>
         <div class="slider-counter caption !hidden">
           <span class="slider-counter--current">1</span>
           <span aria-hidden="true"> / </span>
           <span class="slider-counter--total">{{ section.blocks.size }}</span>
         </div>
-        <div class="slider-dots mt-8 lg:mt-12"></div>
+        <div class="slider-dots mt-8 lg:mt-12 !hidden"></div>
       </slider-component>
     {% endif %}
   </div>
@@ -106,7 +98,7 @@
 
 {% schema %}
   {
-    "name": "Our recipients",
+    "name": "Image text link",
     "tag": "section",
     "class": "section",
     "settings": [
@@ -132,7 +124,7 @@
         "id": "columns_desktop",
         "label": "Items per row in desktop",
         "min": 1,
-        "max": 6,
+        "max": 9,
         "default": 6,
         "step": 1
       },
@@ -141,7 +133,7 @@
         "id": "columns_tablet",
         "label": "Items per row in tablet",
         "min": 1,
-        "max": 6,
+        "max": 9,
         "default": 4,
         "step": 1
       },
@@ -206,22 +198,26 @@
     "blocks": [
       {
         "name": "Recipients item",
-        "type": "recipients_item",
+        "type": "itl",
         "settings": [
           {
             "type": "image_picker",
-            "id": "icon_image",
-            "label": "Image icon"
+            "id": "image",
+            "label": "Image"
           },
           {
             "type": "select",
-            "id": "image-type",
+            "id": "image_type",
             "label": "Image type",
             "default": "rounded-none",
             "options": [
               {
                 "value": "rounded-full",
                 "label": "Circle"
+              },
+              {
+                "value": "rounded-[10px]",
+                "label": "square"
               },
               {
                 "value": "rounded-none",
@@ -270,28 +266,28 @@
     ],
     "presets": [
       {
-        "name": "Our recipients",
+        "name": "Image text link",
         "blocks": [
           {
-            "type": "recipients_item",
+            "type": "itl",
             "settings": {
               "title": "Gifts for Mum"
             }
           },
           {
-            "type": "recipients_item",
+            "type": "itl",
             "settings": {
               "title": "Gifts for Dad"
             }
           },
           {
-            "type": "recipients_item",
+            "type": "itl",
             "settings": {
               "title": "Gifts for Grandma"
             }
           },
           {
-            "type": "recipients_item",
+            "type": "itl",
             "settings": {
               "title": "Gifts for Grandad"
             }

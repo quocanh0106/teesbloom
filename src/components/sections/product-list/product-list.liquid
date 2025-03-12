@@ -5,30 +5,68 @@
       padding-top: {{ section.settings.padding_top_mb }}px;
       padding-bottom: {{ section.settings.padding_bottom_mb }}px;
     }
-
-    @media screen and (min-width: 1024px) {
+    [data-section-id="{{ section.id }}"] .slider-slide { 
+      max-width: calc(100%/{{ section.settings.columns_mobile }} - {{ 16 | times: section.settings.columns_mobile | minus: 16 | divided_by: section.settings.columns_mobile }}px);
+    }
+  
+    @media (min-width: 768px) {
       [data-section-id="{{ section.id }}"] {
         padding-top: {{ section.settings.padding_top }}px;
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
+  
+      [data-section-id="{{ section.id }}"] .slider-slide { 
+        max-width: calc(100%/{{ section.settings.columns_tablet }} - {{ 24 | times: section.settings.columns_tablet | minus: 24 | divided_by: section.settings.columns_tablet }}px);
+      }
+    }
+  
+    @media (min-width: 1024px) {
+      [data-section-id="{{ section.id }}"] .slider-slide { 
+        max-width: calc(100%/{{ section.settings.columns_desktop }} - {{ 36 | times: section.settings.columns_desktop | minus: 36 | divided_by: section.settings.columns_desktop }}px);
+      }
     }
   {%- endstyle -%}
+
   <div data-section-id="{{ section.id }}" {% if section.settings.secondary != blank and section.settings.secondary != 'transparent' %} style="--color-secondary: {{ section.settings.secondary }}"{% endif %}>
     <div class="block relative overflow-hidden{% unless section.settings.fullwidth %} page-width{% endunless %}">
       <div class="flex items-center justify-between gap-2 mb-5">
         {% if section.settings.heading %}
-          <h2 class="text-base lg:text-lg font-semibold capitalize text-center text-primary mb-0">{{ section.settings.heading | escape }}</h2>
+          <h2 class="text-base lg:text-lg font-semibold text-center text-primary mb-0">{{ section.settings.heading | escape }}</h2>
         {% endif %}
         <a href="{{ section.settings.collection.url }}" class="text-base leading-none flex items-center gap-1.5 !text-secondary no-underline hover:underline">
           <span>{{ section.settings.button_text }}</span>
           {% render 'icon-right', class: 'w-4 h-4' %}
-       </a>
+        </a>
       </div>
-      <div class="grid gap-y-8 gap-x-4 lg:gap-x-6 grid-cols-{{ section.settings.product_per_row_mobile }} md:grid-cols-{{ section.settings.product_per_row_tablet }} lg:grid-cols-{{ section.settings.product_per_row }} transition-all duration-500 overflow-hidden">
-        {%- for product in section.settings.collection.products limit: section.settings.limit -%}
-          {%- render 'product-card', product: product -%}
-        {%- endfor -%}
-      </div>
+      <slider-component>
+        <button
+          type="button"
+          name="previous"
+          aria-label="previous" 
+          class="prev-{{ section.id }} z-[1] after:absolute after:w-full after:h-full after:z-10 after:block absolute top-[calc(50%_-_36px)] translate-x-1/4 -translate-y-1/2 left-0 w-10 h-10 bg-background shadow-button leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-[10px] border text-primary disabled:!opacity-35">
+          {%- render 'icon-prev', class: "w-7 h-7" -%}
+        </button>
+        <ul class="slider-wrapper flex gap-3 md:gap-6 lg:gap-9 slider-on-mobile slider-on-tablet slider-on-desktop" id="Slider-{{ section.id }}">
+          {%- for product in section.settings.collection.products limit: section.settings.limit -%}
+            <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="block {{ block.settings.align_item }} slider-slide w-full">
+              {%- render 'product-card', product: product -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        <button
+          type="button"
+          name="next"
+          aria-label="next"
+          class="next-{{ section.id }} z-[1] after:absolute after:w-full after:h-full after:z-10 after:block absolute top-[calc(50%_-_36px)] -translate-y-1/2 -translate-x-1/4 right-0 w-10 h-10 bg-background shadow-button leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-[10px] border text-primary disabled:!opacity-35">
+          {%- render 'icon-next', class: "w-7 h-7" -%}
+        </button>
+        <div class="slider-counter caption !hidden">
+          <span class="slider-counter--current">1</span>
+          <span aria-hidden="true"> / </span>
+          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+        </div>
+        <div class="slider-dots mt-8 lg:mt-12 !hidden"></div>
+      </slider-component>
     </div>
   </div>
 {%- endif -%}
@@ -71,30 +109,30 @@
       },
       {
         "type": "range",
-        "id": "product_per_row",
-        "label": "Products per row",
+        "id": "columns_desktop",
+        "label": "Items per row in desktop",
         "min": 1,
-        "max": 5,
-        "step": 1,
-        "default": 4
+        "max": 9,
+        "default": 6,
+        "step": 1
       },
       {
         "type": "range",
-        "id": "product_per_row_tablet",
-        "label": "Products per row tablet",
+        "id": "columns_tablet",
+        "label": "Items per row in tablet",
         "min": 1,
-        "max": 4,
-        "step": 1,
-        "default": 3
+        "max": 9,
+        "default": 4,
+        "step": 1
       },
       {
         "type": "range",
-        "id": "product_per_row_mobile",
-        "label": "Products per row mobile",
+        "id": "columns_mobile",
+        "label": "Items per row in mobile",
         "min": 1,
-        "max": 3,
-        "step": 1,
-        "default": 2
+        "max": 6,
+        "default": 2,
+        "step": 1
       },
       {
         "type": "range",

@@ -74,7 +74,7 @@
         "margin_bottom_mb": 0
       }
     },
-    "product_list_A4Gg66": {
+    "product_list": {
       "type": "product-list",
       "settings": {
         "fullwidth": false,
@@ -83,7 +83,7 @@
         "heading": "Exciting new arrivals",
         "collection": "t-shirt-dad",
         "button_text": "See all",
-        "product_per_row": 5,
+        "product_per_row": 6,
         "product_per_row_tablet": 3,
         "product_per_row_mobile": 2,
         "limit": 9,
@@ -93,69 +93,69 @@
         "padding_bottom_mb": 160
       }
     },
-    "our_recipients_whrbdx": {
-      "type": "our-recipients",
+    "image-text-link": {
+      "type": "image-text-link",
       "blocks": {
-        "recipients_item_1": {
-          "type": "recipients_item",
+        "itl_1": {
+          "type": "itl",
           "settings": {
-            "icon_image": "shopify://shop_images/home_christmas24_sbr-starwar.png",
-            "image-type": "rounded-none",
+            "image": "shopify://shop_images/home_christmas24_sbr-starwar.png",
+            "image_type": "rounded-full",
             "title": "Star War Costumes",
             "url_item": "shopify://collections/for-pet-lovers",
             "anchor_text": "",
             "align_item": "text-center"
           }
         },
-        "recipients_item_2": {
-          "type": "recipients_item",
+        "itl_2": {
+          "type": "itl",
           "settings": {
-            "icon_image": "shopify://shop_images/home_christmas24_sbr-harryposter.png",
-            "image-type": "rounded-none",
+            "image": "shopify://shop_images/home_christmas24_sbr-harryposter.png",
+            "image_type": "rounded-full",
             "title": "Personalized Harry Potter",
             "url_item": "",
             "anchor_text": "",
             "align_item": "text-center"
           }
         },
-        "recipients_item_3": {
-          "type": "recipients_item",
+        "itl_3": {
+          "type": "itl",
           "settings": {
-            "icon_image": "shopify://shop_images/home_christmas24_sbr-zelda.png",
-            "image-type": "rounded-none",
+            "image": "shopify://shop_images/home_christmas24_sbr-zelda.png",
+            "image_type": "rounded-full",
             "title": "Personalized Zelda",
             "url_item": "",
             "anchor_text": "",
             "align_item": "text-center"
           }
         },
-        "recipients_item_4": {
-          "type": "recipients_item",
+        "itl_4": {
+          "type": "itl",
           "settings": {
-            "icon_image": "shopify://shop_images/home_christmas24_sbr-dragonball.png",
-            "image-type": "rounded-none",
+            "image": "shopify://shop_images/home_christmas24_sbr-dragonball.png",
+            "image_type": "rounded-full",
             "title": "Personalized Dragon Ball",
             "url_item": "",
             "anchor_text": "",
             "align_item": "text-center"
           }
         },
-        "recipients_item_5": {
-          "type": "recipients_item",
+        "itl_5": {
+          "type": "itl",
           "settings": {
-            "icon_image": "shopify://shop_images/home_christmas24_sbr-superhero.png",
-            "image-type": "rounded-none",
+            "image": "shopify://shop_images/home_christmas24_sbr-superhero.png",
+            "image_type": "rounded-full",
             "title": "Personalized Super Hero",
             "url_item": "",
             "anchor_text": "",
             "align_item": "text-center"
           }
         },
-        "recipients_item_6": {
-          "type": "recipients_item",
+        "itl_6": {
+          "type": "itl",
           "settings": {
-            "icon_image": "shopify://shop_images/home_christmas24_sbr-grinch.png",
-            "image-type": "rounded-none",
+            "image": "shopify://shop_images/home_christmas24_sbr-grinch.png",
+            "image_type": "rounded-full",
             "title": "Personalized Grinches",
             "url_item": "",
             "anchor_text": "",
@@ -164,12 +164,12 @@
         }
       },
       "block_order": [
-        "recipients_item_1",
-        "recipients_item_2",
-        "recipients_item_3",
-        "recipients_item_4",
-        "recipients_item_5",
-        "recipients_item_6"
+        "itl_1",
+        "itl_2",
+        "itl_3",
+        "itl_4",
+        "itl_5",
+        "itl_6"
       ],
       "settings": {
         "background_color": "#FAFAFA",
@@ -187,7 +187,7 @@
   },
   "order": [
     "banner_4",
-    "product_list_A4Gg66",
-    "our_recipients_whrbdx"
+    "product_list",
+    "image-text-link"
   ]
 }
