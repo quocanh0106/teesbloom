@@ -34,36 +34,11 @@
                 </ul>
               </div>
             {%- endif -%}
-            {% if predictive_search.resources.collections.size > 0 %}
-              <div>
-                <span class="block uppercase text-xs font-normal leading-6 text-primary lg:text-sm lg:leading-4 mb-2 lg:mb-3">{{ 'predictive_search.collections' | t }}</span>
-                <ul class="grid grid-cols-1 gap-2 lg:gap-2.5">
-                  {%- for collection in predictive_search.resources.collections -%}
-                    <li
-                      class="leading-none"
-                      role="option"
-                      aria-selected="false">
-                      <a
-                        href="{{ collection.url }}"
-                        class="one-line overflow-hidden truncate-line text-sm leading-2 font-heading font-normal text-primary hover:text-primary"
-                        tabindex="-1"
-                        title="{{ collection.title }}">
-                        {{ collection.title }}
-                      </a>
-                    </li>
-                  {%- endfor -%}
-                </ul>
-              </div>
-            {% endif %}
           </div>
         {%- endif -%}
         {%- if predictive_search.resources.products.size > 0 -%}
-          <div class="predictive-search__result-group{% if first_column_results_size > 0 %} col-span-1 lg:col-span-3{% else %} col-span-1 lg:col-span-4{% endif %} flex flex-col -mx-2 w-[calc(100%_+_16px)] lg:w-full lg:mx-0 lg:px-0">
+          <div class="predictive-search__result-group flex flex-col w-full lg:mx-0 lg:px-0">
             {%- if predictive_search.resources.products.size > 0 -%}
-              <div class="flex justify-between gap-1 mb-3">
-                <p class="block text-sm font-heading leading-4 font-semibold text-primary">{{ 'predictive_search.product' | t }}</p>
-                <a href="{{ routes.search_url | append: '?q=' }}{{ predictive_search.terms | url_endcode }}" class="lg:hidden items-center gap-1 font-heading font-bold leading-none text-sm flex text-secondary hover:text-primary capitalize">{{ 'predictive_search.view_all' | t }} {% render 'icon-right', class: 'w-5 h-5' %}</a>
-              </div>
               <ul id="predictive-search-results-products-list" class="grid grid-cols-2{% if first_column_results_size > 0 %} lg:grid-cols-3{% else %} lg:grid-cols-4{% endif %} -mx-1 lg:-mx-2" role="group" aria-labelledby="predictive-search-products">
                 {%- for product in predictive_search.resources.products limit: 3 -%}
                   <li id="predictive-search-option-product-{{ forloop.index }}" class="predictive-search__list-item{% if forloop.index > 2 %} hidden lg:block{% endif %} px-1 lg:px-2" role="option" aria-selected="false">
@@ -71,7 +46,7 @@
                   </li>
                 {%- endfor -%}
               </ul>
-              <a href="{{ routes.search_url | append: '?q=' }}{{ predictive_search.terms | url_endcode }}" class="hidden items-center gap-1 font-heading font-bold leading-none text-sm lg:flex text-secondary hover:text-primary capitalize w-fit mt-5 mx-auto">
+              <a href="{{ routes.search_url | append: '?q=' }}{{ predictive_search.terms | url_endcode }}" class="hidden btn capitalize w-fit mt-5 mx-auto">
                 {{ 'predictive_search.view_all' | t }} 
                 {% render 'icon-right', class: 'w-5 h-5' %}</a>
             {%- endif -%}
@@ -79,12 +54,8 @@
         {%- endif -%}
       </div>
     {% else %}
-      <div id="predictive-search-results-groups-wrapper" class="grid grid-cols-1 lg:grid-cols-4 gap-5 lg:gap-4">
+      <div id="predictive-search-results-groups-wrapper" class="grid grid-cols-1 gap-5 lg:gap-4">
         <div class="predictive-search__result-group lg:pr-4 lg:border-r lg:border-border w-full col-span-1 flex flex-col gap-5 lg:gap-8 order-2 lg:order-1 lg:pt-8">
-          <recent-search>
-            <span class="block uppercase text-xs font-normal leading-6 text-primary lg:text-sm lg:leading-4 mb-2 lg:mb-3">{{ 'predictive_search.recent_search' | t }}</span>
-            <div class="recent-list flex flex-col gap-2"></div>
-          </recent-search>
           {% if settings.predictive_popular_search != blank %}
             {% assign popularSearches = settings.predictive_popular_search | split: ',' %}
             <div>
@@ -99,37 +70,11 @@
               </div>
             </div>
           {% endif %}
-          {% if settings.predictive_product_type != blank %}
-            {% assign productTypes = settings.predictive_product_type | split: ',' %}
-            <div>
-              <span class="block uppercase text-xs font-normal leading-6 text-primary lg:text-sm lg:leading-4 mb-2 lg:mb-3">{{ 'predictive_search.product_type' | t }}</span>
-              <div class="flex flex-wrap items-center gap-2">
-                {% for type in productTypes %}
-                  <a href="{{ routes.all_products_collection_url }}?filter.p.product_type={{ type | strip  | url_encode }}" class="border border-solid border-primary rounded-3xl text-primary hover:bg-background transition-all text-sm leading-none font-normal px-3 py-2 font-heading cursor-pointer">
-                    {{ type | strip  }}
-                  </a>
-                {% endfor %}
-              </div>
-            </div>
-          {% endif %}
         </div>
 
         <div class="predictive-search__result-group w-full col-span-1 lg:col-span-3 flex flex-col gap-4 bg-background rounded-xl p-5 lg:py-16 order-1 lg:order-2">
           <div class="max-w-[485px] mx-auto mb-4 lg:mb-6 w-full">
-            <div class="flex items-center gap-3 lg:flex-col lg:text-center mb-4 lg:mb-6">
-              {% render 'icon-predictive-search', class: 'w-16 h-16 lg:w-26 lg:h-26 text-primary flex-none' %}
-              <span class="text-primary font-normal text-sm leading-5 lg:text-lg lg:leading-6 break-words overflow-hidden">{{ 'predictive_search.description_html' | t: term: predictive_search.terms }}</span>
-            </div>
-            <div class="grid gap-2 lg:gap-3 grid-cols-1 md:grid-cols-2">
-              <a
-                href="{{ settings.best_sellers_collection.url }}"
-                class="btn btn-2 py-3.5 px-2 !uppercase !text-sm !leading-none text-center !font-bold !font-heading"
-                title="{{ settings.best_sellers_collection.title }}">View {{ settings.best_sellers_collection.title }}</a>
-              <a
-                href="{{ settings.new_arrivals_collection.url }}"
-                class="btn btn-2 py-3.5 px-2 !uppercase !text-sm !leading-none text-center !font-bold !font-heading"
-                title="{{ settings.new_arrivals_collection.title }}">View {{ settings.new_arrivals_collection.title }}</a>
-            </div>
+            <span class="text-primary font-normal text-sm leading-5 lg:text-lg lg:leading-6 break-words overflow-hidden">{{ 'predictive_search.description_html' | t: term: predictive_search.terms }}</span>
           </div>
         </div>
       </div>

@@ -4,55 +4,19 @@
   role="listbox">
   <div id="predictive-search-results-groups-wrapper" class="grid grid-cols-1 lg:grid-cols-4 gap-5 lg:gap-4">
     <div class="predictive-search__result-group lg:pr-4 lg:border-r lg:border-border w-full col-span-1 flex flex-col gap-5 lg:gap-8 lg:pt-8">
-      <recent-search>
-        <span class="block uppercase text-xs font-normal leading-6 text-primary lg:text-sm lg:leading-4 mb-2 lg:mb-3">{{ 'predictive_search.recent_search' | t }}</span>
-        <div class="recent-list flex flex-col gap-2"></div>
-      </recent-search>
       {% if settings.predictive_popular_search != blank %}
         {% assign popularSearches = settings.predictive_popular_search | split: ',' %}
         <div>
           <span class="block uppercase text-xs font-normal leading-6 text-primary lg:text-sm lg:leading-4 mb-2 lg:mb-3">{{ 'predictive_search.popular_search' | t }}</span>
-          <div class="grid grid-cols-1 gap-2 lg:gap-2.5">
+          <div class="grid grid-cols-1 lg:gap-2.5">
             {% for search in popularSearches %}
               <span class="flex w-full items-center gap-1.5">
-                {% render 'icon-search', class: 'w-3.5 h-3.5' %}
-                <a class="cursor-pointer text-sm font-normal font-heading leading-2" href="/search?q={{ search | url_encode }}">{{ search | strip }}</a>
+                {% render 'icon-search', class: 'w-4 h-4' %}
+                <a class="cursor-pointer text-xs font-normal font-heading leading-2" href="/search?q={{ search | url_encode }}">{{ search | strip }}</a>
               </span>
             {% endfor %}
           </div>
         </div>
-      {% endif %}
-      {% if settings.predictive_product_type != blank %}
-        {% assign productTypes = settings.predictive_product_type | split: ',' %}
-        <div>
-          <span class="block uppercase text-xs font-normal leading-6 text-primary lg:text-sm lg:leading-4 mb-2 lg:mb-3">{{ 'predictive_search.product_type' | t }}</span>
-          <div class="flex flex-wrap items-center gap-2">
-            {% for type in productTypes %}
-              <a href="{{ routes.all_products_collection_url }}?filter.p.product_type={{ type | strip | url_encode }}" class="border border-solid border-primary rounded-3xl text-primary hover:bg-background transition-all text-sm leading-none font-normal px-3 py-2 font-heading cursor-pointer">
-                {{ type | strip }}
-              </a>
-            {% endfor %}
-          </div>
-        </div>
-      {% endif %}
-    </div>
-
-    <div class="predictive-search__result-group col-span-1 lg:col-span-3 flex flex-col -mx-2 w-[calc(100%_+_16px)] lg:w-full lg:mx-0 lg:px-0">
-      {% if settings.recommend_predictive_search %}
-        <div class="flex justify-between gap-1 mb-3">
-          <p class="block text-sm font-heading leading-4 font-semibold text-primary">{{ settings.recommend_predictive_search.title }}</p>
-          <a href="{{ settings.recommend_predictive_search.url }}" title="{{ settings.recommend_predictive_search.title }}" class="lg:hidden items-center gap-1 font-heading font-bold leading-none text-sm flex text-secondary hover:text-primary capitalize">{{ 'predictive_search.view_all' | t }} {% render 'icon-right', class: 'w-5 h-5' %}</a>
-        </div>
-        <ul id="predictive-search-results-products-list" class="grid grid-cols-2 lg:grid-cols-3 -mx-1 lg:-mx-2" role="group" aria-labelledby="predictive-search-products">
-          {%- for product in settings.recommend_predictive_search.products limit: 3 -%}
-            <li id="predictive-search-option-product-{{ forloop.index }}" class="predictive-search__list-item{% if forloop.index > 2 %} hidden lg:block{% endif %} px-1 lg:px-2" role="option" aria-selected="false">
-              {% render 'product-card', product: product, heading: 'div' %}
-            </li>
-          {%- endfor -%}
-        </ul>
-        <a href="{{ settings.recommend_predictive_search.url }}" title="{{ settings.recommend_predictive_search.title }}" class="hidden items-center gap-1 font-heading font-bold leading-none text-sm lg:flex text-secondary hover:text-primary capitalize w-fit mt-5 mx-auto">{{ 'predictive_search.view_all' | t }} 
-          {% render 'icon-right', class: 'w-5 h-5' %}
-        </a>
       {% endif %}
     </div>
   </div>
