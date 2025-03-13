@@ -16,7 +16,7 @@
         "text-image": {
           "type": "text-image",
           "settings": {
-            "background_color_image_text": "#fafafa",
+            "background_color_image_text": "#FFFFFF",
             "colors_text": "#0f0f0f",
             "image-1": "shopify:\/\/shop_images\/easy_exchange_a33296e2-d263-4ed5-8a48-9a44bc460b40.png",
             "text-1": "easy exchange",

@@ -22,7 +22,7 @@
             "colors_sub_heading": "#000000",
             "sub_heading_size": 16,
             "sub_heading_size_mb": 16,
-            "sub_heading": "",
+            "sub_heading": "Sub heading",
             "heading_tag": "h2",
             "colors_heading": "#000000",
             "heading_size": 24,
@@ -87,20 +87,103 @@
     "product_list": {
       "type": "product-list",
       "settings": {
-        "fullwidth": false,
-        "secondary": "",
         "background_color": "rgba(0,0,0,0)",
         "heading": "Exciting new arrivals",
         "collection": "t-shirt-dad",
         "button_text": "See all",
-        "columns_desktop": 6,
-        "columns_tablet": 4,
+        "columns_desktop": 5,
+        "columns_tablet": 3,
         "columns_mobile": 2,
-        "limit": 9,
-        "padding_top": 20,
+        "limit": 10,
+        "padding_top": 40,
         "padding_bottom": 20,
         "padding_top_mb": 20,
-        "padding_bottom_mb": 160
+        "padding_bottom_mb": 10
+      }
+    },
+    "link_box_1": {
+      "type": "link-box",
+      "blocks": {
+        "box_1": {
+          "type": "box",
+          "settings": {
+            "heading": "For Her",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_2": {
+          "type": "box",
+          "settings": {
+            "heading": "For Him",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_3": {
+          "type": "box",
+          "settings": {
+            "heading": "Kids & Baby",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_4": {
+          "type": "box",
+          "settings": {
+            "heading": "Friend",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_5": {
+          "type": "box",
+          "settings": {
+            "heading": "Pet Lover",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_6": {
+          "type": "box",
+          "settings": {
+            "heading": "Grandparent",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_7": {
+          "type": "box",
+          "settings": {
+            "heading": "Coworker",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        }
+      },
+      "block_order": [
+        "box_1",
+        "box_2",
+        "box_3",
+        "box_4",
+        "box_5",
+        "box_6",
+        "box_7"
+      ],
+      "settings": {
+        "heading_tag": "h2",
+        "heading": "Who are you shopping for today?",
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_top_mb": 10,
+        "padding_bottom_mb": 10
       }
     },
     "image-text-link": {
@@ -171,6 +254,72 @@
             "anchor_text": "",
             "align_item": "text-center"
           }
+        },
+        "itl_7": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-starwar.png",
+            "image_type": "rounded-full",
+            "title": "Star War Costumes",
+            "url_item": "shopify://collections/for-pet-lovers",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "itl_8": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-harryposter.png",
+            "image_type": "rounded-full",
+            "title": "Personalized Harry Potter",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "itl_9": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-zelda.png",
+            "image_type": "rounded-full",
+            "title": "Personalized Zelda",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "itl_10": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-dragonball.png",
+            "image_type": "rounded-full",
+            "title": "Personalized Dragon Ball",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "itl_11": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-superhero.png",
+            "image_type": "rounded-full",
+            "title": "Personalized Super Hero",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
+        },
+        "itl_12": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-grinch.png",
+            "image_type": "rounded-full",
+            "title": "Personalized Grinches",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-center"
+          }
         }
       },
       "block_order": [
@@ -179,19 +328,188 @@
         "itl_3",
         "itl_4",
         "itl_5",
-        "itl_6"
+        "itl_6",
+        "itl_7",
+        "itl_8",
+        "itl_9",
+        "itl_10",
+        "itl_11",
+        "itl_12"
       ],
       "settings": {
-        "background_color": "#fafafa",
+        "background_color": "#ffffff",
         "url": "",
         "heading": "Shop by fan art",
         "columns_desktop": 6,
         "columns_tablet": 3,
         "columns_mobile": 3,
-        "padding_top": 64,
-        "padding_bottom": 64,
-        "padding_top_mb": 40,
-        "padding_bottom_mb": 40
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_top_mb": 10,
+        "padding_bottom_mb": 10
+      }
+    },
+    "image-text-link-2": {
+      "type": "image-text-link",
+      "blocks": {
+        "itl_1": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/Mockup_1_8a30a4d5-3793-443b-b5fc-e9fd12ebe42b.jpg",
+            "image_type": "rounded-[10px]",
+            "title": "Star War Costumes",
+            "url_item": "shopify://collections/for-pet-lovers",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_2": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/Mockup_1_c76b5f16-ca19-45a1-b796-22ebeeb80895.jpg",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Harry Potter",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_3": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/MK_2_418db153-619b-4f77-9fb5-dbd72dedcd09.jpg",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Zelda",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_4": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/MK_1_52f4deb6-22ea-4782-9355-df812ea5ec18.jpg",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Dragon Ball",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_5": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/1_950738a0-eade-4bda-b357-227fe7d633dd.webp",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Super Hero",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_6": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/Mockup_2_749b4882-4004-4eea-855b-801409655143.jpg",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Grinches",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_7": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-starwar.png",
+            "image_type": "rounded-[10px]",
+            "title": "Star War Costumes",
+            "url_item": "shopify://collections/for-pet-lovers",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_8": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-harryposter.png",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Harry Potter",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_9": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-zelda.png",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Zelda",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_10": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-dragonball.png",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Dragon Ball",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_11": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-superhero.png",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Super Hero",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        },
+        "itl_12": {
+          "type": "itl",
+          "settings": {
+            "image": "shopify://shop_images/home_christmas24_sbr-grinch.png",
+            "image_type": "rounded-[10px]",
+            "title": "Personalized Grinches",
+            "url_item": "",
+            "anchor_text": "",
+            "align_item": "text-left"
+          }
+        }
+      },
+      "block_order": [
+        "itl_1",
+        "itl_2",
+        "itl_3",
+        "itl_4",
+        "itl_5",
+        "itl_6",
+        "itl_7",
+        "itl_8",
+        "itl_9",
+        "itl_10",
+        "itl_11",
+        "itl_12"
+      ],
+      "settings": {
+        "background_color": "#ffffff",
+        "url": "",
+        "heading": "Shop by occasions",
+        "columns_desktop": 6,
+        "columns_tablet": 3,
+        "columns_mobile": 3,
+        "padding_top": 20,
+        "padding_bottom": 40,
+        "padding_top_mb": 10,
+        "padding_bottom_mb": 20
       }
     },
     "banner_2": {
@@ -203,7 +521,7 @@
             "rounded": false,
             "content_position": "absolute",
             "colors_background": "#fff7ec",
-            "image": "shopify://shop_images/Valentine_s_Day_2025_5000x_ce3a8476-2300-459d-93f3-a5d7e2817164.jpg",
+            "image": "shopify://shop_images/banner_de850923-4e37-4aa2-b346-c9c7078def37.jpg",
             "colors_sub_heading": "#000000",
             "sub_heading_size": 16,
             "sub_heading_size_mb": 16,
@@ -212,12 +530,12 @@
             "colors_heading": "#000000",
             "heading_size": 24,
             "heading_size_mb": 18,
-            "heading": "Love In Your Eyes",
+            "heading": "Join our affiliate program!",
             "colors_description": "#0b2a4a",
             "description_size": 15,
             "description_size_mb": 15,
             "description": "Earn up to 25% commission by sharing our products.Apply now and start earning!",
-            "button_label": "SHOP ALL",
+            "button_label": "Apply Now",
             "link": "",
             "colors_text_button": "#ffffff",
             "colors_background_button": "#044d79",
@@ -240,31 +558,201 @@
         "margin_bottom_mb": 0
       }
     },
-    "product_slider": {
-      "type": "product-slider",
+    "icon_text_link_1": {
+      "type": "icon-text-link",
+      "blocks": {
+        "itl_1": {
+          "type": "itl",
+          "settings": {
+            "background_color": "#f7f7f7",
+            "icon": "shopify://shop_images/icons8-around-the-globe-48.png",
+            "title": "Offer Worldwide Shipping",
+            "align_item": "items-center",
+            "url_item": "#",
+            "anchor_text": "Learn more"
+          }
+        },
+        "itl_2": {
+          "type": "itl",
+          "settings": {
+            "background_color": "#f7f7f7",
+            "icon": "shopify://shop_images/icons8-bank-48.png",
+            "title": "One-Year Limited Warrant",
+            "align_item": "items-center",
+            "url_item": "#",
+            "anchor_text": "Learn more"
+          }
+        },
+        "itl_3": {
+          "type": "itl",
+          "settings": {
+            "background_color": "#f7f7f7",
+            "icon": "shopify://shop_images/icons8-technical-support-48.png",
+            "title": "100% Secure Payment, Ensured",
+            "align_item": "items-center",
+            "url_item": "#",
+            "anchor_text": "Learn more"
+          }
+        },
+        "itl_4": {
+          "type": "itl",
+          "settings": {
+            "background_color": "#f7f7f7",
+            "icon": "shopify://shop_images/icons8-guarantee-48.png",
+            "title": "24/7 Dedicated Support",
+            "align_item": "items-center",
+            "url_item": "#",
+            "anchor_text": "Learn more"
+          }
+        }
+      },
+      "block_order": [
+        "itl_1",
+        "itl_2",
+        "itl_3",
+        "itl_4"
+      ],
       "settings": {
-        "fullwidth": false,
-        "secondary": "",
-        "background_color": "rgba(0,0,0,0)",
-        "heading": "Exciting new arrivals",
-        "collection": "t-shirt-dad",
-        "button_text": "See all",
-        "columns_desktop": 6,
+        "background_color": "#ffffff",
+        "heading": "",
+        "columns_desktop": 4,
         "columns_tablet": 4,
         "columns_mobile": 2,
-        "limit": 9,
+        "padding_top": 40,
+        "padding_bottom": 40,
+        "padding_top_mb": 20,
+        "padding_bottom_mb": 20
+      }
+    },
+    "column_text_1": {
+      "type": "column-text",
+      "blocks": {
+        "text_kzQF77": {
+          "type": "text",
+          "settings": {
+            "heading": "Wonderfully story",
+            "description": "<p>Wander Prints began in 2018, focusing on personalization as a growing trend, offering unique gifts that reflect individuality and love. Our online store simplifies the design process, allowing customers to easily personalize items with their interests and names.</p>"
+          }
+        },
+        "text_aPchxE": {
+          "type": "text",
+          "settings": {
+            "heading": "Creativity meets emotion",
+            "description": "<p>Bringing your unique stories to life through art. Wander Prints is where creativity meets emotion. Every design tells a story, and each print is a journey. Let’s make your items as unique as your love!</p>"
+          }
+        }
+      },
+      "block_order": [
+        "text_kzQF77",
+        "text_aPchxE"
+      ],
+      "settings": {
+        "background_color": "#f0f8ff",
+        "heading": "What is Wander Prints?",
+        "columns_desktop": 2,
+        "columns_tablet": 2,
+        "columns_mobile": 1,
         "padding_top": 20,
         "padding_bottom": 20,
-        "padding_top_mb": 20,
-        "padding_bottom_mb": 160
+        "padding_top_mb": 10,
+        "padding_bottom_mb": 10
+      }
+    },
+    "link_box_2": {
+      "type": "link-box",
+      "blocks": {
+        "box_1": {
+          "type": "box",
+          "settings": {
+            "heading": "For Her",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_2": {
+          "type": "box",
+          "settings": {
+            "heading": "For Him",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_3": {
+          "type": "box",
+          "settings": {
+            "heading": "Kids & Baby",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_4": {
+          "type": "box",
+          "settings": {
+            "heading": "Friend",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_5": {
+          "type": "box",
+          "settings": {
+            "heading": "Pet Lover",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_6": {
+          "type": "box",
+          "settings": {
+            "heading": "Grandparent",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        },
+        "box_7": {
+          "type": "box",
+          "settings": {
+            "heading": "Coworker",
+            "url": "",
+            "text_color": "#000000",
+            "background_color": "#ebeaeb"
+          }
+        }
+      },
+      "block_order": [
+        "box_1",
+        "box_2",
+        "box_3",
+        "box_4",
+        "box_5",
+        "box_6",
+        "box_7"
+      ],
+      "settings": {
+        "heading_tag": "h2",
+        "heading": "Trending Searches Now",
+        "padding_top": 20,
+        "padding_bottom": 40,
+        "padding_top_mb": 10,
+        "padding_bottom_mb": 20
       }
     }
   },
   "order": [
     "banner_1",
     "product_list",
+    "link_box_1",
     "image-text-link",
+    "image-text-link-2",
     "banner_2",
-    "product_slider"
+    "icon_text_link_1",
+    "column_text_1",
+    "link_box_2"
   ]
 }

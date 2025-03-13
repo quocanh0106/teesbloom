@@ -112,7 +112,7 @@
         "81b57638-4457-464c-8836-75a8c9236f4f"
       ],
       "settings": {
-        "background_color": "#fafafa",
+        "background_color": "#FFFFFF",
         "columns_desktop": 4,
         "columns_tablet": 4,
         "columns_mobile": 2,
@@ -326,7 +326,7 @@
     "a6bef151-2000-46f7-b8a0-bd0ac9592bcd": {
       "type": "promise",
       "settings": {
-        "background_color": "#fafafa",
+        "background_color": "#FFFFFF",
         "heading": "UNSER VERSPRECHEN",
         "description": "Wir versprechen Ihnen, außergewöhnliche Produkte zu liefern, die mit Sorgfalt und Präzision hergestellt werden, um Ihre Erwartungen zu übertreffen. Wir sind dazu verpflichtet, Ihnen ein nahtloses und angenehmes Einkaufserlebnis zu bieten, und garantieren Ihre Zufriedenheit vom Moment Ihres Besuchs auf unserer Webseite bis zur Lieferung Ihres personalisierten Geschenks.",
         "padding_top": 64,

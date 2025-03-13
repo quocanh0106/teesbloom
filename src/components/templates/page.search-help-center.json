@@ -110,7 +110,7 @@
         "live-chat"
       ],
       "settings": {
-        "background_color": "#fafafa",
+        "background_color": "#FFFFFF",
         "col_per_row_desktop": 2,
         "col_per_row_tablet": 1,
         "col_per_row_mobile": 1,

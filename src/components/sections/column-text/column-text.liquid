@@ -1,6 +1,5 @@
 {%- style -%}
   #shopify-section-{{ section.id }} {
-    background: {{ section.settings.background_color }};
     padding-top: {{ section.settings.padding_top_mb }}px;
     padding-bottom: {{ section.settings.padding_bottom_mb }}px;
   }
@@ -10,20 +9,45 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+  @media (max-width: 767px) {
+    .para:nth-child({{ section.settings.columns_mobile }}n)::after {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .para:nth-child({{ section.settings.columns_tablet }}n)::after {
+      display: none !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .para:nth-child({{ section.settings.columns_desktop }}n)::after {
+      display: none !important;
+    }
+  }
 {%- endstyle -%}
 
 {% if section.blocks.size > 0 %}
-  <div class="page-width relative grid gap-x-3 gap-y-6 lg:gap-4 grid-cols-{{ section.settings.columns_mobile }} md:grid-cols-{{ section.settings.columns_tablet }} lg:grid-cols-{{ section.settings.columns_desktop }}">
-    {% for block in section.blocks %}
-      <div class="block w-full text-center px-2">
-        {% if block.settings.heading %}
-          <span class="block text-h3 !font-medium lg:text-h1 text-center text-secondary !font-body mb-1 lg:mb-2">{{ block.settings.heading }}</span>
-        {% endif %}
-        {% if block.settings.description %}
-          <span class="block text-secondary text-xs text-center leading-5 font-normal lg:text-sm">{{ block.settings.description }}</span>
-        {% endif %}
-      </div>
-    {%- endfor -%}
+  <div
+    class="page-width py-5"
+    data-section-id="{{ section.id }}"
+    style="background: {{ section.settings.background_color }};">
+    {% if section.settings.heading != blank %}
+      <h2 class="text-base lg:text-lg font-semibold text-center text-primary mb-2">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+    <div class="mx-auto grid grid-cols-{{ section.settings.columns_mobile }} md:grid-cols-{{ section.settings.columns_tablet }} lg:grid-cols-{{ section.settings.columns_desktop }}{% unless section.settings.columns_desktop > 2 %} lg:max-w-2/3{% endunless %}">
+      {% for block in section.blocks %}
+        <div class="para block w-full text-center px-7 py-10 lg:py-5 relative after:hidden after:md:block after:bg-border after:absolute after:right-[-0.5px] after:top-5 after:w-[1px] after:h-[calc(100%_-_80px)] last:after:!hidden">
+          {% if block.settings.heading %}
+            <span class="block text-lg font-semibold text-center text-primary !font-body mb-2.5">{{ block.settings.heading }}</span>
+          {% endif %}
+          {% if block.settings.description %}
+            <div class="block text-primary text-xs text-justify leading-5 font-normal lg:text-sm">{{ block.settings.description }}</div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
   </div>
 {% endif %}
 
@@ -37,7 +61,13 @@
         "type": "color",
         "id": "background_color",
         "label": "Background color",
-        "default": "#FAFAFA"
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Heading",
+        "label": "Heading"
       },
       {
         "type": "range",
@@ -45,7 +75,7 @@
         "label": "Items per row in desktop",
         "min": 1,
         "max": 6,
-        "default": 6,
+        "default": 2,
         "step": 1
       },
       {
@@ -54,23 +84,20 @@
         "label": "Items per row in tablet",
         "min": 1,
         "max": 6,
-        "default": 4,
+        "default": 2,
         "step": 1
-      },
-      {
+      }, {
         "type": "range",
         "id": "columns_mobile",
         "label": "Items per row in mobile",
         "min": 1,
         "max": 6,
-        "default": 2,
+        "default": 1,
         "step": 1
-      },
-      {
+      }, {
         "type": "header",
         "content": "Padding desktop"
-      },
-      {
+      }, {
         "type": "range",
         "id": "padding_top",
         "min": 0,
@@ -78,9 +105,8 @@
         "step": 2,
         "unit": "px",
         "label": "Padding top",
-        "default": 64
-      },
-      {
+        "default": 20
+      }, {
         "type": "range",
         "id": "padding_bottom",
         "min": 0,
@@ -88,13 +114,11 @@
         "step": 2,
         "unit": "px",
         "label": "Padding bottom",
-        "default": 64
-      },
-      {
+        "default": 20
+      }, {
         "type": "header",
         "content": "Padding mobile"
-      },
-      {
+      }, {
         "type": "range",
         "id": "padding_top_mb",
         "min": 0,
@@ -103,8 +127,7 @@
         "unit": "px",
         "label": "Padding top",
         "default": 40
-      },
-      {
+      }, {
         "type": "range",
         "id": "padding_bottom_mb",
         "min": 0,
@@ -125,12 +148,10 @@
             "id": "heading",
             "label": "Heading",
             "default": "Heading item"
-          },
-          {
-            "type": "text",
+          }, {
+            "type": "richtext",
             "id": "description",
-            "label": "Description",
-            "default": "Description item"
+            "label": "Description"
           }
         ]
       }

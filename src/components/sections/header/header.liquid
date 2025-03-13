@@ -52,7 +52,7 @@
       <h1 class="hidden opacity-0 invisible">{{ shop.name }}</h1>
     {% endif %}
   </div>
-  <predictive-search id="predictive-search" class="absolute top-full bg-background left-0 lg:static py-0 flex justify-end lg:justify-start w-full lg:max-w-[600px] opacity-0 invisible lg:!opacity-100 lg:!visible">
+  <predictive-search id="predictive-search" class="absolute top-full bg-background left-0 lg:relative py-0 flex justify-end lg:justify-start w-full lg:max-w-[600px] opacity-0 invisible lg:!opacity-100 lg:!visible">
     <form action="{{ routes.search_url }}" method="get" role="search" class="bg-background shadow-search lg:shadow-none flex items-center gap-3 top-full left-0 h-12 px-4 lg:p-0 z-10 transition-all lg:static lg:h-11 w-full lg:overflow-hidden">
       <div class="relative w-full center h-full lg:h-auto">
         <input class="placeholder:!text-gray-500 !border !border-border !rounded-3xl w-full h-full lg:h-11 px-14 lg:pl-8 lg:overflow-hidden appearance-none !outline-none !shadow-none !ring-transparent"
@@ -79,7 +79,7 @@
       </div>
       <span class="predictive-search-status hidden" role="status" aria-hidden="true"></span>
     </form>
-    <div class="predictive-search predictive-search--header opacity-0 invisible transition-all absolute z-20 top-full left-1/2 w-screen -translate-x-1/2 bg-background shadow-megamenu overflow-y-auto max-h-searchmb pb-safe-offset-96 lg:pb-0" tabindex="-1" data-predictive-search>
+    <div class="predictive-search predictive-search--header opacity-0 invisible transition-all absolute z-20 top-full left-1/2 w-screen lg:w-full -translate-x-1/2 bg-background shadow-megamenu overflow-y-auto max-h-searchmb pb-safe-offset-96 lg:pb-0" tabindex="-1" data-predictive-search>
       <div class="predictive-search__preview">
 
       </div>

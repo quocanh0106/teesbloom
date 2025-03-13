@@ -76,7 +76,7 @@
     "product": "Produit",
     "suggestion": "suggestions",
     "collections": "collections",
-    "description_html": "Désolé, nous n'avons trouvé aucun résultat correspondant pour <span class=\"font-medium break-words\">“{{ term }}”<\/span>",
+    "description_html": "Désolé, aucun résultat pour <span class=\"font-medium break-words\">“{{ term }}”<\/span>",
     "view_all": "Voir tout"
   },
   "accessibility": {

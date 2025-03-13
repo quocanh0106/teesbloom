@@ -106,7 +106,7 @@ tabs-component.product-infortab .tab-detail.lg\:hidden {
     tbody {
       @apply w-full lg:flex;
       tr {
-        @apply w-full text-center lg:flex lg:flex-col odd:bg-[#FAFAFA];
+        @apply w-full text-center lg:flex lg:flex-col odd:bg-[#FFFFFF];
         th {
           @apply lg:w-full lg:h-full lg:text-left uppercase text-xs leading-2 font-semibold font-heading text-primary lg:text-base lg:leading-4 p-2.5 lg:px-6 lg:whitespace-nowrap;
         }

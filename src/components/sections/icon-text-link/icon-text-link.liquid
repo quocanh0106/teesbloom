@@ -1,0 +1,227 @@
+{%- style -%}
+  [data-section-id="{{ section.id }}"] {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
+  @media (min-width: 768px) {
+    [data-section-id="{{ section.id }}"] {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div data-section-id="{{ section.id }}">
+  <div class="page-width-2 relative">
+    {% if section.settings.heading != blank %}
+      <h2 class="text-base lg:text-lg font-semibold text-primary mb-5">{{ section.settings.heading | escape }}</h2>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+      <div class="grid lg:px-5 gap-5 grid-cols-{{ section.settings.columns_mobile }} md:grid-cols-{{ section.settings.columns_tablet }} lg:grid-cols-{{ section.settings.columns_desktop }}">
+        {% for block in section.blocks %}
+          <div class="w-full p-2.5 rounded-[10px] gap-1 flex flex-col justify-center {{ block.settings.align_item }}" style="background-color: {{ block.settings.background_color }};">
+            {% if block.settings.icon != blank %}
+              <img
+                src="{{ block.settings.icon | image_url: width: block.settings.icon.width }}"
+                srcset="{{ block.settings.icon | image_url: width: block.settings.icon.width }} {{ block.settings.icon.width }}w"
+                sizes="{{ block.settings.icon.width }}px"
+                {% if block.settings.icon.alt != blank %}
+                alt="{{ block.settings.icon.alt | escape }}"
+                {% else %}
+                alt="{{ block.settings.icon | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                {% endif %}
+                class="group-hover:scale-105 transition-all w-auto h-auto object-cover object-center"
+                loading="lazy"
+                width="{{ block.settings.icon.width }}"
+                height="{{ block.settings.icon.height }}"
+              />
+            {% endif %}
+            {% if block.settings.title != blank %}
+              <p class="font-body font-bold text-base text-primary leading-5 m-0">{{ block.settings.title }}</p>
+            {% endif %}
+            {% if block.settings.url_item != blank %}
+              <a
+                href="{{ block.settings.url_item }}"
+                class="block overflow-hidden text-sm leading-4 text-secondary hover:text-special transaction-all duration-200"
+                title="{{ block.settings.anchor_text }}">
+                {{ block.settings.anchor_text }}
+              </a>
+            {% endif %}
+          </div>
+        {% endfor %}
+      </div>
+    {% endif %}
+  </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Icon text link",
+    "tag": "section",
+    "class": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background_color",
+        "label": "Background color",
+        "default": "#FFFFFF"
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "default": "Heading",
+        "label": "Heading"
+      },
+      {
+        "type": "range",
+        "id": "columns_desktop",
+        "label": "Items per row in desktop",
+        "min": 1,
+        "max": 9,
+        "default": 6,
+        "step": 1
+      },
+      {
+        "type": "range",
+        "id": "columns_tablet",
+        "label": "Items per row in tablet",
+        "min": 1,
+        "max": 9,
+        "default": 4,
+        "step": 1
+      }, {
+        "type": "range",
+        "id": "columns_mobile",
+        "label": "Items per row in mobile",
+        "min": 1,
+        "max": 6,
+        "default": 2,
+        "step": 1
+      }, {
+        "type": "header",
+        "content": "Padding desktop"
+      }, {
+        "type": "range",
+        "id": "padding_top",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 20
+      }, {
+        "type": "range",
+        "id": "padding_bottom",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 20
+      }, {
+        "type": "header",
+        "content": "Padding mobile"
+      }, {
+        "type": "range",
+        "id": "padding_top_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding top",
+        "default": 40
+      }, {
+        "type": "range",
+        "id": "padding_bottom_mb",
+        "min": 0,
+        "max": 200,
+        "step": 2,
+        "unit": "px",
+        "label": "Padding bottom",
+        "default": 40
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Icon text link",
+        "type": "itl",
+        "settings": [
+          {
+            "type": "color",
+            "id": "background_color",
+            "label": "Background color",
+            "default": "#F7F7F7"
+          },
+          {
+            "type": "image_picker",
+            "id": "icon",
+            "label": "Icon"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Heading item"
+          },
+          {
+            "type": "select",
+            "id": "align_item",
+            "label": "Text alignment item",
+            "default": "items-center",
+            "options": [
+              {
+                "value": "items-start",
+                "label": "Left"
+              }, {
+                "value": "items-center",
+                "label": "Center"
+              }, {
+                "value": "items-end",
+                "label": "Right"
+              }
+            ]
+          },
+          {
+            "type": "url",
+            "id": "url_item",
+            "label": "Url item"
+          }, {
+            "type": "text",
+            "id": "anchor_text",
+            "label": "Learn more"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Icon text link",
+        "blocks": [
+          {
+            "type": "itl",
+            "settings": {
+              "title": "Title"
+            }
+          }, {
+            "type": "itl",
+            "settings": {
+              "title": "Title"
+            }
+          }, {
+            "type": "itl",
+            "settings": {
+              "title": "Title"
+            }
+          }, {
+            "type": "itl",
+            "settings": {
+              "title": "Title"
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}

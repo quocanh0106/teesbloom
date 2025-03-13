@@ -67,7 +67,7 @@
     "product": "Product",
     "suggestion": "suggestions",
     "collections": "collections",
-    "description_html": "Sorry, we couldn't find any matching results for <span class=\"font-medium break-words\">“{{ term }}”<\/span>",
+    "description_html": "Sorry, no results for <span class=\"font-medium break-words\">“{{ term }}”<\/span>",
     "view_all": "View All"
   },
   "accessibility": {
