@@ -265,6 +265,16 @@
       },
       {
         "type": "range",
+        "id": "container_2",
+        "min": 1200,
+        "max": 1600,
+        "step": 40,
+        "default": 1440,
+        "unit": "px",
+        "label": "Container 2"
+      },
+      {
+        "type": "range",
         "id": "padding_desktop",
         "min": 0,
         "max": 100,

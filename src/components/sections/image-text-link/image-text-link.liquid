@@ -27,9 +27,9 @@
 {%- endstyle -%}
 
 <div data-section-id="{{ section.id }}">
-  <div class="page-width relative">
+  <div class="page-width-2 relative">
     {% if section.settings.heading != blank %}
-      <h2 class="text-base lg:text-lg font-semibold text-center text-primary mb-5">{{ section.settings.heading | escape }}</h2>
+      <h2 class="text-base lg:text-lg font-semibold text-primary mb-5">{{ section.settings.heading | escape }}</h2>
     {% endif %}
 
     {% if section.blocks.size > 0 %}

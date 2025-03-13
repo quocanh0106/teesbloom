@@ -221,7 +221,8 @@ module.exports = {
         '6-col-variant': 'calc((100% - 2.5rem)/6)',
         'main-article': 'calc(200%/3 - 5px)',
         'main-article-sidebar': 'calc(100%/3 + 5px)',
-        'container': 'var(--page-width)'
+        'container': 'var(--page-width)',
+        'container-2': 'var(--page-width-2)'
       },
       minWidth: {
         12: '3rem',

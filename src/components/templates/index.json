@@ -9,65 +9,75 @@
  */
  {
   "sections": {
-    "banner_4": {
+    "banner_1": {
       "type": "banner",
       "blocks": {
-        "slide_6LenWk": {
+        "slide_1": {
           "type": "slide",
           "settings": {
             "rounded": false,
-            "content_position": "hide",
-            "colors_background": "#e4e7ed",
+            "content_position": "absolute",
+            "colors_background": "#fff7ec",
+            "image": "shopify://shop_images/Valentine_s_Day_2025_5000x_ce3a8476-2300-459d-93f3-a5d7e2817164.jpg",
+            "colors_sub_heading": "#000000",
+            "sub_heading_size": 16,
+            "sub_heading_size_mb": 16,
+            "sub_heading": "",
             "heading_tag": "h2",
-            "colors_heading": "#c81608",
-            "heading_size": 60,
-            "heading_size_mb": 32,
-            "heading": "Christmas",
+            "colors_heading": "#000000",
+            "heading_size": 24,
+            "heading_size_mb": 18,
+            "heading": "Love In Your Eyes",
             "colors_description": "#0b2a4a",
-            "description_size": 30,
-            "description_size_mb": 18,
+            "description_size": 15,
+            "description_size_mb": 15,
             "description": "Santa’s Got Nothing on These Gifts!",
             "button_label": "SHOP ALL",
             "link": "",
-            "colors_text_button": "#fc6514",
-            "colors_background_button": "#ffffff",
+            "colors_text_button": "#ffffff",
+            "colors_background_button": "#044d79",
             "row_span_desktop": 1,
             "col_span_desktop": 1
           }
         },
-        "slide_MaqQwW": {
+        "slide_2": {
           "type": "slide",
           "settings": {
             "rounded": false,
-            "content_position": "left",
-            "colors_background": "#ffffff",
+            "content_position": "absolute",
+            "colors_background": "#fff7ec",
+            "image": "shopify://shop_images/home-1_2500x_c4fd438a-5e7f-4d8b-959e-7248027d5ce0.jpg",
+            "colors_sub_heading": "#000000",
+            "sub_heading_size": 16,
+            "sub_heading_size_mb": 16,
+            "sub_heading": "Sub heading",
             "heading_tag": "h2",
-            "colors_heading": "#ffffff",
-            "heading_size": 32,
-            "heading_size_mb": 32,
+            "colors_heading": "#000000",
+            "heading_size": 24,
+            "heading_size_mb": 18,
             "heading": "Heading",
-            "colors_description": "#ffffff",
-            "description_size": 32,
-            "description_size_mb": 32,
+            "colors_description": "#000000",
+            "description_size": 15,
+            "description_size_mb": 15,
             "description": "Description",
             "button_label": "Button label",
             "link": "",
             "colors_text_button": "#ffffff",
-            "colors_background_button": "#0f0f0f",
+            "colors_background_button": "#044d79",
             "row_span_desktop": 1,
             "col_span_desktop": 1
           }
         }
       },
       "block_order": [
-        "slide_6LenWk",
-        "slide_MaqQwW"
+        "slide_1",
+        "slide_2"
       ],
       "settings": {
         "fullwidth": false,
-        "enable_swipe_on_mobile": true,
+        "enable_swipe_on_mobile": false,
         "col_per_row_mobile": 1,
-        "col_per_row_desktop": 1,
+        "col_per_row_desktop": 2,
         "margin_top": 0,
         "margin_bottom": 0,
         "margin_top_mb": 0,
@@ -79,13 +89,13 @@
       "settings": {
         "fullwidth": false,
         "secondary": "",
-        "background_color": "#FAFAFA",
+        "background_color": "rgba(0,0,0,0)",
         "heading": "Exciting new arrivals",
         "collection": "t-shirt-dad",
         "button_text": "See all",
-        "product_per_row": 6,
-        "product_per_row_tablet": 3,
-        "product_per_row_mobile": 2,
+        "columns_desktop": 6,
+        "columns_tablet": 4,
+        "columns_mobile": 2,
         "limit": 9,
         "padding_top": 20,
         "padding_bottom": 20,
@@ -172,22 +182,89 @@
         "itl_6"
       ],
       "settings": {
-        "background_color": "#FAFAFA",
+        "background_color": "#fafafa",
         "url": "",
-        "heading": "SHOP BY FAN ART",
+        "heading": "Shop by fan art",
         "columns_desktop": 6,
-        "columns_tablet": 4,
-        "columns_mobile": 2,
+        "columns_tablet": 3,
+        "columns_mobile": 3,
         "padding_top": 64,
         "padding_bottom": 64,
         "padding_top_mb": 40,
         "padding_bottom_mb": 40
       }
+    },
+    "banner_2": {
+      "type": "banner",
+      "blocks": {
+        "slide_1": {
+          "type": "slide",
+          "settings": {
+            "rounded": false,
+            "content_position": "absolute",
+            "colors_background": "#fff7ec",
+            "image": "shopify://shop_images/Valentine_s_Day_2025_5000x_ce3a8476-2300-459d-93f3-a5d7e2817164.jpg",
+            "colors_sub_heading": "#000000",
+            "sub_heading_size": 16,
+            "sub_heading_size_mb": 16,
+            "sub_heading": "",
+            "heading_tag": "h2",
+            "colors_heading": "#000000",
+            "heading_size": 24,
+            "heading_size_mb": 18,
+            "heading": "Love In Your Eyes",
+            "colors_description": "#0b2a4a",
+            "description_size": 15,
+            "description_size_mb": 15,
+            "description": "Earn up to 25% commission by sharing our products.Apply now and start earning!",
+            "button_label": "SHOP ALL",
+            "link": "",
+            "colors_text_button": "#ffffff",
+            "colors_background_button": "#044d79",
+            "row_span_desktop": 1,
+            "col_span_desktop": 1
+          }
+        }
+      },
+      "block_order": [
+        "slide_1"
+      ],
+      "settings": {
+        "fullwidth": false,
+        "enable_swipe_on_mobile": false,
+        "col_per_row_mobile": 1,
+        "col_per_row_desktop": 1,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "margin_top_mb": 0,
+        "margin_bottom_mb": 0
+      }
+    },
+    "product_slider": {
+      "type": "product-slider",
+      "settings": {
+        "fullwidth": false,
+        "secondary": "",
+        "background_color": "rgba(0,0,0,0)",
+        "heading": "Exciting new arrivals",
+        "collection": "t-shirt-dad",
+        "button_text": "See all",
+        "columns_desktop": 6,
+        "columns_tablet": 4,
+        "columns_mobile": 2,
+        "limit": 9,
+        "padding_top": 20,
+        "padding_bottom": 20,
+        "padding_top_mb": 20,
+        "padding_bottom_mb": 160
+      }
     }
   },
   "order": [
-    "banner_4",
+    "banner_1",
     "product_list",
-    "image-text-link"
+    "image-text-link",
+    "banner_2",
+    "product_slider"
   ]
 }

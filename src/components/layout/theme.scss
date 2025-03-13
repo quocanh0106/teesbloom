@@ -25,6 +25,14 @@ body.overflow-hidden, body.\!overflow-hidden, body.disable-scroll {
   @apply mx-auto lg:px-container-desktop max-w-container;
 }
 
+.page-width-2 {
+  @apply mx-auto px-container-mobile md:px-container-tablet lg:px-container-desktop max-w-container-2;
+}
+
+.page-width-desktop-2 {
+  @apply mx-auto lg:px-container-desktop max-w-container-2;
+}
+
 /***** Heading ******/
 
 .h1,

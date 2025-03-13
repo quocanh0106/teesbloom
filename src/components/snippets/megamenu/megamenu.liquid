@@ -63,7 +63,7 @@
             {% endif %}
             <a
               href="{% if block.settings.url != blank %}{{ block.settings.url }}{% else %}#{% endif %}"
-              class="{% if block.settings.primary %} !text-secondary !font-medium{% endif %} text-primary hover:text-secondary text-base font-normal capitalize no-underline font-body gap-1 lg:py-3 lg:px-4"
+              class="{% if block.settings.primary %} !text-secondary !font-medium{% endif %} text-primary hover:text-secondary border-b border-transparent hover:border-special text-base font-normal capitalize no-underline font-body gap-1 lg:py-3 lg:px-4"
               title="{{ titleCollection0 }}">
                 {{ block.settings.title }}
             </a>
@@ -72,13 +72,13 @@
             {% endif %}
           </div>
           {% if link.links != blank %}
-            <div class="details-head lg:pt-8 lg:pb-12 -translate-x-full lg:translate-x-0 absolute top-0 left-0 lg:top-full z-20 text-left list-none block invisible opacity-0 text-sm w-full h-[calc(100vh_-_80px)] lg:h-fit bg-background group-hover:lg:visible group-hover:lg:opacity-100 transition-all transition-menu lg:shadow-megamenu">
-              <div class="z-20 bg-background !px-0 lg:!px-12.5 flex flex-col lg:flex-row h-full lg:justify-between overflow-x-hidden lg:overflow-auto lg:h-max lg:max-h-menudt relative">
+            <div class="details-head lg:pt-8 lg:pb-8 page-width-desktop -translate-x-full lg:-translate-x-1/2 absolute top-0 left-0 lg:left-1/2 lg:top-full z-20 text-left list-none block invisible opacity-0 text-sm w-full h-[calc(100vh_-_80px)] lg:h-fit bg-background group-hover:lg:visible group-hover:lg:opacity-100 transition-all transition-menu lg:shadow-megamenu">
+              <div class="z-20 bg-background !px-0 flex flex-col lg:flex-row h-full lg:justify-between overflow-x-hidden lg:overflow-auto lg:h-max lg:max-h-menudt relative">
                 <div class="back lg:hidden flex items-center w-full text-primary hover:text-secondary transition-all mb-12.5 pr-2 lg:pr-0 z-0">
                   <span class="inline-block pr-1.5">{% render 'icon-prev', class: "w-5 h-5" %}</span>
                   <span class="text-base leading-4 font-normal capitalize">{{ 'sections.header.back' | t }}</span>
                 </div>
-                <div class="grid grid-cols-1 pr-2 gap-5 w-full h-fit overflow-auto static lg:overflow-unset lg:pb-0 lg:px-8 z-20 bg-background lg:grid-cols-4">
+                <div class="grid grid-cols-1 pr-2 gap-5 w-full h-fit overflow-auto static lg:overflow-unset z-20 bg-background lg:grid-cols-4">
                   <span-link class="lg:hidden text-primary hover:text-secondary" href="{% if block.settings.url != blank %}{{ block.settings.url }}{% else %}#{% endif %}"
                     class="flex relative items-center text-base leading-4 lg:p-3 lg:px-4 text-primary-800 hover:text-primary-opacity-80 font-bold font-heading capitalize no-underline gap-1 mb-1 cursor-pointer transition-all"
                     title="{{ titleCollection0 }}">

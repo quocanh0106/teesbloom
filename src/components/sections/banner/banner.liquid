@@ -48,12 +48,12 @@
   }
 {%- endstyle -%}
 
-<div class="{% unless section.settings.fullwidth %}page-width-desktop{% endunless %} overflow-hidden grid-cols-1 col-span-1 row-span-1 grid-cols-2 col-span-2 row-span-2 grid-cols-3 col-span-3 row-span-3 md:grid-cols-1 md:col-span-1 md:row-span-1 md:grid-cols-2 md:col-span-2 md:row-span-2 md:grid-cols-3 md:col-span-3 md:row-span-3 lg:grid-cols-1 lg:col-span-1 lg:row-span-1 lg:grid-cols-2 lg:col-span-2 lg:row-span-2 lg:grid-cols-3 lg:col-span-3 lg:row-span-3" data-section-id="{{ section.id }}">
+<div class="{% unless section.settings.fullwidth %}page-width-desktop-2{% endunless %} overflow-hidden grid-cols-1 col-span-1 row-span-1 grid-cols-2 col-span-2 row-span-2 grid-cols-3 col-span-3 row-span-3 md:grid-cols-1 md:col-span-1 md:row-span-1 md:grid-cols-2 md:col-span-2 md:row-span-2 md:grid-cols-3 md:col-span-3 md:row-span-3 lg:grid-cols-1 lg:col-span-1 lg:row-span-1 lg:grid-cols-2 lg:col-span-2 lg:row-span-2 lg:grid-cols-3 lg:col-span-3 lg:row-span-3" data-section-id="{{ section.id }}">
   <{% if section.settings.enable_swipe_on_mobile %}slider-component{% else %}div{% endif %} class="block relative gallery">
     <div class="{% if section.settings.enable_swipe_on_mobile %}slider-wrapper slider-on-mobile slider-on-mobile slider-on-tablet slider-on-desktop flex{% else %}grid gap-1 grid-cols-{{ section.settings.col_per_row_mobile }} md:grid-cols-{{ section.settings.col_per_row_desktop }}{% endif %}" id="Slider-{{ section.id }}">
       {%- for block in section.blocks -%}
         <div data-block-id="{{ block.id }}" id="Slide-{{ section.id }}-{{ forloop.index }}" class="slider-slide {% if block.settings.rounded %}rounded-xl {% endif %} p-5 lg:p-0 w-full group relative overflow-hidden md:!m-0 md:!w-full md:row-span-{{ block.settings.row_span_desktop }} md:col-span-{{ block.settings.col_span_desktop }}">
-          <div class="{% if section.settings.fullwidth %}page-width-desktop{% endif %} w-full h-full">
+          <div class="w-full h-full">
             <div class="relative w-full h-full">
               {% if block.settings.button_label != blank or block.settings.heading != blank or block.settings.description != blank %}
                 <div class="banner-content rounded-[10px] px-3 py-5 text-center lg:text-left flex flex-col items-center justify-center lg:items-start lg:max-w-[calc(100%_-_32px)] lg:absolute {% if block.settings.content_position == 'left' %} order-2 lg:order-1{% elsif block.settings.content_position == 'right' %} order-2{% elsif  block.settings.content_position == 'absolute' %} w-full{% if section.blocks.size > 1 %} lg:bottom-5 lg:left-5 lg:p-5 lg:w-[340px]{% else %} lg:bottom-[94px] lg:left-[128px] lg:p-10 lg:w-[580px]{% endif %}{% else %} !hidden{% endif %}">

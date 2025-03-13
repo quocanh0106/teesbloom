@@ -28,24 +28,51 @@
   {%- endstyle -%}
 
   <div data-section-id="{{ section.id }}" {% if section.settings.secondary != blank and section.settings.secondary != 'transparent' %} style="--color-secondary: {{ section.settings.secondary }}"{% endif %}>
-    <div class="block relative overflow-hidden page-width">
-      {% if section.settings.heading %}
-        <h2 class="text-base lg:text-lg font-semibold text-center text-primary mb-5">{{ section.settings.heading | escape }}</h2>
-      {% endif %}
-      <div class="grid gap-y-6 gap-x-4 md:gap-x-6 lg:gap-x-9 grid-cols-{{ section.settings.columns_mobile }} md:grid-cols-{{ section.settings.columns_tablet }} lg:grid-cols-{{ section.settings.columns_desktop }} transition-all duration-500 overflow-hidden">
-        {%- for product in section.settings.collection.products limit: section.settings.limit -%}
-          {%- render 'product-card', product: product -%}
-        {%- endfor -%}
+    <div class="block relative overflow-hidden page-width-2">
+      <div class="flex items-center justify-between gap-2 mb-5">
+        {% if section.settings.heading %}
+          <h2 class="text-base lg:text-lg font-semibold text-center text-primary mb-0">{{ section.settings.heading | escape }}</h2>
+        {% endif %}
+        <a href="{{ section.settings.collection.url }}" class="text-base leading-none flex items-center gap-1.5 !text-secondary no-underline hover:underline">
+          <span>{{ section.settings.button_text }}</span>
+          {% render 'icon-right', class: 'w-4 h-4' %}
+        </a>
       </div>
-      {% if section.settings.button_text != blank %}
-        <a href="{{ section.settings.collection.url }}" class="btn-2 w-fit mx-auto !px-5 !py-2 !h-auto mt-5">{{ section.settings.button_text }}</a>
-      {% endif %}
+      <slider-component>
+        <button
+          type="button"
+          name="previous"
+          aria-label="previous" 
+          class="prev-{{ section.id }} z-[1] after:absolute after:w-full after:h-full after:z-10 after:block absolute top-[calc(50%_-_36px)] translate-x-1/4 -translate-y-1/2 left-0 w-10 h-10 bg-background shadow-button leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-[10px] border text-primary disabled:!opacity-35">
+          {%- render 'icon-prev', class: "w-7 h-7" -%}
+        </button>
+        <ul class="slider-wrapper flex gap-3 md:gap-6 lg:gap-9 slider-on-mobile slider-on-tablet slider-on-desktop" id="Slider-{{ section.id }}">
+          {%- for product in section.settings.collection.products limit: section.settings.limit -%}
+            <li id="Slide-{{ section.id }}-{{ forloop.index }}" class="block {{ block.settings.align_item }} slider-slide w-full">
+              {%- render 'product-card', product: product -%}
+            </li>
+          {%- endfor -%}
+        </ul>
+        <button
+          type="button"
+          name="next"
+          aria-label="next"
+          class="next-{{ section.id }} z-[1] after:absolute after:w-full after:h-full after:z-10 after:block absolute top-[calc(50%_-_36px)] -translate-y-1/2 -translate-x-1/4 right-0 w-10 h-10 bg-background shadow-button leading-none cursor-pointer transition-all flex items-center justify-center p-0 rounded-[10px] border text-primary disabled:!opacity-35">
+          {%- render 'icon-next', class: "w-7 h-7" -%}
+        </button>
+        <div class="slider-counter caption !hidden">
+          <span class="slider-counter--current">1</span>
+          <span aria-hidden="true"> / </span>
+          <span class="slider-counter--total">{{ section.blocks.size }}</span>
+        </div>
+        <div class="slider-dots mt-8 lg:mt-12 !hidden"></div>
+      </slider-component>
     </div>
   </div>
 {%- endif -%}
 {% schema %}
   {
-    "name": "Products list",
+    "name": "Products slider",
     "tag": "section",
     "settings": [
       {
@@ -156,7 +183,7 @@
     ],
     "presets": [
       {
-        "name": "Products list"
+        "name": "Products slider"
       }
     ]
   }
