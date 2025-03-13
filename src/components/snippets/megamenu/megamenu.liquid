@@ -1,52 +1,14 @@
 <menu-drawer class="block fixed lg:static z-20 w-full h-full top-0 left-0 invisible lg:visible lg:before:content-none lg:translate-x-0 lg:bg-none 
                         before:content-empty before:bg-overlay before:top-0 before:left-0 before:absolute before:w-full before:h-full 
                         before:transition-all before:duration-500 before:backdrop-blur-sm lg:border-y lg:border-primary" id="menu-drawer">
-  <div class="megamenu duration-500 lg:duration-0 -translate-x-full lg:translate-x-0 flex flex-col lg:block w-3/4 lg:w-full h-full bg-background relative py-10 px-6 pr-4 lg:p-0">
-    <ul class="flex flex-col lg:flex-row items-start justify-start w-full h-full lg:h-fit lg:items-center transition-all lg:justify-center bg-background lg:bg-background relative pr-2 lg:pr-0">
-      <span class="lg:hidden close-menu bg-background absolute top-1 -right-9 w-10 h-10 flex lg:hidden justify-center items-center rounded-full translate-x-full z-30 cursor-pointer">
+  <div class="megamenu duration-500 lg:duration-0 -translate-x-full lg:translate-x-0 flex flex-col lg:block w-3/4 lg:w-full h-full bg-background relative p-0">
+    <div class="flex items-center justify-between lg:hidden h-fit w-full lg:w-fit mb-4 lg:mb-0 p-2.5">
+      <span class="text-base font-semibold text-primary">Menu</span>
+      <span class="lg:hidden close-menu bg-background flex lg:hidden justify-center items-center cursor-pointer">
         {% render 'icon-close', class: "w-6 h-6" %}
       </span>
-      <li class="flex lg:hidden h-fit w-full lg:w-fit mb-10 lg:mb-0">
-        {%- if settings.logo != blank -%}
-          <a href="{{ routes.root_url }}" class="hidden lg:inline-block no-underline" title="{{ shop.name }}" style="max-width: {{ settings.logo_width_mb }}px;">
-            {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
-            {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
-            <img srcset="{%- if settings.logo.width >= 100 -%}{{ settings.logo | img_url: '100x' }} 100w,{%- endif -%}
-            {%- if settings.logo.width >= 120 -%}{{ settings.logo | img_url: '120x' }} 120w,{%- endif -%}
-            {%- if settings.logo.width >= 140 -%}{{ settings.logo | img_url: '140x' }} 140w,{%- endif -%}
-            {%- if settings.logo.width >= 160 -%}{{ settings.logo | img_url: '160x' }} 160w,{%- endif -%}
-            {%- if settings.logo.width >= 180 -%}{{ settings.logo | img_url: '180x' }} 180w,{%- endif -%}
-            {%- if settings.logo.width >= 200 -%}{{ settings.logo | img_url: '200x' }} 200w,{%- endif -%}
-            {{ settings.logo | img_url: 'master' }} {{ settings.logo_width }}w" 
-            src="{{ settings.logo | image_url: width: settings.logo_width }}" 
-            loading="lazy" 
-            sizes="{{ settings.logo_width }}px" 
-            width="{{ settings.logo_width }}" 
-            height="{{ logo_height }}" 
-            alt="{{ logo_alt }}">
-          </a>
-        {%- endif -%}
-    
-        {%- if settings.logo_mb != blank -%}
-          <a href="{{ routes.root_url }}" class="inline-block lg:hidden no-underline" title="{{ shop.name }}" style="max-width: {{ settings.logo_width_mb }}px;">
-            {%- assign logo_mb_alt = settings.logo_mb.alt | default: shop.name | escape -%}
-            {%- assign logo_mb_height = settings.logo_mb_width | divided_by: settings.logo_mb.aspect_ratio -%}
-            <img srcset="{%- if settings.logo_mb.width >= 100 -%}{{ settings.logo_mb | img_url: '100x' }} 100w,{%- endif -%}
-            {%- if settings.logo_mb.width >= 120 -%}{{ settings.logo_mb | img_url: '120x' }} 120w,{%- endif -%}
-            {%- if settings.logo_mb.width >= 140 -%}{{ settings.logo_mb | img_url: '140x' }} 140w,{%- endif -%}
-            {%- if settings.logo_mb.width >= 160 -%}{{ settings.logo_mb | img_url: '160x' }} 160w,{%- endif -%}
-            {%- if settings.logo_mb.width >= 180 -%}{{ settings.logo_mb | img_url: '180x' }} 180w,{%- endif -%}
-            {%- if settings.logo_mb.width >= 200 -%}{{ settings.logo_mb | img_url: '200x' }} 200w,{%- endif -%}
-            {{ settings.logo_mb | img_url: 'master' }} {{ settings.logo_mb_width }}w" 
-            src="{{ settings.logo_mb | image_url: width: settings.logo_width_mb }}" 
-            loading="lazy" 
-            sizes="{{ settings.logo_width_mb }}px" 
-            width="{{ settings.logo_width_mb }}" 
-            height="{{ logo_mb_height }}" 
-            alt="{{ logo_mb_alt }}">
-          </a>
-        {%- endif -%}
-      </li>
+    </div>
+    <ul class="grid grid-cols-2 lg:flex lg:flex-row items-start justify-start w-full h-fit lg:h-fit lg:items-center transition-all lg:justify-center bg-background lg:bg-background relative px-2.5 lg:px-0">
       {% for block in section.blocks %}
         {% liquid
             assign megamenu = '' 

@@ -1,12 +1,28 @@
-<span class="hidden lg:block capitalize text-base font-normal font-body leading-loose text-center">
-  <span class="hidden lg:inline">{% if cart.item_count < 100 %}({{ cart.item_count }}) {% else %}(+99) {% endif %}</span> Cart
+<span class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
+  <span class='hidden lg:inline'>
+    {%- if cart.item_count < 100 -%}
+      ({{ cart.item_count }})
+    {% else -%}
+      (+99)
+    {% endif -%}
+  </span>
+  Cart
 </span>
-<div class="lg:hidden absolute bg-primary text-background min-w-[1rem] h-4 rounded-full flex justify-center items-center bottom-3 left-4 empty:hidden">
+<div class='lg:hidden absolute bg-special text-background min-w-[1rem] h-4 rounded-full flex justify-center items-center bottom-4.5 left-2.5 empty:hidden'>
   {%- if cart != empty -%}
     {%- if cart.item_count < 100 -%}
-      <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs leading-none">{{ cart.item_count }}</span>
+      <span
+        aria-hidden='true'
+        class='flex justify-center items-center h-full text-xxs leading-none'
+      >
+        {{- cart.item_count -}}
+      </span>
     {% else %}
-      <span aria-hidden="true" class="flex justify-center items-center h-full text-xxs">+99</span>
+      <span
+        aria-hidden='true'
+        class='flex justify-center items-center h-full text-xxs'
+        >+99</span
+      >
     {%- endif -%}
   {%- endif -%}
 </div>
