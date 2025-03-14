@@ -1033,3 +1033,51 @@ if (!customElements.get('localization-form')) {
     }
   );
 }
+
+class CountDownTimer extends HTMLElement {
+  constructor() {
+    super();
+    this.min = this.querySelector('.min')
+    this.sec = this.querySelector('.sec')
+    this.countDown = this.querySelector('.countdown')
+    this.finishCountDown = this.querySelector('.finish-countdown')
+
+    this.times = parseInt(this.dataset.times) * 60
+    this.interval = null
+  }
+
+  connectedCallback() {
+    this.startCountDown()
+  }
+
+  startCountDown() {
+    this.updateDisplay()
+
+    this.interval = setInterval(() => {
+      if (this.times > 0) {
+        this.times--
+        this.updateDisplay()
+      } else {
+        clearInterval(this.interval)
+        this.countDown.classList.add('!hidden')
+        this.finishCountDown.classList.remove('hidden')
+      }
+    }, 1000)
+  }
+
+  updateDisplay() {
+    const minutes = Math.floor(this.times / 60)
+    const seconds = this.times % 60
+    
+    if (this.min) this.min.textContent = String(minutes).padStart(2, '0')
+    if (this.sec) this.sec.textContent = String(seconds).padStart(2, '0')
+  }
+
+  disconnectedCallback() {
+    clearInterval(this.interval)
+  }
+}
+
+if (!customElements.get('count-down-timer')) {
+  customElements.define('count-down-timer', CountDownTimer)
+}

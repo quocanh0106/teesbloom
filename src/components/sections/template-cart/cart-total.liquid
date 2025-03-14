@@ -16,10 +16,6 @@
         </span>
       </li>
     {% endif %}
-    <li class="flex items-center justify-between gap-2">
-      <span class="text-sm font-normal text-primary capitalize leading-5">{{ 'sections.cart.shipping' | t }}</span>
-      <span class="text-sm font-normal text-primary leading-5">{{ 'sections.cart.shipping_calculated' | t }}</span>
-    </li>
     {% if cart.total_discount > 0 %}
       <li class="flex items-center justify-between gap-2">
         <span class="text-sm font-normal text-sale capitalize leading-5">{{ 'sections.cart.discount' | t }}</span>
@@ -27,9 +23,11 @@
       </li>
     {% endif %}
 
-    <li class="flex items-center justify-between gap-2">
-      <span class="text-sm font-medium text-primary capitalize leading-5">{{ 'sections.cart.subtotal' | t }}</span>
-      <span class="text-base font-semibold text-primary font-heading leading-4 uppercase totals__subtotal-value">
+    <li class='flex items-center justify-between gap-2'>
+      <span class='text-lg font-bold text-primary capitalize leading-5'>
+        {{- 'sections.cart.subtotal' | t -}}
+      </span>
+      <span class='text-lg font-bold text-primary font-heading leading-4 uppercase totals__subtotal-value'>
         {{ cart.total_price | money }}
       </span>
     </li>

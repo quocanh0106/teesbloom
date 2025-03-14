@@ -10,14 +10,34 @@
 
 {%- if cart.item_count > 0 -%}
   <div class='page-width flex flex-wrap' id='main-cart-items'>
+    <count-down-timer
+      data-times='10'
+      class='block w-full lg:max-w-2/3 bg-[#e95d2c1a] text-base leading-6 text-primary px-3 py-1.5 rounded-md mb-5'
+    >
+      <div class='countdown w-full'>
+        Your cart will expire in
+        <div class='inline-flex items-center min-w-[48px]'>
+          <span class='text-sale font-semibold min'>10</span>
+          <span class='text-sale font-semibold'>:</span>
+          <span class='text-sale font-semibold sec'>00</span>
+        </div>
+        <span class='text-sale font-semibold'>minutes! </span>
+        Checkout now before your items sell out
+        <img
+          src='{{ 'fire.gif' | asset_img_url }}'
+          class='inline w-5 h-5 ml-1.5'
+        >
+      </div>
+      <div class='finish-countdown w-full hidden'>
+        Forgot one final step? Place your order now and make the payment right
+        away!
+      </div>
+    </count-down-timer>
+
     <div class='flex items-center gap-2 w-full lg:pr-4 cart-heading'>
-      <span class='text-primary font-heading text-base leading-4 font-semibold'>
-        {{- 'sections.cart.cart_drawer_title' | t -}}
-      </span>
-      {% render 'icon-dot', class: 'text-primary w-1 h-1' %}
-      <span class='text-primary font-normal leading-4 text-sm'>
+      <span class='text-primary leading-4 text-base lg:text-lg font-bold'>
         <span id='item-count'>{{ cart.item_count }}</span>
-        {{ other }}
+        {{ other }} in your cart
       </span>
     </div>
     <cart-items
@@ -50,7 +70,7 @@
                         colspan='2'
                         scope='col'
                       >
-                        <div class='flex items-start'>
+                        <div class='flex flex-wrap items-start'>
                           {% if item.image %}
                             {% if item.properties == empty %}
                               <modal-opener
@@ -64,20 +84,15 @@
                                   width='160'
                                   height='{{ 160 | divided_by: item.image.aspect_ratio | ceil }}'
                                 >
-                                <div class='absolute bottom-1 right-1 rounded flex items-center justify-center p-1 w-5 h-5 lg:w-6 lg:h-6 bg-background-opacity-80 group-hover:bg-background-opacity-100 transition-all text-primary'>
-                                  {% render 'icon-zoom',
-                                    class: 'w-3 h-3 lg:w-4 lg:h-4'
-                                  %}
-                                </div>
-                                <div class='tooltip group-hover:opacity-100 group-hover:visible'>
-                                  {{ 'templates.cart.preview_your_design' | t }}
+                                <div class="flex items-center justify-center transition-all text-xs gap-2 text-secondary mt-2">
+                                  {% render 'icon-zoom', class: 'w-3 h-3 lg:w-4 lg:h-4' %} Preview
                                 </div>
                               </modal-opener>
                               <modal-dialog
-                                class='hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20 group'
+                                class='hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20'
                                 id='preview-image-{{ item.index | plus: 1 }}'
                               >
-                                <div class='text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[860px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2'>
+                                <div class='group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2'>
                                   <img
                                     src='{{ item.image | image_url: width: item.image.width }}'
                                     class='w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent'
@@ -86,7 +101,7 @@
                                     loading='lazy'
                                     alt='{{ item.title | escape }}'
                                   >
-                                  <span class='text-primary shadow-megamenu cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute -top-3 left-1/2 -translate-x-1/2 -translate-y-full lg:top-7 lg:right-7 lg:left-auto lg:translate-y-0 lg:translate-x-0 close'>
+                                  <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
                                     {% render 'icon-close', class: 'w-6 h-6' %}
                                   </span>
                                 </div>
@@ -106,37 +121,21 @@
                                       loading='lazy'
                                       alt='{{ item.title | escape }}'
                                     >
-                                    <div class='absolute bottom-1 right-1 rounded flex items-center justify-center p-1 w-5 h-5 lg:w-6 lg:h-6 bg-background-opacity-80 group-hover:bg-background-opacity-100 transition-all text-primary'>
-                                      {% render 'icon-zoom',
-                                        class: 'w-3 h-3 lg:w-4 lg:h-4'
-                                      %}
-                                    </div>
-                                    <div class='tooltip group-hover:opacity-100 group-hover:visible bottom-8 !top-auto right-0 !translate-x-[calc(50%_-_12px)] !translate-y-0'>
-                                      {{
-                                        'templates.cart.preview_your_design'
-                                        | t
-                                      }}
+                                    <div class="flex items-center justify-center transition-all text-xs gap-2 text-secondary mt-2">
+                                      {% render 'icon-zoom', class: 'w-3 h-3 lg:w-4 lg:h-4' %} Preview
                                     </div>
                                   </modal-opener>
                                 {% endif %}
                                 {% if p.first == '_customily-preview' %}
                                   <modal-dialog
-                                    class='hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20'
+                                    class='hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20'
                                     id='preview-image-{{ item.index | plus: 1 }}'
                                   >
-                                    <div class='text-center p-4 lg:p-12 rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[860px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2'>
-                                      <img
-                                        src='{{ p.last }}'
-                                        class='w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent'
-                                        width='765'
-                                        height='765'
-                                        loading='lazy'
-                                        alt='{{ item.title | escape }}'
-                                      >
-                                      <span class='text-primary shadow-megamenu cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full absolute -top-3 left-1/2 -translate-x-1/2 -translate-y-full lg:top-7 lg:right-7 lg:left-auto lg:translate-y-0 lg:translate-x-0 close'>
-                                        {% render 'icon-close',
-                                          class: 'w-6 h-6'
-                                        %}
+                                    <div class='group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2'>
+                                      <img src="{{ item.properties['_customily-preview'] }}" data-placeholder="{{ placeholderImage }}" data-thumb-src="{{ item.properties['_customily-preview'] }}" class="customily-item-image w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" style="--image-placeholder: url({{ placeholderImage }});" width="765" height="765" loading="lazy" alt="{{ item.title | escape }}" />
+
+                                      <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
+                                        {% render 'icon-close', class: 'w-6 h-6' %}
                                       </span>
                                     </div>
                                   </modal-dialog>
@@ -144,63 +143,15 @@
                               {% endfor %}
                             {% endif %}
                           {% endif %}
-                          <div class='w-full ml-2 md:ml-3 min-h-[112px] md:min-h-[160px] flex flex-col'>
+                          <div class='w-full max-w-[calc(100%_-_120px)] lg:max-w-[calc(100%_-_172px)] ml-2 md:ml-3 flex flex-col'>
                             <div class='flex items-start justify-between gap-4'>
                               <a
                                 href='{{ item.url }}'
-                                class='text-xs leading-2 md:text-base md:leading-4 font-medium font-heading text-primary hover:text-primary truncate-line one-line overflow-hidden'
+                                class='mb-2 text-xs leading-2 md:text-base md:leading-4 font-medium font-heading text-primary hover:text-primary truncate-line one-line overflow-hidden'
                                 title='{{ item.product.title }}'
                               >
                                 {{ item.product.title }}
                               </a>
-                              <modal-opener
-                                class='block font-normal text-primary hover:text-primary transition-all text-xs text-center cursor-pointer ml-auto w-fit'
-                                data-id='#Popup-Remove-{{ item.index | plus: 1 }}'
-                              >
-                                {% render 'icon-trash',
-                                  class: 'w-6 h-6 lg:w-8 lg:h-8'
-                                %}
-                              </modal-opener>
-                              <modal-dialog
-                                class='hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20'
-                                id='Popup-Remove-{{ item.index | plus: 1 }}'
-                              >
-                                <div class='text-center p-0 shadow-popup w-[343px] bg-background rounded-xl max-w-[calc(100vw_-_32px)] absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2'>
-                                  <div class='px-5 pt-16'>
-                                    <img
-                                      src='{{ item.image | image_url: width: 160 }}'
-                                      class='w-40 h-40 block object-cover leading-none !max-w-full !max-h-full rounded mx-auto mb-3 bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent'
-                                      width='160'
-                                      height='160'
-                                      loading='lazy'
-                                      alt='{{ item.title | escape }}'
-                                    >
-                                  </div>
-                                  <p class='mt-3 mb-5 text-lg font-normal text-primary px-5'>
-                                    {{ 'sections.cart.content' | t }}
-                                  </p>
-                                  <div class='grid grid-cols-2 justify-center gap-3 p-5 pb-6'>
-                                    <span class='btn btn-2 w-full min-w-[124px] font-heading font-bold text-sm leading-none !uppercase cursor-pointer py-3.5 px-4 border close'>
-                                      {{ 'sections.cart.cancel' | t }}
-                                    </span>
-                                    <cart-remove-button
-                                      class='w-full min-w-[124px] block leading-none close'
-                                      id='Remove-{{ item.index | plus: 1 }}'
-                                      data-index='{{ item.index | plus: 1 }}'
-                                    >
-                                      <a
-                                        href='{{ item.url_to_remove }}'
-                                        class='btn border w-full font-heading font-bold text-sm leading-none !uppercase py-3.5 px-4 close'
-                                      >
-                                        {{ 'sections.cart.remove' | t }}
-                                      </a>
-                                    </cart-remove-button>
-                                  </div>
-                                  <span class='text-primary shadow-megamenu cursor-pointer bg-background w-8 h-8 flex items-center justify-center rounded-full absolute top-6 right-5 close'>
-                                    {% render 'icon-close', class: 'w-5 h-5' %}
-                                  </span>
-                                </div>
-                              </modal-dialog>
                             </div>
                             {%- if item.product.has_only_default_variant
                                 == false
@@ -220,43 +171,57 @@
                                 {%- endif -%}
                               </dl>
                             {%- endif -%}
-                            <div class='flex items-center gap-2 justify-between mt-auto'>
-                              {% render 'price', product: item.variant %}
-                              <quantity-input
-                                class='flex items-center relative w-fit h-5 rounded-3xl mb-1.5'
-                                data-lineitem='{{ forloop.index }}'
-                              >
-                                <button
-                                  class='w-5 h-5 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0'
-                                  name='minus'
-                                  type='button'
-                                >
-                                  {% render 'icon-minus',
-                                    class: 'w-3 h-3 mx-auto'
-                                  %}
-                                </button>
-                                <input
-                                  class='quantity-input appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-6 lg:w-12 h-full font-medium text-center !ring-0 shadow-none focus:border-none'
-                                  type='number'
-                                  inputmode='numeric'
-                                  pattern='[0-9]*'
-                                  name='updates[]'
-                                  value='{{ item.quantity }}'
-                                  min='0'
-                                  id='Quantity-{{ item.index | plus: 1 }}'
-                                  data-index='{{ item.index | plus: 1 }}'
-                                >
-                                <button
-                                  class='w-5 h-5 border border-[#f2f2f6] bg-[#f2f2f6] rounded-r-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0'
-                                  name='plus'
-                                  type='button'
-                                >
-                                  {% render 'icon-plus',
-                                    class: 'w-3 h-3 mx-auto'
-                                  %}
-                                </button>
-                              </quantity-input>
-                            </div>
+
+                            <modal-opener
+                              class='mt-2 flex items-center gap-1 text-subtext font-normal hover:text-primary transition-all text-xs text-center cursor-pointer w-fit'
+                              data-id='#Popup-Remove-{{ item.index | plus: 1 }}'
+                            >
+                              {% render 'icon-trash',
+                                class: 'w-3 h-3 lg:w-4 lg:h-46'
+                              %}
+
+                              Remove
+                            </modal-opener>
+                            <modal-dialog
+                              class='hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20'
+                              id='Popup-Remove-{{ item.index | plus: 1 }}'
+                            >
+                              <div class='text-center p-0 shadow-popup w-[343px] bg-background rounded-xl max-w-[calc(100vw_-_32px)] absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2'>
+                                <div class='px-5 pt-16'>
+                                  <img
+                                    src='{{ item.image | image_url: width: 160 }}'
+                                    class='w-40 h-40 block object-cover leading-none !max-w-full !max-h-full rounded mx-auto mb-3 bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent'
+                                    width='160'
+                                    height='160'
+                                    loading='lazy'
+                                    alt='{{ item.title | escape }}'
+                                  >
+                                </div>
+                                <p class='mt-3 mb-5 text-lg font-normal text-primary px-5'>
+                                  {{ 'sections.cart.content' | t }}
+                                </p>
+                                <div class='grid grid-cols-2 justify-center gap-3 p-5 pb-6'>
+                                  <span class='btn btn-2 w-full min-w-[124px] font-heading font-bold text-sm leading-none !uppercase cursor-pointer py-3.5 px-4 border close'>
+                                    {{ 'sections.cart.cancel' | t }}
+                                  </span>
+                                  <cart-remove-button
+                                    class='w-full min-w-[124px] block leading-none close'
+                                    id='Remove-{{ item.index | plus: 1 }}'
+                                    data-index='{{ item.index | plus: 1 }}'
+                                  >
+                                    <a
+                                      href='{{ item.url_to_remove }}'
+                                      class='btn border w-full font-heading font-bold text-sm leading-none !uppercase py-3.5 px-4 close'
+                                    >
+                                      {{ 'sections.cart.remove' | t }}
+                                    </a>
+                                  </cart-remove-button>
+                                </div>
+                                <span class='text-primary shadow-megamenu cursor-pointer bg-background w-8 h-8 flex items-center justify-center rounded-full absolute top-6 right-5 close'>
+                                  {% render 'icon-close', class: 'w-5 h-5' %}
+                                </span>
+                              </div>
+                            </modal-dialog>
                             <div
                               class='cart-item__error-text text-error text-xs mt-1 empty:hidden'
                               data-index='{{ item.index | plus: 1 }}'
@@ -267,7 +232,43 @@
                             {% assign original_price = original_price
                               | plus: lineItemOriginalPrice
                             %}
-                            <!-- end quick view update -->
+                            <div class='flex justify-between items-center gap-2 mt-2'>
+                              <quantity-input
+                                class='flex items-center relative w-fit h-7 rounded-3xl mb-1.5'
+                                data-lineitem='{{ forloop.index }}'
+                              >
+                                <button
+                                  class='w-7 h-7 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0'
+                                  name='minus'
+                                  type='button'
+                                >
+                                  {% render 'icon-minus',
+                                    class: 'w-3 h-3 mx-auto'
+                                  %}
+                                </button>
+                                <input
+                                  class='quantity-input appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-6 lg:w-10 h-full font-medium text-center !ring-0 shadow-none focus:border-none'
+                                  type='number'
+                                  inputmode='numeric'
+                                  pattern='[0-9]*'
+                                  name='updates[]'
+                                  value='{{ item.quantity }}'
+                                  min='0'
+                                  id='Quantity-{{ item.index | plus: 1 }}'
+                                  data-index='{{ item.index | plus: 1 }}'
+                                >
+                                <button
+                                  class='w-7 h-7 border border-[#f2f2f6] bg-[#f2f2f6] rounded-r-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0'
+                                  name='plus'
+                                  type='button'
+                                >
+                                  {% render 'icon-plus',
+                                    class: 'w-3 h-3 mx-auto'
+                                  %}
+                                </button>
+                              </quantity-input>
+                              {% render 'price', product: item.variant %}
+                            </div>
                           </div>
                         </div>
                       </td>
@@ -281,12 +282,55 @@
       </div>
     </cart-items>
     <div
-      class='sticky z-10 top-4 w-full h-fit lg:pl-8 max-md lg:max-w-1/3 inline-block{% if cart == empty %} is-empty{% endif %} cart_footer'
+      class='sticky z-[1] top-4 w-full h-fit lg:pl-8 max-md lg:max-w-1/3 inline-block{% if cart == empty %} is-empty{% endif %} cart_footer'
       id='main-cart-footer'
       data-id='{{ section.id }}'
     >
-      <div class='cart__footer p-4 bg-[#F6F6F6] rounded-lg'>
-        <div class='cart__blocks'>
+      <div class='cart__footer py-5 px-6 bg-[#F6F6F6] rounded-lg'>
+        <div>
+          <div class='text-base leading-4 font-semibold text-primary mb-3'>
+            Payment Methods
+          </div>
+          <ul
+            class='list list-payment flex flex-wrap gap-2 my-4 w-full justify-start'
+            role='list'
+          >
+            {%- assign enabled_payment_types = 'american_express,apple_pay,master,paypal,visa'
+              | remove: ' '
+              | split: ','
+            -%}
+            {% for type in enabled_payment_types %}
+              {% if type == 'american_express' %}
+                <li>
+                  {% render 'icon-amex-border', class: 'w-14 h-auto' %}
+                </li>
+              {% elsif type == 'apple_pay' %}
+                <li>
+                  {% render 'icon-applepay', class: 'w-14 h-auto' %}
+                </li>
+              {% else %}
+                <li>
+                  {%- assign first_svg = type
+                    | payment_type_svg_tag: class: 'w-14 h-auto'
+                    | split: '<title'
+                    | first
+                  -%}
+                  {%- assign last_svg = type
+                    | payment_type_svg_tag: class: 'w-14 h-auto'
+                    | split: '</title>'
+                    | last
+                  -%}
+                  {{- first_svg -}}
+                  {{- last_svg -}}
+                </li>
+              {% endif %}
+            {%- endfor -%}
+          </ul>
+        </div>
+
+        {% render 'buyer-protection', class: 'w-full h-auto' %}
+
+        <div class='cart__blocks border-t border-border mt-3'>
           {% for block in section.blocks %}
             {%- case block.type -%}
               {%- when '@app' -%}
@@ -308,14 +352,6 @@
                         </span>
                       </li>
                     {% endif %}
-                    <li class='flex items-center justify-between gap-2'>
-                      <span class='text-sm font-normal text-primary capitalize leading-5'>
-                        {{- 'sections.cart.shipping' | t -}}
-                      </span>
-                      <span class='text-sm font-normal text-primary leading-5'>
-                        {{- 'sections.cart.shipping_calculated' | t -}}
-                      </span>
-                    </li>
                     {% if cart.total_discount > 0 %}
                       <li class='flex items-center justify-between gap-2'>
                         <span class='text-sm font-normal text-sale capitalize leading-5'>
@@ -328,10 +364,10 @@
                     {% endif %}
 
                     <li class='flex items-center justify-between gap-2'>
-                      <span class='text-sm font-medium text-primary capitalize leading-5'>
+                      <span class='text-lg font-bold text-primary capitalize leading-5'>
                         {{- 'sections.cart.subtotal' | t -}}
                       </span>
-                      <span class='text-base font-semibold text-primary font-heading leading-4 uppercase totals__subtotal-value'>
+                      <span class='text-lg font-bold text-primary font-heading leading-4 uppercase totals__subtotal-value'>
                         {{ cart.total_price | money }}
                       </span>
                     </li>
@@ -418,59 +454,22 @@
                     <button
                       type='submit'
                       id='checkout'
-                      class='btn w-full !px-8 !py-3.5 lg:!py-2'
+                      class='btn-2 w-full !px-8 !py-3.5 lg:!py-2'
                       name='checkout'
                       {% if cart == empty %}
                         disabled
                       {% endif %}
                       form='cart'
                     >
-                      {% render 'icon-lock', class: "w-4 h-4 mr-2" %}
+                      {% render 'icon-lock', class: 'w-4 h-4 mr-2' %}
                       {{ 'sections.cart.checkout' | t }}
                     </button>
                   </div>
                 </sticky-checkout>
-                {% if additional_checkout_buttons %}
-                  <div class='mt-4'>
-                    {{ content_for_additional_checkout_buttons }}
-                  </div>
-                {% endif %}
-
-                <ul
-                  class='list list-payment flex flex-wrap gap-2 my-4 w-full justify-center'
-                  role='list'
-                >
-                  {%- assign enabled_payment_types = 'american_express,apple_pay,master,paypal,visa'
-                    | remove: ' '
-                    | split: ','
-                  -%}
-                  {% for type in enabled_payment_types %}
-                    {% if type == 'american_express' %}
-                      <li>
-                        {% render 'icon-amex-border', class: 'w-14 h-auto' %}
-                      </li>
-                    {% elsif type == 'apple_pay' %}
-                      <li>
-                        {% render 'icon-applepay', class: 'w-14 h-auto' %}
-                      </li>
-                    {% else %}
-                      <li>
-                        {%- assign first_svg = type
-                          | payment_type_svg_tag: class: 'w-14 h-auto'
-                          | split: '<title'
-                          | first
-                        -%}
-                        {%- assign last_svg = type
-                          | payment_type_svg_tag: class: 'w-14 h-auto'
-                          | split: '</title>'
-                          | last
-                        -%}
-                        {{- first_svg -}}
-                        {{- last_svg -}}
-                      </li>
-                    {% endif %}
-                  {%- endfor -%}
-                </ul>
+                <span class='text-sm font-normal text-subtext leading-5 mt-3 lowercase'>
+                  {{ 'sections.cart.shipping' | t }}
+                  {{- 'sections.cart.shipping_calculated' | t -}}
+                </span>
             {%- endcase -%}
           {% endfor %}
         </div>

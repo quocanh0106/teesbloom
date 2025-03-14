@@ -120,7 +120,7 @@
     </div>
   </predictive-search>
   <ul class="w-full flex justify-end lg:!max-w-1/4 gap-3 lg:gap-5 ml-auto" style="max-width: calc((100% - {{ settings.logo_width }}px)*2/3 - 24px); @media (min-width: 1024px) {max-width: calc((100% - {{ settings.logo_width }}px)/2);}">
-    <li class="block lg:hidden">
+    <li class="block lg:hidden flex-none">
       <modal-opener class="lg:hidden no-underline flex items-center justify-center relative hover:text-primary text-primary" data-id="#predictive-search">
         {% render 'icon-search'
           , class: "w-5 h-5" %}
@@ -131,7 +131,7 @@
       <a
         href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
         title="account"
-        class="no-underline flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary{% if customer %} border border-primary rounded-full{% endif %}">
+        class="no-underline flex-none flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary{% if customer %} border border-primary rounded-full{% endif %}">
         <img
           src="{{ 'icon-user.png' | asset_img_url }}"
           class="block"
@@ -152,7 +152,7 @@
           , priority: 'normal'
           , type: "defer" %}
         <modal-opener
-          class="cursor-pointer flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary"
+          class="cursor-pointer flex-none flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary"
           title="cart"
           data-id="#cart-drawer">
           <img
@@ -188,7 +188,7 @@
       {% else %}
         <a
           href="{{ routes.cart_url }}"
-          class="flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary"
+          class="flex-none flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary"
           title="cart">
           <img
             src="{{ 'icon-cart.png' | asset_img_url }}"
