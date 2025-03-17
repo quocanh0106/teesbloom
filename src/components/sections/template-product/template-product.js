@@ -370,6 +370,7 @@ class ProductForm extends HTMLElement {
     this.form.querySelector('[name=id]').disabled = false;
     this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
     this.cart = document.querySelector('cart-drawer');
+    this.cartNoti = document.querySelector('cart-notification');
     this.submitButton = this.querySelector('[type="submit"]');
     this.addEventListener('click', (event) => {
       if(this.contains(event.target)) {
@@ -408,6 +409,7 @@ class ProductForm extends HTMLElement {
         if (this.cart) {
           this.cart.open();
           this.renderContents(response);
+          this.cartNoti?.renderContents(response);
         } else {
           this.renderCartPageContents(response);
         }
@@ -475,6 +477,11 @@ class ProductForm extends HTMLElement {
         id: 'cart-icon-bubble',
         section: 'cart-icon-bubble',
         selector: '.shopify-section'
+      },
+      {
+        id: 'cart-notification-product',
+        section: 'cart-notification-product',
+        selector: `[id="cart-notification-product-${this.cartItemKey}"]`,
       }
     ];
   }
@@ -1117,3 +1124,57 @@ class DeliveryWrapper extends HTMLElement {
 if (!customElements.get('delivery-wrapper')) {
   customElements.define('delivery-wrapper', DeliveryWrapper);
 }
+
+
+class CartNotification extends HTMLElement {
+  constructor() {
+    super();
+    this.querySelectorAll('.close').forEach(button => {
+      button.addEventListener('click', this.hide.bind(this, !1));
+    });
+    this.addEventListener('keyup', blur => {
+      'ESCAPE' === blur.code.toUpperCase() && this.hide();
+    });
+    this.addEventListener('click', event => {
+      if (event.target === this) this.hide();
+    });
+  }
+
+  open() {
+    document.body.classList.add('overflow-hidden');
+    this.classList.remove('hidden');
+  }
+
+  hide() {
+    document.body.classList.remove('overflow-hidden');
+    this.classList.add('hidden');
+  }
+
+  renderContents(parsedState) {
+      this.cartItemKey = parsedState.key;
+      this.getSectionsToRender().forEach((section => {
+        document.getElementById(section.id).innerHTML =
+          this.getSectionInnerHTML(parsedState.sections[section.id], section.selector);
+      }));
+
+      if (this.header) this.header.reveal();
+      this.open();
+  }
+
+  getSectionsToRender() {
+    return [
+      {
+        id: 'cart-notification-product',
+        selector: `[id="cart-notification-product-${this.cartItemKey}"]`,
+      }
+    ];
+  }
+
+  getSectionInnerHTML(html, selector = '.shopify-section') {
+    return new DOMParser()
+      .parseFromString(html, 'text/html')
+      .querySelector(selector).innerHTML;
+  }
+}
+
+customElements.define('cart-notification', CartNotification);

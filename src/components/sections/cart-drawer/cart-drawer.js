@@ -168,13 +168,15 @@ if (!customElements.get('cart-items')) {
         })
         .then(state => {
           const parsedState = JSON.parse(state);
+          
           this.classList.toggle('!hidden', parsedState.item_count === 0);
+
           const cartFooter = document.getElementById('main-cart-footer');
-          const quantityElement = this.querySelector(`input[data-key="${key}"]`);
+          const quantityElement = this.querySelector(`input[data-index="${line}"]`);
+
           if (parsedState.errors) {
-            console.log(quantityElement)
             quantityElement.value = quantityElement.getAttribute('value');
-            this.updateLiveRegions(key, parsedState.errors);
+            this.updateLiveRegions(line, parsedState.errors);
             return;
           }
 
@@ -209,9 +211,9 @@ if (!customElements.get('cart-items')) {
       this.currentItemCount = itemCount;
 
       if (this.currentItemCount === itemCount) {
-        const quantityElement = this.querySelector(`input[data-key="${line}"]`);
-        console.log(this.querySelector(`.cart-item__error-text[data-key="${line}"]`));
-        this.querySelector(`.cart-item__error-text[data-key="${line}"]`).innerHTML =
+        const quantityElement = this.querySelector(`input[data-index="${line}"]`);
+        console.log(this.querySelector(`.cart-item__error-text[data-index="${line}"]`));
+        this.querySelector(`.cart-item__error-text[data-index="${line}"]`).innerHTML =
           window.cartStrings.quantityError.replace(
             '[quantity]',
             quantityElement.value,

@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "template": {
+      "type": "template-review",
+      "settings": {}
+    }
+  },
+  "order": [
+    "template"
+  ]
+}

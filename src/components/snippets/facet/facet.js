@@ -95,7 +95,6 @@ class FacetFiltersForm extends HTMLElement {
         FacetFiltersForm.renderFilters(html, event);
         FacetFiltersForm.renderProductGridContainer(html, loadmore);
         FacetFiltersForm.renderProductCount(html);
-        FacetFiltersForm.renderLoadmore(html);
         if (typeof initializeScrollAnimationTrigger === 'function') initializeScrollAnimationTrigger(html.innerHTML);
       }).finally(() => {
       });
@@ -106,7 +105,6 @@ class FacetFiltersForm extends HTMLElement {
     FacetFiltersForm.renderFilters(html, event);
     FacetFiltersForm.renderProductGridContainer(html, loadmore);
     FacetFiltersForm.renderProductCount(html);
-    FacetFiltersForm.renderLoadmore(html);
     if (typeof initializeScrollAnimationTrigger === 'function') initializeScrollAnimationTrigger(html.innerHTML);
   }
 
@@ -120,30 +118,10 @@ class FacetFiltersForm extends HTMLElement {
       .getElementById('main-collection-product').innerHTML))
   }
 
-  static renderLoadmore(html) {
-    const dom = new DOMParser().parseFromString(html, 'text/html');
-    const currentPage = parseInt(dom.getElementById('product-grid').dataset.currentPage);
-    const maxPages = parseInt(dom.querySelector('[data-total-pages]').getAttribute('data-total-pages'));
-    if(document.getElementById('PaginationInfor')) {
-      if(currentPage >= maxPages) {
-        document.getElementById('PaginationInfor').classList.add('hidden')
-      } else {
-        document.getElementById('PaginationInfor').classList.remove('hidden')
-      }
-    }
-
-  }
-
   static renderProductCount(html) {
-    const count = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductCountDesktop').innerHTML;
     const counthead = new DOMParser().parseFromString(html, 'text/html').getElementById('ProductCount').innerHTML;
 
-    const containerDesktop = document.getElementById('ProductCountDesktop');
     const containerCount = document.getElementById('ProductCount');
-
-    if (containerDesktop) {
-      containerDesktop.innerHTML = count;
-    }
 
     if (containerCount) {
       containerCount.innerHTML = counthead;

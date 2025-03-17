@@ -3,25 +3,9 @@ class CartDrawer extends HTMLElement {
     super();
     this.wrapper = this.querySelector('.cart-drawer-wrapper');
     this.body = this.wrapper.querySelector('.cart-drawer-body');
-    this.querySelectorAll('.close').forEach(button => {
-        button.addEventListener('click', this.hide.bind(this, !1));
-    });
-    this.addEventListener('keyup', blur => {
-      'ESCAPE' === blur.code.toUpperCase() && this.hide();
-    });
-    this.addEventListener('click', event => {
-      if (event.target === this) this.hide();
-    });
-
   }
 
   open() {
-    document.body.classList.add('!overflow-hidden');
-    document.querySelector('#fc_frame')?.classList.add('!hidden');
-    this.classList.remove('before:opacity-0', 'before:invisible');
-    this.wrapper.classList.remove('invisible','opacity-0');
-    this.wrapper.classList.add('spinning-cart');
-
     fetch(`${routes.cart_ajax_url}`)
     .then(response => {
       return response.text();
@@ -34,13 +18,6 @@ class CartDrawer extends HTMLElement {
     .finally(() => {
       this.wrapper.classList.remove('spinning-cart');
     })
-  }
-
-  hide() {
-    document.body.classList.remove('!overflow-hidden');
-    document.querySelector('#fc_frame')?.classList.remove('!hidden');
-    this.classList.add('before:opacity-0', 'before:invisible');
-    this.wrapper.classList.add('invisible','opacity-0');
   }
 
   setInnerHTML(element) {

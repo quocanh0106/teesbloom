@@ -5,24 +5,11 @@
       padding-top: {{ section.settings.padding_top_mb }}px;
       padding-bottom: {{ section.settings.padding_bottom_mb }}px;
     }
-    [data-section-id="{{ section.id }}"] .slider-slide { 
-      max-width: calc(100%/{{ section.settings.columns_mobile }} - {{ 16 | times: section.settings.columns_mobile | minus: 16 | divided_by: section.settings.columns_mobile }}px);
-    }
   
     @media (min-width: 768px) {
       [data-section-id="{{ section.id }}"] {
         padding-top: {{ section.settings.padding_top }}px;
         padding-bottom: {{ section.settings.padding_bottom }}px;
-      }
-  
-      [data-section-id="{{ section.id }}"] .slider-slide { 
-        max-width: calc(100%/{{ section.settings.columns_tablet }} - {{ 24 | times: section.settings.columns_tablet | minus: 24 | divided_by: section.settings.columns_tablet }}px);
-      }
-    }
-  
-    @media (min-width: 1024px) {
-      [data-section-id="{{ section.id }}"] .slider-slide { 
-        max-width: calc(100%/{{ section.settings.columns_desktop }} - {{ 36 | times: section.settings.columns_desktop | minus: 36 | divided_by: section.settings.columns_desktop }}px);
       }
     }
   {%- endstyle -%}
@@ -38,7 +25,7 @@
         {%- endfor -%}
       </div>
       {% if section.settings.button_text != blank %}
-        <a href="{{ section.settings.collection.url }}" class="btn-2 w-fit mx-auto !px-5 !py-2 !h-auto mt-5">{{ section.settings.button_text }}</a>
+        <a href="{{ section.settings.collection.url }}" class="btn-2 !rounded-[10px] !font-semibold !text-base !capitalize w-fit mx-auto !px-5 !py-2 !h-auto mt-5">{{ section.settings.button_text }}</a>
       {% endif %}
     </div>
   </div>

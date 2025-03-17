@@ -46,6 +46,14 @@
                   </div>
                   <span class="relative text-[13px] leading-1 text-primary">in {{ product.type }}</span>
                 </div>
+              {% elsif product.tags contains 'hot' or product.tags contains 'Hot' %}
+                <div class="flex items-center gap-1.5">
+                  <div class="relative flex items-center rounded-l bg-error-opacity-10 text-xs text-error leading-none pl-2 pr-4 h-6">
+                    Hot!
+                    <div class="!block bg-background absolute rotate-45 w-6 h-6 -right-4.5 top-0"></div>
+                  </div>
+                  <span class="relative text-[13px] leading-1 text-primary">in {{ product.type }}</span>
+                </div>
               {% endif %}
             </div>
           {%- when 'title' -%}
@@ -640,6 +648,8 @@
                 </div>   
               {%- endform -%}
             </product-form>
+
+            {% render 'cart-notification' %}
           {%- when 'collapsible_tab' -%}
             {% if block.settings.title != blank %}
               <accordion-toggle class="block w-full relative bg-background py-3">

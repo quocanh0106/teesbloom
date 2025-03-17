@@ -1,0 +1,44 @@
+{%- if cart != empty -%}
+  {%- for item in cart.items -%}
+    <div id="cart-notification-product-{{ item.key }}" class="flex gap-4">
+      {% unless item.properties['_customily-thumb'] %}
+        <img
+          src="{{ item.image | image_url: width: 340 }}"
+          alt="{{ item.image.alt | escape }}"
+          width="340"
+          height="{{ 340 | divided_by: item.image.aspect_ratio | ceil }}"
+          class="w-[170px] h-auto block object-contain rounded-[10px]"
+          loading="lazy"
+        >
+      {% else %}
+        <img
+          src="{{ item.properties['_customily-thumb'] }}"
+          width="340"
+          height="340"
+          class="w-[170px] h-auto block object-contain rounded-[10px]"
+          loading="lazy"
+        >
+      {% endunless %}
+      <div class="w-[calc(100%_-_186px)]">
+        <h3 class="text-base text-primary leading-4 truncate-line two-lines overflow-hidden mb-2">{{ item.product.title | escape }}</h3>
+        <dl class="mb-2">
+          {%- unless item.product.has_only_default_variant -%}
+            {%- for option in item.options_with_values -%}
+              <div class="flex gap-1.5 text-sm leading-4 text-subtext">
+                <dt>{{ option.name }}:</dt>
+                <dd class="text-primary">{{ option.value }}</dd>
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+          <div class="flex gap-1.5 text-sm leading-4 text-subtext">
+            <dt>Quantity:</dt>
+            <dd class="text-primary">{{ item.quantity }}</dd>
+          </div>
+        </dl>
+        <div style="--color-primary: var(--color-special)">
+          {% render 'lineitem-cart-drawer-price', product: item.variant %} 
+        </div>
+      </div>
+    </div>
+  {%- endfor -%}
+{%- endif -%}

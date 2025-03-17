@@ -1,0 +1,17 @@
+<cart-notification class="hidden fixed w-full h-full bg-black bg-opacity-20 top-0 left-0 z-20">
+  <div class="rounded-2xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[510px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+    <div class="flex items-center justify-center gap-1.5 text-sm text-success p-2.5">
+      <svg class="w-5 h-5" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M12 20C7.59 20 4 16.41 4 12S7.59 4 12 4 20 7.59 20 12 16.41 20 12 20M16.59 7.58L10 14.17L7.41 11.59L6 13L10 17L18 9L16.59 7.58Z"></path></svg>
+      <span>Item has been added to your shopping cart</span>
+    </div>
+    <div id="cart-notification-product" class="cart-notification-product p-2.5 py-0 flex gap-4"></div>
+    <div class="p-2.5 grid grid-cols-2 gap-2">
+      <button class="btn-2-outline !text-base !font-semibold !rounded-[20px] close">
+        Continue Shopping
+      </button>
+      <a href="{{ routes.cart_url }}" class="btn-2 !text-base !font-semibold !rounded-[20px]">
+        View Cart & Checkout
+      </a>
+    </div>
+  </div>
+</cart-notification>

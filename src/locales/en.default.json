@@ -318,7 +318,7 @@
       "see_less": "Read Less",
       "show_more": "Show More",
       "show_less": "Show Less",
-      "current_view_count_html": "<span class=\"js-current-products text-primary\">1 - {{ products_count }} of {{ all_products_count }}<\/span> results",
+      "current_view_count_html": "About <span class=\"js-current-products text-primary\">{{ all_products_count }}<\/span> results",
       "current_view_html": "You've seen <span class=\"js-current-products\">{{ products_count }} of {{ all_products_count }}<\/span> results",
       "load_more": "Show More",
       "write_review": "WRITE A STORE REVIEW",

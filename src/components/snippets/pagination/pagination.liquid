@@ -1,17 +1,11 @@
 {%- if paginate.pages > 0 -%}
-  <nav class="flex justify-center my-5 gap-2 empty:!hidden">
-    {%- if paginate.previous -%}
-      <a href="{{ paginate.previous.url }}" class="flex items-center justify-center w-8 h-8 py-2 px-1 text-sm leading-2 font-medium border border-solid border-transparent rounded hover:border-primary text-primary hover:text-primary">{%- render 'icon-prev', class: 'w-4 h-4' -%}</a>
-    {%- endif -%}
+  <nav class="flex justify-center gap-1 empty:!hidden">
     {%- for part in paginate.parts -%}
       {%- if part.is_link -%}
-        <a href="{{ part.url }}" class="flex items-center justify-center w-8 h-8 py-2 px-1 text-sm leading-2 font-medium border border-solid border-transparent rounded hover:border-primary text-primary hover:text-primary">{{ part.title }}</a>
+        <a href="{{ part.url }}" class="flex items-center justify-center w-10 h-10 py-2 px-1 text-sm leading-2 font-medium rounded-full bg-[#ebeaeb] text-primary ">{{ part.title }}</a>
       {%- else -%}
-        <span class="flex items-center justify-center w-8 h-8 py-2 px-1 text-sm leading-2 font-medium border border-solid rounded {%- if part.title == paginate.current_page -%} border-primary text-primary {%- else -%} border-transparent text-primary{%- endif -%}">{{ part.title }}</span>
+        <span class="flex items-center justify-center w-10 h-10 py-2 px-1 text-sm leading-2 font-medium rounded-full text-primary{% if part.title == paginate.current_page %} bg-border{% else %} bg-[#ebeaeb]{% endif %}">{{ part.title }}</span>
       {%- endif -%}
     {%- endfor -%}
-    {%- if paginate.next -%}
-      <a href="{{ paginate.next.url }}" class="flex items-center justify-center w-8 h-8 py-2 px-1 text-sm leading-2 font-medium border border-solid border-transparent rounded hover:border-primary text-primary hover:text-primary">{%- render 'icon-next', class: 'w-4 h-4' -%}</a>
-    {%- endif -%}
   </nav>
 {%- endif -%}

@@ -160,10 +160,10 @@ class CartItems extends HTMLElement {
       .then(state => {
         const parsedState = JSON.parse(state);
         this.classList.toggle('!hidden', parsedState.item_count === 0);
-        const quantityElement = this.querySelector(`input[data-key="${key}"]`);
+        const quantityElement = this.querySelector(`input[data-index="${line}"]`);
         if (parsedState.errors) {
           quantityElement.value = quantityElement.getAttribute('value');
-          this.updateLiveRegions(key, parsedState.errors);
+          this.updateLiveRegions(line, parsedState.errors);
           return;
         }
         const cartFooter = document.getElementById('main-cart-footer');
@@ -201,8 +201,8 @@ class CartItems extends HTMLElement {
     this.currentItemCount = itemCount;
 
     if (this.currentItemCount === itemCount) {
-      const quantityElement = this.querySelector(`input[data-key="${line}"]`);
-      this.querySelector(`.cart-item__error-text[data-key="${line}"]`).innerHTML =
+      const quantityElement = this.querySelector(`input[data-index="${line}"]`);
+      this.querySelector(`.cart-item__error-text[data-index="${line}"]`).innerHTML =
         window.cartStrings.quantityError.replace(
           '[quantity]',
           quantityElement.value,
@@ -254,87 +254,6 @@ class OpenEdit extends HTMLElement {
 
 if (!customElements.get('open-edit')) {
   customElements.define('open-edit', OpenEdit);
-}
-
-class EditLineItem extends HTMLElement {
-  constructor() {
-    super();
-    this.wrapper = this.querySelector('.edit-wrapper');
-    this.querySelectorAll('.close').forEach(button => {
-      button.addEventListener('click', this.hide.bind(this, !1));
-    });
-    this.addEventListener('keyup', blur => {
-      'ESCAPE' === blur.code.toUpperCase() && this.hide();
-    });
-    this.addEventListener('click', event => {
-      if (event.target === this) this.hide(event);
-    });
-  }
-
-  open(href, key) {
-    document.body.classList.add('!overflow-hidden');
-    this.classList.remove('hidden');
-    this.controller = new AbortController();
-    let signal = this.controller.signal
-    fetch(href, { signal })
-      .then(res => {
-        return res.text();
-      })
-      .then(html => {
-        this.parser = new DOMParser();
-        this.wrapper.innerHTML = this.parser.parseFromString(html, 'text/html').querySelector('.page-width').innerHTML;
-        this.setInnerHTML(this.wrapper);
-
-      }).finally(() => {
-        this.wrapper.querySelector('product-form').setAttribute('data-key', key);
-      });
-  }
-
-  hide() {
-    if(this.controller) {
-      this.controller.abort();
-    }
-    document.body.classList.remove('!overflow-hidden');
-    this.classList.add('hidden');
-    this.removeInnerHTML(this.wrapper);
-  }
-
-  setInnerHTML(element) {
-    element.querySelectorAll('script').forEach(oldScriptTag => {
-      const newScriptTag = document.createElement('script');
-      Array.from(oldScriptTag.attributes).forEach(attribute => {
-        newScriptTag.setAttribute(attribute.name, attribute.value);
-      });
-      newScriptTag.appendChild(document.createTextNode(oldScriptTag.innerHTML));
-      oldScriptTag.parentNode.replaceChild(newScriptTag, oldScriptTag);
-    });
-  }
-
-  removeInnerHTML(element) {
-    this.serializer = new XMLSerializer();
-    element.querySelectorAll('script').forEach(oldScriptTag => {
-      oldScriptTag.outerHTML = '';
-    });
-    document.querySelectorAll('script').forEach(script => {
-      if (this.serializer.serializeToString(script).includes('customily')) {
-        script.outerHTML = '';
-      }
-    });
-    document.querySelectorAll('.vue-portal-target').forEach(element => {
-      if (this.serializer.serializeToString(element).includes('customily')) {
-        element.outerHTML = '';
-      }
-    });
-    document.querySelectorAll('link').forEach(link => {
-      if (this.serializer.serializeToString(link).includes('customily')) {
-        link.outerHTML = '';
-      }
-    });
-  }
-}
-
-if (!customElements.get('edit-lineitem')) {
-  customElements.define('edit-lineitem', EditLineItem);
 }
 
 class StickyCheckout extends HTMLElement {

@@ -1,17 +1,151 @@
 {% if settings.enable_cart_drawer and template != 'cart' %}
-  <cart-drawer class="cart-drawer before:fixed before:w-full before:h-full before:bg-black before:bg-opacity-20 before:top-0 before:left-0 before:z-20 before:transition-all before:invisible before:opacity-0" id="cart-drawer">
-    <div class="cart-drawer-wrapper transition-all shadow-popup max-w-[calc(100vw_-_32px)] w-[600px] h-[600px] max-h-[calc(100vh_-_32px)] rounded-[20px] bg-background fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 invisible opacity-0">
-      <div class="cart-drawer-header flex justify-between p-4">
-        <span class="block text-h5 lg:text-h4 !font-normal font-heading text-primary">
-          {{ 'sections.cart.cart_drawer_title' | t }}
-        </span>
-        <button class="close w-6 h-6 lg:w-8 lg:h-8 flex rounded-full items-center justify-center bg-transparent text-primary transition-all">
-          {% render 'icon-close', class: 'w-6 h-6' %}
-        </button>
-      </div>
-      <div class="cart-drawer-body flex flex-col h-full max-h-[calc(100%_-_57px)] lg:max-h-[calc(100%_-_64px)]">
-
+  <link rel="stylesheet" href="{{ 'cart-drawer.css' | asset_url }}" />
+  {% capture cartdrawer %}{{ 'cart-drawer.js' | asset_url }}{% endcapture %}
+  {% render 'atom_script', src: cartdrawer, priority: 'normal', type: "defer" %}
+  <cart-drawer id="cart-drawer" class="relative transition-all duration-200 hidden lg:block opacity-0 invisible {{ class }}">
+    <div class="cart-drawer-wrapper transition-all shadow-search max-w-[calc(100vw_-_32px)] w-[415px] max-h-[525px] rounded-[20px] bg-background absolute top-3 right-0 z-30 overflow-auto">
+      <button class="hidden close w-6 h-6 lg:w-8 lg:h-8 rounded-full items-center justify-center bg-transparent text-primary transition-all">
+        {% render 'icon-close', class: 'w-6 h-6' %}
+      </button>
+      <div class="cart-drawer-body flex flex-col h-fit">
+        {%- if cart.item_count > 0 -%}
+          <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-10 hidden">
+            <div class="text-[30px] font-semibold leading-2">Oops!!!</div>
+            <img src="{{ 'cart-empty.png' | asset_img_url: 'medium' }}" width="300" height="300" loading="lazy" class="block mx-auto mb-4 object-contain" />
+            <span class="block mx-auto text-2xl font-heading leading-2 font-normal uppercase text-primary mb-3">{{ 'sections.cart.empty' | t }}</span>
+            <span class="block mx-auto text-sm font-body leading-2 font-normal text-primary mb-3">{{ 'sections.cart.empty_description' | t }}</span>
+            <a href="{{ routes.all_products_collection_url }}" class="block cursor-pointer !rounded-[1000px] mx-auto w-fit btn btn-2 !px-6 lg:!px-8 !py-2 text-sm leading-none lg:text-base !uppercase lg:leading-none !font-heading !font-bold">
+              {{ 'general.continue_shopping' | t }}
+            </a>
+          </div>
+          <cart-items class="w-full scroll-thin scroll-brighter overflow-auto {% if cart == empty %} is-empty {% else %} block{% endif %}">
+            <div class="shopping-cart-main">
+              <form action="{{ routes.cart_url }}" class="cart__contents critical-hidden" method="post" id="cart">
+                <div class="cart__items" id="main-cart-items" data-id="{{ section.id }}">
+                  <div class="js-contents">
+                    {%- if cart != empty -%}
+                      <table class="cart-items w-full border-none">
+                        {%- for item in cart.items -%}
+                          <tr id="CartItem-{{ item.index | plus: 1 }}" class="{% unless forloop.last %}border-border border-b{% endunless %}" data-index="{{ item.index | plus: 1 }}">
+                            <td class="table-cell border-none w-full items-center{% if forloop.first %} pb-4{% else %} py-4{% endif %} px-4" colspan="2" scope="col">
+                              <div class="flex items-start">
+                                {% if item.properties == empty %}
+                                  <modal-opener class="group flex flex-col justify-center items-center w-20 lg:w-24 rounded flex-none overflow-hidden relative cursor-pointer" data-id="#preview-image-{{ item.index | plus: 1 }}">
+                                    <img src="{{ item.image | image_url: width: 160 }}" class="w-20 h-20 lg:w-24 lg:h-24 block object-cover leading-none bg-image-placeholder rounded bg-no-repeat bg-cover bg-center text-transparent" alt="{{ item.image.alt | escape }}" width="160" height="{{ 160 | divided_by: item.image.aspect_ratio | ceil }}">
+                                    <div class="flex items-center justify-center transition-all text-xs gap-2 text-secondary">
+                                      {% render 'icon-zoom', class: 'w-3 h-3 lg:w-4 lg:h-4' %} Preview
+                                    </div>
+                                  </modal-opener>
+                                  <modal-dialog class="hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group" id="preview-image-{{ item.index | plus: 1 }}">
+                                    <div class="group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+                                      <img src="{{ item.image | image_url: width: item.image.width }}" class="w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" width="{{ item.image.width }}" height="{{ item.image.height }}" loading="lazy" alt="{{ item.title | escape }}" />
+                                      <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
+                                        {% render 'icon-close', class: 'w-6 h-6' %}
+                                      </span>
+                                    </div>
+                                  </modal-dialog>
+                                {% else %}
+                                  {% if item.properties['_customily-thumb'] %}
+                                    <modal-opener class="group flex flex-col items-center justify-center w-20 lg:w-24 flex-none relative cursor-pointer" data-id="#preview-image-{{ item.index | plus: 1 }}">
+                                      <img src="{{ item.properties['_customily-thumb'] }}" data-placeholder="{{ placeholderImage }}" data-thumb-src="{{ item.properties['_customily-thumb'] }}" class="customily-item-image w-20 h-20 lg:w-24 lg:h-24 block object-cover leading-none rounded !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" style="--image-placeholder: url({{ placeholderImage }});" width="160" height="160" loading="lazy" alt="{{ item.title | escape }}" />
+                                      <div class="flex items-center justify-center transition-all text-xs gap-2 text-secondary">
+                                        {% render 'icon-zoom', class: 'w-3 h-3 lg:w-4 lg:h-4' %} Preview
+                                      </div>
+                                    </modal-opener>
+                                  {% endif %}
+                                  {% if item.properties['_customily-preview'] %}
+                                    <modal-dialog class="hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20" id="preview-image-{{ item.index | plus: 1 }}">
+                                      <div class="group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+                                        <img src="{{ item.properties['_customily-preview'] }}" data-placeholder="{{ placeholderImage }}" data-thumb-src="{{ item.properties['_customily-preview'] }}" class="customily-item-image w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" style="--image-placeholder: url({{ placeholderImage }});" width="765" height="765" loading="lazy" alt="{{ item.title | escape }}" />
+                                        <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
+                                          {% render 'icon-close', class: 'w-6 h-6' %}
+                                        </span>
+                                      </div>
+                                    </modal-dialog>
+                                  {% endif %}
+                                {% endif %}
+        
+                                <div class="w-full ml-2 lg:ml-3 flex flex-col min-h-[80px] lg:min-h-[96px]">
+                                  <div class="flex items-center justify-between gap-4">
+                                    <a href="{{ item.url }}" class="text-xs leading-2 lg:text-sm lg:leading-4 font-normal font-heading no-underline text-primary hover:text-primary truncate-line two-lines overflow-hidden" title="{{ item.product.title }}">
+                                      {{ item.product.title }}
+                                    </a>
+                                  </div>
+        
+                                  <div class="flex items-center gap-2 justify-between mt-auto">
+                                    {% render 'lineitem-cart-drawer-price', product: item.variant %}
+                                    <quantity-input class="flex items-center relative w-fit h-6 rounded-3xl" data-index="{{ item.index | plus: 1 }}">
+                                      <button class="w-6 h-6 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button">
+                                        {% render 'icon-minus', class: 'w-3 h-3 mx-auto' %}
+                                      </button>
+                                      <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-8 h-full font-medium text-center !ring-0 shadow-none focus:border-none" inputmode="numeric" pattern="[0-9]*" type="number" name="updates[]" value="{{ item.quantity }}" min="0" id="Quantity-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                                      <button class="w-6 h-6 border border-[#f2f2f6] bg-[#f2f2f6] rounded-r-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="plus" type="button">
+                                        {% render 'icon-plus', class: 'w-3 h-3 mx-auto' %}
+                                      </button>
+                                    </quantity-input>
+                                  </div>
+                                  <div class="cart-item__error-text text-error text-xs mt-1 empty:hidden" data-index="{{ item.index | plus: 1 }}"></div>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        {%- endfor -%}
+                      </table>
+                    {%- endif -%}
+                  </div>
+                </div>
+              </form>
+            </div>
+          </cart-items>
+          <div class="w-full mt-auto block pb-4{% if cart == empty %} is-empty{% endif %} cart_footer" id="main-cart-footer" data-id="{{ section.id }}">
+            <div class="js-contents" id="cart-drawer-total" {{ block.shopify_attributes }}>
+              <ul class="px-4 py-4 border-t border-border grid gap-2">
+                <li class="flex items-center justify-between gap-2">
+                  <span class="text-base font-semibold text-primary capitalize leading-5">{{ 'sections.cart.subtotal' | t }}</span>
+                  <span class="text-base font-semibold text-primary font-heading leading-5 uppercase totals__subtotal-value">
+                    {{ cart.total_price | money }}
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div class="px-4">
+              <button type="submit" id="checkout" class="btn-2 !text-lg !rounded-[20px] !flex justify-center items-center w-full !h-12 !uppercase !px-4 !py-2" name="checkout"{% if cart == empty %} disabled{% endif %} form="cart">
+                {% render 'icon-lock', class: "w-4 h-4 mr-2" %}
+                {{ 'sections.cart.checkout' | t }}
+              </button>
+            </div>
+          </div>
+        {%- else -%}
+          <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-10">
+            <div class="text-[30px] font-semibold leading-2">Oops!!!</div>
+            <img src="{{ 'cart-empty.png' | asset_img_url: 'medium' }}" width="300" height="300" loading="lazy" class="block mx-auto mb-4 object-contain" />
+            <span class="block mx-auto text-2xl font-heading leading-2 font-normal uppercase text-primary mb-3">{{ 'sections.cart.empty' | t }}</span>
+            <span class="block mx-auto text-sm font-body leading-2 font-normal text-primary mb-3">{{ 'sections.cart.empty_description' | t }}</span>
+            <a href="{{ routes.all_products_collection_url }}" class="block cursor-pointer !rounded-[1000px] mx-auto w-fit btn btn-2 !px-6 lg:!px-8 !py-2 text-sm leading-none lg:text-base !uppercase lg:leading-none !font-heading !font-bold">
+              {{ 'general.continue_shopping' | t }}
+            </a>
+          </div>
+        {%- endif -%}
       </div>
     </div>
   </cart-drawer>
+  <script defer>
+    document.addEventListener('DOMContentLoaded', function() {
+      function isIE() {
+        const ua = window.navigator.userAgent;
+        const msie = ua.indexOf('MSIE ');
+        const trident = ua.indexOf('Trident/');
+        return(msie > 0 || trident > 0);
+      }
+      if (! isIE()) 
+        return;
+      const cartSubmitInput = document.createElement('input');
+      cartSubmitInput.setAttribute('name', 'checkout');
+      cartSubmitInput.setAttribute('type', 'hidden');
+      document.querySelector('#cart').appendChild(cartSubmitInput);
+      document.querySelector('#checkout').addEventListener('click', function(event) {
+        document.querySelector('#cart').submit();
+      });
+    });
+  </script>
 {% endif %}

@@ -24,7 +24,7 @@
 <div data-section-id="{{ section.id }}">
   <div class="block relative {% unless section.settings.fullwidth %} page-width{% endunless %} overflow-hidden">
     <div class="flex items-center justify-center pb-3">
-      <h2 class="text-base font-semibold capitalize text-center text-secondary">{{ section.settings.title | escape }}</h2>
+      <h2 class="text-base font-semibold capitalize text-center text-primary">{{ section.settings.title | escape }}</h2>
     </div>
     <ul class="grid gap-y-8 gap-x-5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 overflow-hidden product-recommendations" data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit }}"
       aria-labelledby="related-heading">

@@ -33,3 +33,19 @@
 .cl-canvas-container .canvas-wrapper {
   @apply !m-0;
 }
+
+.customily-modal-preview-only .main.cl-use-image {
+  @apply !relative z-[1] !h-fit !max-w-[calc(100vw_-_32px)] lg:!max-w-[90vw] !max-h-[calc(100vh_-_32px)];
+}
+
+.customily-modal-preview-only .main.cl-use-image .customily-close-button {
+  @apply !z-[unset] !-top-7 !w-10 !h-10 lg:!w-12.5 lg:!h-12.5 lg:!right-2 lg:!top-2 !absolute !shadow-none !bg-transparent text-[0] after:content-close after:leading-none;
+}
+
+.customily-modal-preview-only .main .cl-preview-wrapper {
+  @apply !rounded-[10px] !overflow-hidden;
+}
+
+.customily-modal-preview-only .main.cl-use-image .customily-close-button:before {
+  @apply content-empty w-screen h-screen fixed block top-0 left-0 -z-[1];
+}

@@ -7,7 +7,20 @@
 {% assign free_shipping = shippingLimit | money_without_trailing_zeros %}
 {% assign one = 'templates.cart.pluralizatio.one' | t %}
 {% assign other = 'templates.cart.pluralizatio.other' | t %}
+{%- style -%}
+  #shopify-section-{{ section.id }} {
+    background: {{ section.settings.background_color }};
+    padding-top: {{ section.settings.padding_top_mb }}px;
+    padding-bottom: {{ section.settings.padding_bottom_mb }}px;
+  }
 
+  @media (min-width: 768px) {
+    #shopify-section-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+{%- endstyle -%}
 {%- if cart.item_count > 0 -%}
   <div class='page-width flex flex-wrap' id='main-cart-items'>
     <count-down-timer
@@ -74,12 +87,12 @@
                           {% if item.image %}
                             {% if item.properties == empty %}
                               <modal-opener
-                                class='group block w-28 h-28 md:w-40 md:h-40 rounded flex-none overflow-hidden relative cursor-pointer'
+                                class='group block  w-28 h-auto md:w-40 md:h-auto rounded flex-none overflow-hidden relative cursor-pointer'
                                 data-id='#preview-image-{{ item.index | plus: 1 }}'
                               >
                                 <img
                                   src='{{ item.image | image_url: width: 160 }}'
-                                  class='w-full h-full block object-cover leading-none bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent'
+                                  class='w-28 h-28 md:w-40 md:h-40 block object-cover leading-none bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent'
                                   alt='{{ item.image.alt | escape }}'
                                   width='160'
                                   height='{{ 160 | divided_by: item.image.aspect_ratio | ceil }}'
@@ -110,12 +123,12 @@
                               {% for p in item.properties %}
                                 {% if p.first == '_customily-thumb' %}
                                   <modal-opener
-                                    class='group block w-28 h-28 md:w-40 md:h-40 flex-none relative cursor-pointer group'
+                                    class='group block w-28 h-auto md:w-40 md:h-auto flex-none relative cursor-pointer group'
                                     data-id='#preview-image-{{ item.index | plus: 1 }}'
                                   >
                                     <img
                                       src='{{ p.last }}'
-                                      class='w-full h-full block object-cover leading-none rounded !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent'
+                                      class='w-28 h-28 md:w-40 md:h-40 block object-cover leading-none rounded !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent'
                                       width='160'
                                       height='160'
                                       loading='lazy'
@@ -152,6 +165,9 @@
                               >
                                 {{ item.product.title }}
                               </a>
+                              <div class="hidden lg:block">
+                                {% render 'price', product: item.variant %}
+                              </div>
                             </div>
                             {%- if item.product.has_only_default_variant
                                 == false
@@ -267,7 +283,9 @@
                                   %}
                                 </button>
                               </quantity-input>
-                              {% render 'price', product: item.variant %}
+                              <div class="lg:hidden">
+                                {% render 'price', product: item.variant %}
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -454,7 +472,7 @@
                     <button
                       type='submit'
                       id='checkout'
-                      class='btn-2 w-full !px-8 !py-3.5 lg:!py-2'
+                      class='btn-2 w-full !text-lg !rounded-[20px] !px-8 !py-3.5 lg:!py-2'
                       name='checkout'
                       {% if cart == empty %}
                         disabled
@@ -482,7 +500,7 @@
       <div class='bg-background rounded-lg px-4 py-6 lg:py-16'>
         <div class='text-[30px] font-semibold leading-2'>Oops!!!</div>
         <img
-          src='{{ 'cart-empty.png' | asset_img_url }}'
+          src='{{ 'cart-empty.png' | asset_img_url: 'master' }}'
           width='300'
           height='300'
           loading='lazy'
@@ -564,27 +582,51 @@
   "settings": [
     {
       "type": "header",
-      "content": "Padding"
+      "content": "Padding desktop"
     },
     {
       "type": "range",
       "id": "padding_top",
       "min": 0,
       "max": 200,
-      "step": 4,
+      "step": 2,
       "unit": "px",
-      "label": "Padding top",
-      "default": 36
+      "label": "Padding Top",
+      "default": 0
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
       "max": 200,
-      "step": 4,
+      "step": 2,
       "unit": "px",
-      "label": "Padding bottom",
-      "default": 36
+      "label": "Padding Bottom",
+      "default": 0
+    },
+    {
+      "type": "header",
+      "content": "Padding mobile"
+    },
+    {
+      "type": "range",
+      "id": "padding_top_mb",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom_mb",
+      "min": 0,
+      "max": 200,
+      "step": 2,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
     }
   ],
   "blocks": [

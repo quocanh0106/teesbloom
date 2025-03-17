@@ -77,7 +77,8 @@
         --color-sold-out: {{ settings.sold_out_badge_color }};
         --color-new: {{ settings.new_label_bg }};
 
-        --image-placeholder: {{ 'placeholder-image.png' | asset_url }}
+        --image-placeholder: {{ 'placeholder-image.png' | asset_url }};
+        --image-close: url("{{ 'icon-close.svg' | asset_url }}");
       }
     {% endstyle %}
 
@@ -153,7 +154,6 @@
     <main id="MainContent">
       {{ content_for_layout }}
     </main>
-    {% render 'cart-drawer' %}
 
     {% section 'newsletter' %}
 

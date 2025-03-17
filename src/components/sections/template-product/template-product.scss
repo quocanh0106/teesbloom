@@ -64,9 +64,6 @@ accordion-toggle.review.active .details {
   @apply !max-h-full;
 }
 
-.sticky-header cart-notification {
-  @apply top-3 lg:top-[23px];
-}
 .product-infortab a,
 .product-infor a {
   @apply font-medium dark-link;
@@ -199,6 +196,10 @@ button#customily-cart-btn:disabled ~ .button-unavailable,
   @media (min-width: 1024px) {
     width: 100%;
   }
+}
+
+button#customily-cart-btn:not(:disabled) ~ .button-unavailable {
+  @apply !hidden;
 }
 
 product-infor accordion-toggle .details * {

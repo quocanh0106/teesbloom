@@ -263,6 +263,7 @@ module.exports = {
         freeship: 'var(--freeship)',
         eye: 'var(--eye)',
         dot: 'var(--dot)',
+        close: 'var(--image-close)',
         'eye-hover': 'var(--eye-hover)',
         'prev': 'var(--prev)',
         shield: 'var(--shield)',
