@@ -42,7 +42,7 @@ no-repeat;
 }
 {% endstyle %}
 
-<div class="{% if template contains 'collection' %}page-width-2{% else %}page-width-desktop-2{% endif %}">
+<div class="{% if template contains 'collection' %}page-width{% else %}page-width-desktop{% endif %}">
   <div data-section-id="{{ section.id }}" class="rounded-lg bg-cover">
     {% if template contains 'product' %}
     {% elsif template == 'cart' %}

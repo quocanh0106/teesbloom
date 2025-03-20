@@ -167,12 +167,8 @@
             {% else %}
               {% assign lazy_load = 'eager' %}
             {% endif %}
-            {% if collection.handle == 'new-arrivals' %}
-              {%- render 'product-card', product: product, lazy_load: lazy_load, heading: 'h2', class: 'h-full border-r border-b border-primary', spectial: true -%}
-            {% else %}
-              {%- render 'product-card', product: product, lazy_load: lazy_load, heading: 'h2', class: 'h-full border-r border-b border-primary' -%}
-            {% endif %}
 
+            {%- render 'product-card', product: product, lazy_load: lazy_load, heading: 'h2' -%}
           {% endfor %}
         {% else %}
           <div class="col-span-2 md:col-span-3 lg:col-span-4 bg-background py-3 lg:p-10">

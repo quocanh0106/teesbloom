@@ -42,7 +42,7 @@
               </facet-remove>
             {%- endfor -%}
 
-            {%- if filter.type == 'price_range' -%}
+            {% comment %} {%- if filter.type == 'price_range' -%}
               {%- if filter.min_value.value != null or filter.max_value.value != null -%}
                 <facet-remove class="block">
                   <a href="{{ filter.url_to_remove }}" class="block text-primary hover:text-primary bg-background border border-solid border-border overflow-hidden rounded-3xl no-underline" rel="nofollow">
@@ -63,7 +63,7 @@
                   </a>
                 </facet-remove>
               {%- endif -%}
-            {%- endif -%}
+            {%- endif -%} {% endcomment %}
           {%- endfor -%}
           {%- for filter in results.filters -%}
             {%- if filter.active_values.size > 0 -%}

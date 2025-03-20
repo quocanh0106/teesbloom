@@ -1,6 +1,9 @@
 <link rel="stylesheet" href="{{ 'facet.css' | asset_url }}">
+
 {% paginate search.results by 10 %}
-  <div class="flex flex-wrap pb-8 lg:pb-20" data-id="{{ section.id }}" id="ProductGridContainer">
+  <div class="page-width flex flex-wrap py-8 lg:pt-9 lg:pb-16" data-id="{{ section.id }}" id="ProductGridContainer">
+    <h1 class="w-full text-xl leading-5 font-semibold text-primary mb-6 lg:mb-8">Search results</h1>
+
     {% if search.results.size > 0 %}
       {% render 'facet', results: search %}
     {% endif %}
@@ -8,7 +11,7 @@
       {% if search.results.size > 0 %}
         <div class="pb-6 facet-mobile flex flex-wrap gap-3 items-center justify-between lg:mx-0 lg:mt-0 transition-all duration-200 bg-background">
           <div class="flex items-end gap-1.5">
-            <span class="block text-base lg:text-lg !leading-none w-full md:w-fit text-primary font-semibold">{{ collection.title }}</span>
+            <span class="block text-base lg:text-lg !leading-none w-full md:w-fit text-primary font-semibold">{{ search.terms }}</span>
             <div id="ProductCount" class="viewing-currently-product text-sm !leading-none text-subtext whitespace-nowrap">
               {% liquid
                 assign products_count = paginate.current_page | times: section.settings.products_per_page
@@ -120,57 +123,28 @@
                   </div>
                 </accordion-toggle>
               </div>
-              {% if collection.current_vendor or collection.current_type %}
-                <input type="hidden" name="q" value="{{ collection.current_vendor }}{{ collection.current_type }}">
+              {% if search.current_vendor or search.current_type %}
+                <input type="hidden" name="q" value="{{ search.current_vendor }}{{ search.current_type }}">
               {% endif %}
-              {%- if collection.terms -%}
-                <input type="hidden" name="q" value="{{ collection.terms | escape }}">
+              {%- if search.terms -%}
+                <input type="hidden" name="q" value="{{ search.terms | escape }}">
                 <input name="options[prefix]" type="hidden" value="last">
               {%- endif -%}
             </form>
           </facet-filters-form>
         </div>
       {% endif %}
-      <div id="ProductCountMobile" class="viewing-currently-product text-sm px-4 md:px-0 mb-5 text-primary order-2 whitespace-nowrap hidden">
-        {% liquid
-          assign products_count = paginate.current_page | times: section.settings.products_per_page
-          if products_count > paginate.items
-            assign products_count = paginate.items
-          endif
-        %}
-        {{ 'sections.collection_template.current_view_count_html' | t: all_products_count: paginate.items, products_count: products_count }}
-      </div>
       {%- if search.performed -%}
-        <div id="main-collection-product" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 transition-all duration-500 w-[calc(100%_+_1px)] overflow-hidden">
+        <div id="main-collection-product" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 transition-all duration-500 gap-4 overflow-hidden">
           {% if search.results.size > 0 %}
             {% for product in search.results %}
-              {%- render 'product-card', product: product, lazy_load: lazy_load, heading: 'h2', class: 'h-full border-r border-b border-primary' -%}
+              {%- render 'product-card', product: product, lazy_load: lazy_load, heading: 'h2' -%}
             {% endfor %}
           {% endif %}
         </div>
       {%- endif -%}
-      <div class="flex flex-col justify-center items-center gap-4 mt-8 lg:mt-12{% if paginate.pages <= 1 %} !hidden{% endif %}" id="PaginationInfor">
-        <div id="ProductCountDesktop" class="viewing-currently-product">
-          {% liquid
-            assign products_count = paginate.current_page | times: section.settings.products_per_page
-            if products_count > paginate.items
-              assign products_count = paginate.items
-            endif
-          %}
-          <span class="text-sm text-primary font-normal">{{ 'sections.collection_template.current_view_html' | t: all_products_count: paginate.items, products_count: products_count }}</span>
-          <div class="max-w-[194px] mx-auto rounded-2xl bg-[#F1F1F1] h-1 relative overflow-hidden mt-3">
-            <div class="rounded-l-2xl absolute top-0 left-0 h-1 w-full bg-primary !block rounded-2xl" style="max-width: {{ products_count | divided_by: 1.0 | divided_by: paginate.items |  times: 100 }}%"></div>
-          </div>
-        </div>
-        <collection-loadmore data-click-loadmore="false" class="block text-center cursor-pointer">
-          <span data-href="{{ paginate.next.url }}" class="load-more_btn">
-          </span>
-          <div class="loading-animation">
-            {% for i in (1..10) %}
-              <div class="animation-wave"></div>
-            {% endfor %}
-          </div>
-        </collection-loadmore>
+      <div class="flex flex-col justify-center items-center gap-4 mt-8 lg:mt-12{% if paginate.pages <= 1 %} !hidden{% endif %}">
+        {% render 'pagination', paginate: paginate %}
       </div>
     </div>
   </div>

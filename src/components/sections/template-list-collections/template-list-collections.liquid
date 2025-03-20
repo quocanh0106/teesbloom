@@ -1,54 +1,67 @@
-<div class="w-full overflow-hidden">
-  {% paginate collections by 24 %}
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mb-[-1px] w-[calc(100%_+_1px)]">
-      {%- for collection in collections -%}
-        {%- if collection.all_products_count > 0 -%}
-          <div class="relative overflow-hidden border-r border-b border-primary">
-            {%- liquid
-              if collection.featured_image != blank
-                assign collection_image = collection.featured_image
-              else
-                assign collection_image = collection.products.first.image
-              endif
+{% paginate collections by 24 %}
+  <div class="page-width grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 lg:gap-8 my-8 lg:my-12">
+    {%- for collection in collections -%}
+      {%- if collection.all_products_count > 0 -%}
+        <div class="relative overflow-hidden">
+          {%- liquid
+            if collection.featured_image != blank
+              assign collection_image = collection.featured_image
+            else
+              assign collection_image = collection.products.first.image
+            endif
+            assign ratio = 1
+            if collection_image and media_aspect_ratio == 'portrait'
+              assign ratio = 0.8
+            elsif collection_image and media_aspect_ratio == 'adapt'
+              assign ratio = collection_image.aspect_ratio
+            endif
+            if ratio == 0 or ratio == null
               assign ratio = 1
-              if collection_image and media_aspect_ratio == 'portrait'
-                assign ratio = 0.8
-              elsif collection_image and media_aspect_ratio == 'adapt'
-                assign ratio = collection_image.aspect_ratio
-              endif
-              if ratio == 0 or ratio == null
-                assign ratio = 1
-              endif
-            -%}
-            <div class="relative" style="padding-bottom:{{ 1 | divided_by: ratio | times: 100 }}%;">
-              <a
-                href="{{ collection.url }}"class="block group overflow-hidden absolute top-0 left-0 w-full h-full" title="{{ collection.title }}">
-                <img
-                  srcset="{{ collection_image | image_url: width: 200 }} 320w,
+            endif
+          -%}
+          <div class="relative rounded-[10px] overflow-hidden" style="padding-bottom:{{ 1 | divided_by: ratio | times: 100 }}%;">
+            <a
+              href="{{ collection.url }}"
+              class="block group overflow-hidden absolute top-0 left-0 w-full h-full"
+              title="{{ collection.title }}">
+              <img
+                srcset="{{ collection_image | image_url: width: 200 }} 320w,
                                           {{ collection_image | image_url: width: 240 }} 480w,
                                           {{ collection_image | image_url: width: 400 }} 800w,
                                           {{ collection_image | image_url: width: 512 }} 1024w"
-                  sizes="(max-width: 320px) 200px,
+                sizes="(max-width: 320px) 200px,
                                           (max-width: 480px) 240px,
                                           (max-width: 800px) 400px,
                                           (max-width: 1024px) 512px,
                                           1024px"
-                  src="{{ collection_image | image_url }}"
-                  {% if collection_image.alt != blank %}alt="{{ collection_image.alt | escape }}"{% else %}alt="{{ collection_image | split: "/" | last | replace: "-", " " | split: "." | first }}"{% endif %} height="{{ collection_image.height | divided_by: 4 }}" width="{{ collection_image.width | divided_by: 4 }}" loading="lazy" class="w-full h-full object-cover block group-hover:scale-105 transition-all">
-              </a>
-            </div>
-            <h2 class="m-0 md:absolute overflow-hidden md:bottom-2 md:left-2 rounded-b md:rounded-3xl ">
-              <a href="{{ collection.url }}" class="text-xs leading-6 font-heading text-center capitalize bg-primary text-primary px-7.5 py-0.5 md:py-2 lg:px-4 lg:py-1 lg:min-w-[100px] md:bg-background md:text-primary hover:bg-primary hover:text-white truncate-line one-line overflow-hidden break-all" title="{{ button_label_block }}">
-                {{ collection.title }}
-              </a>
-            </h2>
+                src="{{ collection_image | image_url }}"
+                {% if collection_image.alt != blank %}
+                alt="{{ collection_image.alt | escape }}"
+                {% else %}
+                alt="{{ collection_image | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                {% endif %}
+                height="{{ collection_image.height | divided_by: 4 }}"
+                width="{{ collection_image.width | divided_by: 4 }}"
+                loading="lazy"
+                class="w-full h-full object-cover block group-hover:scale-105 transition-all">
+            </a>
           </div>
-        {%- endif -%}
-      {%- endfor -%}
-    </div>
+          <h2 class="mx-0 mt-3">
+            <a
+              href="{{ collection.url }}"
+              class="text-sm leading-4 capitalize truncate-line two-line overflow-hidden break-all text-primary hover:text-special transition-all duration-150"
+              title="{{ button_label_block }}">
+              {{ collection.title }}
+            </a>
+          </h2>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+  <div class="flex justify-center items-center gap-4 my-8 lg:my-12{% if paginate.pages <= 1 %} !hidden{% endif %}">
     {% render 'pagination', paginate: paginate %}
-  {% endpaginate %}
-</div>
+  </div>
+{% endpaginate %}
 
 {% schema %}
   {
