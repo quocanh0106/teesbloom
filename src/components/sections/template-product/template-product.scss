@@ -290,6 +290,19 @@ slider-component.gallery .slider-dots .slider-dot.active {
   @apply border-[3px] !border-special
 }
 
+product-infor accordion-toggle:hover .summary::before,
+product-infor accordion-toggle.active .summary::before {
+  content: '';
+  width: calc(100% + 20px);
+  position: absolute;
+  left: -10px;
+  height: calc(100% + 10px);
+  top: -5px;
+  background: #f1f1f1;
+  z-index: 0;
+  border-radius: 6px;
+}
+
 
 .product-description div {
   @apply mb-4 lg:mb-6 mt-2 lg:mt-3 first:!mt-0 last:!mb-0;

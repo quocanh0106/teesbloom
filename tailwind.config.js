@@ -219,6 +219,7 @@ module.exports = {
         '2-col-variant': 'calc((100% - 0.5rem)/2)',
         '3-col-variant': 'calc((100% - 1rem)/3)',
         '6-col-variant': 'calc((100% - 2.5rem)/6)',
+        '8-col-variant': 'calc((100% - 3.5rem)/8)',
         'main-article': 'calc(200%/3 - 5px)',
         'main-article-sidebar': 'calc(100%/3 + 5px)',
         'container': 'var(--page-width)',

@@ -40,7 +40,7 @@
               {{ product.metafields.judgeme.badge }}
               {% if product.tags contains 'new' or product.tags contains 'New' %}
                 <div class="flex items-center gap-1.5">
-                  <div class="relative flex items-center rounded-l bg-[#d6ffe9] text-xs text-[#00b958] leading-none pl-2 pr-4 h-6">
+                  <div class="relative flex items-center rounded-l bg-[#d6ffe9] text-xs text-[#00b958] font-medium leading-none pl-2 pr-4 h-6">
                     New!
                     <div class="!block bg-background absolute rotate-45 w-6 h-6 -right-4.5 top-0"></div>
                   </div>
@@ -360,7 +360,7 @@
                     <div class="icon-text grid grid-cols-3 items-start bg-background w-full rounded py-2">
                       <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-start text-left">
                         <div class="group relative mb-2 w-full before:border-[#77c888] before:border-solid before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                          <span class="icon p-1.5 mr-auto bg-background rounded-full leading-none block w-8 h-8 relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-left' %}</span>
+                          <span class="icon p-1.5 mr-auto rounded-full leading-none block w-8 h-8 bg-[#ccc] relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-left' %}</span>
                         </div>
                         <div class="date-text group px-1">
                           <span class="text-sm text-primary font-heading font-semibold leading-4 block">
@@ -390,7 +390,7 @@
                       </div>
                       <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-center text-center">
                         <div class="group relative mb-2 w-full before:border-[#77c888] before:border-solid before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                          <span class="icon p-1.5 mx-auto bg-background rounded-full leading-none block w-8 h-8 relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                          <span class="icon p-1.5 mx-auto rounded-full leading-none block w-8 h-8 bg-[#ccc] relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                         </div>
                         <div class="date-text group px-1">
                           <span class="order-ship text-sm text-primary font-heading font-semibold leading-4 block"></span>
@@ -401,7 +401,7 @@
                       </div>
                       <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-end text-right">
                         <div class="group relative mb-2 w-full before:border-[#77c888] before:border-solid before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                          <span class="icon p-1.5 ml-auto bg-background rounded-full leading-none block w-8 h-8 relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                          <span class="icon p-1.5 ml-auto rounded-full leading-none block w-8 h-8 bg-[#ccc] relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                         </div>
                         <div class="date-text group px-1">
                           <span class="estimate-arrival text-sm text-primary font-heading font-semibold leading-4 block"></span>
@@ -445,7 +445,7 @@
                       <div class="title-option-size-bt flex flex-wrap gap-2">
                         {%- for value in option.values -%}
                           <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
-                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center option-size-label min-w-12 max-w-6-col-variant w-full">
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center option-size-label min-w-12 max-w-8-col-variant w-full">
                             {{ value }}
                           </label>
                         {%- endfor -%}
@@ -590,7 +590,7 @@
                   <label for="Quantity-{{ section.id }}" class="block text-base font-medium mb-2.5 text-primary">Qty</label>
                   <quantity-input class="flex items-center relative w-fit h-8 rounded-3xl">
                     <button class="w-8 h-8 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button" role="button" aria-label="minus">
-                      {% render 'icon-minus', class: 'w-4 h-4 mx-auto' %}
+                      {% render 'icon-minus relative', class: 'w-4 h-4 mx-auto' %}
                     </button>
                     <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-6 lg:w-12 h-full font-medium text-center !ring-0 shadow-none focus:border-none" 
                       type="number"
@@ -653,8 +653,8 @@
           {%- when 'collapsible_tab' -%}
             {% if block.settings.title != blank %}
               <accordion-toggle class="block w-full relative bg-background py-3">
-                <div class="summary flex items-center justify-between gap-3 cursor-pointer">
-                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading">
+                <div class="summary flex items-center justify-between gap-3 cursor-pointer relative">
+                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading relative">
                     {% if block.settings.icon == 'note' %}
                       {% render 'icon-mini-note' %}    
                     {% elsif block.settings.icon == 'truck' %}
@@ -662,8 +662,8 @@
                     {% endif %}
                     {{ block.settings.title }}
                   </h2>
-                  <span class="icon-add">{%- render 'icon-down', class: 'w-6 h-6 text-primary' -%}</span>
-                  <span class="icon-minus">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
+                  <span class="icon-add relative">{%- render 'icon-down', class: 'w-6 h-6 text-primary' -%}</span>
+                  <span class="icon-minus relative">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
                 </div>
                 <div class="details p-0">
                   {% if block.settings.product_description %}
@@ -677,8 +677,8 @@
           {%- when 'collapsible-shipping' -%}
             {% if block.settings.title != blank %}
               <accordion-toggle class="block w-full relative bg-background py-3">
-                <div class="summary flex items-center justify-between gap-3 cursor-pointer">
-                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading">
+                <div class="summary flex items-center justify-between gap-3 cursor-pointer relative">
+                  <h2 class="flex items-center gap-2.5 text-base font-medium text-primary leading-4 font-heading relative">
                     {% if block.settings.icon == 'note' %}
                       {% render 'icon-mini-note' %}    
                     {% elsif block.settings.icon == 'truck' %}
@@ -686,61 +686,64 @@
                     {% endif %}
                     {{ block.settings.title }}
                   </h2>
-                  <span class="icon-add">{%- render 'icon-down', class: 'w-6 h-6 text-primary' -%}</span>
-                  <span class="icon-minus">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
+                  <span class="icon-add relative">{%- render 'icon-down', class: 'w-6 h-6 text-primary' -%}</span>
+                  <span class="icon-minus relative">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
                 </div>
                 <div class="details p-0">
-                  <div class="icon-text grid grid-cols-3 items-start p-4">
-                    <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-[#77c888] before:border before:border-t-2 before:block before:w-1/2 before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-[#f1f1f1] rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                  <delivery-wrapper class="icon-text grid grid-cols-3 items-start bg-background w-full rounded p-4">
+                    <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-start text-left">
+                      <div class="group relative mb-2 w-full before:border-[#77c888] before:border-solid before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon p-1.5 mr-auto rounded-full leading-none block w-8 h-8 bg-[#ccc] relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-left' %}</span>
                       </div>
-                      <div class="date-text group">
-                        <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
+                      <div class="date-text group px-1">
+                        <span class="text-sm text-primary font-heading font-semibold leading-4 block">
                           {%- assign mod_today = 'now' | date: '%a' -%}
-                          {% if mod_today == 'Sat' %}
-                            <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
-                          {% elsif mod_today == 'Sun' %}
-                            <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
-                          {%- else -%}
-                            <span>{{ "now" | date: "%b %d" }}</span>
+                          {% if shop.locale == 'de' %}
+                            {% if mod_today == 'Sat' %}
+                              <span>{{ "now" | date: '%s' | date: "%d %b" }}</span>
+                            {% elsif mod_today == 'Sun' %}
+                              <span>{{ "now" | date: '%s' | date: "%d %b" }}</span>
+                            {%- else -%}
+                              <span>{{ "now" | date: "%d %b" }}</span>
+                            {% endif %}
+                          {% else %}
+                            {% if mod_today == 'Sat' %}
+                              <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
+                            {% elsif mod_today == 'Sun' %}
+                              <span>{{ "now" | date: '%s' | date: "%b %d" }}</span>
+                            {%- else -%}
+                              <span>{{ "now" | date: "%b %d" }}</span>
+                            {% endif %}
                           {% endif %}
                         </span>
-                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary block">
+                        <span class="note text-xs mt-0.5 font-light leading-5 text-[#DC143C] block">
                           {{ 'products.shipping_information.order_placed' | t }}
                         </span>
                       </div>
                     </div>
-                    <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-[#77c888] before:border before:border-t-2 before:block before:w-full left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-[#f1f1f1] rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                    <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-center text-center">
+                      <div class="group relative mb-2 w-full before:border-[#77c888] before:border-solid before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon p-1.5 mx-auto rounded-full leading-none block w-8 h-8 bg-[#ccc] relative">{% render 'icon-delivery', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                       </div>
-                      <div class="date-text group">
-                        <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
-                          {{ 'now' | date: "%s" | plus: seconds | date: "%b %d" }}-{{ 'now' | date: "%s" | plus: seconds2 | date: "%b %d" }}
-                        </span>
-                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary block">
+                      <div class="date-text group px-1">
+                        <span class="order-ship text-sm text-primary font-heading font-semibold leading-4 block"></span>
+                        <span class="note text-xs mt-0.5 font-light leading-5 text-[#DC143C] block">
                           {{ 'products.shipping_information.order_ships' | t }}
                         </span>
                       </div>
                     </div>
-                    <div class="icon-text-wrapper group relative w-full justify-center flex flex-col items-center text-center">
-                      {% assign datec = 'now' | date: "%s" | plus: seconds3 | date: "%b %d" %}
-                      {% assign datecc = 'now' | date: "%s" | plus: seconds4 | date: "%b %d" %}
-                      {% assign date = datec | append: '-' | append: datecc %}
-                      <div class="group relative mb-2.5 w-full before:content-empty before:border-[#77c888] before:border before:border-t-2 before:block before:w-1/2 left-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
-                        <span class="icon flex items-center justify-center p-1.5 mx-auto bg-[#f1f1f1] rounded-full leading-none text-secondary w-8 h-8 relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
+                    <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-end text-right">
+                      <div class="group relative mb-2 w-full before:border-[#77c888] before:border-solid before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
+                        <span class="icon p-1.5 ml-auto rounded-full leading-none block w-8 h-8 bg-[#ccc] relative">{% render 'icon-gift-box', class: 'w-4.5 h-4.5 inline align-middle text-center' %}</span>
                       </div>
-                      <div class="date-text group">
-                        <span class="text-xs lg:text-sm text-primary font-heading font-semibold leading-4 block">
-                          {{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }}-{{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}
-                        </span>
-                        <span class="note text-xs mt-0.5 font-normal leading-5 text-primary block">
+                      <div class="date-text group px-1">
+                        <span class="estimate-arrival text-sm text-primary font-heading font-semibold leading-4 block"></span>
+                        <span class="note text-xs mt-0.5 font-light leading-5 text-[#DC143C] block">
                           {{ 'products.shipping_information.delivered' | t }}
                         </span>
                       </div>
                     </div>
-                  </div>
+                  </delivery-wrapper>
                           
                   {% if block.settings.description %}
                     <div class="mt-3">
