@@ -41,6 +41,11 @@
         name="next"
         aria-label="next">{%- render 'icon-next', class: 'w-6 h-6 lg:w-7 lg:h-7' -%}</button>
     {% endif %}
+    <div class="slider-counter caption flex px-3 py-1 rounded-md bg-[#0000007d] text-sm text-white font-normal leading-none absolute bottom-2.5 right-3 lg:hidden z-[1]">
+      <span class="slider-counter--current">1</span>
+      <span aria-hidden="true"> / </span>
+      <span class="slider-counter--total">{{ product.media.size }}</span>
+    </div>
   </div>
   {%- if product.media.size > 1 -%}
     <ul class="slider-dots !grid gap-3 lg:gap-4 grid-cols-5 lg:grid-cols-1 lg:h-fit lg:max-w-[80px] w-full overflow-hidden order-2 lg:order-1">
@@ -58,9 +63,5 @@
       {%- endfor -%}
     </ul>
   {%- endif -%}
-  <div class="slider-counter caption flex px-3 py-1 rounded-md bg-[#0000007d] text-sm text-white font-normal leading-none absolute bottom-2.5 right-3 lg:hidden">
-    <span class="slider-counter--current">1</span>
-    <span aria-hidden="true"> / </span>
-    <span class="slider-counter--total">{{ product.media.size }}</span>
-  </div>
+
 </slider-component>

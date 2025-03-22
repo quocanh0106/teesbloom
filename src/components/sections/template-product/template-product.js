@@ -406,12 +406,12 @@ class ProductForm extends HTMLElement {
         return response.json()
       })
       .then((response) => {
-        if (this.cart) {
+        if (this.cartNoti) {
           this.cart.open();
           this.renderContents(response);
           this.cartNoti?.renderContents(response);
         } else {
-          this.renderCartPageContents(response);
+          window.location.href = window.routes.cart_url
         }
         if (response.status) {
           this.handleErrorMessage(response.description);

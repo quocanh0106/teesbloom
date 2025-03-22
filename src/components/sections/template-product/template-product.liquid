@@ -411,9 +411,9 @@
                         </div>
                       </div>
                     </div>
-                    {% if section.settings.shipping_mini_description != blank %}
-                      <div class="mt-1 shipping-mini-description text-center">
-                        {{ section.settings.shipping_mini_description }}
+                    {% if block.settings.shipping_mini_description != blank %}
+                      <div class="mt-1 shipping-mini-description">
+                        {{ block.settings.shipping_mini_description }}
                       </div>
                     {% endif %}
                   </div>
@@ -590,9 +590,9 @@
                   <label for="Quantity-{{ section.id }}" class="block text-base font-medium mb-2.5 text-primary">Qty</label>
                   <quantity-input class="flex items-center relative w-fit h-8 rounded-3xl">
                     <button class="w-8 h-8 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button" role="button" aria-label="minus">
-                      {% render 'icon-minus relative', class: 'w-4 h-4 mx-auto' %}
+                      {% render 'icon-minus', class: 'w-4 h-4 mx-auto' %}
                     </button>
-                    <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-6 lg:w-12 h-full font-medium text-center !ring-0 shadow-none focus:border-none" 
+                    <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-14 h-full font-medium text-center !ring-0 shadow-none focus:border-none" 
                       type="number"
                       name="quantity"
                       id="Quantity-{{ section.id }}"
@@ -690,7 +690,7 @@
                   <span class="icon-minus relative">{%- render 'icon-up', class: 'w-6 h-6 text-primary' -%}</span>
                 </div>
                 <div class="details p-0">
-                  <delivery-wrapper class="icon-text grid grid-cols-3 items-start bg-background w-full rounded p-4">
+                  <delivery-wrapper class="icon-text grid grid-cols-3 items-start bg-background w-full rounded py-4 px-1" data-assets-folder="{{ 'us.svg' | asset_url }}" data-content='{{ shipping | json }}'>
                     <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-start text-left">
                       <div class="group relative mb-2 w-full before:border-[#77c888] before:border-solid before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
                         <span class="icon p-1.5 mr-auto rounded-full leading-none block w-8 h-8 bg-[#ccc] relative">{% render 'icon-box-delivery', class: 'w-4.5 h-4.5 inline align-middle text-left' %}</span>
@@ -1009,7 +1009,13 @@
       {
         "type": "shipping-box",
         "name": "Shipping box",
-        "settings": []
+        "settings": [
+          {
+            "type": "richtext",
+            "id": "shipping_mini_description",
+            "label": "Shipping mini description"
+          }
+        ]
       },
       {
         "type": "collapsible-shipping",

@@ -29,7 +29,7 @@
       <div class="gap-x-4 py-5 grid grid-cols-{{ section.settings.col_per_row_mobile }} md:grid-cols-{{ section.settings.col_per_row_tablet }} lg:grid-cols-{{ section.settings.col_per_row_desktop }}">
         {%- for block in section.blocks -%}
           <{% unless block.type == 'link_list' %}div{% else %}accordion-toggle{% endunless %} data-block-id="{{ block.id }}" class="col-span-{{ block.settings.col_span_mobile }} md:col-span-{{ block.settings.col_span_tablet }} lg:col-span-{{ block.settings.col_span_desktop }} auto-cols-max 
-            py-4{% if block.type == 'link_list' %} border-t border-border md:border-none{% endif %}">
+            py-4 active">
             {%- if block.settings.heading != blank -%}
               <div class="summary flex items-center justify-between gap-x-2 h-fit">
                 <div class="heading text-base font-heading p-0 leading-4 text-primary font-bold">{{- block.settings.heading | escape -}}</div>

@@ -290,17 +290,21 @@ slider-component.gallery .slider-dots .slider-dot.active {
   @apply border-[3px] !border-special
 }
 
-product-infor accordion-toggle:hover .summary::before,
-product-infor accordion-toggle.active .summary::before {
+product-infor accordion-toggle .summary::before {
   content: '';
+  transition: all 0.2s ease;
   width: calc(100% + 20px);
   position: absolute;
   left: -10px;
-  height: calc(100% + 10px);
-  top: -5px;
-  background: #f1f1f1;
+  height: calc(100% + 16px);
+  top: -8px;
   z-index: 0;
   border-radius: 6px;
+}
+
+product-infor accordion-toggle:hover .summary::before,
+product-infor accordion-toggle.active .summary::before {
+  background: #f1f1f1;
 }
 
 
