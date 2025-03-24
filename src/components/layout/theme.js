@@ -307,27 +307,41 @@ if (!customElements.get('slider-component')) {
           // Cuộn mượt đến slide đầu tiên
           this.slider.scrollTo({
             left: 0,
-            behavior: 'smooth'
+            behavior: 'auto'
           });
         } else if (position < 0) {
           this.slider.scrollTo({
             left: this.slider.scrollWidth,
-            behavior: 'smooth'
+            behavior: 'auto'
           });
         } else {
           this.slider.scrollTo({
             left: position,
-            behavior: 'smooth'
+            behavior: 'auto'
           });
         }
       }
       else {
         this.slider.scrollTo({
-          left: position
+          left: position,
+          behavior: 'auto'
+
         });
       }
     }
 
+    setActiveSlide(slideNumber) {
+      this.slider.classList.add('!scroll-auto')
+      const activePosition = parseInt(this.currentPage);
+      const newActivePosition = parseInt(slideNumber)
+      let to = 'next';
+      if (newActivePosition < activePosition) to = 'prev';
+      const step = Math.abs(newActivePosition - activePosition);
+
+      this.slideScrollPosition = to === 'next' ? this.slider.scrollLeft + step * this.sliderItemOffset : this.slider.scrollLeft - step * this.sliderItemOffset;
+      this.setSlidePosition(this.slideScrollPosition);
+      this.slider.classList.remove('!scroll-auto')
+    }
   }
 
   customElements.define('slider-component', SliderComponent);

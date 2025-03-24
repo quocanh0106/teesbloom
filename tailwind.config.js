@@ -212,7 +212,7 @@ module.exports = {
         '1/6': 'calc(100%/6)',
         '5/6': 'calc(500%/6)',
         facet: 'calc(100% - 4rem)',
-        facetdt: 'calc(25% - 2.25rem)',
+        facetdt: '450px',
         62.5: '15.625rem',
         97.5: '24.375rem',
         132: '33rem',

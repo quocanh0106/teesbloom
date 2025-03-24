@@ -15,88 +15,68 @@
 {% endfor %}
 
 <modal-dialog id="PopupModal-Sizeguide" class="hidden fixed top-0 left-0 bg-black bg-opacity-20 w-full h-full z-20">
-  <div class="absolute p-4 lg:p-6 bg-background h-fit left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[calc(100vh_-_32px)] w-[865px] max-w-[calc(100vw_-_32px)] scrollbar-thin overflow-y-auto rounded-xl">
-    <tabs-component class="sizeguide normal-tab">
+  <div class="absolute p-3 bg-background h-fit left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[calc(100vh_-_32px)] w-[865px] max-w-[calc(100vw_-_32px)] scrollbar-thin overflow-y-auto rounded-xl">
+    <div class="sizeguide">
       <div class="mb-4 lg:mb-6 w-full">
-        <div class="flex items-center justify-between">
-          <span class="text-h5 lg:text-h4 text-center !font-medium text-primary capitalize font-heading">{{ 'products.product.size_guide' | t }} {{ product.type }}</span>
-          <span class="text-primary cursor-pointer bg-background w-10 h-10 flex items-center justify-center rounded-full close">
-            {% render 'icon-close', class: 'w-6 h-6' %}
-          </span>
-        </div>
-        <select-toggle class="hidden py-2 pl-4 pr-3 border border-solid border-primary relative rounded-[100px] clickout-accordion">
-          <div class="summary flex items-center gap-2 text-primary cursor-pointer">
-            <span class="value text-sm leading-5 text-primary" data-value="{{ activeElement }}">{{ activeElement }}</span>
-            {% render 'icon-down', class: 'w-5 h-5 icon-add' %}
-            {% render 'icon-up', class: 'w-5 h-5 icon-minus' %}
-          </div>
-          <div class="details dropitem absolute top-full left-0 bg-background rounded-b-sm w-max min-w-full shadow-megamenu">
-            <ul class="w-full py-3 pr-3 pl-4">
-              {% for block in section.blocks %}
-                {% if block.settings.title %}
-                  <li class="tab-heading transition-colors rounded cursor-pointer text-sm leading-5 text-primary p-2{% if block.settings.title == activeElement %} active{% endif %}" data-id="{{ block.id }}" data-value="{{ block.settings.title }}">{{ block.settings.title }}</li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-          </div>
-        </select-toggle>
+        <p class="text-base text-center !font-medium text-primary capitalize font-heading">{{ 'products.product.size_guide' | t }} {{ product.type }}</p>
+        <span class="absolute top-2 right-2 text-primary cursor-pointer close">
+          {% render 'icon-close', class: 'w-6 h-6' %}
+        </span>
       </div>
       <div class="tabs-detail">
+        {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+        {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+        <img
+          srcset="{%- if settings.logo.width >= 100 -%}{{ settings.logo | img_url: '100x' }} 100w,{%- endif -%}
+          {%- if settings.logo.width >= 120 -%}{{ settings.logo | img_url: '120x' }} 120w,{%- endif -%}
+          {%- if settings.logo.width >= 140 -%}{{ settings.logo | img_url: '140x' }} 140w,{%- endif -%}
+          {%- if settings.logo.width >= 160 -%}{{ settings.logo | img_url: '160x' }} 160w,{%- endif -%}
+          {%- if settings.logo.width >= 180 -%}{{ settings.logo | img_url: '180x' }} 180w,{%- endif -%}
+          {%- if settings.logo.width >= 200 -%}{{ settings.logo | img_url: '200x' }} 200w,{%- endif -%}
+          {{ settings.logo | img_url: 'master' }} {{ settings.logo_width }}w"
+            src="{{ settings.logo | image_url: width: settings.logo_width }}"
+            loading="lazy"
+            class="max-w-[250px] h-auto mx-auto block mb-3"
+            sizes="{{ settings.logo_width }}px"
+            width="{{ settings.logo_width }}"
+            height="{{ logo_height }}"
+          alt="{{ logo_alt }}">
+        <p class="text-base leading-4 text-primary text-center mb-3">{{ section.settings.description }}</p>
         {% for block in section.blocks %}
-          <div class="tab-detail{% unless block.settings.title == activeElement %} hidden{% endunless %}" data-id="{{ block.id }}">
-            {% if block.settings.feature_image != blank %}
-              <img src="{{ block.settings.feature_image | image_url: width: block.settings.feature_image.width }}"
-                  sizes="{{ block.settings.feature_image.width }}px"
-                  alt="{{ block.settings.feature_image | split: "/" | last | replace: "-", " " | split: "." | first }}"
-                  class="block mx-auto w-full rounded-lg overflow-hidden bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
+          {% if block.settings.image != blank %}
+              <img src="{{ block.settings.image | image_url: width: block.settings.image.width }}"
+                  sizes="{{ block.settings.image.width }}px"
+                  alt="{{ block.settings.image | split: "/" | last | replace: "-", " " | split: "." | first }}"
+                  class="block mx-auto max-w-[600px] mb-2 w-full rounded-lg overflow-hidden bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
                   loading="lazy"
-                  width="{{ block.settings.feature_image.width }}"
-                  height="{{ block.settings.feature_image.height }}">
-            {% endif %}
-            {% if block.settings.feature_image_2 != blank %}
-              <img src="{{ block.settings.feature_image_2 | image_url: width: block.settings.feature_image_2.width }}"
-                  sizes="{{ block.settings.feature_image_2.width }}px"
-                  alt="{{ block.settings.feature_image_2 | split: "/" | last | replace: "-", " " | split: "." | first }}"
-                  class="block mx-auto w-full rounded-lg overflow-hidden bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
-                  loading="lazy"
-                  width="{{ block.settings.feature_image_2.width }}"
-                  height="{{ block.settings.feature_image_2.height }}">
-            {% endif %}
-          </div>
+                  width="{{ block.settings.image.width }}"
+                  height="{{ block.settings.image.height }}">
+          {% endif %}
         {% endfor %}
       </div>
-    </tabs-component>
-
+    </div>
   </div>
 </modal-dialog>
-<script defer>
-
-
-</script>
 {% schema %}
   {
     "name": "Size guide",
-    "settings": [],
+    "settings": [
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description"
+      }
+    ],
     "blocks": [
       {
         "type": "type",
         "name": "Product type",
         "settings": [
           {
-            "type": "text",
-            "id": "title",
-            "label": "Product type"
-          },
-          {
             "type": "image_picker",
-            "id": "feature_image",
+            "id": "image",
             "label": "Sizeguide image"
-          },
-          {
-            "type": "image_picker",
-            "id": "feature_image_2",
-            "label": "Sizeguide image 2"
-          },
+          }
         ]
       }
     ]

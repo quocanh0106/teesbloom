@@ -22,7 +22,7 @@
                   scope="col">
                   <div class="flex items-start">
                     {% if item.image %}
-                      <modal-opener class="group block w-28 h-28 md:w-40 md:h-40 rounded flex-none overflow-hidden relative cursor-pointer" data-id="#preview-image-{{ item.index | plus: 1 }}">
+                      <modal-opener class="group block w-37.5 h-37.5 md:w-40 md:h-40 rounded flex-none overflow-hidden relative cursor-pointer" data-id="#preview-image-{{ item.index | plus: 1 }}">
                         <img
                           src="{{ item.image | image_url: width: 160 }}"
                           class="w-full h-full block object-cover leading-none bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent"
@@ -51,7 +51,7 @@
                         </div>
                       </modal-dialog>
                     {% endif %}
-                    <div class="w-full ml-2 md:ml-3 min-h-[112px] md:min-h-[160px] flex flex-col">
+                    <div class="w-full ml-2 md:ml-3 min-h-[150px] md:min-h-[160px] flex flex-col">
                       <div class="flex items-start justify-between gap-4">
                         <a href="{{ item.url }}" class="text-xs leading-2 md:text-base md:leading-4 font-medium font-heading text-primary hover:text-primary truncate-line one-line overflow-hidden" title="{{ item.product.title }}">
                           {{ item.product.title }}

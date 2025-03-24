@@ -1,5 +1,5 @@
 input:checked ~ .icon-checkmark {
-  @apply opacity-100 visible text-primary;
+  @apply opacity-100 visible text-background;
 }
 input:checked ~ .icon-box {
   @apply text-primary;

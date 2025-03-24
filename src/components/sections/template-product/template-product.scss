@@ -52,6 +52,10 @@ input:checked + label.color {
   @apply !text-primary !bg-primary !border-primary hover:!text-primary hover:!bg-primary hover:!border-primary;
 }
 
+.product-form__buttons.btn-wrapper-sticky {
+  @apply fixed lg:static bottom-0 left-0 w-full flex-row lg:flex-col gap-2 lg:gap-0 py-3 lg:py-0 px-3 lg:px-0 z-10 bg-background;
+}
+
 .product-form__error-message-wrapper[hidden] {
   @apply opacity-0 invisible;
 }

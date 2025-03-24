@@ -236,13 +236,14 @@ class VariantSelects extends HTMLElement {
 
   updateMedia() {
     let currentVariant = this.currentVariant || this.fakeCurrentVariant;
-    document.querySelector('.gallery').setSlidePosition(0);
-
     if (!currentVariant) return;
     if (!currentVariant.featured_media) return;
 
-    const mediaGalleries = document.querySelectorAll(`[id^="MediaGallery-${this.dataset.section}"]`);
-    mediaGalleries.forEach(mediaGallery => mediaGallery.setActiveMedia(`${this.dataset.section}-${currentVariant.featured_media.id}`, true));
+    const mediaGalleries = document.querySelector(`[id^="MediaGallery-${this.dataset.section}"]`);
+
+    const id = mediaGalleries.querySelector(`[data-media="${currentVariant.featured_media.id}"]`)?.dataset?.position || 1
+
+    mediaGalleries.setActiveSlide(id)
 
     const modalContent = document.querySelector(`#ProductModal-${this.dataset.section} .product-media-modal__content`);
     if (!modalContent) return;
@@ -569,6 +570,37 @@ if (!customElements.get('caculator-size')) {
 class AddToCart extends HTMLElement {
   constructor() {
     super();
+    window.addEventListener('scroll', function() {
+      document.querySelector('add-to-cart').init();
+    }, { once: true, passive: true });
+  }
+
+  init() {
+    if(document.querySelector('scroll-to-top')) {
+      document.querySelector('scroll-to-top').classList.add('space-sticky');
+    }
+    this.observe = new IntersectionObserver(function(entries) {
+      if (entries[0].isIntersecting === true) {
+        entries[0].target.querySelector('.product-form__buttons').classList.remove('btn-wrapper-sticky');
+        if(document.querySelector('scroll-to-top')) {
+          document.querySelector('scroll-to-top').classList.remove('space-sticky');
+        }
+        if(document.querySelector('#fc_frame')) {
+          document.querySelector('#fc_frame').classList.add('space-sticky');
+        }
+      } else {
+        entries[0].target.querySelector('.product-form__buttons').classList.add('btn-wrapper-sticky');
+        if(document.querySelector('scroll-to-top')) {
+          document.querySelector('scroll-to-top').classList.add('space-sticky');
+        }
+        if(document.querySelector('#fc_frame')) {
+          document.querySelector('#fc_frame').classList.remove('space-sticky');
+        }
+      }
+    },
+    {threshold: 0});
+
+    this.observe.observe(this);
   }
 
   addToCart() {
@@ -968,17 +1000,14 @@ class DeliveryWrapper extends HTMLElement {
     }
 
     if(this.location == 'EU') {
-      this.estimateArrival = this.content?.estimate_arrival_eu
-      this.orderShip = this.content?.order_ship_eu
-    } else if(this.location == 'CN') {
-      this.estimateArrival = this.content?.estimate_arrival_cn
-      this.orderShip = this.content?.order_ship_cn
+      this.estimateArrival = this.content?.estimate_arrival_eu || '5-7'
+      this.orderShip = this.content?.order_ship_eu || '2-3'
     } else if(this.location == 'UK') {
-      this.estimateArrival = this.content?.estimate_arrival_uk
-      this.orderShip = this.content?.order_ship_uk
+      this.estimateArrival = this.content?.estimate_arrival_uk || '5-7'
+      this.orderShip = this.content?.order_ship_uk || '2-3'
     } else if(this.location == 'US') {
-      this.estimateArrival = this.content?.estimate_arrival_us
-      this.orderShip = this.content?.order_ship_us
+      this.estimateArrival = this.content?.estimate_arrival_us || '5-7'
+      this.orderShip = this.content?.order_ship_us || '2-3'
     } else {
       this.estimateArrival = this.content?.estimate_arrival_ww || '5-7'
       this.orderShip = this.content?.order_ship_ww || '2-3'

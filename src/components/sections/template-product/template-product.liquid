@@ -26,7 +26,7 @@
 <section id="MainProduct-{{ section.id }}" data-section="{{ section.id }}">
   <div class="page-width flex flex-wrap lg:flex-nowrap mt-5">
     <div class="product-media-wrapper w-full{% if product.media.size > 0 %} lg:max-w-[60%]{% else %} lg:max-w-full{% endif %} h-fit transition-all duration-200 static lg:sticky lg:top-4">
-      {% render 'product-media-gallery', product: product %}
+      {% render 'product-media-gallery', product: product, section: section %}
     </div>
     <product-infor class="block w-full h-fit {% if product.media.size > 0 %} lg:max-w-[40%] {% endif %} px-0 py-6 lg:pl-5 lg:py-0" id="ProductInfo-{{ section.id }}" data-product="{{ product.handle }}" data-recently-view="{{ settings.recently_view_limit }}">
       {%- for block in section.blocks -%}
@@ -54,6 +54,14 @@
                   </div>
                   <span class="relative text-[13px] leading-1 text-primary">in {{ product.type }}</span>
                 </div>
+              {% elsif product.tags contains 'trending' or product.tags contains 'Trending' %}
+                <div class="flex items-center gap-1.5">
+                  <div class="relative flex items-center rounded-l bg-[#EAEAEA] text-xs text-special leading-none pl-2 pr-4 h-6">
+                    Trending
+                    <div class="!block bg-background absolute rotate-45 w-6 h-6 -right-4.5 top-0"></div>
+                  </div>
+                  <span class="relative text-[13px] leading-1 text-primary">in {{ product.type }}</span>
+                </div>  
               {% endif %}
             </div>
           {%- when 'title' -%}
@@ -427,9 +435,10 @@
                   {% assign fatherIndex = forloop.index0 %}
                   {% assign optionName = option.name | downcase %}
                   {% if optionName == 'size' or optionName == 'taille' or optionName == 'taglia' or optionName == 'größe' %}
-                    <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} option-size-wrapper data-layer-{{ fatherIndex }}" data-name="Size">
+                    <fieldset class="js product-form__input block mb-4 {% if forloop.last %}!mb-0{% endif %} option-size-wrapper data-layer-{{ fatherIndex }}" data-name="Size">
                       <div class="title-option-size mb-3 flex justify-between items-center">
-                        <legend class="form__label flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">{{ 'products.product.size' | t }}
+                        <legend class="form__label flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
+                          {{ option.name }}
                           <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
                           <span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>
                           {% if forloop.index > 1 %}
@@ -452,7 +461,7 @@
                       </div>
                     </fieldset>
                   {% elsif optionName == 'color' or optionName == 'farbe' or optionName == 'colore' or optionName == 'couleur' %}
-                    <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} option-color-wrapper data-layer-{{ fatherIndex }}" data-name="Color">
+                    <fieldset class="js product-form__input block mb-4 {% if forloop.last %}!mb-0{% endif %} option-color-wrapper data-layer-{{ fatherIndex }}" data-name="Color">
                       <legend class="form__label mb-3 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
                         {{ option.name }}
                         <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
@@ -514,7 +523,7 @@
                       </div>
                     </fieldset>
                   {% else %}
-                    <fieldset class="js product-form__input block mb-8 {% if forloop.last %}!mb-0{% endif %} selector-wrapper data-layer-{{ fatherIndex }}">
+                    <fieldset class="js product-form__input block mb-4 {% if forloop.last %}!mb-0{% endif %} selector-wrapper data-layer-{{ fatherIndex }}">
                       <legend class="form__label mb-3 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
                         {{ option.name }}
                         <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
@@ -592,7 +601,7 @@
                     <button class="w-8 h-8 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button" role="button" aria-label="minus">
                       {% render 'icon-minus', class: 'w-4 h-4 mx-auto' %}
                     </button>
-                    <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-14 h-full font-medium text-center !ring-0 shadow-none focus:border-none" 
+                    <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xl leading-2 p-0.5 w-14 h-full font-medium text-center !ring-0 shadow-none focus:border-none" 
                       type="number"
                       name="quantity"
                       id="Quantity-{{ section.id }}"
@@ -622,7 +631,7 @@
                   <span class="product-form__error-message"></span>
                 </div>
 
-                <add-to-cart class="block relative h-34">
+                <add-to-cart class="block relative h-13.5">
                   <div class="product-form__buttons flex flex-wrap gap-2">
                     <button type="submit" name="add" class="product-form__submit button button--full-width btn-2" {% if product.selected_or_first_available_variant.available == false %} disabled{% endif %}>
                       <span>

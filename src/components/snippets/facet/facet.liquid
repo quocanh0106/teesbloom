@@ -7,34 +7,42 @@
     assign terms = results.terms | escape
     assign results_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
   endif
-
-  assign occasionsText = 'products.facets.occasions' | t
 -%}
 
-<div class="facet w-full h-full max-w-facet lg:max-w-facetdt fixed top-0 left-0 -translate-x-full md:-translate-x-facet-tl z-30 transition-all duration-500">
-  <facet-filters-form class="block h-screen bg-background lg:max-w-full">
-    <form id="FacetFiltersForm" class="bg-background">
+<div class='facet w-full h-full max-w-facet lg:max-w-facetdt fixed top-0 left-0 -translate-x-full md:-translate-x-facet-tl z-30 transition-all duration-500'>
+  <facet-filters-form class='block h-screen bg-background lg:max-w-full'>
+    <form id='FacetFiltersForm' class='bg-background'>
       {%- if results.terms -%}
-        <input type="hidden" name="q" value="{{ results.terms | escape }}">
-        <input name="options[prefix]" type="hidden" value="last">
+        <input type='hidden' name='q' value='{{ results.terms | escape }}'>
+        <input name='options[prefix]' type='hidden' value='last'>
       {%- endif -%}
-      <div id="FacetsWrapperDesktop" class="py-5">
-        <div class="flex items-center justify-between gap-2 py-4 px-5 lg:pt-0">
-          <div class="font-bold text-lg leading-none">
+      <div id='FacetsWrapperDesktop' class='py-5'>
+        <div class='flex items-center justify-between gap-2 px-5'>
+          <div class='font-bold text-lg leading-none'>
             {{- 'products.facets.filter' | t -}}
           </div>
-          <toggle-filter class="block">
-            <button type="button" class="flex items-center gap-1.5 text-primary capitalize font-heading font-normal">
-              {%  render 'icon-close', class: 'w-6 h-6' %}
+          <toggle-filter class='block'>
+            <button
+              type='button'
+              class='flex items-center gap-1.5 text-primary capitalize font-heading font-normal'
+            >
+              {% render 'icon-close', class: 'w-6 h-6' %}
             </button>
           </toggle-filter>
-        </div> 
-        <div class="flex flex-wrap gap-2 px-5 items-center only:hidden empty:!hidden js-filter mb-4" data-index="remove-facet">
+        </div>
+        <div
+          class='flex flex-wrap gap-2 px-5 items-center only:hidden empty:!hidden js-filter mb-4'
+          data-index='remove-facet'
+        >
           {%- for filter in results.filters -%}
             {%- for value in filter.active_values -%}
-              <facet-remove class="block">
-                <a href="{{ value.url_to_remove }}" class="block text-primary hover:text-primary bg-background border border-solid border-border overflow-hidden rounded-3xl no-underline" rel="nofollow">
-                  <span class="flex items-center gap-1 px-2.5 pl-3 py-1.5 text-sm leading-2 font-heading font-normal">
+              <facet-remove class='block'>
+                <a
+                  href='{{ value.url_to_remove }}'
+                  class='block text-primary hover:text-primary bg-background border border-solid border-border overflow-hidden rounded-3xl no-underline'
+                  rel='nofollow'
+                >
+                  <span class='flex items-center gap-1 px-2.5 pl-3 py-1.5 text-sm leading-2 font-heading font-normal'>
                     {{ value.label | escape }}
                     {% render 'icon-close', class: 'w-4 h-4' %}
                   </span>
@@ -42,34 +50,36 @@
               </facet-remove>
             {%- endfor -%}
 
-            {% comment %} {%- if filter.type == 'price_range' -%}
-              {%- if filter.min_value.value != null or filter.max_value.value != null -%}
-                <facet-remove class="block">
-                  <a href="{{ filter.url_to_remove }}" class="block text-primary hover:text-primary bg-background border border-solid border-border overflow-hidden rounded-3xl no-underline" rel="nofollow">
-                    <span class="flex items-center gap-1 px-2.5 pl-3 py-1.5 text-sm leading-2 font-heading font-normal">
-                      {% if filter.min_value.value %}
-                        {{ filter.min_value.value | money }}
-                      {% else %}
-                        {{ 0 | money }}
-                      {% endif %}
-                      - 
-                      {% if filter.max_value.value %}
-                        {{ filter.max_value.value | money }}
-                      {% else %}
-                        {{ filter.range_max | money }}
-                      {% endif %}
-                      {% render 'icon-close', class: 'w-4 h-4' %}
-                    </span>
-                  </a>
-                </facet-remove>
+            {% comment %}
+              {%- if filter.type == 'price_range' -%}
+                {%- if filter.min_value.value != null or filter.max_value.value != null -%}
+                  <facet-remove class="block">
+                    <a href="{{ filter.url_to_remove }}" class="block text-primary hover:text-primary bg-background border border-solid border-border overflow-hidden rounded-3xl no-underline" rel="nofollow">
+                      <span class="flex items-center gap-1 px-2.5 pl-3 py-1.5 text-sm leading-2 font-heading font-normal">
+                        {% if filter.min_value.value %}
+                          {{ filter.min_value.value | money }}
+                        {% else %}
+                          {{ 0 | money }}
+                        {% endif %}
+                        -
+                        {% if filter.max_value.value %}
+                          {{ filter.max_value.value | money }}
+                        {% else %}
+                          {{ filter.range_max | money }}
+                        {% endif %}
+                        {% render 'icon-close', class: 'w-4 h-4' %}
+                      </span>
+                    </a>
+                  </facet-remove>
+                {%- endif -%}
               {%- endif -%}
-            {%- endif -%} {% endcomment %}
+            {% endcomment %}
           {%- endfor -%}
           {%- for filter in results.filters -%}
             {%- if filter.active_values.size > 0 -%}
-              <facet-remove class="block only:hidden">
-                <a href="{{ results_url }}" class="block" rel="nofollow">
-                  <span class="flex items-center gap-2 pl-2 h-full text-sm border-l underline underline-offset-2 border-border capitalize leading-normal font-heading font-semibold">
+              <facet-remove class='block only:hidden'>
+                <a href='{{ results_url }}' class='block' rel='nofollow'>
+                  <span class='flex items-center gap-2 pl-2 h-full text-sm border-l underline underline-offset-2 border-border capitalize leading-normal font-heading font-semibold'>
                     {{ 'products.facets.clear_all' | t }}
                   </span>
                 </a>
@@ -78,59 +88,90 @@
             {%- endif -%}
           {%- endfor -%}
         </div>
-        <div class="overflow-y-auto scroll-thin scroll-brighter max-h-[calc(100vh_-_60px)] pb-safe-offset-31 lg:pb-0">
+        <div class='overflow-y-auto scroll-thin scroll-brighter max-h-[calc(100vh_-_60px)] pb-safe-offset-31 lg:pb-0'>
           {%- for filter in results.filters -%}
-            {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+            {%- assign total_active_values = total_active_values
+              | plus: filter.active_values.size
+            -%}
             {% case filter.type %}
               {% when 'boolean', 'list' %}
-                <accordion-toggle id="Details-{{ forloop.index }}-{{ section.id }}" class="px-0 block border-b border-border {% if forloop.first %}border-t{% endif %} last:border-none active px-5">
-                  <div class="summary flex items-center justify-between gap-2 w-full cursor-pointer pt-4" aria-label="{{ filter.label }} ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})">
-                    <span class="text-base font-bold font-heading uppercase text-primary leading-4">{{ filter.label | escape }}</span>
+                <accordion-toggle
+                  id='Details-{{ forloop.index }}-{{ section.id }}'
+                  class='px-0 block border-b border-border {% if forloop.first %}border-t{% endif %} last:border-none active px-5'
+                >
+                  <div
+                    class='summary flex items-center justify-between gap-2 w-full cursor-pointer pt-4'
+                    aria-label='{{ filter.label }} ({{ 'products.facets.filters_selected.one' | t: count: filter.active_values.size }})'
+                  >
+                    <span class='text-base font-bold font-heading capitalize text-primary leading-4'>
+                      {{- filter.label | escape -}}
+                    </span>
                     {% render 'icon-minus', class: 'w-5 h-5 icon-minus' %}
                     {% render 'icon-plus', class: 'w-5 h-5 icon-add' %}
                   </div>
-                  <div id="Facet-{{ forloop.index }}-{{ section.id }}" class="details mb-4">
-                    <ul class="{% if filter.label == occasionsText %}grid grid-cols-2 gap-2 items-center{% else %}block{% endif %}" role="list" style="max-height: 100%;">
+                  <div
+                    id='Facet-{{ forloop.index }}-{{ section.id }}'
+                    class='details mb-4'
+                  >
+                    <ul class='block' role='list' style='max-height: 100%;'>
                       {%- for value in filter.values -%}
-                        {% if filter.label == occasionsText %}
-                          <li class="js-filter flex items-center relative" data-index="{{ filter.param_name }}-{{ forloop.index }}">
-                            <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" class="box-option opacity-0 invisible absolute top-0 left-0" {% if value.active %}checked{% endif %}{% if value.count == 0 and value.active == false %}disabled{% endif %} id="Filter-{{ filter.param_name | escape }}-{{ forloop.index }}">
-                            <label for="Filter-{{ filter.param_name | escape }}-{{ forloop.index }}" class="relative font-normal text-sm leading-5 transition-all text-center w-full p-2 flex items-center justify-center border border-border rounded-[4px]{% if value.count == 0 and value.active == false %} cursor-not-allowed opacity-50{% else %} cursor-pointer{% endif %}">
-                              {{ value.label | escape }}
-                            </label>
-                          </li>
-                        {% else %}
-                          <li class="flex items-center mb-2 last:mb-0 js-filter" data-index="{{ filter.param_name }}-{{ forloop.index }}">
-                            <label for="Filter-{{ filter.param_name | escape }}-{{ forloop.index }}" class="relative w-full flex items-center gap-2 {% if value.count == 0 and value.active == false %} cursor-not-allowed opacity-50{% else %} cursor-pointer{% endif %}">
-                              <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" class="opacity-0 invisible absolute top-0 left-0" {% if value.active %}checked{% endif %}{% if value.count == 0 and value.active == false %}disabled{% endif %} id="Filter-{{ filter.param_name | escape }}-{{ forloop.index }}">
-                              <svg aria-hidden="true" class="icon icon-checkmark absolute w-2.5 h-2.5 top-1/2 left-2.5 -translate-x-1/2 -translate-y-1/2 opacity-0 invisible" width="0.625rem" height="0.625rem" viewBox="0 0 11 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
-                              </svg>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" class="icon-box w-5 h-5 flex-none" viewBox="0 0 18 18" fill="none">
-                                <path d="M16.625 2.75C16.625 1.99061 16.0094 1.375 15.25 1.375H2.75C1.99061 1.375 1.375 1.99061 1.375 2.75V15.25C1.375 16.0094 1.99061 16.625 2.75 16.625H15.25C16.0094 16.625 16.625 16.0094 16.625 15.25V2.75Z" stroke="currentColor" stroke-linejoin="round"/>
-                              </svg>
-                              <div class="text-sm leading-4 dark-link transition-all w-full flex items-center justify-between gap-1 font-normal">
-                                <span class="flex items-center gap-1.5">
-                                  {{ value.label | escape }} 
-                                  {% if settings.type_new contains value.label %} 
-                                    <span class="text-xxxs leading-none uppercase font-heading font-bold px-[5px] py-[3px] rounded-sm text-primary bg-[#F6F6F6]">{{ 'products.product.new' | t }}</span>
-                                  {% endif %}
-                                  {% if settings.type_hot contains value.label %} 
-                                    <span class="text-xxxs leading-none uppercase font-heading font-bold px-[5px] py-[3px] rounded-sm text-hot bg-[#F6F6F6]">{{ 'products.product.best_seller' | t }}</span>
-                                  {% endif %}
-                                </span> 
-                              <span class="!inline text-xs leading-normal text-primary font-normal before:content-[var(--count)]" style="--count: '({{ value.count }})'"></span></div>
-                            </label>
-                          </li>
-                        {% endif %}
+                        <li
+                          class='flex items-center mb-2 last:mb-0 js-filter'
+                          data-index='{{ filter.param_name }}-{{ forloop.index }}'
+                        >
+                          <label
+                            for='Filter-{{ filter.param_name | escape }}-{{ forloop.index }}'
+                            class='relative w-full flex items-center gap-2 {% if value.count == 0 and value.active == false %} cursor-not-allowed opacity-50{% else %} cursor-pointer{% endif %}'
+                          >
+                            <input
+                              type='checkbox'
+                              name='{{ value.param_name }}'
+                              value='{{ value.value }}'
+                              class='opacity-0 invisible absolute top-0 left-0'
+                              {% if value.active %}
+                                checked
+                              {% endif -%}
+                              {% if value.count == 0
+                                and value.active == false
+                              %}
+                                disabled
+                              {% endif %}
+                              id='Filter-{{ filter.param_name | escape }}-{{ forloop.index }}'
+                            >
+                            <svg
+                              aria-hidden='true'
+                              class='icon icon-checkmark absolute w-2.5 h-2.5 top-1/2 left-2.5 -translate-x-1/2 -translate-y-1/2 opacity-0 invisible'
+                              width='0.625rem'
+                              height='0.625rem'
+                              viewBox='0 0 11 7'
+                              fill='none'
+                              xmlns='http://www.w3.org/2000/svg'
+                            >
+                              <path d="M1.5 3.5L2.83333 4.75L4.16667 6L9.5 1" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <svg
+                              xmlns='http://www.w3.org/2000/svg'
+                              width='18'
+                              height='18'
+                              class='icon-box w-5 h-5 flex-none'
+                              viewBox='0 0 18 18'
+                              fill='none'
+                            >
+                              <path d="M16.625 2.75C16.625 1.99061 16.0094 1.375 15.25 1.375H2.75C1.99061 1.375 1.375 1.99061 1.375 2.75V15.25C1.375 16.0094 1.99061 16.625 2.75 16.625H15.25C16.0094 16.625 16.625 16.0094 16.625 15.25V2.75Z" stroke="currentColor" stroke-linejoin="round"/>
+                            </svg>
+                            <div class='text-sm leading-4 dark-link transition-all w-full flex items-center justify-between gap-1 font-normal'>
+                              <span class='flex items-center gap-1.5'>
+                                {{ value.label | escape }}
+                              </span>
+                              <span
+                                class='!inline text-xs leading-normal text-primary font-normal before:content-[var(--count)]'
+                                style="--count: '({{ value.count }})'"
+                              ></span>
+                            </div>
+                          </label>
+                        </li>
                       {%- endfor -%}
                     </ul>
-                    {% if filter.label != occasionsText and filter.values.size > settings.limit_options %}
-                      <span class="cursor-pointer toggle-show text-center capitalize text-sm font-heading !leading-none font-bold" data-limit="{{ settings.limit_options }}">
-                        <span class="flex justify-center items-center py-4 show">{% render 'icon-plus', class: 'w-3.5 h-3.5 lg:w-4 lg:w-4 mr-1.5' %} <span>{{ 'sections.collection_template.show_more' | t }}</span></span>
-                        <span class="flex justify-center items-center py-4 hide">{% render 'icon-minus', class: 'w-3.5 h-3.5 lg:w-4 lg:w-4 mr-1.5' %} <span>{{ 'sections.collection_template.show_less' | t }}</span></span>
-                      </span>
-                    {% endif %}
                   </div>
                 </accordion-toggle>
               {% when 'price_range' %}
@@ -141,14 +182,29 @@
                     assign uses_comma_decimals = true
                   endif
                 %}
-                <accordion-toggle id="Details-{{ forloop.index }}-{{ section.id }}" class="px-0 block border-b border-border last:border-none active px-5">
-                  <div class="summary flex items-center justify-between gap-2 w-full cursor-pointer pt-4">
-                    <span class="text-base font-bold font-heading uppercase text-primary leading-4">{{ filter.label | escape }}</span>
+                <accordion-toggle
+                  id='Details-{{ forloop.index }}-{{ section.id }}'
+                  class='px-0 block border-b border-border last:border-none active px-5'
+                >
+                  <div class='summary flex items-center justify-between gap-2 w-full cursor-pointer pt-4'>
+                    <span class='text-base font-bold font-heading capitalize text-primary leading-4'>
+                      {{- filter.label | escape -}}
+                    </span>
                     {% render 'icon-minus', class: 'w-5 h-5 icon-minus' %}
                     {% render 'icon-plus', class: 'w-5 h-5 icon-add' %}
                   </div>
-                  <div id="Facet-{{ forloop.index }}-{{ section.id }}" class="details mb-4 js-filter" data-index="{{ forloop.index }}" style="max-height: 100%;">
-                    {% render 'facet-price', filter: filter, uses_comma_decimals: uses_comma_decimals, forloop: forloop, section: section %}
+                  <div
+                    id='Facet-{{ forloop.index }}-{{ section.id }}'
+                    class='details mb-4 js-filter'
+                    data-index='{{ forloop.index }}'
+                    style='max-height: 100%;'
+                  >
+                    {% render 'facet-price',
+                      filter: filter,
+                      uses_comma_decimals: uses_comma_decimals,
+                      forloop: forloop,
+                      section: section
+                    %}
                   </div>
                 </accordion-toggle>
             {% endcase %}
@@ -156,16 +212,20 @@
         </div>
       </div>
       {% if results.current_vendor or results.current_type %}
-        <input type="hidden" name="q" value="{{ results.current_vendor }}{{ results.current_type }}">
+        <input
+          type='hidden'
+          name='q'
+          value='{{ results.current_vendor }}{{ results.current_type }}'
+        >
       {% endif %}
     </form>
   </facet-filters-form>
 </div>
 
-<toggle-filter class="toggle-mobile block fixed top-0 left-0 w-full h-full z-20 opacity-0 invisible transition-opacity">
-  <button class="before:content-empty before:bg-overlay before:top-0 before:left-0 before:fixed before:w-full before:h-full before:backdrop-blur-sm before:-z-10">
-    <span class="lg:hidden absolute top-3 right-3 text-primary w-10 h-10 flex items-center justify-center rounded-full bg-background">
+<toggle-filter class='toggle-mobile block fixed top-0 left-0 w-full h-full z-20 opacity-0 invisible transition-opacity'>
+  <button class='before:content-empty before:bg-overlay before:top-0 before:left-0 before:fixed before:w-full before:h-full before:backdrop-blur-sm before:-z-10'>
+    <span class='hidden'>
       {% render 'icon-close', class: 'text-primary w-3.5 h-3.5' %}
     </span>
-  </button>  
+  </button>
 </toggle-filter>

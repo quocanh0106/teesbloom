@@ -3,9 +3,9 @@
 {% assign placeholderImage = 'placeholder-image.png' | asset_url %}
 
 {%- if cart.item_count > 0 -%}
-  <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-10 hidden">
+  <div class="cart-empty text-center h-full rounded-lg p-4 hidden">
     <div class="text-[30px] font-semibold leading-2">Oops!!!</div>
-    <img src="{{ 'cart-empty.png' | asset_img_url: 'medium' }}" width="300" height="300" loading="lazy" class="block mx-auto mb-4 object-contain" />
+    <img src="{{ 'cart-empty.png' | asset_img_url: 'master' }}" width="300" height="300" loading="lazy" class="block mx-auto mb-4 object-contain" />
     <span class="block mx-auto text-2xl font-heading leading-2 font-normal uppercase text-primary mb-3">{{ 'sections.cart.empty' | t }}</span>
     <span class="block mx-auto text-sm font-body leading-2 font-normal text-primary mb-3">{{ 'sections.cart.empty_description' | t }}</span>
     <a href="{{ routes.all_products_collection_url }}" class="block cursor-pointer !rounded-[1000px] mx-auto w-fit btn btn-2 !px-6 lg:!px-8 !py-2 text-sm leading-none lg:text-base !uppercase lg:leading-none !font-heading !font-bold">
@@ -118,9 +118,9 @@
     </div>
   </div>
 {%- else -%}
-  <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-10">
+  <div class="cart-empty text-center h-full rounded-lg p-4">
     <div class="text-[30px] font-semibold leading-2">Oops!!!</div>
-    <img src="{{ 'cart-empty.png' | asset_img_url: 'medium' }}" width="300" height="300" loading="lazy" class="block mx-auto mb-4 object-contain" />
+    <img src="{{ 'cart-empty.png' | asset_img_url: 'master' }}" width="300" height="300" loading="lazy" class="block mx-auto mb-4 object-contain" />
     <span class="block mx-auto text-2xl font-heading leading-2 font-normal uppercase text-primary mb-3">{{ 'sections.cart.empty' | t }}</span>
     <span class="block mx-auto text-sm font-body leading-2 font-normal text-primary mb-3">{{ 'sections.cart.empty_description' | t }}</span>
     <a href="{{ routes.all_products_collection_url }}" class="block cursor-pointer !rounded-[1000px] mx-auto w-fit btn btn-2 !px-6 lg:!px-8 !py-2 text-sm leading-none lg:text-base !uppercase lg:leading-none !font-heading !font-bold">

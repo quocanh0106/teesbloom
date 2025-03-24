@@ -19,44 +19,44 @@
       <div class="text-left grid items-center grid-cols-2 gap-4 gap-x-3 lg:gap-5 lg:gap-x-3">
         <div class="w-full">
           <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_first_name_{{ addressId }}">{{ 'customer.addresses.first_name' | t }}</label>
-          <input type="text" data-name="name" name="address[first_name]" id="address_first_name_{{ addressId }}" value="{{ address.first_name }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_first_name' | t }}">
+          <input type="text" data-name="name" name="address[first_name]" id="address_first_name_{{ addressId }}" value="{{ address.first_name }}" class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" placeholder="{{ 'customer.addresses.placehoder_first_name' | t }}">
         </div>
 
         <div class="w-full">
           <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_last_name_{{ addressId }}">{{ 'customer.addresses.last_name' | t }}</label>
-          <input type="text" data-name="name" name="address[last_name]" id="address_last_name_{{ addressId }}" value="{{ address.last_name }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_last_name' | t }}">
+          <input type="text" data-name="name" name="address[last_name]" id="address_last_name_{{ addressId }}" value="{{ address.last_name }}" class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" placeholder="{{ 'customer.addresses.placehoder_last_name' | t }}">
         </div>
 
         <div class="w-full col-span-2">
           <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_phone_{{ addressId }}">{{ 'customer.addresses.phone' | t }}</label>
-          <input type="tel" data-name="phone" name="address[phone]" id="address_phone_{{ addressId }}" value="{{ address.phone }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_phone' | t }}" pattern="[0-9.+* * *]+">
+          <input type="tel" data-name="phone" name="address[phone]" id="address_phone_{{ addressId }}" value="{{ address.phone }}" class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" placeholder="{{ 'customer.addresses.placehoder_phone' | t }}" pattern="[0-9.+* * *]+">
         </div>
 
         <div class="w-full col-span-2">
           <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_country_{{ addressId }}">{{ 'customer.addresses.country' | t }}</label>
-          <select name="address[country]" data-name="name" id="address_country_{{ addressId }}" value="{{ address.country }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" data-country-selector data-id="{{ form.id }}">
+          <select name="address[country]" data-name="name" id="address_country_{{ addressId }}" value="{{ address.country }}" class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" data-country-selector data-id="{{ form.id }}">
             {{ all_country_option_tags }}
           </select>
         </div>
 
         <div class="w-full">
           <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_city_{{ addressId }}">{{ 'customer.addresses.city' | t }}</label>
-          <input type="text" name="address[city]" data-name="name" id="address_city_{{ addressId }}" value="{{ address.city }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_city' | t }}">
+          <input type="text" name="address[city]" data-name="name" id="address_city_{{ addressId }}" value="{{ address.city }}" class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" placeholder="{{ 'customer.addresses.placehoder_city' | t }}">
         </div>
 
         <div class="w-full">
           <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_zip_{{ addressId }}">{{ 'customer.addresses.placehoder_postcode' | t }}</label>
-          <input type="text" name="address[zip]" data-name="name" id="address_zip_{{ addressId }}" value="{{ address.zip }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_postcode' | t }}">
+          <input type="text" name="address[zip]" data-name="name" id="address_zip_{{ addressId }}" value="{{ address.zip }}" class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" placeholder="{{ 'customer.addresses.placehoder_postcode' | t }}">
         </div>
 
         <div class="w-full col-span-2">
           <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_province_{{ addressId }}">{{ 'customer.addresses.placehoder_province' | t }}</label>
-          <input type="text" name="address[province]" data-name="name" id="address_province_{{ addressId }}" value="{{ address.province }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_province' | t }}">
+          <input type="text" name="address[province]" data-name="name" id="address_province_{{ addressId }}" value="{{ address.province }}" class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" placeholder="{{ 'customer.addresses.placehoder_province' | t }}">
         </div>
 
         <div class="w-full col-span-2">
           <label class="block font-heading text-base text-primary leading-4 font-normal capitalize mb-2" for="address_zip_{{ addressId }}">{{ 'customer.addresses.address' | t }}</label>
-          <input type="text" name="address[address1]" data-name="name" id="address_zip_{{ addressId }}" value="{{ address.address1 }}" class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" placeholder="{{ 'customer.addresses.placehoder_address' | t }}">
+          <input type="text" name="address[address1]" data-name="name" id="address_zip_{{ addressId }}" value="{{ address.address1 }}" class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" placeholder="{{ 'customer.addresses.placehoder_address' | t }}">
         </div>
       </div>
 

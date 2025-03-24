@@ -1,0 +1,39 @@
+{% if section.settings.top_menu != blank %}
+  <div class="hidden lg:block relative h-10" style="background-color: {{ section.settings.background }};">
+    <div class="page-width h-full">
+      <ul class="w-full flex flex-wrap items-center h-full gap-3">
+        {% for link in linklists[section.settings.top_menu].links %}
+          <li class="leading-[0]">
+            <a
+              href="{{ link.url }}"
+              class="text-[13px] leading-3 hover:!text-secondary"
+              style="color: {{ section.settings.color }}">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+{% endif %}
+{% schema %}
+  {
+    "name": "Top header",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "color",
+        "id": "background",
+        "label": "Background color",
+        "default": "#F5F5F5"
+      }, {
+        "type": "color",
+        "id": "color",
+        "label": "Text color",
+        "default": "#626262"
+      }, {
+        "type": "link_list",
+        "id": "top_menu",
+        "label": "Top menu"
+      }
+    ]
+  }
+{% endschema %}

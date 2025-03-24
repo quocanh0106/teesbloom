@@ -1,4 +1,4 @@
-<slider-component class="gallery flex flex-col lg:flex-row gap-3 lg:gap-4">
+<slider-component class="gallery flex flex-col lg:flex-row gap-3 lg:gap-4" id="MediaGallery-{{ section.id }}">
   <div class="group relative overflow-hidden order-1 lg:order-2 {% if product.media.size > 1 %} lg:max-w-[calc(100%_-_96px)]{% endif %} w-full h-fit aspect-1 rounded-lg">
     <ul class="flex slider-wrapper slider-on-mobile slider-on-tablet slider-on-desktop">
       {%- if product.selected_or_first_available_variant.featured_media != null -%}
@@ -50,13 +50,13 @@
   {%- if product.media.size > 1 -%}
     <ul class="slider-dots !grid gap-3 lg:gap-4 grid-cols-5 lg:grid-cols-1 lg:h-fit lg:max-w-[80px] w-full overflow-hidden order-2 lg:order-1">
       {%- if featured_media != null -%}
-        <li class="slider-dot !w-full !rounded-lg relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer lg:max-w-full !h-fit border-solid border border-transparent overflow-hidden active" data-position="1">
+        <li class="slider-dot !w-full !rounded-lg relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer lg:max-w-full !h-fit border-solid border border-transparent overflow-hidden active" data-position="1" data-media="{{ featured_media.id }}">
           {% render 'product-thumbnail-mini', media: featured_media, lazy_load: true, width: 90 %}
         </li>
       {%- endif -%}
       {%- for media in product.media -%}
         {%- unless media.id == product.selected_or_first_available_variant.featured_media.id -%}
-          <li class="slider-dot !w-full !rounded-lg relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer lg:max-w-full !h-fit border-solid border border-transparent overflow-hidden{% if featured_media == null and forloop.first %} active{% endif %}" data-position="{{ forloop.index }}">
+          <li class="slider-dot !w-full !rounded-lg relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer lg:max-w-full !h-fit border-solid border border-transparent overflow-hidden{% if featured_media == null and forloop.first %} active{% endif %}" data-position="{{ forloop.index }}" data-media="{{ media.id }}">
             {% render 'product-thumbnail-mini', media: media, lazy_load: true, width: 90 %}
           </li>
         {%- endunless -%}

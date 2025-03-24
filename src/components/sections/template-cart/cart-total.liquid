@@ -6,8 +6,7 @@
     {% assign original_price = original_price | plus: lineItemOriginalPrice %}
   {%- endfor -%}
 {%- endif -%}
-<div class="js-contents" id="cart-total" {{ block.shopify_attributes }}>
-  <ul class="py-3 grid gap-2">
+<ul class="pb-3 mb-3 lg:mb-0 lg:py-3 grid gap-2 border-b-2 border-secondary-opacity-30 lg:border-none">
     {% if original_price > cart.total_price %}
       <li class="flex items-center justify-between gap-2">
         <span class="text-sm font-normal text-primary capitalize leading-5">{{ 'sections.cart.original_price' | t }}</span>
@@ -31,5 +30,11 @@
         {{ cart.total_price | money }}
       </span>
     </li>
+
+    <li class='text-sm lg:hidden block">
+      <span class='text-sm lg:hidden block font-normal text-subtext leading-5 mt-3 lowercase'>
+        {{ 'sections.cart.shipping' | t }}
+        {{- 'sections.cart.shipping_calculated' | t -}}
+      </span>
+    </li>
   </ul>
-</div>

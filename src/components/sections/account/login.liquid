@@ -16,8 +16,10 @@
 
 <div class="max-w-[462px] w-full mx-auto px-4" data-section-id="{{ section.id }}">
   <div id="recover" class="scroll-m-80">
-    <h1 class="capitalize text-center mb-3 font-semibold text-primary text-h4 lg:text-h3">{{ 'customer.recover_password.title' | t }}</h1>
-    <p class="block text-sm leading-5 lg:text-base lg:leading-6 mb-8 font-normal text-primary text-center">{{ 'customer.recover_password.subtext' | t }}</p>
+    <div class="block w-full text-h3 lg:text-h2 py-1.5 lg:py-2.5 font-heading font-semibold text-center capitalize">
+      {{ 'customer.recover_password.title' | t }}
+    </div>
+
     <validate-form class="block">
       {%- form 'recover_customer_password' -%}
         {% assign recover_success = form.posted_successfully? %}
@@ -45,9 +47,9 @@
           <span id="RecoverEmail-email-error" class="text-xs text-error block mt-4"></span>
         {%- endif -%}
         <div class="w-full mb-8">
-          <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="RecoverEmail">{{ 'customer.login_page.email' | t }}</label>
+          <label class="block font-heading text-base text-primary leading-4 font-semibold mb-2" for="RecoverEmail">{{ 'customer.login_page.email' | t }}</label>
           <input
-            class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded {% if form.errors %}error{% endif %}"
+            class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg {% if form.errors %}error{% endif %}"
             type="email"
             data-name="email"
             value=""
@@ -59,23 +61,17 @@
             autocomplete="email">
         </div>
 
-        <button type="submit" class="btn text-center w-full py-4 px-6 lg:px-8 !uppercase text-base lg:leading-none mb-3 lg:mb-4">{{ 'customer.login_page.submit' | t }}</button>
+        <button type="submit" class="btn text-center w-full !h-12.5 py-2 px-6 lg:px-8 !uppercase !text-base lg:leading-none mb-3 lg:mb-4">{{ 'customer.login_page.submit' | t }}</button>
         <a href="#login" class="btn btn-2 text-center w-full py-4 px-6 lg:px-8 !uppercase text-base lg:leading-none">{{ 'customer.reset_password.back_to_login' | t }}</a>
       {%- endform -%}
     </validate-form>
   </div>
 
   <div id="login" class="scroll-m-80">
-    <div class="grid gap-1 lg:gap-2 items-center rounded-xl grid-cols-2 bg-[#F6F6F6] p-1 lg:p-2 w-full mb-6 lg:mb-8">
-      {% if template.name == "login" %}
-        <div class="bg-background text-primary w-full rounded-lg text-h5 lg:text-h3 py-1.5 lg:py-2.5 font-heading font-semibold text-center capitalize">
-          {{ 'customer.login_page.title' | t }}
-        </div>
-        <a href="{{ routes.account_register_url }}" class="block text-primary hover:text-primary hover:bg-background transition-all w-full rounded-lg text-h5 lg:text-h3 py-1.5 lg:py-2.5 font-heading font-semibold text-center capitalize">
-          {{ 'customer.register.title' | t }}
-        </a>
-      {% endif %}
+    <div class="block w-full text-h3 lg:text-h2 py-1.5 lg:py-2.5 font-heading font-semibold text-center capitalize">
+      Login
     </div>
+
     <validate-form class="block">
       {%- form 'customer_login', id: 'CustomerLoginForm', novalidate: 'novalidate', class: 'grid' -%}
         {%- if form.errors -%}
@@ -92,9 +88,9 @@
         {%- endif -%}
 
         <div class="w-full mb-4 lg:mb-5 0 order-3 lg:order-2">
-          <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="CustomerEmail">{{ 'customer.login_page.email' | t }}</label>
+          <label class="block font-heading text-base text-primary leading-4 font-semibold mb-2" for="CustomerEmail">{{ 'customer.login_page.email' | t }}</label>
           <input
-            class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded{% if form.errors contains 'form' %} error{% endif %}"
+            class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg{% if form.errors contains 'form' %} error{% endif %}"
             type="email"
             name="customer[email]"
             data-name="email"
@@ -108,10 +104,10 @@
         </div>
         {%- if form.password_needed -%}
           <div class="w-full mb-4 order-4 lg:order-3">
-            <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="CustomerPassword">{{ 'customer.login_page.password' | t }}</label>
+            <label class="block font-heading text-base text-primary leading-4 font-semibold mb-2" for="CustomerPassword">{{ 'customer.login_page.password' | t }}</label>
             <toggle-password class="relative field w-full block">
               <input
-                class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded{% if form.errors contains 'form' %} error{% endif %}"
+                class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg{% if form.errors contains 'form' %} error{% endif %}"
                 type="password"
                 data-name="password"
                 value=""
@@ -169,14 +165,21 @@
           <a href="#recover" class="block text-sm text-primary hover:text-primary leading-2 font-medium">{{ 'customer.login_page.forgot_password' | t }}</a>
         </div>
 
-        <button type="submit" class="btn w-full py-4 px-6 lg:px-8 !uppercase text-base leading-none mb-3 order-6 lg:order-5">{{ 'customer.login_page.title' | t }}</button>
+        <button type="submit" class="btn w-full !h-12.5 py-2 px-6 lg:px-8 !uppercase !text-base leading-none mb-3 order-6 lg:order-5">{{ 'customer.login_page.title' | t }}</button>
 
-        <span class="account-description block text-xs mb-6 lg:mb-8 font-normal text-primary text-center order-7 lg:order-6 max-w-[270px] mx-auto lg:max-w-full">{{ 'customer.login_page.introduce_html' | t: sitename: shop.name }}</span>
-        <div class="flex items-center justify-center text-sm text-primary gap-1.5 order-9 lg:order-9">
-          <a href="{{ routes.account_register_url }}" class="capitalize font-medium leading-2 block">{{ 'customer.login_page.create_account' | t }}</a>
-        </div>
+        <span class="account-description block text-xs mb-6 lg:mb-8 font-normal text-primary text-left order-7 lg:order-6 max-w-[270px] mx-auto lg:max-w-full">{{ 'customer.login_page.introduce_html' | t: sitename: shop.name }}</span>
+
       {%- endform -%}
     </validate-form>
+
+    {% if template.name == "login" %}
+      <div class="text-sm leading-[20px] text-center text-primary">
+        New Customer?
+        <a href="{{ routes.account_register_url }}" class="text-secondary text-base leading-[20px]">
+          {{ 'customer.register.title' | t }}
+        </a>
+      </div>
+    {% endif %}
   </div>
 
   {%- if shop.checkout.guest_login -%}

@@ -15,13 +15,8 @@
 {%- endstyle -%}
 
 <div class="max-w-[462px] w-full mx-auto px-4" data-section-id="{{ section.id }}">
-  <div class="grid gap-1 lg:gap-2 items-center rounded-xl grid-cols-2 bg-[#F6F6F6] p-1 lg:p-2 w-full mb-6 lg:mb-8">
-    <a href="{{ routes.account_login_url }}" class="block text-primary hover:text-primary hover:bg-background transition-all w-full rounded-lg text-h5 lg:text-h3 py-1.5 lg:py-2.5 font-heading font-semibold text-center capitalize">
-      {{ 'customer.login_page.title' | t }}
-    </a>
-    <div class="bg-background text-primary w-full rounded-lg text-h5 lg:text-h3 py-1.5 lg:py-2.5 font-heading font-semibold text-center capitalize">
-      {{ 'customer.register.title' | t }}
-    </div>
+  <div class="block w-full text-h3 lg:text-h2 py-1.5 lg:py-2.5 font-heading font-semibold text-center capitalize">
+    Register
   </div>
   <validate-form class="block">
     {%- form 'create_customer' , novalidate: 'novalidate' , class: 'flex flex-wrap' -%}
@@ -46,31 +41,31 @@
           </div>
         </modal-dialog>
       {%- endif -%}
-      <div class="w-full mb-4 lg:mb-5 max-w-1/2 pr-1.5">
-        <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="RegisterForm-FirstName">
+      <div class="w-full mb-4 lg:mb-5">
+        <label class="block font-heading text-base text-primary leading-4 font-semibold mb-2" for="RegisterForm-FirstName">
           {{ 'customer.register.first_name' | t }}
         </label>
-        <input class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" type="text" data-name="name" name="customer[first_name]" id="RegisterForm-FirstName" placeholder="{{ 'customer.register.first_name_placeholder' | t }}" {% if form.first_name %} value="{{ form.first_name }}" {% endif %} autocomplete="given-name">
-      </div>
-      <div class="w-full mb-4 lg:mb-5 max-w-1/2 pl-1.5">
-        <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="RegisterForm-LastName">
-          {{ 'customer.register.last_name' | t }}
-        </label>
-        <input class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded" type="text" data-name="name" name="customer[last_name]" placeholder="{{ 'customer.register.last_name_placeholder' | t }}" id="RegisterForm-LastName" {% if form.last_name %} value="{{ form.last_name }}" {% endif %} autocomplete="family-name">
+        <input class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" type="text" data-name="name" name="customer[first_name]" id="RegisterForm-FirstName" placeholder="{{ 'customer.register.first_name_placeholder' | t }}" {% if form.first_name %} value="{{ form.first_name }}" {% endif %} autocomplete="given-name">
       </div>
       <div class="w-full mb-4 lg:mb-5">
-        <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="RegisterForm-email">
+        <label class="block font-heading text-base text-primary leading-4 font-semibold mb-2" for="RegisterForm-LastName">
+          {{ 'customer.register.last_name' | t }}
+        </label>
+        <input class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" type="text" data-name="name" name="customer[last_name]" placeholder="{{ 'customer.register.last_name_placeholder' | t }}" id="RegisterForm-LastName" {% if form.last_name %} value="{{ form.last_name }}" {% endif %} autocomplete="family-name">
+      </div>
+      <div class="w-full mb-4 lg:mb-5">
+        <label class="block font-heading text-base text-primary leading-4 font-semibold mb-2" for="RegisterForm-email">
           {{ 'customer.register.email' | t }}
         </label>
-        <input class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded{% if form.errors contains 'form' %} error{% endif %}" type="email" data-name="email" name="customer[email]" id="RegisterForm-email" placeholder="{{ 'customer.register.email_placeholder' | t }}" {% if form.email %} value="{{ form.email }}" {% endif %} spellcheck="false" autocapitalize="off" autocomplete="email" aria-required="true" required {% if form.errors contains 'email' %} aria-invalid="true" aria-describedby="RegisterForm-email-error" {% endif %}>
+        <input class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg{% if form.errors contains 'form' %} error{% endif %}" type="email" data-name="email" name="customer[email]" id="RegisterForm-email" placeholder="{{ 'customer.register.email_placeholder' | t }}" {% if form.email %} value="{{ form.email }}" {% endif %} spellcheck="false" autocapitalize="off" autocomplete="email" aria-required="true" required {% if form.errors contains 'email' %} aria-invalid="true" aria-describedby="RegisterForm-email-error" {% endif %}>
       </div>
 
       <div class="w-full mb-4 lg:mb-5">
-        <label class="block font-heading text-base text-primary leading-4 font-normal mb-2" for="RegisterForm-password">
+        <label class="block font-heading text-base text-primary leading-4 font-semibold mb-2" for="RegisterForm-password">
           {{ 'customer.register.password' | t }}
         </label>
         <toggle-password class="relative field w-full block">
-          <input class="border border-primary focus:border-primary hover:border-primary active:border-primary !ring-0 font-normal border-solid w-full text-sm leading-5 lg:text-base lg:leading-6 px-6 py-3 rounded{% if form.errors contains 'form' %} error{% endif %}" type="password" data-name="password" name="customer[password]" id="RegisterForm-password" placeholder="{{ 'customer.register.password_placeholder' | t }}" aria-required="true" required {% if form.errors contains 'password' %} aria-invalid="true" aria-describedby="RegisterForm-password-error" {% endif %}>
+          <input class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg{% if form.errors contains 'form' %} error{% endif %}" type="password" data-name="password" name="customer[password]" id="RegisterForm-password" placeholder="{{ 'customer.register.password_placeholder' | t }}" aria-required="true" required {% if form.errors contains 'password' %} aria-invalid="true" aria-describedby="RegisterForm-password-error" {% endif %}>
           <span class="eye absolute top-1/2 right-4 -translate-y-1/2 z-10 cursor-pointer">
             <span class="icon-eye">{% render 'icon-eye' %}</span>
             <span class="icon-eye-hidden">{% render 'icon-eye-hidden' %}</span>
@@ -92,13 +87,10 @@
         <label class="block cursor-pointer text-sm text-primary" for="customer[accepts_marketing]">{{ 'customer.register.accepts_marketing' | t: sitename: shop.name }}</label>
       </div>
       <div class="w-full">
-        <button class="btn w-full py-4 px-6 lg:px-8 !uppercase text-base lg:leading-none mb-3">
+        <button class="btn w-full py-3 px-6 !h-12.5 lg:px-8 !uppercase !text-base lg:leading-none mb-3">
           {{ 'customer.register.title' | t }}
         </button>
-        <span class="account-description block text-xs mb-6 lg:mb-8 font-normal text-primary text-center order-7 lg:order-6 max-w-[270px] mx-auto lg:max-w-full">{{ 'customer.register.note_html' | t: sitename: shop.name }}</span>
       </div>
-
-
 
       <div class="flex justify-center items-center gap-1.5 text-center mt-6 lg:mt-8 mx-auto">
         <span class="text-primary text-sm leading-2 font-normal bg-background">

@@ -36,7 +36,7 @@ toggle-password input:placeholder-shown ~ .eye {
   @apply hidden;
 }
 input:checked ~ .icon-checkmark {
-  @apply opacity-100 visible text-primary;
+  @apply opacity-100 visible text-background;
 }
 input:checked ~ .icon-box {
   @apply fill-primary text-primary;

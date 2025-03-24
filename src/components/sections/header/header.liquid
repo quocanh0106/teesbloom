@@ -129,7 +129,7 @@
       <a
         href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
         title="account"
-        class="no-underline flex-none flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary{% if customer %} border border-primary rounded-full{% endif %}">
+        class="no-underline flex-none flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary">
         <img
           src="{{ 'icon-user.png' | asset_img_url }}"
           class="block"
