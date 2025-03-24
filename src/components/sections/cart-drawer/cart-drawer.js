@@ -212,7 +212,6 @@ if (!customElements.get('cart-items')) {
 
       if (this.currentItemCount === itemCount) {
         const quantityElement = this.querySelector(`input[data-index="${line}"]`);
-        console.log(this.querySelector(`.cart-item__error-text[data-index="${line}"]`));
         this.querySelector(`.cart-item__error-text[data-index="${line}"]`).innerHTML =
           window.cartStrings.quantityError.replace(
             '[quantity]',

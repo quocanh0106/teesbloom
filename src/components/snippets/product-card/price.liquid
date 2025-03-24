@@ -27,11 +27,11 @@
   {% if product %}
     {% if compare_at_price > price %}
       {% if template.name contains 'product' and show  %}
-        <div class="relative text-special {% if template.name contains 'product' and show %}{% if template.suffix == 'ajax' %} text-lg font-semibold leading-2 {% else %} text-xl font-semibold {% endif %}{% else %} text-xl{% endif %} ">{{ price | money }}</div>
-        <div class="relative text-body line-through{% if template.name contains 'product' and show %} {% if template.suffix == 'ajax' %} text-sm lg:text-base leading-6 {% else %} text-lg {% endif %}{% endif %} font-normal ">{{ compare_at_price | money }}</div>
+        <div class="relative text-body line-through{% if template.name contains 'product' and show %} {% if template.suffix == 'ajax' %} text-sm lg:text-base leading-6 {% else %} text-lg {% endif %}{% endif %} font-normal ">{{ compare_at_price | money_with_currency }}</div>
+        <div class="relative text-special {% if template.name contains 'product' and show %}{% if template.suffix == 'ajax' %} text-lg font-semibold leading-2 {% else %} text-xl font-semibold {% endif %}{% else %} text-xl{% endif %} ">{{ price | money_with_currency }}</div>
       {% else %}
-        <div class="relative !block before:content-[var(--price)] text-secondaryDark text-base font-semibold" style="--price: '{{ price | money_with_currency }}'"></div>
         <div class="relative !block before:content-[var(--price)] text-subtext line-through text-sm font-normal" style="--price: '{{ compare_at_price | money_with_currency }}'"></div>
+        <div class="relative !block before:content-[var(--price)] text-secondaryDark text-base font-semibold" style="--price: '{{ price | money_with_currency }}'"></div>
       {% endif %}
     {% else %}
       {% if template.name contains 'product' and show  %}

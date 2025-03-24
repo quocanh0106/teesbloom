@@ -462,7 +462,7 @@
                     </fieldset>
                   {% elsif optionName == 'color' or optionName == 'farbe' or optionName == 'colore' or optionName == 'couleur' %}
                     <fieldset class="js product-form__input block mb-4 {% if forloop.last %}!mb-0{% endif %} option-color-wrapper data-layer-{{ fatherIndex }}" data-name="Color">
-                      <legend class="form__label mb-3 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
+                      <legend class="form__label mb-2 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
                         {{ option.name }}
                         <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
                         <span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>
@@ -524,7 +524,7 @@
                     </fieldset>
                   {% else %}
                     <fieldset class="js product-form__input block mb-4 {% if forloop.last %}!mb-0{% endif %} selector-wrapper data-layer-{{ fatherIndex }}">
-                      <legend class="form__label mb-3 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
+                      <legend class="form__label mb-2 flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
                         {{ option.name }}
                         <span class="!hidden selected-value text-primary font-normal font-body">{{ option.selected_value }}</span>
                         <span class="require-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.require' | t }}</span>

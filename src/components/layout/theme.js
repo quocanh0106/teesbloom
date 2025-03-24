@@ -218,6 +218,12 @@ if (!customElements.get('slider-component')) {
       this.dots.innerHTML = html;
     }
 
+    generateDotsGallery() {
+      this.dots.querySelectorAll('.slider-dot').forEach((dot, index) => {
+        dot.dataset.position = index + 1
+      })
+    }
+
     update() {
       if (!this.slider || !this.nextButton) return;
 
@@ -330,17 +336,8 @@ if (!customElements.get('slider-component')) {
       }
     }
 
-    setActiveSlide(slideNumber) {
-      this.slider.classList.add('!scroll-auto')
-      const activePosition = parseInt(this.currentPage);
-      const newActivePosition = parseInt(slideNumber)
-      let to = 'next';
-      if (newActivePosition < activePosition) to = 'prev';
-      const step = Math.abs(newActivePosition - activePosition);
-
-      this.slideScrollPosition = to === 'next' ? this.slider.scrollLeft + step * this.sliderItemOffset : this.slider.scrollLeft - step * this.sliderItemOffset;
-      this.setSlidePosition(this.slideScrollPosition);
-      this.slider.classList.remove('!scroll-auto')
+    backToFirst() {
+      this.setSlidePosition(0);
     }
   }
 
@@ -760,100 +757,6 @@ class TabsComponent extends HTMLElement {
 
 if (!customElements.get('tabs-component')) {
   customElements.define('tabs-component', TabsComponent);
-}
-
-if (!customElements.get('wishlist-button')) {
-  class WishlistButton extends HTMLElement {
-    constructor() {
-      super();
-      this.product = this.dataset.productHandle;
-      this.listProduct = JSON.parse(localStorage.getItem('wishlistItems')) || [];
-      this.update();
-      this.addEventListener('click', e => {
-        e.preventDefault();
-        this.pushToLocalStorage();
-      });
-    }
-    update() {
-      if (this.listProduct.includes(this.product)) {
-        this.classList.add('active');
-      } else {
-        this.classList.remove('active');
-      }
-    }
-    pushToLocalStorage() {
-      this.listProduct = JSON.parse(localStorage.getItem('wishlistItems')) || [];
-      if (localStorage.getItem('wishlistItems')) {
-        if (this.listProduct.includes(this.product)) {
-          if (this.listProduct.indexOf(this.product) != -1) {
-            this.listProduct.splice(this.listProduct.indexOf(this.product), 1);
-            this.classList.remove('active');
-            localStorage.setItem(
-              'wishlistItems',
-              JSON.stringify(this.listProduct),
-            );
-          }
-        } else {
-          this.classList.add('active');
-          this.listProduct.unshift(this.product);
-          localStorage.setItem('wishlistItems', JSON.stringify(this.listProduct));
-          this.openNotify();
-        }
-      } else {
-        this.classList.add('active');
-        this.listProduct.unshift(this.product);
-        localStorage.setItem('wishlistItems', JSON.stringify(this.listProduct));
-        this.openNotify();
-      }
-      document.querySelectorAll('wishlist-count').forEach(count => {
-        count.update();
-      });
-    }
-    openNotify() {
-      if(document.querySelector('#wishlist-notifycation')) {
-        document.querySelector('#wishlist-notifycation').open()
-      }
-    }
-    hidden() {
-      document
-        .querySelector(`.product-card-wrapper[data-handle="${this.product}"]`)
-        .classList.add('hidden');
-      if (
-        !JSON.parse(localStorage.getItem('wishlistItems')) ||
-        JSON.parse(localStorage.getItem('wishlistItems')).length == 0
-      ) {
-        document
-          .querySelector('[data-id="#PopupModal-ClearWishlist"]')
-          .classList.add('hidden');
-      }
-    }
-  }
-  customElements.define('wishlist-button', WishlistButton);
-}
-
-if (!customElements.get('wishlist-count')) {
-  class wishlistCount extends HTMLElement {
-    constructor() {
-      super();
-      this.update();
-    }
-
-    update() {
-      if (localStorage.getItem('wishlistItems')) {
-        if (JSON.parse(localStorage.getItem('wishlistItems')).length > 0) {
-          this.classList.remove('hidden');
-          this.querySelector('span').innerHTML = JSON.parse(
-            localStorage.getItem('wishlistItems'),
-          ).length;
-        } else {
-          this.classList.add('hidden');
-        }
-      } else {
-        this.classList.add('hidden');
-      }
-    }
-  }
-  customElements.define('wishlist-count', wishlistCount);
 }
 
 if (!customElements.get('scroll-to-top')) {

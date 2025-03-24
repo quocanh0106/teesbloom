@@ -52,6 +52,7 @@ class VariantSelects extends HTMLElement {
   
   init() {
     this.initCheckOption(document.querySelector(`#product-form-${this.dataset.section} input[name="id"]`).value)
+
     if(!window.location.href.includes('variant=') && this.getVariantData().length > 1) {
       this.querySelectorAll('label, input').forEach(el => {el.classList.remove('active');el.checked=false})
       this.querySelectorAll('.selected-value').forEach(el => el.textContent = '');
@@ -236,19 +237,18 @@ class VariantSelects extends HTMLElement {
 
   updateMedia() {
     let currentVariant = this.currentVariant || this.fakeCurrentVariant;
+    const mediaGalleries = document.querySelector(`[id^="MediaGallery-${this.dataset.section}"]`);
+    
     if (!currentVariant) return;
     if (!currentVariant.featured_media) return;
 
-    const mediaGalleries = document.querySelector(`[id^="MediaGallery-${this.dataset.section}"]`);
+    const mediaGalleriesWrapper = document.querySelector(`#MediaGallery-${this.dataset.section} .slider-wrapper`);
+    const mediaGalleriesDot = document.querySelector(`#MediaGallery-${this.dataset.section} .slider-dots`);
 
-    const id = mediaGalleries.querySelector(`[data-media="${currentVariant.featured_media.id}"]`)?.dataset?.position || 1
-
-    mediaGalleries.setActiveSlide(id)
-
-    const modalContent = document.querySelector(`#ProductModal-${this.dataset.section} .product-media-modal__content`);
-    if (!modalContent) return;
-    const newMediaModal = modalContent.querySelector( `[data-media-id="${currentVariant.featured_media.id}"]`);
-    modalContent.prepend(newMediaModal);
+    mediaGalleriesWrapper.prepend(mediaGalleriesWrapper.querySelector(`[data-media="${currentVariant.featured_media.id}"]`))
+    mediaGalleriesDot.prepend(mediaGalleriesDot.querySelector(`[data-media="${currentVariant.featured_media.id}"]`))
+    mediaGalleries.generateDotsGallery()
+    mediaGalleries.backToFirst()
   }
 
   updateURL() {
@@ -400,7 +400,6 @@ class ProductForm extends HTMLElement {
       formData.append('sections_url', window.routes.cart_url);
     }
     config.body = formData;
-    console.log(config, formData)
     
     fetch(`${routes.cart_add_url}`, config)
       .then((response) => {

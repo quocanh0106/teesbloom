@@ -32,7 +32,7 @@
                   <option value="{{ option.value | escape }}" {% if option.value == sort_by %} selected="selected"{% endif %}></option>
                 {%- endfor -%}
               </select>
-              <accordion-toggle class="inline-block relative cursor-pointer clickout-accordion">
+              <accordion-toggle class="hidden md:inline-block relative cursor-pointer clickout-accordion">
                 <div class="summary flex items-center gap-2.5 border-2 border-primary px-2 py-0.5 rounded-[100px]">
                   {%- for option in collection.sort_options -%}
                     {% if option.value == sort_by %}
