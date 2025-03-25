@@ -48,7 +48,7 @@
     </div>
   </div>
   {%- if product.media.size > 1 -%}
-    <ul class="slider-dots slider-mobile !justify-normal flex lg:!grid !gap-3 lg:!gap-4 grid-cols-5 lg:grid-cols-1 lg:h-fit lg:max-w-[80px] lg:!max-h-[752px] w-full overflow-x-auto lg:overflow-hidden order-2 lg:order-1">
+    <ul class="slider-dots slider-mobile !justify-normal flex lg:!grid !gap-3 lg:!gap-4 grid-cols-5 lg:grid-cols-1 lg:h-fit lg:max-w-[80px] lg:!max-h-[564px] w-full overflow-x-auto lg:overflow-hidden order-2 lg:order-1">
       {%- if featured_media != null -%}
         <li class="slider-dot !w-20 !h-20 !flex-none lg:!w-full !rounded-lg relative after:absolute after:top-0 after:left-0 after:w-full after:h-full after:z-10 cursor-pointer lg:max-w-full lg:!h-fit border-solid border border-transparent overflow-hidden active" data-position="1" data-media="{{ featured_media.id }}">
           {% render 'product-thumbnail-mini', media: featured_media, lazy_load: true, width: 90 %}

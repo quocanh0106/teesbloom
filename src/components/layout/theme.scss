@@ -161,9 +161,21 @@ input[type='number']::-webkit-inner-spin-button {
 
 /***** Tooltip ******/
 .tooltip {
-  @apply absolute -top-1 -translate-y-full py-2 px-4 rounded bg-background text-xs font-normal leading-5 text-primary opacity-0 transition-all z-10 shadow-tooltip;
-  visibility: hidden;
+  @apply absolute -top-2.5 -translate-y-full py-1 px-2 rounded bg-[#333333e6] text-xs font-normal leading-5 text-white opacity-0 invisible transition-all z-10 shadow-tooltip;
 } 
+.tooltip::after {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-left: solid transparent 5px;
+  border-right: solid transparent 5px;
+  border-top: solid rgba(51, 51, 51, .9) 5px;
+  transform: translate(-5px, 9.5px);
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  z-index: -4;
+}
 /***** End Tooltip ******/
 
 /***** Truncate ******/

@@ -75,7 +75,7 @@
           {%- when 'shipping-box' -%}
             <delivery-wrapper data-assets-folder="{{ 'us.svg' | asset_url }}" class="relative grid gap-2 min-w-fit max-w-full my-2.5" data-content='{{ shipping | json }}'>
               <div class="flex gap-2 items-center">
-                <img src="{{ 'us.svg' | asset_url }}" class="w-7 h-auto flag rounded-sm overflow-hidden flex-none" width="28" height="18" loading="lazy" />
+                <img src="{{ 'us.svg' | asset_url }}" class="w-7 h-auto flag rounded-[3px] overflow-hidden flex-none" width="28" height="18" loading="lazy" />
                 <span class="text-primary text-sm leading-5 font-light flex-none">
                   Deliver to
                 </span>
@@ -510,12 +510,13 @@
                               checked{% endif %}>
                             <label
                               for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                              class="cursor-pointer relative {% if selected_option != '' %}{% unless selected_option contains newValue %}hidden {% endunless %}{% endif %}color border-2 w-10 h-10 border-border overflow-hidden option-item p-[3px] rounded-full"
+                              class="cursor-pointer group relative {% if selected_option != '' %}{% unless selected_option contains newValue %}hidden {% endunless %}{% endif %}color border-2 w-10 h-10 border-border option-item p-[3px] rounded-full"
                               data-product-id="{{ product.id }}"
                               data-variant-id="{{ variant.id }}"
                               data-option="{{ option.name | handleize }}"
                               data-value="{{ value | escape }}"
                             >
+                              <div class="tooltip group-hover:opacity-100 group-hover:visible left-1/2 -translate-x-1/2 text-center">{{ value | escape }}</div>
                               <span class="color w-full h-full rounded-full border border-border !inline-block bg-center bg-no-repeat bg-cover" style="background-color:{{ swatch_value }}; background-image: url({{ image_url }});"></span>
                             </label>
                           {%- endunless -%}
