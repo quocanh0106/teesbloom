@@ -430,7 +430,13 @@
             </delivery-wrapper>
           {%- when 'variant_picker' -%}
             {%- unless product.has_only_default_variant -%}
-              <variant-radios class="block pt-1 scroll-m-14 lg:scroll-m-31" id="variant-radios-{{ section.id }}" data-section="{{ section.id }}" data-url="{{ product.url }}" {% if update_url == false %} data-update-url="false" {% endif %}>
+              <variant-radios 
+                class="block pt-1 scroll-m-14 lg:scroll-m-31" id="variant-radios-{{ section.id }}" 
+                {% if block.settings.enable_default_variant %} enable-default-variant{% endif %} 
+                data-section="{{ section.id }}" 
+                data-url="{{ product.url }}" 
+                {% if update_url == false %} data-update-url="false" {% endif %}
+              >
                 {%- for option in product.options_with_values -%}
                   {% assign fatherIndex = forloop.index0 %}
                   {% assign optionName = option.name | downcase %}
@@ -632,7 +638,7 @@
                   <span class="product-form__error-message"></span>
                 </div>
 
-                <add-to-cart class="block relative h-13.5">
+                <add-to-cart class="block relative min-h-[54px]">
                   <div class="product-form__buttons flex flex-wrap gap-2">
                     <button type="submit" name="add" class="product-form__submit button button--full-width btn-2" {% if product.selected_or_first_available_variant.available == false %} disabled{% endif %}>
                       <span>
@@ -1138,7 +1144,14 @@
         "type": "variant_picker",
         "name": "Variant picker",
         "limit": 1,
-        "settings": []
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_default_variant",
+            "label": "Enable default variant",
+            "default": true
+          }
+        ]
       },
       {
         "type": "buy_buttons",

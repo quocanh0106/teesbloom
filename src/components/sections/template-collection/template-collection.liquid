@@ -24,7 +24,7 @@
               {% render 'icon-filter', class: 'w-4 h-4' %}
             </button>
           </toggle-filter>
-          <form id="FacetSortForm">
+          <form id="FacetSortForm" class="hidden md:block">
             <div class="flex items-center gap-2 js-filter" data-index="sort-by">
               {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
               <select name="sort_by" class="hidden opacity-0 invisible absolute -z-30" id="SortBy" aria-describedby="a11y-refresh-page-message">
@@ -32,7 +32,7 @@
                   <option value="{{ option.value | escape }}" {% if option.value == sort_by %} selected="selected"{% endif %}></option>
                 {%- endfor -%}
               </select>
-              <accordion-toggle class="hidden md:inline-block relative cursor-pointer clickout-accordion">
+              <accordion-toggle class="inline-block relative cursor-pointer clickout-accordion">
                 <div class="summary flex items-center gap-2.5 border-2 border-primary px-2 py-0.5 rounded-[100px]">
                   {%- for option in collection.sort_options -%}
                     {% if option.value == sort_by %}

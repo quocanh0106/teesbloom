@@ -12,6 +12,7 @@
 {% endstyle %}
 
 <div class="page-width" data-section-id="{{ section.id }}">
+  <h2 class="text-base lg:text-lg font-semibold text-primary mb-5">{{ section.settings.heading | escape }}</h2>
   <div class="w-full grid grid-cols-1 lg:grid-cols-2 gap-3 grid-rows-[min-content] auto-rows-min">
     <div class="w-full grid grid-cols-1 gap-3 grid-rows-[min-content] auto-rows-min">
       {% for block in section.blocks %}
@@ -52,9 +53,14 @@
 
 {% schema %}
   {
-    "name": "Template help center",
+    "name": "Help center",
     "tag": "section",
     "settings": [
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading"
+      },
       {
         "type": "header",
         "content": "Pading desktop"
@@ -117,6 +123,11 @@
             "label": "Answer"
           }
         ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Help center"
       }
     ]
   }

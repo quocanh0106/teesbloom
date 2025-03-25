@@ -29,7 +29,7 @@
                 {% render 'icon-filter', class: 'w-4 h-4' %}
               </button>
             </toggle-filter>
-            <form id="FacetSortForm">
+            <form id="FacetSortForm" class="hidden md:block">
               <div class="flex items-center gap-2 js-filter" data-index="sort-by">
                 {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
                 <select name="sort_by" class="hidden opacity-0 invisible absolute -z-30" id="SortBy" aria-describedby="a11y-refresh-page-message">

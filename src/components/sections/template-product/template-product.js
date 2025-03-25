@@ -46,6 +46,8 @@ if (!customElements.get('quantity-input')) {
 class VariantSelects extends HTMLElement {
   constructor() {
     super();
+    this.enableDefault = this.hasAttribute('enable-default-variant')
+    console.log(this.enableDefault)
     this.init();
     this.querySelectorAll('fieldset').forEach(sector=> sector.addEventListener('change', this.onVariantChange.bind(this))) 
   }
@@ -53,7 +55,7 @@ class VariantSelects extends HTMLElement {
   init() {
     this.initCheckOption(document.querySelector(`#product-form-${this.dataset.section} input[name="id"]`).value)
 
-    if(!window.location.href.includes('variant=') && this.getVariantData().length > 1) {
+    if(!window.location.href.includes('variant=') && this.getVariantData().length > 1 && !this.enableDefault) {
       this.querySelectorAll('label, input').forEach(el => {el.classList.remove('active');el.checked=false})
       this.querySelectorAll('.selected-value').forEach(el => el.textContent = '');
       document.querySelector(`#product-form-${this.dataset.section} input[name="id"]`).value = ''
@@ -108,13 +110,14 @@ class VariantSelects extends HTMLElement {
           document.querySelector('.data-layer-0 .form__label .selected-value').innerHTML = option_value;
           if(document.querySelector('.data-layer-1 .message-option')) document.querySelector('.data-layer-1 .message-option').classList.add('hidden');
           if(document.querySelector('.data-layer-2 .message-option')) document.querySelector('.data-layer-2 .message-option').classList.add('hidden');
-          document.querySelectorAll('.data-layer-1 .form__label .selected-value').forEach((item) => {
-            item.innerHTML = '';
-          })
-          document.querySelectorAll('.data-layer-2 .form__label .selected-value').forEach((item) => {
-            item.innerHTML = ''
-          })
-
+          if(!this.enableDefault) {
+            document.querySelectorAll('.data-layer-1 .form__label .selected-value').forEach((item) => {
+              item.innerHTML = '';
+            })
+            document.querySelectorAll('.data-layer-2 .form__label .selected-value').forEach((item) => {
+              item.innerHTML = ''
+            })
+          }
           document.querySelectorAll('.data-layer-2 label, .data-layer-2 input, .data-layer-1 label, .data-layer-1 input').forEach(el => el.classList.add('hidden'))
         }
         break;
@@ -133,9 +136,11 @@ class VariantSelects extends HTMLElement {
           document.querySelectorAll('.data-layer-1 .form__label .selected-value').forEach((item) => {
             item.innerHTML = option_value.replace('-1', '').replace('-2', '').replace('-3', '').replace('-4', '').replace('-5', '');
           })
-          document.querySelectorAll('.data-layer-2 .form__label .selected-value').forEach((item) => {
-            item.innerHTML = ''
-          })
+          if(!this.enableDefault) {
+            document.querySelectorAll('.data-layer-2 .form__label .selected-value').forEach((item) => {
+              item.innerHTML = ''
+            })
+          }
           document.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => el.classList.add('hidden'))
         }
         break;
@@ -166,17 +171,19 @@ class VariantSelects extends HTMLElement {
     this.target = evt.target;
     if(parseInt(evt.target.getAttribute('data-index')) == 0) this.querySelectorAll('.data-layer-0 label, .data-layer-0 input').forEach(el => el.classList.remove('active'));
     this.checkOption(evt.target.getAttribute('data-index'), evt.target.value);
-    if(parseInt(evt.target.getAttribute('data-index')) != 1 && parseInt(evt.target.getAttribute('data-index')) != 2) this.querySelectorAll('.data-layer-1 label, .data-layer-1 input').forEach(el => {el.classList.remove('active');el.checked=false});
-    if(parseInt(evt.target.getAttribute('data-index')) == 1 && document.querySelector('.data-layer-0 .selected-value').textContent == '') {
-      this.querySelectorAll('.data-layer-1 label, .data-layer-1 input').forEach(el => {el.classList.remove('active');el.checked=false});
-      this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
-    }
-    if(parseInt(evt.target.getAttribute('data-index')) != 2) this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
-    if(parseInt(evt.target.getAttribute('data-index')) == 2 && document.querySelector('.data-layer-1 .selected-value').textContent == '') {
-      this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
-    } else {
-      evt.target.classList.add('active');
-      this.querySelector(`label[for="${evt.target.id}"]`).classList.add('active');
+    if(!this.enableDefault) {
+      if(parseInt(evt.target.getAttribute('data-index')) != 1 && parseInt(evt.target.getAttribute('data-index')) != 2) this.querySelectorAll('.data-layer-1 label, .data-layer-1 input').forEach(el => {el.classList.remove('active');el.checked=false});
+      if(parseInt(evt.target.getAttribute('data-index')) == 1 && document.querySelector('.data-layer-0 .selected-value').textContent == '') {
+        this.querySelectorAll('.data-layer-1 label, .data-layer-1 input').forEach(el => {el.classList.remove('active');el.checked=false});
+        this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
+      }
+      if(parseInt(evt.target.getAttribute('data-index')) != 2) this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
+      if(parseInt(evt.target.getAttribute('data-index')) == 2 && document.querySelector('.data-layer-1 .selected-value').textContent == '') {
+        this.querySelectorAll('.data-layer-2 label, .data-layer-2 input').forEach(el => {el.classList.remove('active');el.checked=false});
+      } else {
+        evt.target.classList.add('active');
+        this.querySelector(`label[for="${evt.target.id}"]`).classList.add('active');
+      }
     }
   }
   

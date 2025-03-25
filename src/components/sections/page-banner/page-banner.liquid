@@ -48,7 +48,7 @@ no-repeat;
     {% elsif template == 'cart' %}
       <h1 class="page-title text-center capitalize text-h3 lg:text-h2">{{ 'cart.title' | t }}</h1>
     {% elsif template contains 'collection' and collection.handle %}
-      <h1 class="page-title capitalize text-h4">{{ collection.title }}</h1>
+      <h1 class="page-title capitalize text-h4 text-center md:text-left">{{ collection.title }}</h1>
       {% unless collection.description == blank %}
         <div class="details text-sm lg:text-base !leading-6 font-normal overflow-hidden ">{{ collection.description }}</div>
       {% endunless %}

@@ -19,11 +19,16 @@ class FacetFiltersForm extends HTMLElement {
 
     this.facetForm = this.querySelector('form');
     this.main();
+
   }
 
   main() {
-    this.facetForm.addEventListener('input', this.debouncedOnSubmit.bind(this));
-    if(this.classList.contains('sort-by')) {
+    this.querySelector('.submit-button')?.addEventListener('click', (event) => {
+      this.onSubmitHandler(event)
+      this.querySelector('toggle-filter').toggle()
+    })
+    
+    if (this.classList.contains('sort-by')) {
       this.accordion = this.querySelector('accordion-toggle')
       this.summary = this.accordion.querySelector('.summary');
       this.details = this.accordion.querySelector('.details');
@@ -36,7 +41,7 @@ class FacetFiltersForm extends HTMLElement {
           this.select.value = item.dataset.value;
           this.select.querySelectorAll('option').forEach((option) => {
             option.removeAttribute('selected');
-            if(option.value == item.dataset.value) {
+            if (option.value == item.dataset.value) {
               option.setAttribute('selected', 'selected');
             }
           })
@@ -45,7 +50,7 @@ class FacetFiltersForm extends HTMLElement {
           this.onSubmitHandler(e);
           this.details.style.maxHeight = 0;
           this.accordion.classList.remove('active');
-          window.scrollTo(0,0);
+          window.scrollTo(0, 0);
         })
       })
     }
@@ -78,7 +83,7 @@ class FacetFiltersForm extends HTMLElement {
         ? FacetFiltersForm.renderSectionFromCache(filterDataUrl, event, loadmore)
         : FacetFiltersForm.renderSectionFromFetch(url, event, loadmore);
     });
-    if(document.querySelector('collection-loadmore') && loadmore == false) {
+    if (document.querySelector('collection-loadmore') && loadmore == false) {
       let nexttPage = parseInt(document.querySelector('#product-grid').dataset.currentPage) + 1;
       document.querySelector('collection-loadmore').updateCurrentPageToFirst(nexttPage);
     }
@@ -109,13 +114,13 @@ class FacetFiltersForm extends HTMLElement {
   }
 
   static renderProductGridContainer(html, type) {
-    type ? 
-    ((document.getElementById('main-collection-product').innerHTML += new DOMParser()
-      .parseFromString(html, 'text/html')
-      .getElementById('main-collection-product').innerHTML)) : 
+    type ?
+      ((document.getElementById('main-collection-product').innerHTML += new DOMParser()
+        .parseFromString(html, 'text/html')
+        .getElementById('main-collection-product').innerHTML)) :
       ((document.getElementById('main-collection-product').innerHTML = new DOMParser()
-      .parseFromString(html, 'text/html')
-      .getElementById('main-collection-product').innerHTML))
+        .parseFromString(html, 'text/html')
+        .getElementById('main-collection-product').innerHTML))
   }
 
   static renderProductCount(html) {
@@ -219,59 +224,43 @@ FacetFiltersForm.setListeners();
 class PriceRange extends HTMLElement {
   constructor() {
     super();
-    this.inputs = this.querySelectorAll('input');
-    this.querySelectorAll('.min').forEach((min) => {
-      min.innerHTML = this.inputs[0].value;
-    });
-    this.querySelectorAll('.max').forEach((max) => {
-      max.innerHTML = this.inputs[1].value;
-    });
-    this.inputs.forEach((element) =>
-      element.addEventListener('input', this.onRangeChange.bind(this))
-    );
-    this.setMinAndMaxValues();
+    this.inputValues = this.querySelectorAll('.range-values input')
+    this.rangeInputs = this.querySelectorAll('.range-slider input')
+    this.rangeInputs.forEach((input) => {
+      if (input.type === 'range') {
+        input.addEventListener('input', this.getVals.bind(this))
+      }
+    })
+
+    this.inputValues.forEach((input) => {
+      input.addEventListener('input', this.getRangeVals.bind(this))
+    })
   }
 
-  onRangeChange(event) {
-    this.adjustToValidValues(event.currentTarget);
-    this.setMinAndMaxValues();
-    this.querySelectorAll('.min').forEach((min) => {
-      min.innerHTML = this.inputs[0].value;
-    });
-    this.querySelectorAll('.max').forEach((max) => {
-      max.innerHTML = this.inputs[1].value;
-    });
-  }
+  getVals() {
+    var slide1 = parseFloat(this.rangeInputs[0].value)
+    var slide2 = parseFloat(this.rangeInputs[1].value)
 
-  setMinAndMaxValues() {
-    var minInput = this.inputs[0].value;
-    var maxInput = this.inputs[1].value;
-    var max = Number(this.inputs[1].getAttribute('max'));
-    var minWidth = (minInput / max) * 100;
-    var width = (maxInput / max) * 100;
-    var widthMinIput = `calc(${width}% + ${((100 - width) * 10) / 100}px)`;
-    this.inputs[0].setAttribute('max', maxInput);
-    if (minInput.value === '') maxInput.setAttribute('min', 0);
-    if (maxInput.value === '')
-      minInput.setAttribute('max', maxInput.getAttribute('max'));
-    this.inputs[0].style.width = widthMinIput;
-    if (this.querySelector('.blackline')) {
-      var widthline = `calc(${(width - (minInput / max) * 100)}% - ${(20 - (20 * (100 - (width - minWidth))) / 100)}px)`;
-      this.querySelector('.blackline').style.width = widthline;
-      this.querySelector('.blackline').style.left = `calc(${(minInput / max) * 100}% + ${(10 - (10 * (100 - (width - minWidth))) / 100)}px)`;
+    if (slide1 > slide2) { 
+      var tmp = slide2
+      slide2 = slide1
+      slide1 = tmp
     }
+
+    this.inputValues[0].value = parseFloat(slide1)
+    this.inputValues[1].value = parseFloat(slide2)
   }
 
-  adjustToValidValues(input) {
-    const value = Number(input.value);
-    const min = Number(input.getAttribute('min'));
-    const max = Number(input.getAttribute('max'));
-    if (value < min) input.value = min;
-    if (value > max) input.value = max;
+  getRangeVals() {
+    var slide1 = parseFloat(this.inputValues[0].value)
+    var slide2 = parseFloat(this.inputValues[1].value)
+    
+    this.rangeInputs[0].value = parseFloat(slide1)
+    this.rangeInputs[1].value = parseFloat(slide2)
   }
 }
 
-customElements.define('price-range', PriceRange);
+customElements.define('price-range', PriceRange)
 
 class FacetRemove extends HTMLElement {
   constructor() {
@@ -378,4 +367,4 @@ document.addEventListener('scroll', () => {
   } else {
     document.body.classList.remove('sticky-facet');
   }
-}, {passive: true});
+}, { passive: true });

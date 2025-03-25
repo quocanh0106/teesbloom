@@ -1,27 +1,121 @@
 {% assign priceMin = 0 %}
-{% assign priceMinValue = filter.min_value.value | money_without_currency | round %}
+{% assign priceMinValue = filter.min_value.value
+  | money_without_currency
+  | round
+%}
 {% assign priceMax = filter.range_max | money_without_currency | ceil %}
-{% assign priceMaxValue = filter.max_value.value | money_without_currency | ceil %}
+{% assign priceMaxValue = filter.max_value.value
+  | money_without_currency
+  | ceil
+%}
+<price-range>
+  <div class="grid grid-cols-2 items-center gap-2 relative range-values">
+    <div class="relative w-full">
+      <input
+        type="number"
+        {% if filter.min_value.value %}
+          {% if uses_comma_decimals %}
+            value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+          {% else %}
+            value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+          {% endif %}
+        {% else %}
+          value="0.00"
+        {% endif %}
+        type="number"
+        placeholder="0.00"
+        min="0.00"
+        {% if uses_comma_decimals %}
+          max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+        {% endif %}
+        class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full !h-10 text-base leading-4 px-3 pl-10 py-3 rounded-lg"
+        id="Filter-price-min-fake"
+      >
+      <span class="absolute left-0 top-0 h-full w-[35px] text-base leading-none flex items-center justify-center bg-[#e9ecef] text-[#495057] border border-border rounded-l-lg">{{ cart.currency.symbol }}</span>
+    </div>
+    <div class="relative w-full">
+      <input
+        type="number"
+        {% if filter.max_value.value %}
+          {% if uses_comma_decimals %}
+            value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+          {% else %}
+            value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+          {% endif %}
+        {% else %}
+          {% if uses_comma_decimals %}
+            value="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+          {% else %}
+            value="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+          {% endif %}
+        {% endif %}
+        {% if uses_comma_decimals %}
+          placeholder="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+          max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+          max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+        {% endif %}
+        class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full !h-10 text-base leading-4 px-3 pl-10 py-3 rounded-lg"
+        id="Filter-price-max-fake"
+      >
+      <span class="absolute left-0 top-0 h-full w-[35px] text-base leading-none flex items-center justify-center bg-[#e9ecef] text-[#495057] border border-border rounded-l-lg">{{ cart.currency.symbol }}</span>
+    </div>
+  </div>
 
-<div class="flex items-center gap-3 relative">
-  <input 
-    type="number" 
-    name="{{ filter.min_value.param_name }}" 
-    {% if uses_comma_decimals %}
-      value="{{ priceMin | replace: '.', '' | replace: ',', '.' }}"
-    {% else %}
-      value="{{ priceMin | replace: ',', '' }}"
-    {% endif %}
-    class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" 
-    id="Filter-price-1">
-  <input 
-    type="number" 
-    name="{{ filter.max_value.param_name }}" 
-    {% if uses_comma_decimals %}
-      value="{{ priceMax | replace: '.', '' | replace: ',', '.' }}"
-    {% else %}
-      value="{{ priceMax | replace: ',', '' }}"
-    {% endif %}
-    class="border border-border focus:border-subtext hover:border-subtext active:border-subtext !ring-0 font-normal border-solid w-full text-base leading-4 px-3 py-3 rounded-lg" 
-    id="Filter-price-2">
-</div>
+  <div class="range-slider relative mt-3">
+    <input
+      type="range"
+      name="{{ filter.min_value.param_name }}"
+      {% if filter.min_value.value %}
+        {% if uses_comma_decimals %}
+          value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+        {% endif %}
+      {% else %}
+        value="0.00"
+      {% endif %}
+      type="number"
+      placeholder="0.00"
+      step="0.01"
+      min="0.00"
+      {% if uses_comma_decimals %}
+        max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+      {% else %}
+        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+      {% endif %}
+      class="border-b border-background absolute w-full left-0 appearance-none"
+      id="Filter-price-min"
+    >
+    <input
+      type="range"
+      name="{{ filter.max_value.param_name }}"
+      {% if filter.max_value.value %}
+        {% if uses_comma_decimals %}
+          value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+        {% endif %}
+      {% else %}
+        {% if uses_comma_decimals %}
+          value="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+        {% else %}
+          value="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+        {% endif %}
+      {% endif %}
+      step="0.01"
+      {% if uses_comma_decimals %}
+        placeholder="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+        max="{{ filter.range_max | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+      {% else %}
+        placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+        max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+      {% endif %}
+      class="border-b border-background absolute w-full left-0 appearance-none"
+      id="Filter-price-max"
+    >
+  </div>
+</price-range>
