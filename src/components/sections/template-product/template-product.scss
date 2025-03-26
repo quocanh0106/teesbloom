@@ -594,3 +594,13 @@ product-infor .jdgm-prev-badge,
 product-infor .jdgm-prev-badge[data-average-rating='0.00'] {
   @apply !block;
 }
+
+input:checked ~ .icon-checkmark {
+  @apply opacity-100 visible text-primary;
+}
+input:checked ~ .icon-box {
+  @apply text-primary;
+}
+input:checked ~ div {
+  @apply text-primary;
+}

@@ -387,7 +387,7 @@ class ProductForm extends HTMLElement {
     })
   }
 
-  onSubmitHandler(evt) {
+  async onSubmitHandler(evt) {
     evt.preventDefault();
     if (this.submitButton.getAttribute('aria-disabled') === 'true') return;
     this.handleErrorMessage();
@@ -398,7 +398,10 @@ class ProductForm extends HTMLElement {
     const config = fetchConfig('javascript');
     config.headers['X-Requested-With'] = 'XMLHttpRequest';
     delete config.headers['Content-Type'];
+
     const formData = new FormData(this.form);
+
+    
     if (this.cart) {
       formData.append('sections', this.getSectionsToRender().map((section) => section.id));
       formData.append('sections_url', window.location.pathname);
@@ -407,8 +410,22 @@ class ProductForm extends HTMLElement {
       formData.append('sections_url', window.routes.cart_url);
     }
     config.body = formData;
-    
-    fetch(`${routes.cart_add_url}`, config)
+
+
+    const protectProductId = this.form.querySelector('[name="protect-product"]')?.value;
+    const miniConfig = fetchConfig('javascript');
+    miniConfig.headers['X-Requested-With'] = 'XMLHttpRequest';
+    delete miniConfig.headers['Content-Type'];
+
+    if (protectProductId) {
+      const miniForm = new FormData();
+      miniForm.append('id', protectProductId);
+      miniForm.append('quantity', 1)
+      miniConfig.body = miniForm;
+    }
+
+    await fetch(`${routes.cart_add_url}`, miniConfig)
+    await fetch(`${routes.cart_add_url}`, config)
       .then((response) => {
         return response.json()
       })
@@ -437,7 +454,6 @@ class ProductForm extends HTMLElement {
         this.submitButton.setAttribute('aria-disabled', false);
         this.submitButton.classList.remove('spinning');
       }) 
-      
   }
 
   handleErrorMessage(errorMessage = false) {

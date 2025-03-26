@@ -49,27 +49,53 @@
     {% if section.settings.text or section.settings.heading %}
       {% assign mg = 'mt-5 scroll-m-96' %}
     {% endif %}
-    {% form 'customer', class: mg %}
-      <input type="hidden" name="contact[tags]" value="newsletter">
-      <div class="relative max-w-[670px] mx-auto flex items-center gap-2">
-        <input id="NewsletterForm--{{ section.id }}" placeholder="{{- 'newsletter.input_placeholder' | t -}}" type="email" name="contact[email]" 
-          class="border border-secondary {% if form.posted_successfully? %}!border-success{% endif %} {% if form.errors %}!border-error{% endif %} focus:border-primary hover:border-primary active:border-primary md:pr-20 !ring-0 font-normal text-base leading-normal h-11 tracking-normal px-4 pl-6 py-2 !rounded-3xl border-solid w-full" aria-required="true" autocorrect="off" autocapitalize="off" autocomplete="email" {% if form.errors %} autofocusaria-invalid="true" aria-describedby="Newsletter-error--{{ section.id }}" {% elsif form.posted_successfully? %} aria-describedby="Newsletter-success--{{ section.id }}" {% endif %} placeholder="{{ 'newsletter.label' | t }}" required>
-        <button type="submit" class="!text-base font-medium font-heading align-middle whitespace-nowrap w-auto !h-11 btn-2 leading-none transition-all px-8 flex items-center justify-center !rounded-3xl" name="commit" id="Subscribe" aria-label="{{ 'newsletter.submit' | t }}">
-          {{ 'newsletter.submit' | t }}
-        </button>
-      </div>
-      {%- if form.errors -%}
-        <small class="mt-2 block text-xs leading-5 text-error" id="Newsletter-error--{{ section.id }}">
-          {{ form.errors.translated_fields['email'] | capitalize }}
-          {{ form.errors.messages['email'] }}
-        </small>
-      {%- endif -%}
-      {%- if form.posted_successfully? -%}
-        <small class="mt-2 block text-xs leading-5 text-success" id="Newsletter-success--{{ section.id }}">
-          {{ 'newsletter.success' | t }}
-        </small>
-      {%- endif -%}
-    {% endform %}
+    {% if section.settings.action_url != blank %}
+      <klaviyo-subscribe class="block {{ mg }}">
+        {% form 'customer', class: mg %}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <div class="relative max-w-[670px] mx-auto flex items-center gap-2">
+            <input id="NewsletterForm--{{ section.id }}" placeholder="{{- 'newsletter.input_placeholder' | t -}}" type="email" name="contact[email]" 
+              class="border border-secondary {% if form.posted_successfully? %}!border-success{% endif %} {% if form.errors %}!border-error{% endif %} focus:border-primary hover:border-primary active:border-primary md:pr-20 !ring-0 font-normal text-base leading-normal h-11 tracking-normal px-4 pl-6 py-2 !rounded-3xl border-solid w-full" aria-required="true" autocorrect="off" autocapitalize="off" autocomplete="email" {% if form.errors %} autofocusaria-invalid="true" aria-describedby="Newsletter-error--{{ section.id }}" {% elsif form.posted_successfully? %} aria-describedby="Newsletter-success--{{ section.id }}" {% endif %} placeholder="{{ 'newsletter.label' | t }}" required>
+            <button type="submit" class="!text-base font-medium font-heading align-middle whitespace-nowrap w-auto !h-11 btn-2 leading-none transition-all px-8 flex items-center justify-center !rounded-3xl" name="commit" id="Subscribe" aria-label="{{ 'newsletter.submit' | t }}">
+              {{ 'newsletter.submit' | t }}
+            </button>
+          </div>
+          {%- if form.errors -%}
+            <small class="mt-2 block text-xs leading-5 text-error" id="Newsletter-error--{{ section.id }}">
+              {{ form.errors.translated_fields['email'] | capitalize }}
+              {{ form.errors.messages['email'] }}
+            </small>
+          {%- endif -%}
+          {%- if form.posted_successfully? -%}
+            <small class="mt-2 block text-xs leading-5 text-success" id="Newsletter-success--{{ section.id }}">
+              {{ 'newsletter.success' | t }}
+            </small>
+          {%- endif -%}
+        {% endform %}
+      </klaviyo-subscribe>
+    {% else %}
+      {% form 'customer', class: mg %}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="relative max-w-[670px] mx-auto flex items-center gap-2">
+          <input id="NewsletterForm--{{ section.id }}" placeholder="{{- 'newsletter.input_placeholder' | t -}}" type="email" name="contact[email]" 
+            class="border border-secondary {% if form.posted_successfully? %}!border-success{% endif %} {% if form.errors %}!border-error{% endif %} focus:border-primary hover:border-primary active:border-primary md:pr-20 !ring-0 font-normal text-base leading-normal h-11 tracking-normal px-4 pl-6 py-2 !rounded-3xl border-solid w-full" aria-required="true" autocorrect="off" autocapitalize="off" autocomplete="email" {% if form.errors %} autofocusaria-invalid="true" aria-describedby="Newsletter-error--{{ section.id }}" {% elsif form.posted_successfully? %} aria-describedby="Newsletter-success--{{ section.id }}" {% endif %} placeholder="{{ 'newsletter.label' | t }}" required>
+          <button type="submit" class="!text-base font-medium font-heading align-middle whitespace-nowrap w-auto !h-11 btn-2 leading-none transition-all px-8 flex items-center justify-center !rounded-3xl" name="commit" id="Subscribe" aria-label="{{ 'newsletter.submit' | t }}">
+            {{ 'newsletter.submit' | t }}
+          </button>
+        </div>
+        {%- if form.errors -%}
+          <small class="mt-2 block text-xs leading-5 text-error" id="Newsletter-error--{{ section.id }}">
+            {{ form.errors.translated_fields['email'] | capitalize }}
+            {{ form.errors.messages['email'] }}
+          </small>
+        {%- endif -%}
+        {%- if form.posted_successfully? -%}
+          <small class="mt-2 block text-xs leading-5 text-success" id="Newsletter-success--{{ section.id }}">
+            {{ 'newsletter.success' | t }}
+          </small>
+        {%- endif -%}
+      {% endform %}
+    {% endif %}
   </div>
 </div>
 
@@ -92,20 +118,13 @@
         "label": "Background color mobile"
       },
       {
-        "type": "checkbox",
-        "id": "full_width",
-        "default": true,
-        "label": "Fullwidth"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_only_mb",
-        "default": false,
-        "label": "Show only mobile"
-      },
-      {
         "type": "header",
         "content": "Heading"
+      },
+      {
+        "type": "url",
+        "id": "action_url",
+        "label": "Action url( Klaviyo )"
       },
       {
         "type": "text",
