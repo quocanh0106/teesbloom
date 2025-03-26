@@ -361,12 +361,6 @@
         "id": "enable_cart_drawer",
         "default": true,
         "label": "Enable cart drawer"
-      },
-      {
-        "type": "checkbox",
-        "id": "show_cart_note",
-        "label": "Enable cart note",
-        "default": false
       }
     ]
   },
@@ -479,6 +473,11 @@
         "id": "recently_view_limit",
         "label": "Recently view limit",
         "default": 8
+      },
+      {
+        "type": "product",
+        "id": "protect_order_product",
+        "label": "Protect product"
       }
     ]
   }

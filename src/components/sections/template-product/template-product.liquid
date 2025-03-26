@@ -516,7 +516,7 @@
                               checked{% endif %}>
                             <label
                               for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                              class="cursor-pointer group relative {% if selected_option != '' %}{% unless selected_option contains newValue %}hidden {% endunless %}{% endif %}color border-2 w-10 h-10 border-border option-item p-[3px] rounded-full"
+                              class="cursor-pointer group relative {% if selected_option != '' %}{% unless selected_option contains newValue %}hidden {% endunless %}{% endif %}color border w-10 h-10 border-border option-item p-0.5 rounded-full"
                               data-product-id="{{ product.id }}"
                               data-variant-id="{{ variant.id }}"
                               data-option="{{ option.name | handleize }}"
@@ -602,6 +602,10 @@
             <product-form class="block">
               {%- form 'product', product, id: product_form_id, class: 'form mt-8', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
+                {% if settings.protect_order_product != blank %}
+                  <div></div>
+                {% endif %}
+
                 <div class="flex items-center gap-4 mb-4 mt-6">
                   <label for="Quantity-{{ section.id }}" class="block text-base font-medium mb-2.5 text-primary">Qty</label>
                   <quantity-input class="flex items-center relative w-fit h-8 rounded-3xl">

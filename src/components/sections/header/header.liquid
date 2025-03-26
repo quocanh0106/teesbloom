@@ -125,7 +125,7 @@
       </modal-opener>
     </li>
 
-    <li>
+    <li class="flex-none">
       <a
         href="{%- if customer -%}{{ routes.account_url }}{%- else -%}{{ routes.account_login_url }}{%- endif -%}"
         title="account"
@@ -142,7 +142,7 @@
       </a>
     </li>
 
-    <li class="group relative z-10">
+    <li class="group relative z-10 flex-none">
       {% if settings.enable_cart_drawer and template != 'cart' %}
         {% capture cartDrawer %}{{ 'open-cart-drawer.js' | asset_url }}{% endcapture %}
         {% render 'atom_script'
