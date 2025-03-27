@@ -1,0 +1,113 @@
+{%- for option in product.options_with_values -%}
+  {% if option.name == 'Product' or option.name == 'Produit' or option.name == 'Produkt' %}
+    {% assign type = option.selected_value %}
+  {% endif %}
+{% endfor %}
+{% for block in section.blocks %}
+  {% if block.settings.title %}
+    {% if type %}
+      {% if block.settings.title == type %}
+        {% assign activeElement = block.settings.title %}
+      {% endif %}
+    {% else %}
+      {% if forloop.first %}
+        {% assign activeElement = block.settings.title %}
+      {% endif %}
+    {% endif %}
+  {% endif %}
+{% endfor %}
+
+<modal-dialog id="PopupModal-Sizeguide" class="hidden fixed top-0 left-0 bg-black bg-opacity-20 w-full h-full z-20">
+  <div class="absolute p-3 bg-background h-fit left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 max-h-[calc(100vh_-_32px)] w-[865px] max-w-[calc(100vw_-_32px)] scrollbar-thin overflow-y-auto rounded-xl">
+    <span class="absolute top-2 right-2 text-primary cursor-pointer close">
+      {% render 'icon-close', class: 'w-6 h-6' %}
+    </span>
+    {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
+    {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
+
+    <tabs-component class="sizeguide normal-tab">
+      <div class="mb-4 lg:mb-6 w-fit mx-auto flex flex-col justify-center items-center gap-2">
+        <select-toggle class="block relative clickout-accordion">
+          <div class="summary flex items-center gap-2 text-primary cursor-pointer">
+            <span class="text-sm capitalize leading-5 text-primary"><span class="value" data-value="{{ activeElement }}">{{ activeElement }}</span> Size Chart</span>
+            {% render 'icon-down', class: 'w-5 h-5 icon-add' %}
+            {% render 'icon-up', class: 'w-5 h-5 icon-minus' %}
+          </div>
+          <div class="details dropitem absolute top-full left-0 bg-background border border-border rounded-sm w-max min-w-full shadow-megamenu">
+            <ul class="w-full p-2">
+              {% for block in section.blocks %}
+                {% if block.settings.title %}
+                  <li class="tab-heading transition-colors rounded-sm cursor-pointer text-sm leading-5 text-primary p-2{% if block.settings.title == activeElement %} active{% endif %}" data-id="{{ block.id }}" data-value="{{ block.settings.title }}">{{ block.settings.title }}</li>
+                {% endif %}
+              {% endfor %}
+            </ul>
+          </div>
+        </select-toggle>
+      </div>
+
+      <img
+      srcset="{%- if settings.logo.width >= 100 -%}{{ settings.logo | img_url: '100x' }} 100w,{%- endif -%}
+      {%- if settings.logo.width >= 120 -%}{{ settings.logo | img_url: '120x' }} 120w,{%- endif -%}
+      {%- if settings.logo.width >= 140 -%}{{ settings.logo | img_url: '140x' }} 140w,{%- endif -%}
+      {%- if settings.logo.width >= 160 -%}{{ settings.logo | img_url: '160x' }} 160w,{%- endif -%}
+      {%- if settings.logo.width >= 180 -%}{{ settings.logo | img_url: '180x' }} 180w,{%- endif -%}
+      {%- if settings.logo.width >= 200 -%}{{ settings.logo | img_url: '200x' }} 200w,{%- endif -%}
+      {{ settings.logo | img_url: 'master' }} {{ settings.logo_width }}w"
+        src="{{ settings.logo | image_url: width: settings.logo_width }}"
+        loading="lazy"
+        class="max-w-[200px] h-auto mx-auto block mb-3"
+        sizes="{{ settings.logo_width }}px"
+        width="{{ settings.logo_width }}"
+        height="{{ logo_height }}"
+      alt="{{ logo_alt }}">
+
+      <p class="text-base leading-4 text-primary text-center mb-3">{{ section.settings.description }}</p>
+
+      <div class="tabs-detail">
+        {% for block in section.blocks %}
+          <div class="tab-detail{% unless block.settings.title == activeElement %} hidden{% endunless %}" data-id="{{ block.id }}">
+            <div class="block mb-4">
+              <div class="sizeguide">
+                {{ block.settings.page.content }}
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </tabs-component>
+  </div>
+</modal-dialog>
+<script defer>
+
+
+</script>
+{% schema %}
+  {
+    "name": "Size guide plus",
+    "settings": [
+      {
+        "type": "text",
+        "id": "description",
+        "label": "Description"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "type",
+        "name": "Product type",
+        "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Product type"
+          },
+          {
+            "type": "page",
+            "id": "page",
+            "label": "Product sizeguide page"
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
