@@ -31,11 +31,13 @@
       </a>
     {%- endif -%}
     <div class="relative">
-      <a href="{{ product.url | split: '?' | first }}" class="text-secondaryDark font-body font-normal text-xs !leading-7 tracking-[0] truncate-line two-lines overflow-hidden break-words">
+      <a href="{{ product.url | split: '?' | first }}" class="text-[#333] font-body font-normal text-xs !leading-7 tracking-[0] truncate-line two-lines overflow-hidden break-words">
         {{ product.title | escape }}
       </a>
       <span class="text-xs text-[#8e8e8e]">{{ product.type }}</span>
-      {% render 'lineitem-cart-drawer-price', product: product, use_variant: true %}
+      {% unless hidePrice %}
+        {% render 'lineitem-cart-drawer-price', product: product, use_variant: true %}
+      {% endunless %}
     </div>
   </div>
 {%- endif -%}

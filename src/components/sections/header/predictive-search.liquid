@@ -42,12 +42,13 @@
               <ul id="predictive-search-results-products-list" class="grid grid-cols-1 gap-4" role="group" aria-labelledby="predictive-search-products">
                 {%- for product in predictive_search.resources.products limit: 3 -%}
                   <li id="predictive-search-option-product-{{ forloop.index }}" class="predictive-search__list-item{% if forloop.index > 2 %} hidden lg:block{% endif %} px-1 lg:px-2" role="option" aria-selected="false">
-                    {% render 'product-card-mini', product: product, heading: 'div' %}
+                    {% render 'product-card-mini', product: product, heading: 'div', hidePrice: true %}
                   </li>
                 {%- endfor -%}
               </ul>
-              <a href="{{ routes.search_url | append: '?q=' }}{{ predictive_search.terms | url_endcode }}" class="hidden btn capitalize w-fit mt-5 mx-auto">
-                {{ 'predictive_search.view_all' | t }}</a>
+              <a href="{{ routes.search_url | append: '?q=' }}{{ predictive_search.terms | url_endcode }}" class="hidden btn-2-outline capitalize w-full !text-base !rounded-lg !py-1 mt-5 mx-auto">
+                View All Items
+              </a>
             {%- endif -%}
           </div>
         {%- endif -%}

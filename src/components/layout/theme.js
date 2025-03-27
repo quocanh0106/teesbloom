@@ -999,37 +999,46 @@ if (!customElements.get('count-down-timer')) {
   customElements.define('count-down-timer', CountDownTimer)
 }
 
-
-
 class KlaviyoSubscribe extends HTMLElement {
   constructor() {
     super();
-    this.form = this.querySelector('form')
-    this.success = this.querySelector('.success')
-
+    this.form = this.querySelector('form');
+    this.success = this.querySelector('.success');
+    this.form.addEventListener('submit', (event) => { this.submit(event); });
   }
 
-  submit(e) {
-    e.preventDefault()
-    const config = this.fetchConfig();
-    config.headers['X-Requested-With'] = 'XMLHttpRequest';
-    delete config.headers['Content-Type'];
+  submit(event) {
+    event.preventDefault();
 
-    const formData = new FormData(this.form);
-    config.body = formData
-    fetch(this.form.action, config)
-    this.form.classList.add('hidden')
-    this.success.classList.remove('hidden')
-  }
+    const hiddenForm = document.createElement('form');
+    hiddenForm.action = this.dataset.action;
+    hiddenForm.method = 'POST';
 
-  fetchConfig(type = 'json') {
-    return {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': `application/${type}` }
-    };
+    const newTab = window.open('', '_blank');
+
+    Array.from(this.form.elements).forEach(element => {
+      if (element.name) {
+        const inputClone = document.createElement('input');
+        inputClone.type = 'hidden';
+        inputClone.name = element.name;
+        inputClone.value = element.value;
+        hiddenForm.appendChild(inputClone);
+      }
+    });
+
+    newTab.document.body.appendChild(hiddenForm);
+
+    hiddenForm.submit();
+
+    this.form.classList.add('hidden');
+    this.success.classList.remove('hidden');
+    
+    setTimeout(() => {
+      newTab.close();
+    }, 500)
   }
 }
 
 if (!customElements.get('klaviyo-subscribe')) {
-  customElements.define('klaviyo-subscribe', KlaviyoSubscribe)
+  customElements.define('klaviyo-subscribe', KlaviyoSubscribe);
 }

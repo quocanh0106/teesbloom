@@ -49,3 +49,7 @@
 .customily-modal-preview-only .main.cl-use-image .customily-close-button:before {
   @apply content-empty w-screen h-screen fixed block top-0 left-0 -z-[1];
 }
+
+.customily-modal-preview-only .main .cl-preview-wrapper  img {
+  @apply pb-[83px] lg:pb-[94px];
+}

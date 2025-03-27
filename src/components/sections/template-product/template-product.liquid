@@ -455,12 +455,14 @@
                             <span class="message-option capitalize font-normal text-red-500 font-heading text-sm lg:text-base !leading-[20px] hidden">{{ 'products.product.message_option' | t: option: optionMes }}</span>
                           {% endif %}
                         </legend>
-                        <modal-opener data-id="#PopupModal-Sizeguide" data-active="{{ activeType }}" class="size-popup flex gap-2 text-sm items-center capitalize cursor-pointer font-semibold font-heading text-[#0070BA] underline underline-offset-2">{{ 'products.product.size_guide' | t }}{% render 'icon-right' %}</modal-opener>
+                        {% unless block.settings.hide_sizeguide contains product.type %}
+                          <modal-opener data-id="#PopupModal-Sizeguide" data-active="{{ activeType }}" class="size-popup flex gap-2 text-sm items-center capitalize cursor-pointer font-semibold font-heading text-[#0070BA] underline underline-offset-2">{{ 'products.product.size_guide' | t }}{% render 'icon-right' %}</modal-opener>
+                        {% endunless %}
                       </div>
                       <div class="title-option-size-bt flex flex-wrap gap-2">
                         {%- for value in option.values -%}
                           <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
-                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center option-size-label min-w-12 max-w-8-col-variant w-full">
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center option-size-label min-w-max max-w-8-col-variant w-full">
                             {{ value }}
                           </label>
                         {%- endfor -%}
@@ -1019,12 +1021,35 @@
     }
   </script>
 </section>
+{% capture src_url %}{{ 'template-product.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
+
 {% if settings.customily %}
   <script src="https://cdn.customily.com/customily.js" defer></script>
   <script src="https://cdn.customily.com/shopify/static/customily.shopify.script.unified.js" defer></script>
+
+  <script defer>
+
+    window.addEventListener(
+      "customily-preview-modal-show",
+      () => {
+        document
+          .querySelector(".customily-modal-preview-only .main")
+          .insertAdjacentHTML("beforeend", `<div class="absolute bottom-0 bg-background w-full p-5 rounded-b-xl"><button class="add-to-cart-preview w-full !max-w-[250px] mx-auto btn-2 py-3 px-6 !rounded-2xl">Add To Cart</button></div>`);
+
+        const addToCartButton = document.querySelector(".add-to-cart-preview");
+        addToCartButton.addEventListener("click", () => {
+          document.querySelector("add-to-cart").addToCart();
+          document
+            .querySelector(".customily-modal-preview-only .customily-close-button")
+            .click();
+        });
+      },
+      { once: true }
+    );
+
+  </script>
 {% endif %}
-{% capture src_url %}{{ 'template-product.js' | asset_url }}{% endcapture %}
-{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
 <script defer src="https://www.paypal.com/sdk/js?client-id=ATBEvCNMEBg4vADetZKPULe2uR5RVw7lQhTnaP76nuCG3ZrZK74g--zENE-gPybdLVIXlAugJA1in3Au&components=messages" data-namespace="PayPalSDK"></script>
 
 {% schema %}
@@ -1195,6 +1220,12 @@
             "id": "enable_default_variant",
             "label": "Enable default variant",
             "default": true
+          },
+          {
+            "type": "text",
+            "id": "hide_sizeguide",
+            "label": "Hide sizeguide for",
+            "info": "Exp: Apparel, Tumbler, ..."
           }
         ]
       },

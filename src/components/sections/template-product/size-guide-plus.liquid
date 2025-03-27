@@ -1,12 +1,7 @@
-{%- for option in product.options_with_values -%}
-  {% if option.name == 'Product' or option.name == 'Produit' or option.name == 'Produkt' %}
-    {% assign type = option.selected_value %}
-  {% endif %}
-{% endfor %}
 {% for block in section.blocks %}
   {% if block.settings.title %}
-    {% if type %}
-      {% if block.settings.title == type %}
+    {% if product.type %}
+      {% if block.settings.title == product.type %}
         {% assign activeElement = block.settings.title %}
       {% endif %}
     {% else %}
@@ -25,56 +20,35 @@
     {%- assign logo_alt = settings.logo.alt | default: shop.name | escape -%}
     {%- assign logo_height = settings.logo_width | divided_by: settings.logo.aspect_ratio -%}
 
-    <tabs-component class="sizeguide normal-tab">
-      <div class="mb-4 lg:mb-6 w-fit mx-auto flex flex-col justify-center items-center gap-2">
-        <select-toggle class="block relative clickout-accordion">
-          <div class="summary flex items-center gap-2 text-primary cursor-pointer">
-            <span class="text-sm capitalize leading-5 text-primary"><span class="value" data-value="{{ activeElement }}">{{ activeElement }}</span> Size Chart</span>
-            {% render 'icon-down', class: 'w-5 h-5 icon-add' %}
-            {% render 'icon-up', class: 'w-5 h-5 icon-minus' %}
-          </div>
-          <div class="details dropitem absolute top-full left-0 bg-background border border-border rounded-sm w-max min-w-full shadow-megamenu">
-            <ul class="w-full p-2">
-              {% for block in section.blocks %}
-                {% if block.settings.title %}
-                  <li class="tab-heading transition-colors rounded-sm cursor-pointer text-sm leading-5 text-primary p-2{% if block.settings.title == activeElement %} active{% endif %}" data-id="{{ block.id }}" data-value="{{ block.settings.title }}">{{ block.settings.title }}</li>
-                {% endif %}
-              {% endfor %}
-            </ul>
-          </div>
-        </select-toggle>
-      </div>
+    <div class="sizeguide normal-tab">
+      <div class="text-sm capitalize leading-5 text-primary text-center mb-4 lg:mb-6">{{ activeElement }} Size Chart</div>
 
       <img
-      srcset="{%- if settings.logo.width >= 100 -%}{{ settings.logo | img_url: '100x' }} 100w,{%- endif -%}
-      {%- if settings.logo.width >= 120 -%}{{ settings.logo | img_url: '120x' }} 120w,{%- endif -%}
-      {%- if settings.logo.width >= 140 -%}{{ settings.logo | img_url: '140x' }} 140w,{%- endif -%}
-      {%- if settings.logo.width >= 160 -%}{{ settings.logo | img_url: '160x' }} 160w,{%- endif -%}
-      {%- if settings.logo.width >= 180 -%}{{ settings.logo | img_url: '180x' }} 180w,{%- endif -%}
-      {%- if settings.logo.width >= 200 -%}{{ settings.logo | img_url: '200x' }} 200w,{%- endif -%}
-      {{ settings.logo | img_url: 'master' }} {{ settings.logo_width }}w"
-        src="{{ settings.logo | image_url: width: settings.logo_width }}"
-        loading="lazy"
-        class="max-w-[200px] h-auto mx-auto block mb-3"
-        sizes="{{ settings.logo_width }}px"
-        width="{{ settings.logo_width }}"
-        height="{{ logo_height }}"
-      alt="{{ logo_alt }}">
+        srcset="{%- if settings.logo.width >= 100 -%}{{ settings.logo | img_url: '100x' }} 100w,{%- endif -%}
+        {%- if settings.logo.width >= 120 -%}{{ settings.logo | img_url: '120x' }} 120w,{%- endif -%}
+        {%- if settings.logo.width >= 140 -%}{{ settings.logo | img_url: '140x' }} 140w,{%- endif -%}
+        {%- if settings.logo.width >= 160 -%}{{ settings.logo | img_url: '160x' }} 160w,{%- endif -%}
+        {%- if settings.logo.width >= 180 -%}{{ settings.logo | img_url: '180x' }} 180w,{%- endif -%}
+        {%- if settings.logo.width >= 200 -%}{{ settings.logo | img_url: '200x' }} 200w,{%- endif -%}
+        {{ settings.logo | img_url: 'master' }} {{ settings.logo_width }}w"
+          src="{{ settings.logo | image_url: width: settings.logo_width }}"
+          loading="lazy"
+          class="max-w-[200px] h-auto mx-auto block mb-3"
+          sizes="{{ settings.logo_width }}px"
+          width="{{ settings.logo_width }}"
+          height="{{ logo_height }}"
+        alt="{{ logo_alt }}">
 
       <p class="text-base leading-4 text-primary text-center mb-3">{{ section.settings.description }}</p>
 
-      <div class="tabs-detail">
-        {% for block in section.blocks %}
-          <div class="tab-detail{% unless block.settings.title == activeElement %} hidden{% endunless %}" data-id="{{ block.id }}">
-            <div class="block mb-4">
-              <div class="sizeguide">
-                {{ block.settings.page.content }}
-              </div>
-            </div>
+      {% for block in section.blocks %}
+        {% if block.settings.title == activeElement %}
+          <div class="sizeguide block mb-4">
+            {{ block.settings.page.content }}
           </div>
-        {% endfor %}
-      </div>
-    </tabs-component>
+        {% endif %}
+      {% endfor %}
+    </div>
   </div>
 </modal-dialog>
 <script defer>
