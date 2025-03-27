@@ -51,10 +51,9 @@
     {% endif %}
     {% if section.settings.action_url != blank %}
       <klaviyo-subscribe class="block {{ mg }}">
-        {% form 'customer', class: mg %}
-          <input type="hidden" name="contact[tags]" value="newsletter">
+        {% form 'customer', class: mg, action: {{ section.settings.action_url }} %}
           <div class="relative max-w-[670px] mx-auto flex items-center gap-2">
-            <input id="NewsletterForm--{{ section.id }}" placeholder="{{- 'newsletter.input_placeholder' | t -}}" type="email" name="contact[email]" 
+            <input id="NewsletterForm--{{ section.id }}" placeholder="{{- 'newsletter.input_placeholder' | t -}}" type="email" name="EMAIL" 
               class="border border-secondary {% if form.posted_successfully? %}!border-success{% endif %} {% if form.errors %}!border-error{% endif %} focus:border-primary hover:border-primary active:border-primary md:pr-20 !ring-0 font-normal text-base leading-normal h-11 tracking-normal px-4 pl-6 py-2 !rounded-3xl border-solid w-full" aria-required="true" autocorrect="off" autocapitalize="off" autocomplete="email" {% if form.errors %} autofocusaria-invalid="true" aria-describedby="Newsletter-error--{{ section.id }}" {% elsif form.posted_successfully? %} aria-describedby="Newsletter-success--{{ section.id }}" {% endif %} placeholder="{{ 'newsletter.label' | t }}" required>
             <button type="submit" class="!text-base font-medium font-heading align-middle whitespace-nowrap w-auto !h-11 btn-2 leading-none transition-all px-8 flex items-center justify-center !rounded-3xl" name="commit" id="Subscribe" aria-label="{{ 'newsletter.submit' | t }}">
               {{ 'newsletter.submit' | t }}
@@ -72,6 +71,14 @@
             </small>
           {%- endif -%}
         {% endform %}
+
+        <div class="hidden success">
+          <div class="flex items-end justify-center gap-1 text-2xl leading-3 heading mx-auto">
+            <img src="{{ 'icon-ok.png' | asset_img_url: width: 48 }}" class="w-12 h-12 object-cover" width="48" height="48" loading="lazy" alt>
+            Thanks for subscribing!
+          </div>
+          <p class="mt-2 text-sm leading-4 text-center">Just one more step! Check your email for a confirmation message.</p>
+        </div>
       </klaviyo-subscribe>
     {% else %}
       {% form 'customer', class: mg %}

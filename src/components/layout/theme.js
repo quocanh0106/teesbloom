@@ -998,3 +998,38 @@ class CountDownTimer extends HTMLElement {
 if (!customElements.get('count-down-timer')) {
   customElements.define('count-down-timer', CountDownTimer)
 }
+
+
+
+class KlaviyoSubscribe extends HTMLElement {
+  constructor() {
+    super();
+    this.form = this.querySelector('form')
+    this.success = this.querySelector('.success')
+
+  }
+
+  submit(e) {
+    e.preventDefault()
+    const config = this.fetchConfig();
+    config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    delete config.headers['Content-Type'];
+
+    const formData = new FormData(this.form);
+    config.body = formData
+    fetch(this.form.action, config)
+    this.form.classList.add('hidden')
+    this.success.classList.remove('hidden')
+  }
+
+  fetchConfig(type = 'json') {
+    return {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': `application/${type}` }
+    };
+  }
+}
+
+if (!customElements.get('klaviyo-subscribe')) {
+  customElements.define('klaviyo-subscribe', KlaviyoSubscribe)
+}
