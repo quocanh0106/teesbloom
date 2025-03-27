@@ -102,14 +102,17 @@ tabs-component.product-infortab .tab-detail.lg\:hidden {
   button.tab-heading.active {
     @apply text-primary bg-primary;
   }
+  h1,h2,h3,h4,h5 {
+    @apply text-base capitalize font-medium text-center mb-2;
+  }
   table {
-    @apply w-full rounded-lg overflow-hidden;
+    @apply w-full rounded-sm overflow-hidden border-separate border border-border;
     tbody {
       @apply w-full lg:flex;
       tr {
-        @apply w-full text-center lg:flex lg:flex-col odd:bg-[#FFFFFF];
+        @apply w-full text-center lg:flex lg:flex-col;
         th {
-          @apply lg:w-full lg:h-full lg:text-left uppercase text-xs leading-2 font-semibold font-heading text-primary lg:text-base lg:leading-4 p-2.5 lg:px-6 lg:whitespace-nowrap;
+          @apply lg:w-full lg:h-full lg:text-left capitalize text-xs leading-2 font-semibold font-heading text-primary lg:text-base lg:leading-4 p-2.5 lg:px-6 lg:whitespace-nowrap;
         }
         td {
           @apply text-xs leading-5 font-normal text-primary lg:text-base lg:leading-6 py-2 lg:py-2.5 px-1 !border-none;
