@@ -21,6 +21,14 @@
     }
   }
 {%- endstyle -%}
+
+{% assign hasProtect = false %}
+{% for item in cart.items %}
+  {% if item.product.id == settings.protect_order_product.id %}
+    {% assign hasProtect = true %}
+  {% endif %} 
+{% endfor %}
+
 {%- if cart.item_count > 0 -%}
   <div class='page-width flex flex-wrap' id='main-cart-items'>
     <count-down-timer
@@ -49,7 +57,12 @@
 
     <div class='flex items-center justify-center lg:justify-start gap-2 w-full lg:pr-4 cart-heading'>
       <span class='text-primary leading-4 text-lg text-center lg:text-left font-bold'>
-        <span id='item-count'>{{ cart.item_count }}</span>
+        <span id='item-count'>        {% if hasProtect %}
+          {{ cart.item_count | minus: 1 }}
+        {% else %}
+          {{ cart.item_count }}
+        {% endif %}
+        </span>
         {{ other }} in your cart
       </span>
     </div>

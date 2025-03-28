@@ -1,7 +1,18 @@
+{% assign hasProtect = false %}
+{% for item in cart.items %}
+  {% if item.product.id == settings.protect_order_product.id %}
+    {% assign hasProtect = true %}
+  {% endif %} 
+{% endfor %}
+
 <span class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
   <span class='hidden lg:inline'>
     {%- if cart.item_count < 100 -%}
-      ({{ cart.item_count }})
+      {% if hasProtect %}
+        ({{ cart.item_count | minus: 1 }})
+      {% else %}
+        ({{ cart.item_count }})
+      {% endif %}
     {% else -%}
       (+99)
     {% endif -%}
@@ -15,7 +26,18 @@
         aria-hidden='true'
         class='flex justify-center items-center h-full text-xxs leading-none'
       >
-        {{- cart.item_count -}}
+      {% assign hasProtect = true %}
+    {% endif %} 
+  {% endfor %}
+  
+  <span class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
+    <span class='hidden lg:inline'>
+      {%- if cart.item_count < 100 -%}
+        {% if hasProtect %}
+          {{ cart.item_count | minus: 1 }}
+        {% else %}
+          {{ cart.item_count }}
+        {% endif %}
       </span>
     {% else %}
       <span
