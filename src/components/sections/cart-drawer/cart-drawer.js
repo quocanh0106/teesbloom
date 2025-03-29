@@ -104,11 +104,16 @@ if (!customElements.get('cart-remove-button')) {
   class CartRemoveButton extends HTMLElement {
     constructor() {
       super();
+
       this.addEventListener('click', event => {
         event.preventDefault();
-        const cartItems = this.closest('cart-items');
-        cartItems.updateQuantity(this.dataset.index, 0);
+        this.remove(this.dataset.index)
       });
+    }
+
+    remove(dataIndex) {
+      const cartItems = document.querySelector('cart-items');
+      cartItems.updateQuantity(dataIndex, 0);
     }
   }
 

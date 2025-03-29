@@ -47,7 +47,6 @@ class VariantSelects extends HTMLElement {
   constructor() {
     super();
     this.enableDefault = this.hasAttribute('enable-default-variant')
-    console.log(this.enableDefault)
     this.init();
     this.querySelectorAll('fieldset').forEach(sector=> sector.addEventListener('change', this.onVariantChange.bind(this))) 
   }
@@ -416,15 +415,15 @@ class ProductForm extends HTMLElement {
     const miniConfig = fetchConfig('javascript');
     miniConfig.headers['X-Requested-With'] = 'XMLHttpRequest';
     delete miniConfig.headers['Content-Type'];
-
-    if (protectProductId) {
+    
+    if (protectProductId && this.form.querySelector('[name="protect-product"]').checked && document.querySelector('#cart-count').dataset.protect == 'false') {
       const miniForm = new FormData();
       miniForm.append('id', protectProductId);
       miniForm.append('quantity', 1)
       miniConfig.body = miniForm;
+      await fetch(`${routes.cart_add_url}`, miniConfig)
     }
 
-    await fetch(`${routes.cart_add_url}`, miniConfig)
     await fetch(`${routes.cart_add_url}`, config)
       .then((response) => {
         return response.json()
@@ -492,7 +491,6 @@ class ProductForm extends HTMLElement {
       }
     });
   }
-
 
   getSectionsToRender() {
     return [

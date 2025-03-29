@@ -1,0 +1,14 @@
+{% assign hasProtect = false %}
+
+{% for item in cart.items %}
+  {% if item.product.id == settings.protect_order_product.id %}
+    {% assign hasProtect = true %}
+    {% assign protectIndex = forloop.index %}
+  {% endif %} 
+{% endfor %}
+
+{% if hasProtect %}
+  {{ cart.item_count | minus: 1 }}
+{% else %}
+  {{ cart.item_count }}
+{% endif %}

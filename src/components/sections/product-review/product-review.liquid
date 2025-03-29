@@ -1,3 +1,5 @@
+<link rel="stylesheet" href="{{ 'product-review.css' | asset_url }}" />
+
 {%- style -%}
   [data-section-id="{{ section.id }}"] {
     background: {{ section.settings.background_color }};
@@ -16,7 +18,7 @@
   }
 {%- endstyle -%}
 
-<div class="page-width !max-w-[1096px]" data-section-id="{{ section.id }}" id="{{ product.id }}-review">
+<div class="page-width" data-section-id="{{ section.id }}" id="{{ product.id }}-review">
   {% if section.settings.heading != blank %}
     <h2 class="text-h5 font-semibold lg:text-h2 mb-5 lg:mb-10 text-center text-primary">
       {{ section.settings.heading }}
@@ -26,10 +28,13 @@
     {%- case block.type -%}
       {%- when '@app' -%}
         {% render block %}
+      {%- when 'social_sharing' -%}
+        {% render 'share-social', text: 'Share this item: ' %}  
     {%- endcase -%}
   {% endfor %}
 </div>
-
+{% capture src_url %}{{ 'product-review.js' | asset_url }}{% endcapture %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
 {% schema %}
   {
     "name": "Product reviews",
@@ -145,6 +150,12 @@
     "blocks": [
       {
         "type": "@app"
+      },
+      {
+        "type": "social_sharing",
+        "name": "Social sharing",
+        "limit": 1,
+        "settings": []
       }
     ],
     "presets": [

@@ -1,0 +1,23 @@
+.jdgm-widget {
+  @apply px-0;
+  .jdgm-rev-widg {
+    @apply px-0;
+    .jdgm-rev-widg__header {
+      .jdgm-rev-widg__title {
+        @apply hidden;
+      }
+      .jdgm-row-stars {
+        @apply !justify-between;
+        .jdgm-rev-widg__summary {
+          @apply !items-start;
+        }
+        .jdgm-widget-actions-wrapper {
+          @apply !border-none;
+          .jdgm-write-rev-link {
+            @apply w-auto mr-0 py-2 px-4 rounded-[100px] font-medium text-sm leading-none;
+          }
+        }
+      }
+    }
+  }
+}

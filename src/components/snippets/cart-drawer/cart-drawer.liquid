@@ -26,25 +26,10 @@
                     {%- if cart != empty -%}
                       <table class="cart-items w-full border-none">
                         {%- for item in cart.items -%}
-                          <tr id="CartItem-{{ item.index | plus: 1 }}" class="{% unless forloop.last %}border-border border-b{% endunless %}" data-index="{{ item.index | plus: 1 }}">
-                            <td class="table-cell border-none w-full items-center{% if forloop.first %} pb-4{% else %} py-4{% endif %} px-4" colspan="2" scope="col">
-                              <div class="flex items-start">
-                                {% if item.properties == empty %}
-                                  <modal-opener class="group flex flex-col justify-center items-center w-20 lg:w-24 rounded flex-none overflow-hidden relative cursor-pointer" data-id="#preview-image-{{ item.index | plus: 1 }}">
-                                    <img src="{{ item.image | image_url: width: 160 }}" class="w-20 h-20 lg:w-24 lg:h-24 block object-cover leading-none bg-image-placeholder rounded bg-no-repeat bg-cover bg-center text-transparent" alt="{{ item.image.alt | escape }}" width="160" height="{{ 160 | divided_by: item.image.aspect_ratio | ceil }}">
-                                    <div class="flex items-center justify-center transition-all text-xs gap-2 text-secondary">
-                                      {% render 'icon-zoom', class: 'w-3 h-3 lg:w-4 lg:h-4' %} Preview
-                                    </div>
-                                  </modal-opener>
-                                  <modal-dialog class="hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group" id="preview-image-{{ item.index | plus: 1 }}">
-                                    <div class="group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
-                                      <img src="{{ item.image | image_url: width: item.image.width }}" class="w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" width="{{ item.image.width }}" height="{{ item.image.height }}" loading="lazy" alt="{{ item.title | escape }}" />
-                                      <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
-                                        {% render 'icon-close', class: 'w-6 h-6' %}
-                                      </span>
-                                    </div>
-                                  </modal-dialog>
-                                {% else %}
+                          {% if item.product.id != settings.protect_order_product.id %}
+                            <tr id="CartItem-{{ item.index | plus: 1 }}" class="{% unless forloop.last %}border-border border-b{% endunless %}" data-index="{{ item.index | plus: 1 }}">
+                              <td class="table-cell border-none w-full items-center{% if forloop.first %} pb-4{% else %} py-4{% endif %} px-4" colspan="2" scope="col">
+                                <div class="flex items-start">
                                   {% if item.properties['_customily-thumb'] %}
                                     <modal-opener class="group flex flex-col items-center justify-center w-20 lg:w-24 flex-none relative cursor-pointer" data-id="#preview-image-{{ item.index | plus: 1 }}">
                                       <img src="{{ item.properties['_customily-thumb'] }}" data-placeholder="{{ placeholderImage }}" data-thumb-src="{{ item.properties['_customily-thumb'] }}" class="customily-item-image w-20 h-20 lg:w-24 lg:h-24 block object-cover leading-none rounded !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" style="--image-placeholder: url({{ placeholderImage }});" width="160" height="160" loading="lazy" alt="{{ item.title | escape }}" />
@@ -52,43 +37,58 @@
                                         {% render 'icon-zoom', class: 'w-3 h-3 lg:w-4 lg:h-4' %} Preview
                                       </div>
                                     </modal-opener>
-                                  {% endif %}
-                                  {% if item.properties['_customily-preview'] %}
-                                    <modal-dialog class="hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20" id="preview-image-{{ item.index | plus: 1 }}">
+                                    {% if item.properties['_customily-preview'] %}
+                                      <modal-dialog class="hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20" id="preview-image-{{ item.index | plus: 1 }}">
+                                        <div class="group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
+                                          <img src="{{ item.properties['_customily-preview'] }}" data-placeholder="{{ placeholderImage }}" data-thumb-src="{{ item.properties['_customily-preview'] }}" class="customily-item-image w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" style="--image-placeholder: url({{ placeholderImage }});" width="765" height="765" loading="lazy" alt="{{ item.title | escape }}" />
+                                          <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
+                                            {% render 'icon-close', class: 'w-6 h-6' %}
+                                          </span>
+                                        </div>
+                                      </modal-dialog>
+                                    {% endif %}
+                                  {% else %}
+                                    <modal-opener class="group flex flex-col justify-center items-center w-20 lg:w-24 rounded flex-none overflow-hidden relative cursor-pointer" data-id="#preview-image-{{ item.index | plus: 1 }}">
+                                      <img src="{{ item.image | image_url: width: 160 }}" class="w-20 h-20 lg:w-24 lg:h-24 block object-cover leading-none bg-image-placeholder rounded bg-no-repeat bg-cover bg-center text-transparent" alt="{{ item.image.alt | escape }}" width="160" height="{{ 160 | divided_by: item.image.aspect_ratio | ceil }}">
+                                      <div class="flex items-center justify-center transition-all text-xs gap-2 text-secondary">
+                                        {% render 'icon-zoom', class: 'w-3 h-3 lg:w-4 lg:h-4' %} Preview
+                                      </div>
+                                    </modal-opener>
+                                    <modal-dialog class="hidden fixed w-screen h-screen bg-black bg-opacity-20 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 group" id="preview-image-{{ item.index | plus: 1 }}">
                                       <div class="group text-center rounded-xl shadow-popup max-w-[calc(100vw_-_32px)] max-h-[calc(100vh_-_32px)] w-[700px] lg:overflow-auto bg-background absolute top-1/2 left-1/2 z-30 -translate-x-1/2 -translate-y-1/2">
-                                        <img src="{{ item.properties['_customily-preview'] }}" data-placeholder="{{ placeholderImage }}" data-thumb-src="{{ item.properties['_customily-preview'] }}" class="customily-item-image w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" style="--image-placeholder: url({{ placeholderImage }});" width="765" height="765" loading="lazy" alt="{{ item.title | escape }}" />
+                                        <img src="{{ item.image | image_url: width: item.image.width }}" class="w-full h-full block object-cover leading-none !max-w-full !max-h-full bg-image-placeholder bg-no-repeat bg-cover bg-center text-transparent" width="{{ item.image.width }}" height="{{ item.image.height }}" loading="lazy" alt="{{ item.title | escape }}" />
                                         <span class="text-primary cursor-pointer w-10 h-10 flex items-center justify-center rounded-full absolute top-3 right-3 lg:top-7 lg:right-7 lg:left-auto translate-y-0 translate-x-0 close">
                                           {% render 'icon-close', class: 'w-6 h-6' %}
                                         </span>
                                       </div>
                                     </modal-dialog>
                                   {% endif %}
-                                {% endif %}
-        
-                                <div class="w-full ml-2 lg:ml-3 flex flex-col min-h-[80px] lg:min-h-[96px]">
-                                  <div class="flex items-center justify-between gap-4">
-                                    <a href="{{ item.url }}" class="text-xs leading-2 lg:text-sm lg:leading-4 font-normal font-heading no-underline text-primary hover:text-primary truncate-line two-lines overflow-hidden" title="{{ item.product.title }}">
-                                      {{ item.product.title }}
-                                    </a>
+          
+                                  <div class="w-full ml-2 lg:ml-3 flex flex-col min-h-[80px] lg:min-h-[96px]">
+                                    <div class="flex items-center justify-between gap-4">
+                                      <a href="{{ item.url }}" class="text-xs leading-2 lg:text-sm lg:leading-4 font-normal font-heading no-underline text-primary hover:text-primary truncate-line two-lines overflow-hidden" title="{{ item.product.title }}">
+                                        {{ item.product.title }}
+                                      </a>
+                                    </div>
+          
+                                    <div class="flex items-center gap-2 justify-between mt-auto">
+                                      {% render 'lineitem-cart-drawer-price', product: item.variant %}
+                                      <quantity-input class="flex items-center relative w-fit h-6 rounded-3xl" data-index="{{ item.index | plus: 1 }}">
+                                        <button class="w-6 h-6 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button">
+                                          {% render 'icon-minus', class: 'w-3 h-3 mx-auto' %}
+                                        </button>
+                                        <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-8 h-full font-medium text-center !ring-0 shadow-none focus:border-none" inputmode="numeric" pattern="[0-9]*" type="number" name="updates[]" value="{{ item.quantity }}" min="0" id="Quantity-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
+                                        <button class="w-6 h-6 border border-[#f2f2f6] bg-[#f2f2f6] rounded-r-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="plus" type="button">
+                                          {% render 'icon-plus', class: 'w-3 h-3 mx-auto' %}
+                                        </button>
+                                      </quantity-input>
+                                    </div>
+                                    <div class="cart-item__error-text text-error text-xs mt-1 empty:hidden" data-index="{{ item.index | plus: 1 }}"></div>
                                   </div>
-        
-                                  <div class="flex items-center gap-2 justify-between mt-auto">
-                                    {% render 'lineitem-cart-drawer-price', product: item.variant %}
-                                    <quantity-input class="flex items-center relative w-fit h-6 rounded-3xl" data-index="{{ item.index | plus: 1 }}">
-                                      <button class="w-6 h-6 border border-[#f2f2f6] bg-[#f2f2f6] rounded-l-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="minus" type="button">
-                                        {% render 'icon-minus', class: 'w-3 h-3 mx-auto' %}
-                                      </button>
-                                      <input class="appearance-none border-none bg-[#f2f2f669] text-secondary text-xs leading-4 lg:text-base lg:leading-2 p-0.5 w-8 h-full font-medium text-center !ring-0 shadow-none focus:border-none" inputmode="numeric" pattern="[0-9]*" type="number" name="updates[]" value="{{ item.quantity }}" min="0" id="Quantity-{{ item.index | plus: 1 }}" data-index="{{ item.index | plus: 1 }}">
-                                      <button class="w-6 h-6 border border-[#f2f2f6] bg-[#f2f2f6] rounded-r-3xl relative text-secondary transition-all before:content-empty before:w-full before:h-full before:z-[1] before:absolute before:left-0 before:top-0" name="plus" type="button">
-                                        {% render 'icon-plus', class: 'w-3 h-3 mx-auto' %}
-                                      </button>
-                                    </quantity-input>
-                                  </div>
-                                  <div class="cart-item__error-text text-error text-xs mt-1 empty:hidden" data-index="{{ item.index | plus: 1 }}"></div>
                                 </div>
-                              </div>
-                            </td>
-                          </tr>
+                              </td>
+                            </tr>
+                          {% endif %}
                         {%- endfor -%}
                       </table>
                     {%- endif -%}

@@ -297,6 +297,34 @@ slider-component.gallery .slider-dots .slider-dot.active {
   @apply border-[3px] !border-special
 }
 
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(7),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(8),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(9),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(10),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(11),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(12),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(13),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(14),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(15),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(16),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(17),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(18),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(19),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(20),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(21),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(22),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(23),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(24),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(25),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(26),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(27),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(28),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(29),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(30),
+slider-component.product-gallery .slider-dots .slider-dot:nth-child(31) {
+  @apply !hidden;
+}
+
 product-infor accordion-toggle .summary::before {
   content: '';
   transition: all 0.2s ease;

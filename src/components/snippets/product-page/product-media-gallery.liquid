@@ -1,4 +1,4 @@
-<slider-component class="gallery flex flex-col lg:flex-row gap-3 lg:gap-4" id="MediaGallery-{{ section.id }}">
+<slider-component class="{% if section.settings.limit_media %}product-gallery {% endif %} gallery flex flex-col lg:flex-row gap-3 lg:gap-4" id="MediaGallery-{{ section.id }}">
   <div class="group relative overflow-hidden order-1 lg:order-2 {% if product.media.size > 1 %} lg:max-w-[calc(100%_-_96px)]{% endif %} w-full h-fit aspect-1 rounded-lg">
     <ul class="flex slider-wrapper slider-on-mobile slider-on-tablet slider-on-desktop">
       {%- if product.selected_or_first_available_variant.featured_media != null -%}

@@ -138,6 +138,16 @@ class CartItems extends HTMLElement {
         selector: '.shopify-section',
       },
       {
+        id: 'item-count',
+        section: 'item-count',
+        selector: '.shopify-section',
+      },
+      {
+        id: 'cart-items',
+        section: 'cart-items',
+        selector: '.shopify-section',
+      },
+      {
         id: 'cart-total',
         section: 'cart-total',
         selector: '.shopify-section',
@@ -167,8 +177,7 @@ class CartItems extends HTMLElement {
           return;
         }
         const cartFooter = document.getElementById('main-cart-footer');
-        const itemCount = document.getElementById('item-count');
-        if (itemCount) {itemCount.innerHTML = parsedState.item_count;}
+
         if (cartFooter) {
           if(parsedState.item_count == 0) {
             document.querySelector('.cart-heading').classList.add('!hidden');
@@ -195,6 +204,15 @@ class CartItems extends HTMLElement {
           errors.textContent = window.cartStrings.error;
         }
       });
+  }
+
+  renderContents(parsedState) {
+    this.getSectionsToRender().forEach(section => {
+      const elementToReplace = document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
+      if(elementToReplace) {
+        elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
+      }
+    });
   }
 
   updateLiveRegions(line, itemCount) {

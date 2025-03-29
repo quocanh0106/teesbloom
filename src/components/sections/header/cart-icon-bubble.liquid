@@ -1,11 +1,14 @@
 {% assign hasProtect = false %}
+{% assign protectIndex = 1 %}
+
 {% for item in cart.items %}
   {% if item.product.id == settings.protect_order_product.id %}
     {% assign hasProtect = true %}
+    {% assign protectIndex = forloop.index %}
   {% endif %} 
 {% endfor %}
 
-<span class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
+<span id="cart-count" data-protect="{{ hasProtect }}" data-protect-index="{{ protectIndex }}" class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
   <span class='hidden lg:inline'>
     {%- if cart.item_count < 100 -%}
       {% if hasProtect %}
@@ -22,17 +25,7 @@
 <div class='lg:hidden absolute bg-special text-background min-w-[1rem] h-4 rounded-full flex justify-center items-center bottom-4.5 left-2.5 empty:hidden'>
   {%- if cart != empty -%}
     {%- if cart.item_count < 100 -%}
-      <span
-        aria-hidden='true'
-        class='flex justify-center items-center h-full text-xxs leading-none'
-      >
-      {% assign hasProtect = true %}
-    {% endif %} 
-  {% endfor %}
-  
-  <span class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
-    <span class='hidden lg:inline'>
-      {%- if cart.item_count < 100 -%}
+      <span aria-hidden='true' class='flex justify-center items-center h-full text-xxs leading-none'>
         {% if hasProtect %}
           {{ cart.item_count | minus: 1 }}
         {% else %}
@@ -40,11 +33,7 @@
         {% endif %}
       </span>
     {% else %}
-      <span
-        aria-hidden='true'
-        class='flex justify-center items-center h-full text-xxs'
-        >+99</span
-      >
+      <span aria-hidden='true' class='flex justify-center items-center h-full text-xxs'>+99</span>
     {%- endif -%}
   {%- endif -%}
 </div>

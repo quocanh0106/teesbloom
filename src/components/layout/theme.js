@@ -1042,3 +1042,54 @@ class KlaviyoSubscribe extends HTMLElement {
 if (!customElements.get('klaviyo-subscribe')) {
   customElements.define('klaviyo-subscribe', KlaviyoSubscribe);
 }
+
+class ToggleShippingProtection extends HTMLElement {
+  constructor() {
+    super();
+    this.input = this.querySelector('input')
+    this.cart = document.querySelector('cart-items')
+    this.input.addEventListener('input', () => {
+      this.eventChange()
+    })
+  }
+
+  eventChange() {
+    if(this.input.checked) {
+      this.addItemToCart()
+    } else {
+      this.cart.updateQuantity(document.querySelector('#cart-count').dataset.protectIndex, 0);
+    }
+  }
+
+  async addItemToCart() {
+    const config = this.fetchConfig('javascript');
+    config.headers['X-Requested-With'] = 'XMLHttpRequest';
+    delete config.headers['Content-Type'];
+    const formData = new FormData();
+    formData.append('sections', this.cart.getSectionsToRender().map((section) => section.id));
+    formData.append('id', this.input.value);
+    formData.append('quantity', 1)
+    config.body = formData;
+    await fetch(`${routes.cart_add_url}`, config)
+      .then((response) => {
+        return response.json()
+      })
+      .then((response) => {
+        this.cart.renderContents(response)
+      })
+      .catch((e) => {
+        console.error(e);
+      })
+  }
+
+  fetchConfig(type = 'json') {
+    return {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': `application/${type}` }
+    };
+  }
+}
+
+if (!customElements.get('toggle-shipping-protection')) {
+  customElements.define('toggle-shipping-protection', ToggleShippingProtection);
+}

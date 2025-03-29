@@ -12,6 +12,8 @@ class CartDrawer extends HTMLElement {
     })
     .then((response) => {
       let dom = new DOMParser().parseFromString(response, 'text/html');
+      console.log(dom);
+      
       this.setInnerHTML(dom.querySelector('#MainContent .shopify-section'));
       this.body.innerHTML = dom.querySelector('#MainContent .shopify-section').innerHTML;
     })
