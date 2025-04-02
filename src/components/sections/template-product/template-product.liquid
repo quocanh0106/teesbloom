@@ -428,6 +428,23 @@
                 </div>
               </div>
             </delivery-wrapper>
+          {%- when 'other_versions' -%}
+            {% if product.metafields.custom.other_versions.value != blank %}
+              <fieldset class="block mb-4">
+                <div class="mb-3 flex justify-between items-center">
+                  <legend class="form__label flex gap-2 text-base text-primary capitalize font-medium font-heading leading-5">
+                    Other versions
+                  </legend>
+                </div>
+                <div class="option-values flex flex-wrap gap-2">
+                  {%- for link in product.metafields.custom.other_versions.value -%}
+                    <{% if link.url contains product.url %}span {% else %}a href="{{ link.url }}" {% endif %}target="_blank" class="{% if link.url contains product.url %}active !cursor-default {% endif %} cursor-pointer option-item font-medium text-base leading-none lg:leading-none min-h-[44px] bg-background text-primary border border-border py-2 px-3 flex text-center rounded-2xl items-center justify-center w-auto whitespace-nowrap option-label">
+                      {{ link.text }}
+                    </{% if link.url contains product.url %}span{% else %}a{% endif %}>
+                  {%- endfor -%}
+                </div>
+              </fieldset>
+            {% endif %}
           {%- when 'variant_picker' -%}
             {%- unless product.has_only_default_variant -%}
               <variant-radios 
@@ -462,7 +479,7 @@
                       <div class="title-option-size-bt flex flex-wrap gap-2">
                         {%- for value in option.values -%}
                           <input class="absolute opacity-0 invisible option-item{% if option.selected_value == value %} selected{% endif %}" type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" name="{{ option.name }}" data-index="{{ fatherIndex }}" value="{{ value | escape }}" form="{{ product_form_id }}" {% if option.selected_value == value %} checked{% endif %}>
-                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[44px] bg-background text-primary border border-border py-2 px-4 flex text-center rounded-2xl items-center justify-center option-size-label min-w-max max-w-8-col-variant w-full">
+                          <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}" class="cursor-pointer option-item font-medium text-base leading-6 lg:leading-4 min-h-[44px] bg-background text-primary border border-border py-2 px-2 flex text-center rounded-2xl items-center justify-center option-size-label min-w-max max-w-8-col-variant w-full">
                             {{ value }}
                           </label>
                         {%- endfor -%}
@@ -1209,6 +1226,11 @@
       {
         "type": "quantity_selector",
         "name": "Quantity",
+        "limit": 1
+      },
+      {
+        "type": "other_versions",
+        "name": "Other versions",
         "limit": 1
       },
       {
