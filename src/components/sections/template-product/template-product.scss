@@ -1,4 +1,4 @@
-input:checked + label:not(.color) {
+input:checked + label:not(.color), .option-label.active {
   @apply border-special bg-background text-primary border-2;
 }
 input.disabled + label {
