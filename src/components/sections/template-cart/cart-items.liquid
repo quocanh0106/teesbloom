@@ -14,7 +14,7 @@
             {%- for item in cart.items -%}
               <tr
                 id='CartItem-{{ item.index | plus: 1 }}'
-                class='{% unless forloop.last %}border-border border-b{% endunless %}{% if item.product.id == settings.protect_order_product.id %}  !hidden{% endif %}'
+                class='{% unless forloop.last %}border-border border-b{% endunless %}{% if item.product.id == settings.protect_order_product.id or item.product.id == settings.rush_order_product.id %}  !hidden{% endif %}'
                 data-index='{{ item.index | plus: 1 }}'
               >
                 <td

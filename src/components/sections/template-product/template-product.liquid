@@ -364,7 +364,7 @@
 
                 <div class="group cursor-pointer ">
                   <span class="estimate-arrival text-[#444] text-sm leading-5 font-semibold border-b-2 border-dashed border-[#444]">{{ 'now' | date: "%s" | plus: seconds3 | date: "%b %d" }} - {{ 'now' | date: "%s" | plus: seconds4 | date: "%b %d" }}</span>
-                  <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible bg-background shadow-tooltip rounded p-3 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-[343px] max-w-[calc(100vw_-_32px)]">
+                  <div class="opacity-0 invisible group-hover:opacity-100 group-hover:visible bg-background shadow-tooltip rounded-xl p-5 absolute top-0 left-1/2 -translate-x-1/2 -translate-y-full w-[484px] max-w-[calc(100%_-_32px)]">
                     <div class="icon-text grid grid-cols-3 items-start bg-background w-full rounded py-2">
                       <div class="icon-text-wrapper w-full group relative justify-center flex flex-col items-start text-left">
                         <div class="group relative mb-2 w-full before:border-[#77c888] before:border-solid before:border-t-2 before:block before:w-full before:right-0 before:absolute before:top-1/2 before:-translate-y-1/2 before:z-0">
@@ -607,7 +607,7 @@
               {%- form 'product', product, id: product_form_id, class: 'form mt-8', novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
                 <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}" disabled>
                 {% if settings.protect_order_product != blank %}
-                  <div class="flex items-center gap-2">
+                  <div class="hidden items-center gap-2">
                     <label
                       for="protect-product"
                       class="relative w-full flex items-start gap-2 cursor-pointer select-none"
@@ -647,7 +647,7 @@
                       </span>
                     </label>
                   </div>
-                  <p class="text-sm font-normal text-subtext mt-1 ml-7">Protect your order from damage, loss, or theft during shipping.</p>
+                  <p class="hidden text-sm font-normal text-subtext mt-1 ml-7">Protect your order from damage, loss, or theft during shipping.</p>
                 {% endif %}
 
                 <div class="flex items-start gap-4 mb-4 mt-6">

@@ -478,6 +478,11 @@
         "type": "product",
         "id": "protect_order_product",
         "label": "Protect product"
+      },
+      {
+        "type": "product",
+        "id": "rush_order_product",
+        "label": "Rush production"
       }
     ]
   }

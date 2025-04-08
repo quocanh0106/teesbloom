@@ -96,6 +96,7 @@
       window.shopUrl = '{{ request.origin }}';
       window.routes = {
         cart_add_url: '{{ routes.cart_add_url }}',
+        cart_clear: '{{ routes.cart_clear_url }}',
         cart_change_url: '{{ routes.cart_change_url }}',
         cart_update_url: '{{ routes.cart_update_url }}',
         cart_url: '{{ routes.cart_url }}',
@@ -156,6 +157,8 @@
     <main id="MainContent">
       {{ content_for_layout }}
     </main>
+    
+    {% render 'mini-cart' %}
 
     {% section 'newsletter' %}
 

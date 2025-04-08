@@ -2,11 +2,9 @@
   <ul class="w-full flex items-center lg:hidden gap-3 lg:gap-5" style="max-width: fit-content; @media (min-width: 1024px) {max-width: calc((100% - {{ settings.logo_width }}px)/2);}">
     <li class="block w-6 h-6">
       <modal-opener class="inline-block cursor-pointer menu-drawer-out-search hover:text-primary text-primary" data-id="#menu-drawer">
-        {% render 'icon-hamburger'
-          , class: "w-6 h-6" %}
+        {% render 'icon-hamburger', class: "w-6 h-6" %}
       </modal-opener>
     </li>
-
   </ul>
   <div class="flex items-center gap-x-10 flex-none lg:!max-w-1/4 lg:w-full">
     {%- if settings.logo != blank -%}
@@ -120,8 +118,7 @@
   <ul class="w-full flex justify-end lg:!max-w-1/4 gap-3 lg:gap-5 ml-auto" style="max-width: calc((100% - {{ settings.logo_width }}px)*2/3 - 24px); @media (min-width: 1024px) {max-width: calc((100% - {{ settings.logo_width }}px)/2);}">
     <li class="block lg:hidden flex-none">
       <modal-opener class="lg:hidden no-underline flex items-center justify-center relative hover:text-primary text-primary" data-id="#predictive-search">
-        {% render 'icon-search'
-          , class: "w-5 h-5" %}
+        {% render 'icon-search', class: "w-5 h-5" %}
       </modal-opener>
     </li>
 
@@ -145,10 +142,7 @@
     <li class="group relative z-10 flex-none">
       {% if settings.enable_cart_drawer and template != 'cart' %}
         {% capture cartDrawer %}{{ 'open-cart-drawer.js' | asset_url }}{% endcapture %}
-        {% render 'atom_script'
-          , src: cartDrawer
-          , priority: 'normal'
-          , type: "defer" %}
+        {% render 'atom_script', src: cartDrawer, priority: 'normal', type: "defer" %}
         <a
           href="{{ routes.cart_url }}"
           class="cursor-pointer flex-none flex flex-col items-center justify-center relative gap-2 hover:text-primary text-primary"
@@ -163,18 +157,31 @@
           <div id="cart-icon-bubble">
             {% assign hasProtect = false %}
             {% assign protectIndex = 1 %}
-            
+            {% assign hasRush = false %}
+            {% assign rushIndex = 2 %}
             {% for item in cart.items %}
               {% if item.product.id == settings.protect_order_product.id %}
                 {% assign hasProtect = true %}
                 {% assign protectIndex = forloop.index %}
-              {% endif %} 
+              {% endif %}
+              {% if item.product.id == settings.rush_order_product.id %}
+                {% assign hasRush = true %}
+                {% assign rushIndex = forloop.index %}
+              {% endif %}
             {% endfor %}
-            
-            <span id="cart-count" data-protect="{{ hasProtect }}" data-protect-index="{{ protectIndex }}" class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
+
+            <span
+              id="cart-count"
+              data-protect="{{ hasProtect }}"
+              data-protect-index="{{ protectIndex }}"
+              data-rush="{{ hasRush }}"
+              data-rush-index="{{ rushIndex }}"
+              class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
               <span class='hidden lg:inline'>
                 {%- if cart.item_count < 100 -%}
-                  {% if hasProtect %}
+                  {% if hasProtect and hasRush %}
+                    ({{ cart.item_count | minus: 2 }})
+                  {% elsif hasProtect or hasRush %}
                     ({{ cart.item_count | minus: 1 }})
                   {% else %}
                     ({{ cart.item_count }})
@@ -189,7 +196,9 @@
               {%- if cart != empty -%}
                 {%- if cart.item_count < 100 -%}
                   <span aria-hidden='true' class='flex justify-center items-center h-full text-xxs leading-none'>
-                    {% if hasProtect %}
+                    {% if hasProtect and hasRush %}
+                      {{ cart.item_count | minus: 2 }}
+                    {% elsif hasProtect or hasRush %}
                       {{ cart.item_count | minus: 1 }}
                     {% else %}
                       {{ cart.item_count }}
@@ -218,18 +227,31 @@
           <div id="cart-icon-bubble">
             {% assign hasProtect = false %}
             {% assign protectIndex = 1 %}
-
+            {% assign hasRush = false %}
+            {% assign rushIndex = 2 %}
             {% for item in cart.items %}
               {% if item.product.id == settings.protect_order_product.id %}
                 {% assign hasProtect = true %}
                 {% assign protectIndex = forloop.index %}
-              {% endif %} 
+              {% endif %}
+              {% if item.product.id == settings.rush_order_product.id %}
+                {% assign hasRush = true %}
+                {% assign rushIndex = forloop.index %}
+              {% endif %}
             {% endfor %}
-            
-            <span id="cart-count" data-protect="{{ hasProtect }}" data-protect-index="{{ protectIndex }}" class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
+
+            <span
+              id="cart-count"
+              data-protect="{{ hasProtect }}"
+              data-protect-index="{{ protectIndex }}"
+              data-rush="{{ hasRush }}"
+              data-rush-index="{{ rushIndex }}"
+              class='hidden lg:block capitalize text-base font-normal font-body leading-none text-center {% if cart != empty %}text-secondary{% endif %}'>
               <span class='hidden lg:inline'>
                 {%- if cart.item_count < 100 -%}
-                  {% if hasProtect %}
+                  {% if hasProtect and hasRush %}
+                    ({{ cart.item_count | minus: 2 }})
+                  {% elsif hasProtect or hasRush %}
                     ({{ cart.item_count | minus: 1 }})
                   {% else %}
                     ({{ cart.item_count }})
@@ -244,7 +266,9 @@
               {%- if cart != empty -%}
                 {%- if cart.item_count < 100 -%}
                   <span aria-hidden='true' class='flex justify-center items-center h-full text-xxs leading-none'>
-                    {% if hasProtect %}
+                    {% if hasProtect and hasRush %}
+                      {{ cart.item_count | minus: 2 }}
+                    {% elsif hasProtect or hasRush %}
                       {{ cart.item_count | minus: 1 }}
                     {% else %}
                       {{ cart.item_count }}
@@ -267,10 +291,7 @@
 {% endif %}
 
 {% capture src_url %}{{ 'header.js' | asset_url }}{% endcapture %}
-{% render 'atom_script'
-  , src: src_url
-  , priority: 'normal'
-  , type: "defer" %}
+{% render 'atom_script', src: src_url, priority: 'normal', type: "defer" %}
 
 {% schema %}
   {
@@ -293,15 +314,18 @@
             "type": "text",
             "id": "title",
             "label": "Mega navigation trigger"
-          }, {
+          },
+          {
             "type": "url",
             "id": "url",
             "label": "Link"
-          }, {
+          },
+          {
             "type": "link_list",
             "id": "menu",
             "label": "Megamenu"
-          }, {
+          },
+          {
             "type": "checkbox",
             "label": "Primary color",
             "id": "primary",

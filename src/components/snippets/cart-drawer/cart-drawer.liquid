@@ -26,7 +26,7 @@
                     {%- if cart != empty -%}
                       <table class="cart-items w-full border-none">
                         {%- for item in cart.items -%}
-                          {% if item.product.id != settings.protect_order_product.id %}
+                          {% if item.product.id != settings.protect_order_product.id and item.product.id != settings.rush_order_product.id %}
                             <tr id="CartItem-{{ item.index | plus: 1 }}" class="{% unless forloop.last %}border-border border-b{% endunless %}" data-index="{{ item.index | plus: 1 }}">
                               <td class="table-cell border-none w-full items-center{% if forloop.first %} pb-4{% else %} py-4{% endif %} px-4" colspan="2" scope="col">
                                 <div class="flex items-start">

@@ -1,13 +1,19 @@
 {% assign hasProtect = false %}
+{% assign hasRush = false %}
 
 {% for item in cart.items %}
   {% if item.product.id == settings.protect_order_product.id %}
     {% assign hasProtect = true %}
-    {% assign protectIndex = forloop.index %}
+  {% endif %} 
+
+  {% if item.product.id == settings.rush_order_product.id %}
+    {% assign hasRush = true %}
   {% endif %} 
 {% endfor %}
 
-{% if hasProtect %}
+{% if hasProtect and hasRush %}
+  {{ cart.item_count | minus: 2 }}
+{% elsif hasProtect or hasRush %}
   {{ cart.item_count | minus: 1 }}
 {% else %}
   {{ cart.item_count }}

@@ -294,7 +294,7 @@ inbox-online-store-chat {
 }
 
 slider-component.gallery .slider-dots .slider-dot.active {
-  @apply border-[3px] !border-special
+  @apply border-[3px] !border-special bg-gray-300;
 }
 
 slider-component.product-gallery .slider-dots .slider-dot:nth-child(7),
@@ -402,7 +402,7 @@ product-infor accordion-toggle.active .summary::before {
 }
 
 .shipping-mini-description {
-  @apply font-light text-primary text-xxs leading-4.5;
+  @apply font-light text-primary text-xs lg:text-sm leading-3.5;
 }
 
 .shipping-description *, .shipping-mini-description * {

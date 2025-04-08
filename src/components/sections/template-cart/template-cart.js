@@ -84,12 +84,12 @@ class QuantityInput extends HTMLElement {
     event.target.name == 'plus' ? this.input.stepUp() : this.input.stepDown();
     if (previousValue !== this.input.value)
 
-    if (this.input.value == '0') {
-      this.removePopup.open();
-      this.input.stepUp();
-    } else {
-      this.input.dispatchEvent(this.changeEvent);
-    }
+      if (this.input.value == '0') {
+        this.removePopup.open();
+        this.input.stepUp();
+      } else {
+        this.input.dispatchEvent(this.changeEvent);
+      }
 
   }
 }
@@ -179,10 +179,20 @@ class CartItems extends HTMLElement {
         const cartFooter = document.getElementById('main-cart-footer');
 
         if (cartFooter) {
-          if(parsedState.item_count == 0) {
-            document.querySelector('.cart-heading').classList.add('!hidden');
-            cartFooter.classList.add('!hidden');
-            document.querySelector('.cart-empty').classList.remove('hidden');
+          if (parsedState.item_count == 0) {
+            this.showCartEmpty()
+          } else if (parsedState.item_count == 2) {
+            const cartItemBubble = this.getSectionInnerHTML(parsedState.sections['cart-icon-bubble'], '.shopify-section');
+            if (cartItemBubble.includes('data-protect="true"') && cartItemBubble.includes('data-rush="true"')) {
+              this.showCartEmpty()
+              fetch(`${routes.cart_clear}`)
+            }
+          } else if (parsedState.item_count == 1) {
+            const cartItemBubble = this.getSectionInnerHTML(parsedState.sections['cart-icon-bubble'], '.shopify-section')
+            if (cartItemBubble.includes('data-rush="true"') || cartItemBubble.includes('data-protect="true"')) {
+              this.showCartEmpty()
+              fetch(`${routes.cart_clear}`)
+            }
           }
         }
         const lineItem = document.querySelector(`[data-index="${line}"]`);
@@ -193,10 +203,11 @@ class CartItems extends HTMLElement {
 
         this.getSectionsToRender().forEach(section => {
           const elementToReplace = document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
-          if(elementToReplace) {
+          if (elementToReplace) {
             elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
           }
         });
+
       })
       .catch(() => {
         const errors = document.getElementById('cart-errors');
@@ -206,10 +217,15 @@ class CartItems extends HTMLElement {
       });
   }
 
+  showCartEmpty() {
+    document.querySelector('.main-cart').classList.add('!hidden');
+    document.querySelector('.cart-empty').classList.remove('hidden');
+  }
+
   renderContents(parsedState) {
     this.getSectionsToRender().forEach(section => {
       const elementToReplace = document.getElementById(section.id).querySelector(section.selector) || document.getElementById(section.id);
-      if(elementToReplace) {
+      if (elementToReplace) {
         elementToReplace.innerHTML = this.getSectionInnerHTML(parsedState.sections[section.section], section.selector);
       }
     });
@@ -277,26 +293,26 @@ if (!customElements.get('open-edit')) {
 class StickyCheckout extends HTMLElement {
   constructor() {
     super();
-    this.observe = new IntersectionObserver(function(entries) {
+    this.observe = new IntersectionObserver(function (entries) {
       if (entries[0].isIntersecting === true) {
         entries[0].target.querySelector('.checkout-button').classList.remove('btn-wrapper-sticky');
-        if(document.querySelector('scroll-to-top')) {
+        if (document.querySelector('scroll-to-top')) {
           document.querySelector('scroll-to-top').classList.remove('space-sticky');
         }
-        if(document.querySelector('#fc_frame')) {
+        if (document.querySelector('#fc_frame')) {
           document.querySelector('#fc_frame').classList.remove('space-sticky');
         }
       } else {
         entries[0].target.querySelector('.checkout-button').classList.add('btn-wrapper-sticky');
-        if(document.querySelector('scroll-to-top')) {
+        if (document.querySelector('scroll-to-top')) {
           document.querySelector('scroll-to-top').classList.add('space-sticky');
         }
-        if(document.querySelector('#fc_frame')) {
+        if (document.querySelector('#fc_frame')) {
           document.querySelector('#fc_frame').classList.add('space-sticky');
         }
       }
     },
-    {threshold: 0});
+      { threshold: 0 });
 
     this.observe.observe(this);
   }
@@ -330,7 +346,7 @@ if (!customElements.get('select-toggle')) {
           }, false);
         }
 
-        
+
       }
       this.classList.toggle('active');
     }

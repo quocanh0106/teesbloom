@@ -1,0 +1,38 @@
+{% assign hasProtect = false %}
+{% assign protectIndex = 1 %}
+{% assign hasRush = false %}
+{% assign rushIndex = 2 %}
+{% assign cartCount = cart.item_count %}
+
+{% for item in cart.items %}
+  {% if item.product.id == settings.protect_order_product.id %}
+    {% assign hasProtect = true %}
+    {% assign protectIndex = forloop.index %}
+    {% assign cartCount = cartCount | minus: 1 %}
+  {% endif %} 
+  {% if item.product.id == settings.rush_order_product.id %}
+    {% assign hasRush = true %}
+    {% assign rushIndex = forloop.index %}
+    {% assign cartCount = cartCount | minus: 1 %}
+  {% endif %} 
+{% endfor %}
+{% if cartCount > 0 and template.name != 'product 'and template.name != 'cart' %}
+  <a href="{{ routes.cart_url }}" class="fixed bottom-20 right-5 z-[1] block lg:hidden">
+    {% render 'icon-my-cart', class: 'text-secondary w-12.5 h12.5' %}
+    <span class="min-w-5.5 h-5.5 rounded-full text-sm font-semibold bg-special flex items-center justify-center absolute text-background -top-1 -right-[5px] z-[1]">
+      {%- if cart.item_count < 100 -%}
+        <span aria-hidden='true' class='flex justify-center items-center h-full text-xxs leading-none'>
+          {% if hasProtect and hasRush %}
+            {{ cart.item_count | minus: 2 }}
+          {% elsif hasProtect or hasRush %}
+            {{ cart.item_count | minus: 1 }}
+          {% else %}
+            {{ cart.item_count }}
+          {% endif %}
+        </span>
+      {% else %}
+        <span aria-hidden='true' class='flex justify-center items-center h-full text-xxs'>+99</span>
+      {%- endif -%}
+    </span>
+  </a>
+{% endif %}

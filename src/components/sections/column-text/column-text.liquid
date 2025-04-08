@@ -34,11 +34,11 @@
     data-section-id="{{ section.id }}"
     style="background: {{ section.settings.background_color }};">
     {% if section.settings.heading != blank %}
-      <h2 class="text-base lg:text-lg font-semibold text-center text-primary mb-2">{{ section.settings.heading | escape }}</h2>
+      <h2 class="text-xl font-semibold text-center text-primary mb-2">{{ section.settings.heading | escape }}</h2>
     {% endif %}
     <div class="mx-auto grid grid-cols-{{ section.settings.columns_mobile }} md:grid-cols-{{ section.settings.columns_tablet }} lg:grid-cols-{{ section.settings.columns_desktop }}{% unless section.settings.columns_desktop > 2 %} lg:max-w-2/3{% endunless %}">
       {% for block in section.blocks %}
-        <div class="para block w-full text-center px-7 py-10 lg:py-5 relative after:hidden after:md:block after:bg-border after:absolute after:right-[-0.5px] after:top-5 after:w-[1px] after:h-[calc(100%_-_80px)] last:after:!hidden">
+        <div class="para block w-full text-center px-7 py-4 lg:py-5 relative after:hidden after:md:block after:bg-border after:absolute after:right-[-0.5px] after:top-5 after:w-[1px] after:h-[calc(100%_-_80px)] last:after:!hidden">
           {% if block.settings.heading %}
             <span class="block text-lg font-semibold text-center text-primary !font-body mb-2.5">{{ block.settings.heading }}</span>
           {% endif %}

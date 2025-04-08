@@ -160,5 +160,14 @@
         </li>
       {% endfor %}
     </ul>
+    {% if section.settings.top_menu != blank %}
+      <ul class="list-none mt-2.5 lg:hidden">
+        {% for link in linklists[section.settings.top_menu].links %}
+          <li class="border-t border-border p-2.5 last:border-b">
+            <a href="{{ link.url }}" class="text-base no-underline leading-3.5">{{ link.title }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
   </div>
 </menu-drawer>
