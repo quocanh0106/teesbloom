@@ -1,13 +1,22 @@
 <link rel="stylesheet" href="{{ 'facet.css' | asset_url }}">
 
 {% paginate search.results by 10 %}
-  <div class="page-width flex flex-wrap py-8 lg:pt-9 lg:pb-16" data-id="{{ section.id }}" id="ProductGridContainer">
+  <div
+    class="page-width flex flex-wrap py-8 lg:pt-9 lg:pb-16"
+    data-id="{{ section.id }}"
+    id="ProductGridContainer">
     <h1 class="w-full text-xl leading-5 font-semibold text-primary mb-6 lg:mb-8">Search results</h1>
 
     {% if search.results.size > 0 %}
-      {% render 'facet', results: search %}
+      {% render 'facet'
+        , results: search %}
     {% endif %}
-    <div class="w-full transition-all duration-500 max-w-full overflow-hidden" data-total-pages="{{ paginate.pages }}" data-pagination="{{ products_per_page }}" data-current-page="{{ paginate.current_page }}" id="product-grid">
+    <div
+      class="w-full transition-all duration-500 max-w-full overflow-hidden"
+      data-total-pages="{{ paginate.pages }}"
+      data-pagination="{{ products_per_page }}"
+      data-current-page="{{ paginate.current_page }}"
+      id="product-grid">
       {% if search.results.size > 0 %}
         <div class="pb-6 facet-mobile flex flex-wrap gap-3 items-center justify-between lg:mx-0 lg:mt-0 transition-all duration-200 bg-background">
           <div class="flex items-end gap-1.5">
@@ -26,15 +35,24 @@
             <toggle-filter class="items-center gap-2 transition-all duration-500 z-[9] border-2 border-primary px-2 py-0.5 rounded-[100px]">
               <button class="flex items-center text-primary transition-all capitalize whitespace-nowrap lg:normal-case text-sm lg:text-base font-medium cursor-pointer gap-2">
                 <span class="block">{{- 'products.facets.filter' | t -}}</span>
-                {% render 'icon-filter', class: 'w-4 h-4' %}
+                {% render 'icon-filter'
+                  , class: 'w-4 h-4' %}
               </button>
             </toggle-filter>
             <form id="FacetSortForm" class="hidden md:block">
               <div class="flex items-center gap-2 js-filter" data-index="sort-by">
                 {%- assign sort_by = search.sort_by | default: search.default_sort_by -%}
-                <select name="sort_by" class="hidden opacity-0 invisible absolute -z-30" id="SortBy" aria-describedby="a11y-refresh-page-message">
+                <select
+                  name="sort_by"
+                  class="hidden opacity-0 invisible absolute -z-30"
+                  id="SortBy"
+                  aria-describedby="a11y-refresh-page-message">
                   {%- for option in search.sort_options -%}
-                    <option value="{{ option.value | escape }}" {% if option.value == sort_by %} selected="selected"{% endif %}></option>
+                    <option
+                      value="{{ option.value | escape }}"
+                      {% if option.value == sort_by %}
+                      selected="selected"
+                      {% endif %}></option>
                   {%- endfor -%}
                 </select>
                 <accordion-toggle class="inline-block relative cursor-pointer clickout-accordion">
@@ -64,7 +82,8 @@
                         </span>
                       {% endif %}
                     {%- endfor -%}
-                    {% render 'icon-down', class: 'w-4.5 h-4.5 text-primary' %}
+                    {% render 'icon-down'
+                      , class: 'w-4.5 h-4.5 text-primary' %}
                   </div>
                   <div class="shadow-megamenu dropitem w-max details absolute z-10 right-0 top-full rounded-lg bg-background py-3 pl-4 pr-3 opacity-0 invisible min-w-[174px]">
                     <ul class="max-h-60 w-full overflow-auto scroll-thin scroll-brighter">
@@ -124,11 +143,20 @@
                 </accordion-toggle>
               </div>
               {% if search.current_vendor or search.current_type %}
-                <input type="hidden" name="q" value="{{ search.current_vendor }}{{ search.current_type }}">
+                <input
+                  type="hidden"
+                  name="q"
+                  value="{{ search.current_vendor }}{{ search.current_type }}">
               {% endif %}
               {%- if search.terms -%}
-                <input type="hidden" name="q" value="{{ search.terms | escape }}">
-                <input name="options[prefix]" type="hidden" value="last">
+                <input
+                  type="hidden"
+                  name="q"
+                  value="{{ search.terms | escape }}">
+                <input
+                  name="options[prefix]"
+                  type="hidden"
+                  value="last">
               {%- endif -%}
             </form>
           </facet-filters-form>
@@ -138,19 +166,41 @@
         <div id="main-collection-product" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 transition-all duration-500 gap-4 overflow-hidden">
           {% if search.results.size > 0 %}
             {% for product in search.results %}
-              {%- render 'product-card', product: product, lazy_load: lazy_load, heading: 'h2' -%}
+              {%- render 'product-card'
+                , product: product
+                , lazy_load: lazy_load
+                , heading: 'h2' -%}
             {% endfor %}
+          {% else %}
+            <div class="col-span-2 md:col-span-3 lg:col-span-4 bg-background py-3 lg:p-10">
+              <div class="text-center p-6 lg:py-20 rounded-2xl {% if settings.country == 'DE' or settings.country == 'UK' %}bg-secondary{% else %}bg-background{% endif %} max-w-full mx-auto">
+                {% render 'icon-predictive-search'
+                  , class: 'w-20 h-20 lg:w-32 lg:h-32 mb-3 mx-auto block text-center text-secondary' %}
+                <span class="block text-center text-primary text-h5 lg:text-h4 mb-1 font-heading">{{ 'products.facets.empty_heading' | t }}</span>
+                <span class="block text-center text-primary text-sm leading-5 lg:text-base lg:leading-6 font-normal max-w-[263px] lg:max-w-[386px] mx-auto mb-4 lg:mb-6">{{ 'products.facets.empty_description' | t }}</span>
+                <a
+                  href="{{ shop.url }}"
+                  title="Back to homepage"
+                  class="block mx-auto w-fit btn btn-2 px-6 lg:px-8 py-3.5 text-sm leading-none uppercase lg:text-base lg:leading-none !font-heading !font-bold">
+                  Back to homepage
+                </a>
+              </div>
+            </div>
           {% endif %}
         </div>
       {%- endif -%}
       <div class="flex flex-col justify-center items-center gap-4 mt-8 lg:mt-12{% if paginate.pages <= 1 %} !hidden{% endif %}">
-        {% render 'pagination', paginate: paginate %}
+        {% render 'pagination'
+          , paginate: paginate %}
       </div>
     </div>
   </div>
 {% endpaginate %}
 {% capture facet %}{{ 'facet.js' | asset_url }}{% endcapture %}
-{% render 'atom_script', src: facet, priority: 'normal', type: "defer" %}
+{% render 'atom_script'
+  , src: facet
+  , priority: 'normal'
+  , type: "defer" %}
 
 <script defer>
   let term = '{{ search.terms }}';

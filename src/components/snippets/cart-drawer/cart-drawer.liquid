@@ -9,7 +9,7 @@
       </button>
       <div class="cart-drawer-body flex flex-col h-fit">
         {%- if cart.item_count > 0 -%}
-          <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-10 hidden">
+          <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-6 hidden">
             <div class="text-[30px] font-semibold leading-2">Oops!!!</div>
             <img src="{{ 'cart-empty.png' | asset_img_url: 'master' }}" width="300" height="300" loading="lazy" class="block mx-auto mb-4 object-contain" />
             <span class="block mx-auto text-2xl font-heading leading-2 font-normal uppercase text-primary mb-3">{{ 'sections.cart.empty' | t }}</span>
@@ -116,7 +116,7 @@
             </div>
           </div>
         {%- else -%}
-          <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-10">
+          <div class="cart-empty text-center h-full rounded-lg px-4 py-6 lg:py-6">
             <div class="text-[30px] font-semibold leading-2">Oops!!!</div>
             <img src="{{ 'cart-empty.png' | asset_img_url: 'master' }}" width="300" height="300" loading="lazy" class="block mx-auto mb-4 object-contain" />
             <span class="block mx-auto text-2xl font-heading leading-2 font-normal uppercase text-primary mb-3">{{ 'sections.cart.empty' | t }}</span>

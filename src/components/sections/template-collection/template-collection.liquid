@@ -173,7 +173,7 @@
         {% else %}
           <div class="col-span-2 md:col-span-3 lg:col-span-4 bg-background py-3 lg:p-10">
             <div class="text-center p-6 lg:py-20 rounded-2xl {% if settings.country == 'DE' or settings.country == 'UK' %}bg-secondary{% else %}bg-background{% endif %} max-w-full mx-auto">
-              {% render 'icon-predictive-search', class: 'w-20 h-20 lg:w-32 lg:h-32 mb-3 mx-auto block text-center text-primary' %}
+              {% render 'icon-predictive-search', class: 'w-20 h-20 lg:w-32 lg:h-32 mb-3 mx-auto block text-center text-secondary' %}
               <span class="block text-center text-primary text-h5 lg:text-h4 mb-1 font-heading">{{ 'products.facets.empty_heading' | t }}</span>
               <span class="block text-center text-primary text-sm leading-5 lg:text-base lg:leading-6 font-normal max-w-[263px] lg:max-w-[386px] mx-auto mb-4 lg:mb-6">{{ 'products.facets.empty_description' | t }}</span>
               <a href="{{ collection.url }}" title="{{ 'products.facets.clear_all' | t }}"  class="block mx-auto w-fit btn btn-2 px-6 lg:px-8 py-3.5 text-sm leading-none uppercase lg:text-base lg:leading-none !font-heading !font-bold">

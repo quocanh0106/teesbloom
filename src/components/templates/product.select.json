@@ -1,0 +1,151 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+ {
+  "sections": {
+    "template": {
+      "type": "template-product",
+      "blocks": {
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "rating": {
+          "type": "rating",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "shipping_box_rEnepE": {
+          "type": "shipping-box",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {}
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {}
+        },
+        "collapsible_tab_rgNGfA": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "title": "Item details",
+            "product_description": true,
+            "description": ""
+          }
+        },
+        "collapsible_shipping_JrMi6N": {
+          "type": "collapsible-shipping",
+          "settings": {
+            "title": "Shipping Time",
+            "icon": "none",
+            "description": ""
+          }
+        },
+        "collapsible_tab_qkcXEy": {
+          "type": "collapsible_tab",
+          "settings": {
+            "icon": "none",
+            "title": "Personalization",
+            "product_description": false,
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "title",
+        "rating",
+        "price",
+        "shipping_box_rEnepE",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "collapsible_tab_rgNGfA",
+        "collapsible_shipping_JrMi6N",
+        "collapsible_tab_qkcXEy"
+      ],
+      "settings": {}
+    },
+    "product_recommendations_7Up4gQ": {
+      "type": "product-recommendations",
+      "settings": {
+        "fullwidth": false,
+        "title": "Customers also bought",
+        "show_view_all": true,
+        "product_per_row": 4,
+        "product_per_row_tablet": 3,
+        "product_per_row_mobile": 2,
+        "limit": 8,
+        "background_color": "#ffffff",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 32
+      }
+    },
+    "recently_viewed_product_qgmcEj": {
+      "type": "recently-viewed-product",
+      "settings": {
+        "fullwidth": false,
+        "heading": "Recently Viewed Products",
+        "background_color": "#ffffff",
+        "padding_top": 64,
+        "padding_bottom": 64,
+        "padding_top_mb": 32,
+        "padding_bottom_mb": 32
+      }
+    },
+    "sizeguide": {
+      "type": "size-guide",
+      "blocks": {
+        "type_XUjiVV": {
+          "type": "type",
+          "settings": {
+            "title": "T-Shirt",
+            "feature_image": "shopify://shop_images/T-shirt.png",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "type_XUjiVV"
+      ],
+      "settings": {}
+    },
+    "breadcrumb_gwQ4Th": {
+      "type": "breadcrumb",
+      "settings": {
+        "background_color": "#ffffff",
+        "color_text_breadcrumb_link": "#808080",
+        "color_text_breadcrumb_link_hover": "#0f0f0f",
+        "color_text_breadcrumb": "#0f0f0f",
+        "padding_top": 16,
+        "padding_bottom": 16,
+        "padding_top_mb": 16,
+        "padding_bottom_mb": 16
+      }
+    }
+  },
+  "order": [
+    "template",
+    "product_recommendations_7Up4gQ",
+    "recently_viewed_product_qgmcEj",
+    "sizeguide",
+    "breadcrumb_gwQ4Th"
+  ]
+}
